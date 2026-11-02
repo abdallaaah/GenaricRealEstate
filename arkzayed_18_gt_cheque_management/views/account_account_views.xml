@@ -9,7 +9,6 @@
             <!-- Add the is_under_collection field to the form view -->
             <xpath expr="//field[@name='tag_ids']" position="after">
                 <field name="is_under_collection"/>
-                <field name="is_hermes"/>
             </xpath>
         </field>
     </record>
