@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_custody_xlsx_report_wizard_form" model="ir.ui.view">
+            <field name="name">custody.xlsx.report.wizard.form</field>
+            <field name="model">custody.xlsx.report.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Custody XLSX Report">
+                    <sheet>
+                        <group string="Date Range (required)">
+                            <group>
+                                <field name="date_from"/>
+                                <field name="date_to"/>
+                            </group>
+                        </group>
+                        <group string="Optional Filters">
+                            <group>
+                                <field name="employee_id"
+                                       options="{'no_create': True}"/>
+                                <field name="custody_type"/>
+                            </group>
+                            <group>
+                                <field name="state"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="action_print_xlsx"
+                                string="Print"
+                                type="object"
+                                class="btn-primary"/>
+                        <button string="Cancel"
+                                class="btn-secondary"
+                                special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_custody_xlsx_report_wizard" model="ir.actions.act_window">
+            <field name="name">Custody XLSX Report</field>
+            <field name="res_model">custody.xlsx.report.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_custody_xlsx_report_wizard_form"/>
+            <field name="target">new</field>
+        </record>
+
+        <record id="action_custody_xlsx_report" model="ir.actions.report">
+            <field name="name">Custody Report (XLSX)</field>
+            <field name="model">custody.xlsx.report.wizard</field>
+            <field name="report_type">xlsx</field>
+            <field name="report_name">isky_employee_custodies.custody_xlsx_template</field>
+            <field name="report_file">isky_employee_custodies.custody_xlsx_template</field>
+            <field name="binding_model_id" eval="False"/>
+        </record>
+
+    </data>
+</odoo>

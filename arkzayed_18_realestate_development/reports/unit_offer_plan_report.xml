@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Paperformat -->
+    <record id="report_unit_offer_plan_paperformat" model="report.paperformat">
+        <field name="name">Unit Offer Plan Format</field>
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">10</field>
+        <field name="margin_bottom">10</field>
+        <field name="margin_left">10</field>
+        <field name="margin_right">10</field>
+        <field name="header_line">False</field>
+        <field name="header_spacing">20</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <!-- Report action for Unit -->
+    <record id="action_unit_offer_plan" model="ir.actions.report">
+        <field name="name">Unit Offer Plan</field>
+        <field name="model">real.estate.unit</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">arkzayed_18_realestate_development.unit_offer_tmpl</field>
+        <field name="report_file">arkzayed_18_realestate_development.unit_offer_tmpl</field>
+        <field name="print_report_name">'Unit Offer Plan - %s' % (object.name)</field>
+        <field name="binding_model_id" eval="False"/>
+        <field name="paperformat_id" ref="report_unit_offer_plan_paperformat"/>
+    </record>
+
+    <!-- Server action so the popup is also available under Actions (form and list) -->
+    <record id="action_server_unit_offer_plan" model="ir.actions.server">
+        <field name="name">Unit Offer Plan</field>
+        <field name="model_id" ref="model_real_estate_unit"/>
+        <field name="binding_model_id" ref="model_real_estate_unit"/>
+        <field name="binding_view_types">form,list</field>
+        <field name="state">code</field>
+        <field name="code">action = records[:1].action_print_unit_offer_plan()</field>
+    </record>
+
+    <!-- Styles -->
+    <template id="unit_offer_plan_styles">
+        <meta charset="utf-8"/>
+        <style>
+            @page {
+                size: A4;
+                margin: 10mm;
+            }
+
+            body {
+                font-family: 'Arial', sans-serif;
+                font-size: 10pt;
+                color: #333;
+            }
+
+            .page {
+                direction: ltr;
+                text-align: left;
+            }
+
+            .report-title {
+                text-align: center;
+                font-size: 18pt;
+                font-weight: bold;
+                margin: 20px 0 30px 0;
+                color: #1a2744;
+            }
+
+            .schedule-title {
+                text-align: center;
+                font-size: 14pt;
+                font-weight: bold;
+                margin: 20px 0 15px 0;
+                color: #1a2744;
+            }
+
+            .summary-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 20px;
+            }
+
+            .summary-table td {
+                padding: 8px 12px;
+                border: 1px solid #ddd;
+            }
+
+            .summary-table .label-cell {
+                font-weight: bold;
+                background-color: #f9f9f9;
+                width: 35%;
+            }
+
+            .summary-table .value-cell {
+                width: 65%;
+            }
+
+            .mini-summary-table {
+                width: 60%;
+                border-collapse: collapse;
+                margin: 0 auto 20px auto;
+            }
+
+            .mini-summary-table td {
+                padding: 8px 12px;
+                border: 1px solid #ddd;
+            }
+
+            .mini-summary-table .label-cell {
+                font-weight: bold;
+                background-color: #f9f9f9;
+                width: 40%;
+            }
+
+            .mini-summary-table .value-cell {
+                width: 60%;
+            }
+
+           .images-container {
+                display: table;
+                width: 100%;
+                margin: 30px 0;
+                border-spacing: 20px 0; /* mimics the gap */
+            }
+
+            .image-box {
+                display: table-cell;
+                width: 50%;
+                text-align: center;
+                vertical-align: top;
+            }
+
+            .image-box img {
+                max-width: 100%;
+                max-height: 400px;
+                border: 1px solid #ddd;
+            }
+            .schedule-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+            }
+
+            .schedule-table th {
+                background-color: #f5e6d3;
+                padding: 10px 8px;
+                text-align: left;
+                font-weight: bold;
+                border: 1px solid #ddd;
+            }
+
+            .schedule-table td {
+                padding: 8px;
+                border: 1px solid #ddd;
+            }
+
+            .schedule-table .total-row {
+                background-color: #f5e6d3;
+                font-weight: bold;
+            }
+
+            .disclaimer {
+                font-size: 12pt;
+                color: #666;
+                margin-top: 40px;
+                padding-top: 24px;
+                border-top: 1px solid #ddd;
+            }
+
+            .disclaimer ol {
+                margin: 5px 0;
+                padding-left: 20px;
+            }
+            .disclaimer li {
+                margin-bottom: 5px;
+            }
+        </style>
+    </template>
+
+    <!-- First page template -->
+    <template id="unit_offer_plan_first_page">
+        <div class="page">
+            <div style="width: 100%; margin-bottom: 20px; padding-bottom: 8px; border-bottom: 2px solid #1a2744; clear: both; overflow: hidden; direction: ltr !important;">
+                <div style="float: left; width: 50%; text-align: left;">
+                <img t-att-src="web_base_url + '/arkzayed_18_realestate_development/static/src/img/ark_logo.jpeg'"
+                         style="height: 90px; width: auto; display: inline-block; object-fit: contain; vertical-align: middle; margin-top: -15px;"/>
+                         </div>
+                <div style="float: right; width: 50%; text-align: right;">
+                </div>
+            </div>
+
+            <div class="report-title">Unit Offering (All Plans)</div>
+
+            <table class="summary-table">
+                <tr>
+                    <td class="label-cell">System Code</td>
+                    <td class="value-cell">
+                        <t t-esc="unit.system_code or ''"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label-cell">Project</td>
+                    <td class="value-cell">
+                        <t t-esc="unit.project_id.name or ''"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label-cell">Gross Total Area</td>
+                    <td class="value-cell">
+                        <t t-esc="unit.unit_area or 0"/>
+ m²</td>
+                </tr>
+                <tr>
+                    <td class="label-cell">Unit Total Price</td>
+                    <td class="value-cell">
+                        <t t-esc="'{:,.2f}'.format(o.total_price_unit or 0)"/>
+                        <t t-esc="currency.name or ''"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label-cell">Discount</td>
+                    <td class="value-cell"><t t-esc="'{:.2f}'.format(o.discount_percentage or 0)"/>%</td>
+                </tr>
+                <tr>
+                    <td class="label-cell">Price After Discount</td>
+                    <td class="value-cell">
+                        <t t-esc="'{:,.2f}'.format(o.price_after_discount or 0)"/>
+                        <t t-esc="currency.name or ''"/>
+                    </td>
+                </tr>
+            </table>
+
+            <div class="images-container">
+                <div class="image-box" t-if="unit_plan_image">
+                    <img t-att-src="'data:image/png;base64,%s' % unit_plan_image.decode('utf-8')"/>
+                </div>
+                <div class="image-box" t-if="unit_plan1_image">
+                    <img t-att-src="'data:image/png;base64,%s' % unit_plan1_image.decode('utf-8')"/>
+                </div>
+            </div>
+
+            <div class="areas-container">
+                <table class="summary-table">
+                    <tr>
+                        <td class="label-cell">Indoor Gross Area</td>
+                        <td class="value-cell">
+                            <t t-esc="unit.indoor_gross_area or 0"/>
+ m²</td>
+                    </tr>
+                    <tr>
+                        <td class="label-cell">Outdoor Gross Area</td>
+                        <td class="value-cell">
+                            <t t-esc="unit.outdoor_gross_area or 0"/>
+ m²</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="disclaimer">
+                <strong>DISCLAIMER</strong>
+                <ol>
+                    <li>All room dimensions are measured to structural elements and exclude wall finished and construction tolerances.</li>
+                    <li>All dimensions have been provided by our consultant architects.</li>
+                    <li>All materials, dimensions and drawings are approximate and information is subject to change without notice.</li>
+                    <li>Actual area may vary from the stated area.</li>
+                    <li>Drawings areas not to scale.</li>
+                    <li>The developer reserves the right to make revisions.</li>
+                    <li>Actual unit areas, front windows, porches, terraces, loggia and exterior trim detail may vary by elevation styles.</li>
+                </ol>
+            </div>
+        </div>
+    </template>
+
+    <!-- Schedule page template -->
+    <template id="unit_offer_plan_schedule_page">
+        <div class="page" style="page-break-before: always;">
+            <div class="schedule-title">
+                <t t-esc="template_name or ''"/>
+            </div>
+
+            <table class="mini-summary-table">
+                <tr>
+                    <td class="label-cell">Plan Discount</td>
+                    <td class="value-cell"><t t-esc="'{:.2f}'.format(unit.discount_percentage or 0)"/>%</td>
+                </tr>
+                <tr>
+                    <td class="label-cell">Plan Price</td>
+                    <td class="value-cell">
+                        <t t-esc="'{:,.2f}'.format(base_price or 0)"/>
+                        <t t-esc="currency.name or ''"/>
+                    </td>
+                </tr>
+            </table>
+
+            <table class="schedule-table">
+                <thead>
+                    <tr>
+                        <th style="width: 8%;">#</th>
+                        <th style="width: 32%;">Installment</th>
+                        <th style="width: 20%;">Due Date</th>
+                        <th style="width: 15%;">%</th>
+                        <th style="width: 25%;">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="schedule_rows" t-as="row">
+                        <tr>
+                            <td>
+                                <t t-esc="row['serial']"/>
+                            </td>
+                            <td>
+                                <t t-esc="row['label']"/>
+                            </td>
+                            <td>
+                                <t t-esc="row['date'].strftime('%d-%b-%Y') if row['date'] else ''"/>
+                            </td>
+                            <td>
+                                <t t-esc="'{:.2f}%'.format(row['percentage'])"/>
+                            </td>
+                            <td>
+                                <t t-esc="'{:,.2f}'.format(row['amount'])"/>
+                                <t t-esc="currency.name or ''"/>
+                            </td>
+                        </tr>
+                    </t>
+                    <t t-set="installment_total" t-value="sum(row['amount'] for row in schedule_rows if row['label'] != 'Maintenance Installment')"/>
+                    <t t-set="maintenance_total" t-value="sum(row['amount'] for row in schedule_rows if row['label'] == 'Maintenance Installment')"/>
+                    <tr class="total-row">
+                        <td colspan="4">Total Installments</td>
+                        <td>
+                            <t t-esc="'{:,.2f}'.format(installment_total or 0)"/>
+                            <t t-esc="currency.name or ''"/>
+                        </td>
+                    </tr>
+                    <t t-if="maintenance_total > 0">
+                        <tr class="total-row">
+                            <td colspan="4">Total Maintenance</td>
+                            <td>
+                                <t t-esc="'{:,.2f}'.format(maintenance_total or 0)"/>
+                                <t t-esc="currency.name or ''"/>
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+        </div>
+    </template>
+
+    <!-- Outer template for Unit -->
+    <template id="unit_offer_tmpl">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="arkzayed_18_realestate_development.unit_offer_plan_styles"/>
+
+                <t t-set="unit" t-value="o"/>
+                <t t-set="currency" t-value="o.company_id.currency_id"/>
+                <t t-set="unit_plan_image" t-value="unit.unit_plan"/>
+                <t t-set="unit_plan1_image" t-value="unit.unit_plan1"/>
+
+                <t t-call="arkzayed_18_realestate_development.unit_offer_plan_first_page"/>
+
+                <t t-foreach="o._get_offer_plan_templates(template_ids)" t-as="tmpl">
+                    <t t-set="template_name" t-value="tmpl.name"/>
+                    <t t-set="base_price" t-value="unit.price_after_discount"/>
+                    <t t-set="schedule_rows" t-value="unit._get_unit_offer_plan_schedule_for_template(tmpl)"/>
+                    <t t-call="arkzayed_18_realestate_development.unit_offer_plan_schedule_page"/>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

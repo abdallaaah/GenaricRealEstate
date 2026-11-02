@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record id="employee_product_expense_tree_view" model="ir.ui.view">
+            <field name="name">employee.product.expense.tree.view</field>
+            <field name="model">employee.product.expense</field>
+            <field name="arch" type="xml">
+                <list string="Employee Custody" create="false">
+                    <field name="date"/>
+                    <field name="employee_custody_id"/>
+                    <field name="employee_id"/>
+                    <field name="type"/>
+                    <field name="partner_id"/>
+                    <field name="product_id"/>
+                    <field name="price_subtotal" sum="Total"/>
+                    <field name="amount_before_transaction"/>
+                    <field name="amount_after_transaction"/>
+                    <field name="currency_id"/>
+                    <field name="state"/>
+                </list>
+            </field>
+        </record>
+    </data>
+</odoo>

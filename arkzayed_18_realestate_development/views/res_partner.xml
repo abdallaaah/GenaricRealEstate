@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="res_partner_form_view_inherit_broker" model="ir.ui.view">
+            <field name="name">res.partner.form.view.inherit.broker</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group//group" position="inside">
+                    <field name="is_customer"/>
+                    <field name="is_vendor"/>
+                    <field name="is_broker"/>
+                    <field name="is_ambassador"/>
+                    <field name="is_agent"/>
+                </xpath>
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button name="action_view_commission_claims" type="object"
+                            class="oe_stat_button" icon="fa-handshake-o"
+                            invisible="not is_broker and not is_ambassador and not is_agent">
+                        <field name="commission_claim_count" widget="statinfo" string="Commissions"/>
+                    </button>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="after">
+                    <div class="form_inline">
+                        <field name="ref" placeholder="Arabic Name ..."/>
+                    </div>
+                </xpath>
+                <xpath expr="//field[@name='category_id']" position="after">
+                    <field name="born_country_id" invisible="is_company"/>
+                    <field name="nationality" invisible="is_company"/>
+                    <field name="national_id" invisible="is_company"/>
+                    <field name="passport_number" invisible="is_company"/>
+                    <field name="is_facility_company" invisible="company_type != 'company'"/>
+                    <field name="vat" invisible="company_type != 'company'"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="res_partner_list_view_inherit_broker" model="ir.ui.view">
+            <field name="name">res.partner.list.view.inherit.broker</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='email']" position="after">
+                    <field name="code"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="res_partner_inherit_code_view_search" model="ir.ui.view">
+            <field name="name">res.partner.inherit.code.search.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='inactive']" position="after">
+                    <field name="code"/>
+                    <field name="ref" string="Brand Name"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

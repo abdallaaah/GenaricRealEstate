@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="unit_estimate_delivery_retail" model="unit.estimate.delivery">
+            <field name="unit_type">retail</field>
+            <field name="estimate_delivery_years">3</field>
+        </record>
+        <record id="unit_estimate_delivery_office" model="unit.estimate.delivery">
+            <field name="unit_type">office</field>
+            <field name="estimate_delivery_years">3</field>
+        </record>
+        <record id="unit_estimate_delivery_medical" model="unit.estimate.delivery">
+            <field name="unit_type">medical</field>
+            <field name="estimate_delivery_years">3</field>
+        </record>
+        <record id="unit_estimate_delivery_residential" model="unit.estimate.delivery">
+            <field name="unit_type">residential</field>
+            <field name="estimate_delivery_years">3</field>
+        </record>
+        <record id="unit_estimate_delivery_entertainment" model="unit.estimate.delivery">
+            <field name="unit_type">entertainment</field>
+            <field name="estimate_delivery_years">3</field>
+        </record>
+        <record id="unit_estimate_delivery_industrial" model="unit.estimate.delivery">
+            <field name="unit_type">industrial</field>
+            <field name="estimate_delivery_years">3</field>
+        </record>
+        <record id="unit_estimate_delivery_parking" model="unit.estimate.delivery">
+            <field name="unit_type">parking</field>
+            <field name="estimate_delivery_years">3</field>
+        </record>
+        <record id="unit_estimate_delivery_gate" model="unit.estimate.delivery">
+            <field name="unit_type">gate</field>
+            <field name="estimate_delivery_years">3</field>
+        </record>
+        <record id="unit_estimate_delivery_storage" model="unit.estimate.delivery">
+            <field name="unit_type">storage</field>
+            <field name="estimate_delivery_years">3</field>
+        </record>
+        <record id="unit_estimate_delivery_public_area" model="unit.estimate.delivery">
+            <field name="unit_type">public_area</field>
+            <field name="estimate_delivery_years">3</field>
+        </record>
+        <record id="unit_estimate_delivery_roof" model="unit.estimate.delivery">
+            <field name="unit_type">roof</field>
+            <field name="estimate_delivery_years">3</field>
+        </record>
+    </data>
+</odoo>

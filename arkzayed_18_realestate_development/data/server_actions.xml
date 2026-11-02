@@ -1,0 +1,117 @@
+<odoo>
+    <data>
+        <record id="action_generate_contract_commissions" model="ir.actions.server">
+            <field name="name">Generate Commissions</field>
+            <field name="model_id" ref="model_sale_proposal"/>
+            <field name="binding_model_id" ref="model_sale_proposal"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">
+                action = records.action_generate_commissions()
+            </field>
+        </record>
+
+        <record id="action_recalc_reservation_installment_serial" model="ir.actions.server">
+            <field name="name">Recalculate Installment Serial</field>
+            <field name="model_id" ref="model_real_estate_sale_reservation"/>
+            <field name="binding_model_id" ref="model_real_estate_sale_reservation"/>
+            <field name="binding_view_types">list,form</field>
+            <field name="state">code</field>
+            <field name="code">
+                action=records.action_recalc_installment_serial()
+            </field>
+        </record>
+        <record id="action_recalc_contract_installment_serial" model="ir.actions.server">
+            <field name="name">Recalculate Installment Serial</field>
+            <field name="model_id" ref="model_sale_proposal"/>
+            <field name="binding_model_id" ref="model_sale_proposal"/>
+            <field name="binding_view_types">list,form</field>
+            <field name="state">code</field>
+            <field name="code">
+                action=records.action_recalc_installment_serial()
+            </field>
+        </record>
+
+        <record id="action_update_reservation_customer_ownership_ids" model="ir.actions.server">
+            <field name="name">Copy Customer Ownership</field>
+            <field name="model_id" ref="model_real_estate_sale_reservation"/>
+            <field name="binding_model_id" ref="model_real_estate_sale_reservation"/>
+            <field name="binding_view_types">list,form</field>
+            <field name="state">code</field>
+            <field name="code">
+                action=records.action_copy_customer_ownership_ids()
+            </field>
+        </record>
+        <record id="action_update_contract_customer_ownership_ids" model="ir.actions.server">
+            <field name="name">Copy Customer Ownership</field>
+            <field name="model_id" ref="model_sale_proposal"/>
+            <field name="binding_model_id" ref="model_sale_proposal"/>
+            <field name="binding_view_types">list,form</field>
+            <field name="state">code</field>
+            <field name="code">
+                action=records.action_copy_customer_ownership_ids()
+            </field>
+        </record>
+<!--        &lt;!&ndash; Server Action bound to Sale Reservation &ndash;&gt;-->
+<!--        <record id="action_server_execute_data_migration_reservation" model="ir.actions.server">-->
+<!--            <field name="name">Migrate Historical Payment Allocations</field>-->
+<!--            <field name="model_id" ref="model_real_estate_sale_reservation"/>-->
+<!--            <field name="binding_model_id" ref="model_real_estate_sale_reservation"/>-->
+<!--            <field name="binding_type">action</field>-->
+<!--            <field name="binding_view_types">list,form</field>-->
+<!--            <field name="state">code</field>-->
+<!--            <field name="code">-->
+<!--                env['payment.allocation'].execute_data_migration()-->
+<!--            </field>-->
+<!--        </record>-->
+
+<!--        &lt;!&ndash; Server Action bound to Sale Proposal (Contract) &ndash;&gt;-->
+<!--        <record id="action_server_execute_data_migration_contract" model="ir.actions.server">-->
+<!--            <field name="name">Migrate Historical Payment Allocations</field>-->
+<!--            <field name="model_id" ref="model_sale_proposal"/>-->
+<!--            <field name="binding_model_id" ref="model_sale_proposal"/>-->
+<!--            <field name="binding_type">action</field>-->
+<!--            <field name="binding_view_types">list,form</field>-->
+<!--            <field name="state">code</field>-->
+<!--            <field name="code">-->
+<!--                env['payment.allocation'].execute_data_migration()-->
+<!--            </field>-->
+<!--        </record>-->
+<!--        <record id="action_sync_reservation_to_contract_lines" model="ir.actions.server">-->
+<!--            <field name="name">Sync Reservation to Contract Lines</field>-->
+<!--            <field name="model_id" ref="model_sale_proposal"/>-->
+<!--            <field name="binding_model_id" ref="model_sale_proposal"/>-->
+<!--            <field name="binding_view_types">list,form</field>-->
+<!--            <field name="state">code</field>-->
+<!--            <field name="code">-->
+<!--proposals_with_reservation = records.filtered(lambda p: p.sale_contract_reservation_id)-->
+
+<!--for proposal in proposals_with_reservation:-->
+<!--    reservation = proposal.sale_contract_reservation_id-->
+
+<!--    if reservation.account_payment_ids:-->
+<!--        reservation.account_payment_ids.write({'sale_proposal_id': proposal.id})-->
+
+<!--    if reservation.cheque_manage_ids:-->
+<!--        reservation.cheque_manage_ids.write({'sale_proposal_id': proposal.id})-->
+
+<!--    # Filter out lines that are already linked to a contract so they are not unlinked-->
+<!--    linked_installments = reservation.installment_ids.filtered(lambda l:  l.sale_proposal_id)-->
+<!--    if not linked_installments and proposal.installment_ids:-->
+<!--        reservation.installment_ids.unlink()-->
+<!--        if proposal.installment_ids:-->
+<!--            proposal.installment_ids.write({'reservation_id': reservation.id})-->
+
+<!--    linked_maintenance = reservation.maintenance_installment_ids.filtered(lambda l:  l.sale_proposal_id)-->
+<!--    if not linked_maintenance and proposal.maintenance_installment_ids:-->
+<!--        reservation.maintenance_installment_ids.unlink()-->
+<!--        if proposal.maintenance_installment_ids:-->
+<!--            proposal.maintenance_installment_ids.write({'reservation_id': reservation.id})-->
+
+
+<!--    if reservation.eoi_id:-->
+<!--        proposal.write({'eoi_id': reservation.eoi_id})-->
+<!--        </field>-->
+<!--    </record>-->
+    </data>
+</odoo>

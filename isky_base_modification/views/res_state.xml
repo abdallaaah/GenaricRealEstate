@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_country_form_inherit">
+            <field name="name">res.country.form.inherit</field>
+            <field name="model">res.country</field>
+            <field name="inherit_id" ref="base.view_country_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="replace">
+                    <form>
+                        <sheet>
+                            <div class="oe_button_box">
+                            </div>
+                            <field name="image_url" widget="image_url" class="oe_avatar"/>
+                            <group>
+                                <group>
+                                    <field name="name"/>
+                                    <field name="currency_id"/>
+                                    <field name="code"/>
+                                    <field name="nationality"/>
+                                </group>
+                                <group>
+                                    <field name="phone_code"/>
+                                    <field name="vat_label"/>
+                                    <field name="is_egypt"/>
+                                    <field name="is_saudi_arabia"/>
+                                </group>
+                                <group name="advanced_address_formatting" string="Advanced Address Formatting"
+                                       groups="base.group_no_one" col="4" colspan="4">
+                                    <field name="address_view_id"/>
+                                    <div colspan="2" class="text-muted">Choose a subview of partners that includes only
+                                        address fields, to change the way users can input addresses.
+                                    </div>
+                                    <field name="address_format" placeholder="Address format..."/>
+                                    <div colspan="2" name="div_address_format" class="text-muted">Change the way
+                                        addresses are displayed in reports
+                                    </div>
+                                    <field name="name_position"/>
+                                </group>
+                            </group>
+                            <notebook>
+                                <page string="Governorates">
+                                    <field name="state_ids" string="Governorates">
+                                        <list editable="bottom">
+                                            <field name="name" string="Name"/>
+                                            <field name="code" string="Code"/>
+                                        </list>
+                                    </field>
+                                </page>
+                            </notebook>
+                        </sheet>
+                    </form>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="res_country_tree_view_inherit" model="ir.ui.view">
+            <field name="name">res.country.tree.view.inherit</field>
+            <field name="model">res.country</field>
+            <field name="inherit_id" ref="base.view_country_tree"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='code']" position="after">
+                    <field name="nationality"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_country_state_form_inherit">
+            <field name="name">res.country.state.form.inherit</field>
+            <field name="model">res.country.state</field>
+            <field name="inherit_id" ref="base.view_country_state_form"/>
+            <field name="arch" type="xml">
+                <form position="replace">
+                    <form>
+                        <sheet>
+                            <group col="4">
+                                <field name="name" string="Name"/>
+                                <field name="code" string="Code"/>
+                            </group>
+                            <notebook>
+                                <page string="Cities">
+                                    <field name="city_ids">
+                                        <list editable="bottom">
+                                            <field name="name"/>
+                                        </list>
+                                    </field>
+                                </page>
+                            </notebook>
+                        </sheet>
+
+                    </form>
+
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_country_state_tree_inherit">
+            <field name="name">res.country.state.tree.inherit</field>
+            <field name="model">res.country.state</field>
+            <field name="inherit_id" ref="base.view_country_state_tree"/>
+            <field name="arch" type="xml">
+                <list position="replace">
+                    <list>
+                        <field name="name" string="Name"/>
+                        <field name="code" string="Code"/>
+                        <field name="country_id"/>
+                    </list>
+                </list>
+            </field>
+        </record>
+
+        <record id="base.action_country_state" model="ir.actions.act_window">
+            <field name="name">Governorates</field>
+        </record>
+
+        <record id="city_city_form_view" model="ir.ui.view">
+            <field name="name">city.city.form.view</field>
+            <field name="model">city.city</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="country_id"
+                                   required="1"/>
+                        </group>
+                        <notebook>
+                            <page string="Neighborhoods">
+                                <field name="neighborhood_ids">
+                                    <list editable="bottom">
+                                        <field name="name"/>
+                                    </list>
+                                </field>
+                            </page>
+
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="city_city_tree_view" model="ir.ui.view">
+            <field name="name">city.city.tree.view</field>
+            <field name="model">city.city</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name"/>
+                    <field name="state_id"/>
+                </list>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="city_city_action">
+            <field name="name">Cities</field>
+            <field name="res_model">city.city</field>
+            <field name="view_mode">list,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+        <record id="neighborhood_neighborhood_form_view" model="ir.ui.view">
+            <field name="name">neighborhood.neighborhood.form.view</field>
+            <field name="model">neighborhood.neighborhood</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="city_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="neighborhood_neighborhood_tree_view" model="ir.ui.view">
+            <field name="name">neighborhood.neighborhood.tree.view</field>
+            <field name="model">neighborhood.neighborhood</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name"/>
+                </list>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="neighborhood_neighborhood_action">
+            <field name="name">Neighborhoods</field>
+            <field name="res_model">neighborhood.neighborhood</field>
+            <field name="view_mode">list,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+    </data>
+</odoo>

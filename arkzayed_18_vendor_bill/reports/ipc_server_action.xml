@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="server_action_print_ipc" model="ir.actions.server">
+        <field name="name">Print IPC Certificate</field>
+
+        <field name="model_id" ref="account.model_account_move"/>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="binding_view_types">form</field>
+
+        <field name="state">code</field>
+
+        <field name="code">
+                if records:
+                    action = env.ref('arkzayed_18_vendor_bill.action_ipc_taxable_report').report_action(records)
+        </field>
+    </record>
+
+</odoo>

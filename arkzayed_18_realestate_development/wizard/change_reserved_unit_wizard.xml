@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_reservation_change_unit_wizard" model="ir.ui.view">
+        <field name="name">reservation.change.unit.wizard.form</field>
+        <field name="model">reservation.change.unit.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Upgrade / Downgrade Unit">
+                <sheet>
+                    <div class="alert alert-warning" role="alert">
+                        <strong>Warning:</strong> When you confirm this change, the current unit will be automatically blocked and cannot be used for other reservations.
+                    </div>
+                    <group>
+                        <field name="reservation_id"/>
+                        <field name="old_unit_id"/>
+                        <field name="new_unit_id"
+                               options="{'no_create': True, 'no_create_edit': True}"
+                               domain="[('id', '!=', old_unit_id), ('unit_status', '=', 'available'), ('unit_purpose', '=', 'to_sale')]"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_confirm_change"
+                            type="object"
+                            string="Confirm"
+                            class="btn-primary"/>
+                    <button string="Cancel"
+                            class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="custody_multi_generate_journals_form_view" model="ir.ui.view">
+            <field name="name">custody.multi.generate.journals.form.view</field>
+            <field name="model">custody.multi.generate.journals</field>
+            <field name="arch" type="xml">
+                <form string="Generate Journals For Selected Custody(s)">
+                    <p class="oe_grey">
+                        Once draft custody(s) are confirmed, you will not be able
+                        to modify them.
+                    </p>
+                    <footer>
+                        <button string="Create Journals" name="generate_journals" type="object" default_focus="1"
+                                class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="custody_generate_multi_journal_entries" model="ir.actions.act_window">
+            <field name="name">Generate Journal Entries</field>
+            <field name="res_model">custody.multi.generate.journals</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="binding_model_id" ref="isky_employee_custodies.model_employee_custody"/>
+        </record>
+
+<!--        <act_window id="custody_generate_multi_journal_entries"-->
+<!--                    multi="True"-->
+<!--                    key2="client_action_multi"-->
+<!--                    name="Generate Journal Entries"-->
+<!--                    res_model="custody.multi.generate.journals"-->
+<!--                    src_model="employee.custody"-->
+<!--                    view_mode="form"-->
+<!--                    target="new"-->
+<!--                    view_type="form"/>-->
+    </data>
+</odoo>

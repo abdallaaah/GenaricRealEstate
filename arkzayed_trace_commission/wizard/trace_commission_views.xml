@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="trace_commission_view_form" model="ir.ui.view">
+        <field name="name">trace.commission.form</field>
+        <field name="model">trace.commission</field>
+        <field name="arch" type="xml">
+            <form string="Trace Commission" create="0" delete="0" duplicate="0">
+                <header>
+                    <button name="action_search" type="object" string="Search" class="btn-primary" icon="fa-search"/>
+                    <button name="action_print_pdf" type="object" string="Print PDF" icon="fa-print"/>
+                    <button name="action_export_excel" type="object" string="Export Excel" icon="fa-file-excel-o"/>
+                </header>
+                <sheet>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="company_id" invisible="1"/>
+                    <field name="excel_file" filename="excel_filename" invisible="1"/>
+                    <field name="excel_filename" invisible="1"/>
+
+                    <div class="oe_title mb-3">
+                        <h1>
+                            <field name="person_ids" widget="many2many_tags" options="{'no_create': True}" class="w-100"
+                                   placeholder="Type a sales person, team leader, manager, broker or ambassador (you can add several)..."/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="role_ids" widget="many2many_tags" options="{'no_create': True}"
+                                   placeholder="e.g. Broker, Ambassador, Sales Person, Sales Manager..."/>
+                            <field name="people_count"/>
+                        </group>
+                        <group>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                            <field name="paid_filter"/>
+                        </group>
+                    </group>
+
+                    <div class="d-flex flex-wrap gap-3 my-3">
+                        <div class="border rounded px-3 py-2"><div class="text-muted small">UNITS</div><h3 class="m-0"><field name="unit_count"/></h3></div>
+                        <div class="border rounded px-3 py-2"><div class="text-muted small">UNITS (BY SHARE)</div><h3 class="m-0"><field name="unit_equiv"/></h3></div>
+                        <div class="border rounded px-3 py-2"><div class="text-muted small">TOTAL SOLD VALUE</div><h3 class="m-0"><field name="total_price"/></h3></div>
+                        <div class="border rounded px-3 py-2"><div class="text-muted small">TOTAL COMMISSION</div><h3 class="m-0"><field name="total_commission"/></h3></div>
+                        <div class="border rounded px-3 py-2" style="border-left: 4px solid #16a34a !important;"><div class="text-muted small">PAID</div><h3 class="m-0 text-success"><field name="total_paid"/></h3></div>
+                        <div class="border rounded px-3 py-2" style="border-left: 4px solid #dc2626 !important;"><div class="text-muted small">NOT PAID</div><h3 class="m-0 text-danger"><field name="total_unpaid"/></h3></div>
+                    </div>
+
+                    <field name="line_ids" nolabel="1" readonly="1">
+                        <list create="0" delete="0" edit="0" default_order="person, contract_date"
+                              decoration-success="is_paid" decoration-danger="not is_paid">
+                            <field name="person"/>
+                            <field name="role" optional="show"/>
+                            <field name="unit_id"/>
+                            <field name="contract_id"/>
+                            <field name="customer" optional="show"/>
+                            <field name="contract_date"/>
+                            <field name="price" optional="show"/>
+                            <field name="share_pct"/>
+                            <field name="sold_value" sum="Total"/>
+                            <field name="commission_pct" optional="show"/>
+                            <field name="commission_amount" sum="Total"/>
+                            <field name="status" string="Status"/>
+                            <field name="payment_date" optional="show"/>
+                            <field name="note" optional="show"/>
+                            <field name="is_paid" column_invisible="1"/>
+                            <button name="action_open_source" type="object" icon="fa-external-link" title="Open the claim / commission record"/>
+                        </list>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_trace_commission" model="ir.actions.act_window">
+        <field name="name">Trace Commission</field>
+        <field name="res_model">trace.commission</field>
+        <field name="view_mode">form</field>
+        <field name="target">current</field>
+    </record>
+
+    <!-- An app of its own on the home screen -->
+    <menuitem id="menu_trace_commission_root" name="Trace Commission" sequence="21"
+              web_icon="arkzayed_trace_commission,static/description/icon.png"
+              action="action_trace_commission" groups="group_trace_commission"/>
+
+</odoo>

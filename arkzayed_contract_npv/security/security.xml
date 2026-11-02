@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="module_category_npv" model="ir.module.category">
+        <field name="name">NPV</field>
+    </record>
+
+    <record id="group_npv_access" model="res.groups">
+        <field name="name">NPV Access</field>
+        <field name="category_id" ref="module_category_npv"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        <field name="comment">Can see the NPV tab on contracts, and set the company's NPV discount rate.</field>
+    </record>
+
+    <data noupdate="1">
+        <record id="base.user_admin" model="res.users">
+            <field name="groups_id" eval="[(4, ref('group_npv_access'))]"/>
+        </record>
+    </data>
+
+</odoo>

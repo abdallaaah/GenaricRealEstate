@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_discount_approval_form" model="ir.ui.view">
+            <field name="name">discount.approval.form</field>
+            <field name="model">discount.approval</field>
+            <field name="arch" type="xml">
+                <form string="Discount Approval">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group string="Approval Criteria">
+                                <field name="sequence"/>
+                                <field name="active"/>
+                                <separator string="Discount Percentage"/>
+                                <field name="discount_percentage_from"/>
+                                <field name="discount_percentage_to"/>
+                                <separator string="Discount Amount"/>
+                                <field name="discount_amount_from"/>
+                                <field name="discount_amount_to"/>
+                            </group>
+                            <group string="Approvers">
+                                <field name="approver_id"/>
+                                <field name="approver_ids" widget="many2many_tags"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Additional Information">
+                                <field name="notes" nolabel="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_discount_approval_list" model="ir.ui.view">
+            <field name="name">discount.approval.list</field>
+            <field name="model">discount.approval</field>
+            <field name="arch" type="xml">
+                <list string="Discount Approvals">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="discount_percentage_from"/>
+                    <field name="discount_percentage_to"/>
+                    <field name="discount_amount_from"/>
+                    <field name="discount_amount_to"/>
+                    <field name="approver_id"/>
+                    <field name="active" widget="boolean"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_discount_approval_search" model="ir.ui.view">
+            <field name="name">discount.approval.search</field>
+            <field name="model">discount.approval</field>
+            <field name="arch" type="xml">
+                <search string="Discount Approvals">
+                    <field name="name"/>
+                    <field name="approver_id"/>
+                    <filter string="Active" name="active" domain="[('active', '=', True)]"/>
+                    <filter string="Inactive" name="inactive" domain="[('active', '=', False)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Approver" name="group_approver" context="{'group_by': 'approver_id'}"/>
+                        <filter string="Status" name="group_status" context="{'group_by': 'active'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_discount_approval" model="ir.actions.act_window">
+            <field name="name">Discount Approvals</field>
+            <field name="res_model">discount.approval</field>
+            <field name="view_mode">list,form</field>
+            <field name="search_view_id" ref="view_discount_approval_search"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your first discount approval rule
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

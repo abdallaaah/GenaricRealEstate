@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_broker_claim_statement_wizard_form" model="ir.ui.view">
+        <field name="name">broker.claim.statement.wizard.form</field>
+        <field name="model">broker.claim.statement.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Commission Statement">
+                <sheet>
+                    <div class="alert alert-info" role="alert">
+                        Pick a broker or ambassador to see everything about them: what was paid and what is not
+                        paid yet. Leave it empty to get everyone, grouped by type.
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id" options="{'no_create': True}"
+                                   placeholder="All brokers and ambassadors"/>
+                        </group>
+                        <group>
+                            <field name="date_from" string="Contract date from"/>
+                            <field name="date_to" string="Contract date to"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <field name="excel_file" filename="excel_filename" invisible="1"/>
+                    <field name="excel_filename" invisible="1"/>
+                </sheet>
+                <footer>
+                    <button name="action_print_pdf" type="object" string="Print PDF" class="btn-primary" icon="fa-print"/>
+                    <button name="action_export_excel" type="object" string="Export Excel" class="btn-secondary" icon="fa-file-excel-o"/>
+                    <button string="Close" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_broker_claim_statement_wizard" model="ir.actions.act_window">
+        <field name="name">Commission Statement</field>
+        <field name="res_model">broker.claim.statement.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_broker_claim_statement"
+              name="Commission Statement"
+              parent="menu_broker_root"
+              action="action_broker_claim_statement_wizard"
+              sequence="5"/>
+
+    <!-- Print button on the claim list (opens empty = everyone) and on the claim form (prefilled with its broker) -->
+    <record id="view_broker_claim_tree_statement" model="ir.ui.view">
+        <field name="name">broker.claim.tree.statement</field>
+        <field name="model">broker.claim</field>
+        <field name="inherit_id" ref="view_broker_claim_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//list" position="inside">
+                <header>
+                    <button name="%(action_broker_claim_statement_wizard)d" type="action"
+                            string="Print Statement" display="always" icon="fa-print"/>
+                </header>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_broker_claim_form_statement" model="ir.ui.view">
+        <field name="name">broker.claim.form.statement</field>
+        <field name="model">broker.claim</field>
+        <field name="inherit_id" ref="view_broker_claim_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="%(action_broker_claim_statement_wizard)d" type="action" string="Broker Statement"
+                        icon="fa-print" context="{'default_partner_id': broker_company}"
+                        invisible="claim_type == 'employee'"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

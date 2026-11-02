@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <menuitem id="menu_hr_insurance_root"
+                  name="Social Insurance"
+                  web_icon="isky_hr_egypt_social_insurance,static/social.png"/>
+
+        <menuitem id="menu_insurance_policy"
+                  name="Insurance Policies"
+                  parent="menu_hr_insurance_root"
+                  sequence="1"
+                  action="action_insurance_policy"/>
+
+        <menuitem id="menu_hr_insurance"
+                  name="Insurance Form"
+                  parent="menu_hr_insurance_root"
+                  sequence="2"
+                  action="action_hr_insurance_tony"/>
+
+        <menuitem id="menu_insurance_annual_increase"
+                  name="Social Insurance Annual Increase"
+                  parent="menu_hr_insurance_root"
+                  sequence="3"
+                  action="action_hr_insurance_annual_increase"/>
+
+        <menuitem id="insurance_history_menu"
+                  name="Insurance History"
+                  parent="menu_hr_insurance_root"
+                  sequence="4"
+                  action="action_insurance_history"/>
+
+        <menuitem id="si_position_menu"
+                  name="SI Positions"
+                  parent="hr.menu_human_resources_configuration"
+                  action="action_si_position"/>
+
+    </data>
+</odoo>

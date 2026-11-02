@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_lease_contract_tree" model="ir.ui.view">
+        <field name="name">real.estate.lease.contract.tree</field>
+        <field name="model">real.estate.lease.contract</field>
+        <field name="arch" type="xml">
+            <list string="Lease Contracts">
+                <field name="name"/>
+                <field name="customer_id"/>
+                <field name="unit_id"/>
+                <field name="lease_contract_type"/>
+                <field name="contract_status"/>
+                <field name="contract_issue_date"/>
+                <field name="contract_start_date"/>
+                <field name="contract_end_date"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_lease_contract_form" model="ir.ui.view">
+        <field name="name">real.estate.lease.contract.form</field>
+        <field name="model">real.estate.lease.contract</field>
+        <field name="arch" type="xml">
+            <form string="Lease Contract">
+                <header>
+                    <button name="action_calculate_installment" type="object" string="Calculate Installment"
+                            class="oe_highlight"
+                            invisible="contract_status in ['cancelled','approved']"/>
+                    <button name="action_calculate_maintenance" type="object" string="Calculate Maintenance"
+                            class="oe_highlight"
+                            invisible="contract_status in ['cancelled','approved']"/>
+                    <button name="action_calculate_parking_lease" type="object"
+                            string="Calculate Parking Lease"
+                            class="oe_highlight"
+                            invisible="contract_status in ['cancelled','approved']"/>
+
+                    <field name="contract_status" options="{'clickable': '1'}" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <div class="oe_title">
+                            <label for="name" string="Reference"/>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                    </group>
+                    <group>
+                        <group string="Basic">
+                            <field name="customer_id" domain="[('is_customer', '=', True)]"/>
+                            <field name="lease_contract_type"/>
+                            <field name="referred_by"/>
+                            <field name="referred_by_partner_id" string="Customer" invisible="referred_by != 'customer'"
+                                   domain="[('is_customer', '=', True)]"/>
+                            <field name="referred_by_partner_id" string="Broker" invisible="referred_by != 'broker'"
+                                   domain="[('is_broker', '=', True)]"/>
+                            <field name="referred_by_partner_id" string="Ambassador"
+                                   invisible="referred_by != 'ambassador'" domain="[('is_ambassador', '=', True)]"/>
+                            <field name="referred_by_employee_id" string="Employee"
+                                   invisible="referred_by != 'employee'"/>
+                            <field name="other" invisible="referred_by != 'other'"/>
+
+                            <field name="contract_issue_date"/>
+                            <field name="contract_start_date"/>
+                            <field name="contract_end_date"/>
+                            <field name="expected_opening_data" invisible="lease_contract_type != 'commercial'"/>
+                            <field name="preparation_period" invisible="lease_contract_type != 'commercial'"/>
+                            <field name="contract_assessment_date"/>
+                            <field name="date_payment" string="First Payment Date"/>
+                            <label for="minimum_lease_term"/>
+                            <div class="o_row">
+                                <field name="minimum_lease_term"/>
+                                <span>month</span>
+                            </div>
+                            <label for="notice_period"/>
+                            <div class="o_row">
+                                <field name="notice_period"/>
+                                <span>month</span>
+                            </div>
+
+                        </group>
+                        <group string="Financial">
+                            <!--                            <field name="payment_plan"/>-->
+                            <field name="charge_for"/>
+                            <field name="charge_area"/>
+                            <field name="charge_price" invisible="charge_for != 'indoor_outdoor'"/>
+                            <field name="rent_price_per_m2_per_month"/>
+                            <field name="outdoor_rent_price_per_m2_per_month" invisible="charge_price != 'separate'"/>
+                            <field name="advance_payment"/>
+                            <field name="security_deposit"/>
+                            <field name="grace_period_start"/>
+                            <field name="grace_period_end"/>
+                            <field name="construction_deposit"/>
+                            <field name="lg_required"/>
+                            <field name="capex" string="Capex Required"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Recurring">
+                            <field name="account_income" invisible="0"/>
+                            <field name="tax_status"/>
+                            <field name="rental_agreement" required="1"/>
+                            <field name="rent" invisible="rental_agreement == 'per_sft'"/>
+                            <field name="rental_fee"
+                                   readonly="contract_status not in ['draft', 'reserved']"/>
+                            <label for="recurring_interval"/>
+                            <div class="o_row">
+                                <span class="mr-1">Every</span>
+                                <field name="recurring_interval" required="1"
+                                       readonly="contract_status not in ['draft', 'reserved']"/>
+                                <field name="periodicity" class="field_rule_type" required="1"
+                                       readonly="contract_status not in ['draft', 'reserved']"/>
+                            </div>
+                            <field name="currency_id"/>
+                        </group>
+                        <group string="Installment">
+                            <label for="increment_recurring_interval" string="Increment Period"/>
+                            <div class="o_row">
+                                <span class="mr-1">Every</span>
+                                <field name="increment_recurring_interval" required="1"
+                                       readonly="contract_status != 'draft'"/>
+                                <field name="increment_period" class="field_rule_type" required="1"
+                                       readonly="contract_status not in ['draft', 'reserved']"/>
+                            </div>
+                            <field name="increment_percentage"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Unit">
+                            <field name="unit_id"
+                                   domain="[('unit_status', '=', 'available'), ('unit_purpose', '=', 'to_lease')]"/>
+                            <field name="unit_name"/>
+<!--                            <field name="unit_code"/>-->
+                            <field name="unit_number"/>
+                            <field name="unit_location"/>
+                            <field name="unit_area"/>
+                            <field name="net_area"/>
+                            <field name="indoor_price_per_month_sqm"/>
+                            <field name="outdoor_price_per_month_sqm"/>
+                            <field name="indoor_outdoor_price_per_month_sqm"/>
+                        </group>
+                        <group string="Maintenance">
+                            <field name="maintenance_per_m2_per_month"/>
+                            <field name="outdoor_maintenance_per_m2_per_month"
+                                   invisible="charge_for != 'indoor_outdoor'"/>
+                            <label for="increment_maintenance_interval"/>
+                            <div class="o_row">
+                                <span class="mr-1">Every</span>
+                                <field name="increment_maintenance_interval" required="1"
+                                       readonly="contract_status not in ['draft', 'reserved']"/>
+                                <field name="maintenance_increment_period" class="field_rule_type" required="1"
+                                       readonly="contract_status not in ['draft', 'reserved']"/>
+                            </div>
+
+                            <field name="maintenance_percentage"/>
+                            <!--invoice-->
+                            <label for="maintenance_interval"/>
+                            <div class="o_row">
+                                <span class="mr-1">Every</span>
+                                <field name="maintenance_interval" required="1"
+                                       readonly="contract_status not in ['draft', 'reserved']"/>
+                                <field name="maintenance_periodicity" class="field_rule_type" required="1"
+                                       readonly="contract_status not in ['draft', 'reserved']"/>
+                            </div>
+                            <field name="maintenance_first_date"/>
+                            <field name="maintenance_total_cost"/>
+                        </group>
+
+                    </group>
+                    <group string="Parking">
+                        <group>
+                            <field name="include_free_parking"/>
+                            <field name="separate_parking_price"/>
+                            <field name="slots" invisible="include_free_parking != True"/>
+                            <field name="charging_slots" invisible="separate_parking_price != True"/>
+                            <field name="number_of_slots" invisible="slots != 'number of slots'"/>
+                            <field name="charging_number_of_slots" invisible="charging_slots != 'number of slots'"/>
+                            <field name="parking_price" invisible="separate_parking_price != True"/>
+                            <label for="parking_interval" invisible="separate_parking_price != True"/>
+                            <div class="o_row">
+                                <span class="mr-1" invisible="separate_parking_price != True">Every</span>
+                                <field name="parking_interval" required="1"
+                                       readonly="contract_status not in ['draft', 'reserved']"
+                                       invisible="separate_parking_price != True"/>
+                                <field name="parking_installment_period" class="field_rule_type" required="1"
+                                       readonly="contract_status not in ['draft', 'reserved']"
+                                       invisible="separate_parking_price != True"/>
+                            </div>
+                        </group>
+                        <group>
+
+
+                        </group>
+
+                    </group>
+                    <notebook>
+                        <page string="Additional Information" invisible="lease_contract_type == 'residential'">
+                            <group>
+                                <field name="minimum_opening_hours"/>
+                                <field name="revenue_share"/>
+                                <field name="revenue_share_2"/>
+                                <field name="expected_sales_per_month"/>
+                                <field name="marketing_fees"/>
+                                <field name="service_charge_per_m2_per_month"
+                                       string="Additional Service Charge Per M2 Per Month"/>
+                            </group>
+                        </page>
+                        <page string="Penalties" invisible="lease_contract_type == 'residential'">
+                            <group>
+                                <field name="late_payment_penalty"/>
+                                <field name="late_payment_limit"/>
+                                <field name="late_opening_penalty"/>
+                                <field name="non_evacuation_penalty"/>
+                            </group>
+                        </page>
+                        <page string="Utilities" invisible="lease_contract_type == 'residential'">
+                            <group>
+                                <field name="electricity"/>
+                                <field name="water"/>
+                                <field name="gas"/>
+                                <field name="cooling_water"/>
+                                <field invisible="cooling_water == False" name="cooling_water_price"/>
+                                <field name="landline"/>
+                                <field invisible="landline == False" name="landline_fees"/>
+                                <field name="internet"/>
+                                <field name="solar_system"/>
+                                <field name="heating_system"/>
+                            </group>
+                        </page>
+                        <page string="Installments">
+                            <field name="loan_line_ids" readonly="contract_status not in ['draft', 'reserved']">
+                                <list default_order="invoice_id,date" string="Installments" editable="bottom">
+                                    <field widget="handle" name="serial" required="1"/>
+                                    <field name="date" required="1"/>
+                                    <field name="name" required="1"/>
+
+                                    <field name="amount" required="1"/>
+                                    <field name="amount_residual"/>
+                                    <field name="invoice_id" readonly="1"/>
+                                    <field name="invoice_state" widget="badge" optional="show"
+                                           decoration-success="invoice_state == 'posted'"
+                                           decoration-info="invoice_state == 'draft'"/>
+                                    <field name="payment_state" widget="badge"
+                                           decoration-danger="payment_state == 'not_paid'"
+                                           decoration-warning="payment_state in ('partial', 'in_payment')"
+                                           decoration-success="payment_state in ('paid', 'reversed')"
+                                           invisible="payment_state in 'invoicing_legacy'"/>
+                                    <button string="Make Invoice" name="make_invoice" type="object" icon="fa-money"
+                                            context="{'installment_invoice': 1}"
+                                            invisible="invoice_id != False or parent.contract_status in ['cancelled', 'expired', 'terminated']"/>
+                                    <button string="View Invoice" name="view_invoice" type="object"
+                                            style="background-color:rgba(0, 160, 74, 0.5);color: #333;"
+                                            invisible="invoice_id == False"/>
+                                </list>
+                            </field>
+
+                            <group class="oe_subtotal_footer oe_right">
+                                <field name="amount_total" decoration-bf="1"/>
+                                <field name="balance"/>
+                                <field name="paid"/>
+
+                            </group>
+                        </page>
+                        <page string="Maintenance">
+                            <field name="maintenance_line_ids" readonly="contract_status not in ['draft', 'reserved']">
+                                <list default_order="invoice_id,date" string="Maintenance" editable="bottom">
+                                    <field widget="handle" name="serial" required="1"/>
+                                    <field name="date" required="1"/>
+                                    <field name="name" required="1"/>
+
+                                    <field name="amount" required="1"/>
+                                    <field name="amount_residual"/>
+                                    <field name="invoice_id" readonly="1"/>
+                                    <field name="invoice_state" widget="badge" optional="show"
+                                           decoration-success="invoice_state == 'posted'"
+                                           decoration-info="invoice_state == 'draft'"/>
+                                    <field name="payment_state" widget="badge"
+                                           decoration-danger="payment_state == 'not_paid'"
+                                           decoration-warning="payment_state in ('partial', 'in_payment')"
+                                           decoration-success="payment_state in ('paid', 'reversed')"
+                                           invisible="payment_state in 'invoicing_legacy'"/>
+                                    <button string="Make Invoice" name="make_invoice" type="object" icon="fa-money"
+                                            context="{'maintenance_invoice': 1}"
+                                            invisible="invoice_id != False or parent.contract_status in ['cancelled', 'expired', 'terminated']"/>
+                                    <button string="View Invoice" name="view_invoice" type="object"
+                                            style="background-color:rgba(0, 160, 74, 0.5);color: #333;"
+                                            invisible="invoice_id == False"/>
+                                </list>
+                            </field>
+
+                            <group class="oe_subtotal_footer oe_right">
+                                <field name="amount_total" decoration-bf="1"/>
+                                <field name="balance"/>
+                                <field name="paid"/>
+
+                            </group>
+                        </page>
+                        <page name="lg_requirements" string="LG Requirements" invisible="lg_required != True">
+                            <group>
+                                <group>
+                                    <field name="lg_number"/>
+                                    <field name="bank_name"/>
+                                    <field name="lg_amount"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page name="parking_fees" string="Parking"
+                              invisible="separate_parking_price != True">
+                            <field name="parking_fees_contract_ids">
+                                <list default_order="invoice_id,date" string="Parking" editable="bottom">
+                                    <field name="date"/>
+                                    <field name="name"/>
+                                    <field name="amount"/>
+                                    <field name="amount_residual"/>
+                                    <field name="invoice_id"/>
+                                    <field name="invoice_state" widget="badge" optional="show"
+                                           decoration-success="invoice_state == 'posted'"
+                                           decoration-info="invoice_state == 'draft'"/>
+                                    <field name="payment_state" widget="badge"
+                                           decoration-danger="payment_state == 'not_paid'"
+                                           decoration-warning="payment_state in ('partial', 'in_payment')"
+                                           decoration-success="payment_state in ('paid', 'reversed')"
+                                           invisible="payment_state in 'invoicing_legacy'"/>
+                                    <button string="Make Invoice" name="make_invoice" type="object" icon="fa-money"
+                                            context="{'parking_invoice': 1}"
+                                            invisible="invoice_id != False or parent.contract_status in ['cancelled', 'expired', 'terminated']"/>
+                                    <button string="View Invoice" name="view_invoice" type="object"
+                                            style="background-color:rgba(0, 160, 74, 0.5);color: #333;"
+                                            invisible="invoice_id == False"/>
+                                </list>
+                            </field>
+                        </page>
+
+                        <page name="capex_scope" string="Capex Scope" invisible="capex != True">
+                            <field name="capex_line_ids">
+                                <list string="Capex" editable="bottom">
+                                    <field name="capex_cost"/>
+                                    <field name="quantity"/>
+                                    <field name="price"/>
+                                </list>
+                            </field>
+
+                        </page>
+                        <page name="parking_slots" string="Parking Slots" invisible="slots != 'specific slots'">
+                            <group>
+                                <field name="parking_lines_ids"
+                                       domain="[('unit_type','=','parking'),('unit_status', '=', 'available'), ('unit_purpose', '=', 'to_lease')]"
+                                       widget="many2many_tags" string='Slots'/>
+
+
+                            </group>
+
+                        </page>
+                        <page name="charging_parking_slots" string="Charging Parking Slots"
+                              invisible="charging_slots != 'specific slots'">
+                            <group>
+                                <field name="charging_parking_lines_ids"
+                                       domain="[('unit_type','=','parking'),('unit_status', '=', 'available'), ('unit_purpose', '=', 'to_lease')]"
+                                       widget="many2many_tags" string='Charging Slots'/>
+
+
+                            </group>
+
+                        </page>
+
+                        <page name="conditions" string="Conditions">
+                            <group>
+                                <group>
+                                    <field name="handover_conditions"/>
+                                    <field name="handover_terms"/>
+
+                                </group>
+                                <group>
+                                    <field name="refund_policy"/>
+                                    <field name="cancellation_policy"/>
+                                </group>
+
+
+                            </group>
+                        </page>
+
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+
+</odoo>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="res_partner_form_view_inherit_reconciliation" model="ir.ui.view">
+            <field name="name">res.partner.form.view.inherit.reconciliation</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group//group" position="inside">
+                    <field name="reconciliation_percentage"/>
+                </xpath>
+                <xpath expr="//page[@name='internal_notes']" position="before">
+                    <page name="reconciliation_percentage" string="Reconciliation Percentage">
+                        <field name="reconciliation_line_ids">
+                            <list editable="bottom">
+                                <field name="building_id"/>
+                                <field name="reconciliation_percentage"/>
+                            </list>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

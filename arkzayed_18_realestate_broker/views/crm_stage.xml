@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="crm_stage_inherit_form" model="ir.ui.view">
+            <field name="name">crm_stage_inherit_form</field>
+            <field name="model">crm.stage</field>
+            <field name="inherit_id" ref="crm.crm_stage_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='fold']" position="before">
+                    <field name="is_new"/>
+                    <field name="is_eoi"/>
+                    <field name="is_reserved"/>
+                    <field name="is_contract"/>
+                    <field name="is_collected"/>
+                    <field name="is_confirmed_contract"/>
+                    <field name="is_cancel"/>
+                    <field name="is_request_to_cancel"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

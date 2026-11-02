@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_collections_period_wizard_form" model="ir.ui.view">
+        <field name="name">arkzayed.collections.period.wizard.form</field>
+        <field name="model">arkzayed.collections.period.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Monthly Report Collections">
+                <p class="text-muted">
+                    Collections actually received within the chosen period, and the status of every
+                    installment due in that period (fully collected, partially collected with the amount
+                    still owed, or not collected at all). Leave the filters empty to include everything.
+                </p>
+                <group>
+                    <group>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                    </group>
+                    <group>
+                        <field name="project_id" options="{'no_create': True}"/>
+                        <field name="building_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                        <field name="customer_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_print" type="object" string="Print Report" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_collections_period_wizard" model="ir.actions.act_window">
+        <field name="name">Monthly Report Collections</field>
+        <field name="res_model">arkzayed.collections.period.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

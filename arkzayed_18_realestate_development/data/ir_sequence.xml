@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="lease_proposal_ref_sequence" model="ir.sequence">
+            <field name="name">Proposal Reference</field>
+            <field name="code">lease.proposal</field>
+            <field name="prefix">LP</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="lease_reservation_ref_sequence" model="ir.sequence">
+            <field name="name">Reservation Reference</field>
+            <field name="code">lease.reservation</field>
+            <field name="prefix">RES</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="sale_proposal_ref_sequence" model="ir.sequence">
+            <field name="name">Proposal Reference</field>
+            <field name="code">sale.proposal</field>
+            <field name="prefix">CONT</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="sale_reservation_ref_sequence" model="ir.sequence">
+            <field name="name">Sale Reservation Reference</field>
+            <field name="code">sale.reservation</field>
+            <field name="prefix">RES</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="broker_claim_ref_sequence" model="ir.sequence">
+            <field name="name">Broker Claim Reference</field>
+            <field name="code">broker.claim</field>
+            <field name="prefix">BCL</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="broker_contract_ref_sequence" model="ir.sequence">
+            <field name="name">Broker Contract Reference</field>
+            <field name="code">broker.contract</field>
+            <field name="prefix">BC</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="journal_entries_ref_sequence" model="ir.sequence">
+            <field name="name">Journal Entries</field>
+            <field name="code">entry.sequence</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="installment_penalty_ref_sequence" model="ir.sequence">
+            <field name="name">Installment Penalty Reference</field>
+            <field name="code">installment.penalty</field>
+            <field name="prefix">PEN/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="broker_visit_ref_sequence" model="ir.sequence">
+            <field name="name">Broker Visit Reference</field>
+            <field name="code">broker.visit</field>
+            <field name="prefix">BV</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="eoi_related_payment_sequence" model="ir.sequence">
+            <field name="name">Eoi Related Payment Sequence</field>
+            <field name="code">eoi.account.payment</field>
+            <field name="prefix">EOI/%(year)s/</field>
+            <field name="padding">5</field>
+        </record>
+        <record id="reservation_related_payment_sequence" model="ir.sequence">
+            <field name="name">Reservation Related Payment Sequence</field>
+            <field name="code">reservation.account.payment</field>
+            <field name="prefix">RES/%(year)s/</field>
+            <field name="padding">5</field>
+        </record>
+        <record id="contract_related_payment_sequence" model="ir.sequence">
+            <field name="name">Contract Related Payment Sequence</field>
+            <field name="code">contract.account.payment</field>
+            <field name="prefix">CON/%(year)s/</field>
+            <field name="padding">5</field>
+        </record>
+        <record id="sale_request_ref_sequence" model="ir.sequence">
+            <field name="name">Sale Request Reference</field>
+            <field name="code">sale.request</field>
+            <field name="prefix">SR/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

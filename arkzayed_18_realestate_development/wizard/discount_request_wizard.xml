@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="discount_request_wizard_view_form" model="ir.ui.view">
+            <field name="name">discount.request.wizard.form</field>
+            <field name="model">discount.request.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Request Discount">
+                    <sheet>
+                        <group>
+                            <field name="unit_id"/>
+                        </group>
+                        <group>
+                            <field name="total_price_unit"/>
+                            <field name="installment_years"/>
+                            <field name="down_payment" widget="percentage"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="action_confirm"
+                                string="Confirm"
+                                type="object"
+                                class="oe_highlight"/>
+                        <button special="cancel" string="Cancel" class="oe_link"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_discount_request_wizard" model="ir.actions.act_window">
+            <field name="name">Request Discount</field>
+            <field name="res_model">discount.request.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>
+

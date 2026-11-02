@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="cheque_merge_wizard_form_view" model="ir.ui.view">
+        <field name="name">cheque.merge.wizard.form</field>
+        <field name="model">cheque.merge.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Merge Cheques">
+                <group>
+                    <group string="Cheque Details">
+                        <field name="name"/>
+                        <field name="cheque_no"/>
+                        <field name="amount"/>
+                        <field name="cheque_date"/>
+                        <field name="cheque_receive_date"/>
+                    </group>
+                    <group string="Partner &amp; Bank">
+                        <field name="payer" options="{'no_create': True}"/>
+                        <field name="bank_id"/>
+                        <field name="journal_id"/>
+                        <field name="debit_account"/>
+                    </group>
+                </group>
+                <group>
+                    <group string="Source Information">
+                        <field name="source_type"/>
+                        <field name="unit_id" options="{'no_create': True}"/>
+                        <field name="sale_proposal_id" options="{'no_create': True}"/>
+                    </group>
+                </group>
+                <group string="Description">
+                    <field name="description" nolabel="1" colspan="2"/>
+                </group>
+                <group string="Cheques to Merge">
+                    <field name="cheque_ids" nolabel="1" colspan="2" readonly="1">
+                        <list>
+                            <field name="seq_no"/>
+                            <field name="cheque_no"/>
+                            <field name="payer"/>
+                            <field name="amount"/>
+                            <field name="cheque_date"/>
+                            <field name="source_type"/>
+                        </list>
+                    </field>
+                </group>
+                <footer>
+                    <button name="action_merge_cheques" type="object" string="Merge Cheques" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_server_merge_cheques" model="ir.actions.server">
+        <field name="name">Merge Cheques</field>
+        <field name="model_id" ref="arkzayed_18_gt_cheque_management.model_cheque_manage"/>
+        <field name="binding_model_id" ref="arkzayed_18_gt_cheque_management.model_cheque_manage"/>
+        <field name="binding_type">action</field>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+action = {
+    'name': 'Merge Cheques',
+    'type': 'ir.actions.act_window',
+    'res_model': 'cheque.merge.wizard',
+    'view_mode': 'form',
+    'view_id': env.ref('arkzayed_18_realestate_development.cheque_merge_wizard_form_view').id,
+    'target': 'new',
+    'context': {
+        'active_ids': records.ids,
+        'active_model': 'cheque.manage',
+    }
+}
+        </field>
+    </record>
+
+</odoo>
+

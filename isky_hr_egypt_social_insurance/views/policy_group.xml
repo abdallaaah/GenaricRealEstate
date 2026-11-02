@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="policy_group_from_view_insurance_policy" model="ir.ui.view">
+            <field name="name">policy.group.from.view.insurance.policy.inherit</field>
+            <field name="model">policy.group</field>
+            <field name="inherit_id" ref="isky_hr_egypt_policy.policy_group_from_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group" position="inside">
+                    <field name="insurance_policy_id"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,64 @@
+<odoo>
+    <record id="action_report_unit_documents" model="ir.actions.report">
+        <field name="name">Unit Documents</field>
+        <field name="model">real.estate.unit</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">arkzayed_18_realestate_development.report_unit_documents_document</field>
+        <field name="report_file">arkzayed_18_realestate_development.report_unit_documents_document</field>
+        <field name="binding_model_id" ref="model_real_estate_unit"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="base.paperformat_euro"/>
+    </record>
+
+    <template id="report_unit_documents_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <t t-call="arkzayed_18_realestate_development.unit_plan_styles"/>
+
+                    <t t-set="unit" t-value="o"/>
+                    <t t-set="documents_images" t-value="o._get_unit_documents_images()"/>
+
+                    <t t-foreach="documents_images" t-as="doc_image">
+                        <t t-call="arkzayed_18_realestate_development.unit_documents_page"/>
+                    </t>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="unit_documents_page">
+        <div class="page" style="direction: rtl;">
+            <div class="image-container">
+                <img t-if="doc_image"
+                     t-att-src="'data:image/png;base64,%s' % doc_image.decode('utf-8')"
+                     style="max-width: 100%; max-height: 700px; width: auto; height: auto; object-fit: contain;"/>
+            </div>
+            <div class="footer" style="direction: rtl;">
+                <div class="info-table-container" style="width: 100%; background-color: #f2f2f2;">
+                    <table class="info-table">
+                        <tr>
+                            <td class="gray-cell" style="width:65%; white-space: normal; word-wrap: break-word;">
+                                <div>- قد تم اجراء تعديلات على الرسومات المعمارية وفقا لمقتضيات التصميم النهائي والتنفيذ واشتراطات التراخيص وجهات الاعتماد</div>
+                                <div>- لا تشمل الوحدة المباعة الفرش الداخلي والخارجي والأشجار والمساحات الخضراء الموضحة</div>
+                            </td>
+                            <td class="gray-cell" style="width: 25%;">
+                                <div class="bold-text" style="text-align: center;">موقع الوحدة</div>
+                                <div t-if="has_building">رقم المبنى : <span t-field="unit.building_id.abbreviation"/></div>
+                                <div t-if="has_floor">الدور : <span t-field="unit.floor_id.abbreviation"/></div>
+                                <div>رقم الوحدة : <span t-field="unit.system_code"/></div>
+                            </td>
+                            <td class="gray-cell bold-text" style="width: 10%; text-align: center;">
+                                <div>ملحق :</div>
+                                <div>2</div>
+                                <br/>
+                                <div>صفحة :</div>
+                                <div class="page"/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </template>
+</odoo>

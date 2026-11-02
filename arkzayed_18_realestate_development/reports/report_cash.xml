@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="paperformat_cash_landscape" model="report.paperformat">
+        <field name="name">Cash - A4 Landscape</field>
+        <field name="default" eval="False"/>
+        <field name="format">A4</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">32</field>
+        <field name="margin_bottom">18</field>
+        <field name="margin_left">12</field>
+        <field name="margin_right">12</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">28</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="action_report_cash" model="ir.actions.report">
+        <field name="name">Cash Report (CFO)</field>
+        <field name="model">arkzayed.cash.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">arkzayed_18_realestate_development.report_cash</field>
+        <field name="report_file">arkzayed_18_realestate_development.report_cash</field>
+        <field name="print_report_name">'Cash Report'</field>
+        <field name="paperformat_id" ref="paperformat_cash_landscape"/>
+    </record>
+
+    <template id="report_cash">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page" style="font-size: 10pt; color: #1f2937;">
+
+                    <div style="font-size: 20pt; font-weight: bold; color: #0f2a4a;">Cash Report</div>
+                    <div style="color: #6b7280; margin-bottom: 12px;">
+                        <b>As of <span t-out="as_of"/></b> &#160;|&#160; Prepared by <span t-out="user_name"/>
+                        &#160;|&#160; Operational figures from the system (cash and bank from the ledger, cheques from the cheque register); not financial statements
+                    </div>
+
+                    <table style="width: 100%; border-collapse: separate; border-spacing: 8px 0; margin: 0 -8px 14px -8px;"><tr><td style="width:16.6%; background:#0f2a4a; padding:10px 12px; border-radius:4px;"><div style="font-size:8pt; text-transform:uppercase; color:#fff;">Cash and Bank</div><div style="font-size:13pt; font-weight:bold; color:#fff;" t-out="('{:,.2f} bn'.format(cash_total / 1000000000.0) if cash_total >= 1000000000 else '{:,.1f} M'.format(cash_total / 1000000.0))"/><div style="font-size:8pt; color:#fff;">all cash and bank accounts</div></td><td style="width:16.6%; background:#eef2f7; padding:10px 12px; border-radius:4px;"><div style="font-size:8pt; text-transform:uppercase; color:#6b7280;">Cheques in Hand</div><div style="font-size:13pt; font-weight:bold; color:#1f2937;" t-out="('{:,.2f} bn'.format(in_hand_total / 1000000000.0) if in_hand_total >= 1000000000 else '{:,.1f} M'.format(in_hand_total / 1000000.0))"/><div style="font-size:8pt; color:#6b7280;"><t t-out="in_hand_count"/> cheques received</div></td><td style="width:16.6%; background:#e8f7ee; padding:10px 12px; border-radius:4px;"><div style="font-size:8pt; text-transform:uppercase; color:#6b7280;">Matured Cheques</div><div style="font-size:13pt; font-weight:bold; color:#047857;" t-out="('{:,.2f} bn'.format(matured / 1000000000.0) if matured >= 1000000000 else '{:,.1f} M'.format(matured / 1000000.0))"/><div style="font-size:8pt; color:#6b7280;"><t t-out="matured_count"/> cheques past their date, not yet cashed</div></td><td style="width:16.6%; background:#e3f5f2; padding:10px 12px; border-radius:4px;"><div style="font-size:8pt; text-transform:uppercase; color:#6b7280;">Overdue Installments</div><div style="font-size:13pt; font-weight:bold; color:#0d9488;" t-out="('{:,.2f} bn'.format(inst_overdue / 1000000000.0) if inst_overdue >= 1000000000 else '{:,.1f} M'.format(inst_overdue / 1000000.0))"/><div style="font-size:8pt; color:#6b7280;">not paid, due date passed</div></td><td style="width:16.6%; background:#fdecec; padding:10px 12px; border-radius:4px;"><div style="font-size:8pt; text-transform:uppercase; color:#6b7280;">Supplier Bills Open</div><div style="font-size:13pt; font-weight:bold; color:#b91c1c;" t-out="('{:,.2f} bn'.format(pay_total / 1000000000.0) if pay_total >= 1000000000 else '{:,.1f} M'.format(pay_total / 1000000.0))"/><div style="font-size:8pt; color:#6b7280;"><t t-out="pay_count"/> bills, overdue: <t t-out="'{:,.0f}'.format(pay_overdue)"/></div></td><td style="width:16.6%; background:#fef6dc; padding:10px 12px; border-radius:4px;"><div style="font-size:8pt; text-transform:uppercase; color:#6b7280;">Cheques Next 12 Months</div><div style="font-size:13pt; font-weight:bold; color:#b45309;" t-out="('{:,.2f} bn'.format(outlook_cheques / 1000000000.0) if outlook_cheques >= 1000000000 else '{:,.1f} M'.format(outlook_cheques / 1000000.0))"/><div style="font-size:8pt; color:#6b7280;">maturing after today, in hand</div></td></tr></table>
+
+                    <table style="width: 100%; border-collapse: separate; border-spacing: 12px 0; margin: 0 -12px 14px -12px;">
+                        <tr>
+                            <td style="width: 50%; vertical-align: top;">
+                                <div style="font-size: 12pt; font-weight: bold; color: #0f2a4a; margin-bottom: 6px;">Cash and Bank Today</div>
+                                <table style="width: 100%; border-collapse: collapse; font-size: 9pt;">
+                                    <thead><tr style="background: #0f2a4a; color: #fff;"><th style="padding: 5px 8px; text-align: left;">Code</th><th style="padding: 5px 8px; text-align: left;">Account</th> <th style="padding: 5px 8px; text-align: right;">Balance</th></tr></thead>
+                                    <tbody>
+                                        <t t-foreach="cash_rows" t-as="a"><tr t-att-style="'background: #f6f8fb;' if a_index % 2 else ''"><td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: left;"><t t-out="a['code']"/></td><td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: left;"><t t-out="a['name']"/></td> <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;"><span t-att-style="'color: #b91c1c; font-weight: bold;' if a['balance'] &lt; 0 else ''"><t t-out="'{:,.0f}'.format(a['balance'])"/></span></td></tr></t>
+                                        <tr style="font-weight: bold; background: #eef2f7;"><td style="padding: 6px 8px;" colspan="2">Total</td><td style="padding: 6px 8px; text-align: right;"><t t-out="'{:,.0f}'.format(cash_total)"/></td></tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td style="width: 50%; vertical-align: top;">
+                                <div style="font-size: 12pt; font-weight: bold; color: #0f2a4a; margin-bottom: 6px;">Cash In and Out by Month</div>
+                                <table style="width: 100%; border-collapse: collapse; font-size: 9pt;">
+                                    <thead><tr style="background: #0f2a4a; color: #fff;"><th style="padding: 5px 8px; text-align: left;">Month</th> <th style="padding: 5px 8px; text-align: right;">Opening</th> <th style="padding: 5px 8px; text-align: right;">Cash In</th> <th style="padding: 5px 8px; text-align: right;">Cash Out</th> <th style="padding: 5px 8px; text-align: right;">Net</th> <th style="padding: 5px 8px; text-align: right;">Closing</th></tr></thead>
+                                    <tbody>
+                                        <t t-foreach="flow_rows" t-as="f"><tr t-att-style="'background: #f6f8fb;' if f_index % 2 else ''"><td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: left;"><t t-out="f['label']"/></td> <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right; color: #6b7280;"><t t-out="'{:,.0f}'.format(f['opening'])"/></td> <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;"><t t-out="'{:,.0f}'.format(f['in'])"/></td> <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;"><t t-out="'{:,.0f}'.format(f['out'])"/></td> <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;"><span t-att-style="'color: #b91c1c; font-weight: bold;' if f['net'] &lt; 0 else ''"><t t-out="'{:,.0f}'.format(f['net'])"/></span></td> <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right; font-weight: bold;"><t t-out="'{:,.0f}'.format(f['closing'])"/></td></tr></t>
+                                    </tbody>
+                                </table>
+                                <div style="font-size: 8pt; color: #6b7280; margin-top: 3px;">Opening and Closing are the actual ledger balance at the start/end of the month (not a running total of In/Out), so they cannot be off even if a month's In/Out is incomplete. Cash In/Out excludes transfers between cash and bank accounts. Months before the system go-live have little or no activity.</div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div style="page-break-inside: avoid; margin-bottom: 14px;">
+                        <div style="font-size: 12pt; font-weight: bold; color: #0f2a4a; margin-bottom: 6px;">Cheques by Status (incoming)</div>
+                        <table style="width: 100%; border-collapse: collapse; font-size: 9pt;">
+                            <thead><tr style="background: #0f2a4a; color: #fff;"><th style="padding: 5px 8px; text-align: left;">Status</th> <th style="padding: 5px 8px; text-align: right;">Cheques</th> <th style="padding: 5px 8px; text-align: right;">Amount</th></tr></thead>
+                            <tbody>
+                                <t t-foreach="status_rows" t-as="s"><tr t-att-style="'background: #f6f8fb;' if s_index % 2 else ''"><td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: left;"><span t-att-style="'display:inline-block; width:9px; height:9px; margin-right:6px; background:{};'.format(s['color'])"/><t t-out="s['label']"/></td> <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;"><t t-out="s['count']"/></td> <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;font-weight:bold;"><t t-out="'{:,.0f}'.format(s['amount'])"/></td></tr></t>
+                            </tbody>
+                        </table>
+                        <div style="font-size: 8pt; color: #6b7280; margin-top: 3px;">
+                            Read from the cheque register. Cheques in hand: <t t-out="'{:,.0f}'.format(matured)"/> already matured,
+                            <t t-out="'{:,.0f}'.format(outlook_cheques)"/> maturing in the next <t t-out="horizon"/> months,
+                            <t t-out="'{:,.0f}'.format(later)"/> later<t t-if="far">, and <t t-out="'{:,.0f}'.format(far)"/> with a date beyond 2060 (check the dates)</t>.
+                        </div>
+                    </div>
+
+                    <div style="page-break-before: always;"/>
+                    <div style="font-size: 12pt; font-weight: bold; color: #0f2a4a; margin-bottom: 6px;">Next <t t-out="horizon"/> Months: Cheques, Installments and Supplier Bills</div>
+                    <table style="width: 100%; border-collapse: collapse; font-size: 9pt; margin-bottom: 4px;">
+                        <thead><tr style="background: #0f2a4a; color: #fff;"><th style="padding: 5px 8px; text-align: left;">Month</th> <th style="padding: 5px 8px; text-align: right;">Cheques Maturing</th> <th style="padding: 5px 8px; text-align: right;">Installments Due</th> <th style="padding: 5px 8px; text-align: right;">Coverage</th> <th style="padding: 5px 8px; text-align: right;">Supplier Bills Due</th> <th style="padding: 5px 8px; text-align: right;">Cheques - Bills</th> <th style="padding: 5px 8px; text-align: right;">Running Balance</th></tr></thead>
+                        <tbody>
+                            <tr style="background: #eef2f7; font-style: italic;"><td style="padding: 4px 8px;">Opening (cash + matured cheques - overdue bills)</td><td/><td/><td/><td/><td/><td style="padding: 4px 8px; text-align: right; font-weight: bold;"><t t-out="'{:,.0f}'.format(opening)"/></td></tr>
+                            <t t-foreach="outlook" t-as="ol"><tr t-att-style="'background: #f6f8fb;' if ol_index % 2 else ''"><td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: left;"><t t-out="ol['label']"/></td> <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;"><t t-out="'{:,.0f}'.format(ol['cheques'])"/></td> <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;"><t t-out="'{:,.0f}'.format(ol['inst'])"/></td> <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;"><t t-if="ol['coverage'] is None">-</t><t t-else=""><t t-out="'{:,.0f}%'.format(ol['coverage'])"/></t></td> <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;"><t t-out="'{:,.0f}'.format(ol['bills'])"/></td> <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;"><span t-att-style="'color: #b91c1c; font-weight: bold;' if ol['net'] &lt; 0 else ''"><t t-out="'{:,.0f}'.format(ol['net'])"/></span></td> <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;"><span t-att-style="'color: #b91c1c; font-weight: bold;' if ol['cumulative'] &lt; 0 else ''"><t t-out="'{:,.0f}'.format(ol['cumulative'])"/></span></td></tr></t>
+                        </tbody>
+                    </table>
+                    <div style="font-size: 8pt; color: #6b7280; margin-bottom: 14px;">
+                        Amounts are in EGP; cards in millions (M). Cheques = received cheques by their cheque date<t t-if="include_draft"> (Draft cheques included)</t><t t-else=""> (Draft cheques excluded)</t>.
+                        Installments = unpaid installments by due date (a cheque may already cover some of them). Coverage = cheques / installments.
+                        Bills = open supplier bills by due date. Salaries, contractors not yet billed, taxes and financing are NOT in the system, so the net and running balance show only the cheque and bill picture.
+                    </div>
+
+                    <table style="width: 100%; border-collapse: separate; border-spacing: 12px 0; margin: 0 -12px 14px -12px; page-break-inside: avoid;">
+                        <tr>
+                            <td style="width: 55%; vertical-align: top;">
+                                <div style="font-size: 12pt; font-weight: bold; color: #0f2a4a; margin-bottom: 6px;">Supplier Bills: Top Vendors</div>
+                                <t t-if="vendor_rows"><table style="width: 100%; border-collapse: collapse; font-size: 9pt;">
+                                    <thead><tr style="background: #0f2a4a; color: #fff;"><th style="padding: 5px 8px; text-align: left;">Vendor</th> <th style="padding: 5px 8px; text-align: right;">Bills</th> <th style="padding: 5px 8px; text-align: right;">Open</th> <th style="padding: 5px 8px; text-align: right;">Overdue</th></tr></thead>
+                                    <tbody>
+                                        <t t-foreach="vendor_rows" t-as="v"><tr t-att-style="'background: #f6f8fb;' if v_index % 2 else ''"><td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: left;"><t t-out="v['name']"/></td> <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;"><t t-out="v['count']"/></td> <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;"><t t-out="'{:,.0f}'.format(v['total'])"/></td> <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;color:#b91c1c;"><t t-out="'{:,.0f}'.format(v['overdue'])"/></td></tr></t>
+                                    </tbody>
+                                </table></t>
+                                <div t-else="" style="background: #e8f7ee; color: #047857; border-radius: 4px; padding: 8px 12px;">No open supplier bills.</div>
+                            </td>
+                            <td style="width: 45%; vertical-align: top;">
+                                <div style="font-size: 12pt; font-weight: bold; color: #0f2a4a; margin-bottom: 6px;">Reading Notes</div>
+                                <ul style="font-size: 9pt; padding-left: 16px; margin: 0;">
+                                    <li>Cheques come from the cheque register. If the accounting entries for received cheques have not been posted yet, they will not appear in the ledger balances above.</li>
+                                    <li>"To Hermes" shows cheques moved to the Hermes cycle; it is empty until that cycle is used.</li>
+                                    <li>Overdue installments are shown at full value, without any assumption on when they will be collected.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

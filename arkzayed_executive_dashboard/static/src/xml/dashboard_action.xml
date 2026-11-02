@@ -1,0 +1,635 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+
+    <t t-name="arkzayed_executive_dashboard.ExecutiveDashboard">
+        <div class="azed-dashboard o_action">
+            <div class="azed-header">
+                <div>
+                    <h2>Executive Dashboard</h2>
+                    <span class="azed-asof" t-if="state.data">As of <t t-esc="state.data.as_of"/></span>
+                </div>
+                <div class="azed-filter">
+                    <button type="button" class="azed-period-btn azed-print-btn" t-on-click="() => window.print()">🖨 Print / PDF</button>
+                </div>
+            </div>
+
+            <div class="o_content azed-scroll">
+            <div t-if="state.loading" class="azed-loading">Loading…</div>
+
+            <div t-if="!state.loading and state.data" class="azed-body">
+                <div t-if="state.data.data_quality.ghost_sold_count or state.data.data_quality.no_price_count"
+                     class="azed-dq-banner">
+                    <span class="azed-dq-icon">⚠</span>
+                    <span t-if="state.data.data_quality.ghost_sold_count" class="azed-dq-item">
+                        <t t-esc="state.data.data_quality.ghost_sold_count"/> unit(s) marked "Sold" with no active contract
+                        (<t t-esc="state.data.data_quality.ghost_sold_codes.join(', ')"/>)
+                    </span>
+                    <span t-if="state.data.data_quality.ghost_sold_count and state.data.data_quality.no_price_count" class="azed-dq-sep">·</span>
+                    <span t-if="state.data.data_quality.no_price_count" class="azed-dq-item">
+                        <t t-esc="state.data.data_quality.no_price_count"/> of <t t-esc="state.data.data_quality.open_count"/> open units have no price set
+                    </span>
+                </div>
+
+                <h3 class="azed-section-title">Sales &amp; Unit Inventory</h3>
+
+                <div class="azed-kpi-row">
+                    <div class="azed-kpi azed-kpi-hero azed-clickable" t-on-click="() => this.openDrill(state.data.kpi_drill.sold)">
+                        <span class="azed-kpi-label">Sell-Through</span>
+                        <span class="azed-kpi-value"><t t-esc="fmtPct(state.data.kpi.sell_through_pct)"/></span>
+                        <span class="azed-kpi-sub">
+                            <t t-esc="state.data.kpi.sold_count"/> of <t t-esc="state.data.kpi.total_units"/> units sold
+                        </span>
+                    </div>
+                    <div class="azed-kpi azed-clickable" t-on-click="() => this.openDrill(state.data.kpi_drill.sold)">
+                        <span class="azed-kpi-label">Total Sold Value</span>
+                        <span class="azed-kpi-value"><t t-esc="fmtMoney(state.data.kpi.total_sold_value)"/></span>
+                        <span class="azed-kpi-sub">EGP, <t t-esc="state.data.kpi.contracts_count"/> contracts</span>
+                    </div>
+                    <div class="azed-kpi azed-clickable" t-on-click="() => this.openDrill(state.data.kpi_drill.sold)">
+                        <span class="azed-kpi-label">Avg Price / m²</span>
+                        <span class="azed-kpi-value"><t t-esc="fmtMoney(state.data.kpi.avg_price_per_sqm)"/></span>
+                        <span class="azed-kpi-sub">EGP, sold units</span>
+                    </div>
+                    <div class="azed-kpi azed-clickable" t-on-click="() => this.openDrill(state.data.kpi_drill.sold)">
+                        <span class="azed-kpi-label">Sold Area</span>
+                        <span class="azed-kpi-value"><t t-esc="fmtMoney(state.data.kpi.total_sold_area)"/></span>
+                        <span class="azed-kpi-sub">m²</span>
+                    </div>
+                </div>
+
+                <div class="azed-kpi-row">
+                    <div class="azed-kpi azed-clickable" t-on-click="() => this.openDrill(state.data.kpi_drill.project)">
+                        <span class="azed-kpi-label">Total Project Area</span>
+                        <span class="azed-kpi-value"><t t-esc="fmtMoney(state.data.kpi.total_project_area)"/></span>
+                        <span class="azed-kpi-sub">m², plot area</span>
+                    </div>
+                    <div class="azed-kpi azed-clickable" t-on-click="() => this.openDrill(state.data.kpi_drill.units)">
+                        <span class="azed-kpi-label">Total Inventory Area</span>
+                        <span class="azed-kpi-value"><t t-esc="fmtMoney(state.data.kpi.total_inventory_area)"/></span>
+                        <span class="azed-kpi-sub">m², units entered so far</span>
+                    </div>
+                    <div class="azed-kpi azed-clickable" t-on-click="() => this.openDrill(state.data.kpi.month.drill)">
+                        <span class="azed-kpi-label">Sales This Month</span>
+                        <span class="azed-kpi-value"><t t-esc="fmtMoney(state.data.kpi.month.value)"/></span>
+                        <span class="azed-kpi-sub">
+                            <t t-esc="state.data.kpi.month.count"/> contracts
+                            <t t-if="state.data.kpi.month.delta_pct !== null">
+                                ·
+                                <b t-att-class="state.data.kpi.month.delta_pct >= 0 ? 'azed-pos' : 'azed-neg'">
+                                    <t t-esc="(state.data.kpi.month.delta_pct >= 0 ? '▲ +' : '▼ ') + Math.abs(state.data.kpi.month.delta_pct).toFixed(1)"/>%
+                                </b> vs last month
+                            </t>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="azed-chart-card azed-area-breakdown-card">
+                    <div class="azed-table-header">
+                        <h4>Inventory Area Breakdown</h4>
+                        <label class="azed-toggle">
+                            <input type="checkbox" t-att-checked="state.areaMode === 'villas_landed'"
+                                   t-on-change="onAreaModeChange"/>
+                            <span>Villas: Landed Area instead of Built Area</span>
+                        </label>
+                    </div>
+                    <div class="azed-tree">
+                        <div class="azed-tree-root">
+                            <div class="azed-tree-box azed-tree-root-box azed-clickable" t-on-click="() => this.openDrill(state.data.kpi_drill.units)">
+                                <div class="azed-tree-label">Total Inventory Area</div>
+                                <div class="azed-tree-value"><t t-esc="fmtMoney(state.data.kpi.total_inventory_area)"/> m²</div>
+                            </div>
+                        </div>
+                        <div class="azed-tree-children">
+                            <t t-foreach="state.data.area_tree" t-as="node" t-key="node.label">
+                                <div t-att-class="node.children ? 'azed-tree-child azed-tree-child-wide' : 'azed-tree-child'">
+                                    <div class="azed-tree-box azed-clickable" t-attf-style="border-top-color: {{node.color}};" t-on-click="() => this.openDrill(node.drill)">
+                                        <div class="azed-tree-label"><t t-esc="node.label"/></div>
+                                        <div class="azed-tree-value"><t t-esc="fmtMoney(node.area)"/> m²</div>
+                                        <div class="azed-tree-pct"><t t-esc="node.pct.toFixed(1)"/>% · <t t-esc="node.count"/> units</div>
+                                    </div>
+                                    <div class="azed-tree-subtree" t-if="node.children">
+                                        <div class="azed-tree-subconnector"/>
+                                        <div class="azed-tree-subchildren">
+                                            <t t-foreach="node.children" t-as="sub" t-key="sub.label">
+                                                <div class="azed-tree-subchild">
+                                                    <div class="azed-tree-subbox azed-clickable" t-attf-style="border-top-color: {{sub.color}};" t-on-click="() => this.openDrill(sub.drill)">
+                                                        <div class="azed-tree-sublabel"><t t-esc="sub.label"/></div>
+                                                        <div class="azed-tree-subvalue"><t t-esc="fmtMoney(sub.area)"/> m²</div>
+                                                        <div class="azed-tree-subpct"><t t-esc="sub.pct.toFixed(1)"/>% · <t t-esc="sub.count"/> units</div>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                    <div class="azed-breakdown-footnote">
+                        "Sold" follows contracts that are not draft, cancelled or terminated. "Available" combines available + available for sale.
+                        Open Inventory Value (listed price, available + reserved): <strong><t t-esc="fmtMoney(state.data.kpi.open_value)"/> EGP</strong>
+                    </div>
+                </div>
+
+                <div class="azed-insights-box" t-if="state.data.insights.best_type_by_value">
+                    <strong>Executive Insights</strong>
+                    <ul>
+                        <li>
+                            Best-selling type by value: <strong><t t-esc="state.data.insights.best_type_by_value.type"/></strong>
+                            (<t t-esc="fmtMoney(state.data.insights.best_type_by_value.value)"/> EGP)
+                        </li>
+                        <li t-if="state.data.insights.best_type_by_count">
+                            Best-selling type by count: <strong><t t-esc="state.data.insights.best_type_by_count.type"/></strong>
+                            (<t t-esc="state.data.insights.best_type_by_count.count"/> units)
+                        </li>
+                        <li t-if="state.data.insights.best_type_by_avg_per_sqm">
+                            Most premium type by price/m²: <strong><t t-esc="state.data.insights.best_type_by_avg_per_sqm.type"/></strong>
+                            (<t t-esc="fmtMoney(state.data.insights.best_type_by_avg_per_sqm.avg_per_sqm)"/> EGP/m²)
+                        </li>
+                        <li t-if="state.data.insights.yoy_growth_pct !== null">
+                            <t t-esc="state.data.insights.yoy_curr_year.year"/> vs <t t-esc="state.data.insights.yoy_prev_year.year"/><t t-if="state.data.insights.yoy_ytd"> (same period, year to date)</t>:
+                            <strong t-att-class="state.data.insights.yoy_growth_pct >= 0 ? 'azed-pos' : 'azed-neg'">
+                                <t t-esc="(state.data.insights.yoy_growth_pct >= 0 ? '+' : '') + state.data.insights.yoy_growth_pct.toFixed(1)"/>%
+                            </strong> year-over-year
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="azed-chart-row">
+                    <div class="azed-chart-card azed-chart-small">
+                        <h4>Unit Status</h4>
+                        <div class="azed-canvas-wrap azed-canvas-small">
+                            <canvas t-ref="donutCanvas"/>
+                        </div>
+                    </div>
+                    <div class="azed-chart-card azed-chart-wide">
+                        <h4>Monthly Sales Value (last 12 months)</h4>
+                        <div class="azed-canvas-wrap">
+                            <canvas t-ref="trendCanvas"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="azed-table-row">
+                    <div class="azed-chart-card azed-table-card">
+                        <div class="azed-card-header">
+                            <h4>By Unit Type <span t-if="state.byTypeLoading" class="azed-inline-loading">updating…</span></h4>
+                            <div class="azed-period-filter">
+                                <button type="button"
+                                        t-att-class="state.byTypePreset === 'all_time' ? 'azed-period-btn azed-period-active' : 'azed-period-btn'"
+                                        t-on-click="() => this.onByTypePresetChange('all_time')">All Time</button>
+                                <button type="button"
+                                        t-att-class="state.byTypePreset === 'this_year' ? 'azed-period-btn azed-period-active' : 'azed-period-btn'"
+                                        t-on-click="() => this.onByTypePresetChange('this_year')">This Year</button>
+                                <input type="date" t-att-value="state.byTypeDateFrom"
+                                       t-on-change="(ev) => this.onByTypeCustomDateChange('from', ev)"/>
+                                <span class="azed-period-arrow">→</span>
+                                <input type="date" t-att-value="state.byTypeDateTo"
+                                       t-on-change="(ev) => this.onByTypeCustomDateChange('to', ev)"/>
+                            </div>
+                        </div>
+                        <table class="azed-table" t-if="state.byTypeData">
+                            <thead><tr><th>Type</th><th class="azed-num">Count</th><th class="azed-num">Value</th><th class="azed-num">Avg / m²</th></tr></thead>
+                            <tbody>
+                                <t t-foreach="state.byTypeData.by_type" t-as="row" t-key="row.type">
+                                    <tr class="azed-type-row azed-clickable" t-on-click="() => this.openDrill(row.drill)">
+                                        <td>
+                                            <span class="azed-caret" t-if="row.children.length" t-on-click.stop="() => this.toggleType(row.type)"><t t-esc="state.collapsedTypes[row.type] ? '▸' : '▾'"/></span>
+                                            <t t-esc="row.type"/>
+                                        </td>
+                                        <td class="azed-num"><t t-esc="row.count"/></td>
+                                        <td class="azed-num"><t t-esc="fmtMoney(row.value)"/></td>
+                                        <td class="azed-num"><t t-esc="fmtMoney(row.avg_per_sqm)"/></td>
+                                    </tr>
+                                    <t t-if="!state.collapsedTypes[row.type]">
+                                        <tr t-foreach="row.children" t-as="sub" t-key="sub.type" class="azed-subrow azed-clickable" t-on-click="() => this.openDrill(sub.drill)">
+                                            <td>↳ <t t-esc="sub.type"/></td>
+                                            <td class="azed-num"><t t-esc="sub.count"/></td>
+                                            <td class="azed-num"><t t-esc="fmtMoney(sub.value)"/></td>
+                                            <td class="azed-num"><t t-esc="fmtMoney(sub.avg_per_sqm)"/></td>
+                                        </tr>
+                                    </t>
+                                </t>
+                                <tr class="azed-total-row azed-clickable" t-if="state.byTypeData.totals" t-on-click="() => this.openDrill(state.byTypeData.totals.drill)">
+                                    <td>Total</td>
+                                    <td class="azed-num"><t t-esc="state.byTypeData.totals.count"/></td>
+                                    <td class="azed-num"><t t-esc="fmtMoney(state.byTypeData.totals.value)"/></td>
+                                    <td class="azed-num"><t t-esc="fmtMoney(state.byTypeData.totals.avg_per_sqm)"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="azed-chart-card azed-table-card">
+                        <h4>Top 5 Clients</h4>
+                        <table class="azed-table">
+                            <thead><tr><th>Client</th><th class="azed-num">Value</th></tr></thead>
+                            <tbody>
+                                <t t-foreach="state.data.top_clients" t-as="row" t-key="row.client">
+                                    <tr class="azed-clickable" t-on-click="() => this.openDrill(row.drill)">
+                                        <td><t t-esc="row.client"/></td>
+                                        <td class="azed-num"><t t-esc="fmtMoney(row.value)"/></td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="azed-chart-card azed-table-card">
+                        <h4>Sales by Source</h4>
+                        <table class="azed-table">
+                            <thead><tr><th>Source</th><th class="azed-num">Count</th><th class="azed-num">Value</th><th class="azed-num">%</th></tr></thead>
+                            <tbody>
+                                <t t-foreach="state.data.by_channel" t-as="row" t-key="row.channel">
+                                    <tr class="azed-clickable" t-on-click="() => this.openDrill(row.drill)">
+                                        <td><t t-esc="row.channel"/></td>
+                                        <td class="azed-num"><t t-esc="row.count"/></td>
+                                        <td class="azed-num"><t t-esc="fmtMoney(row.value)"/></td>
+                                        <td class="azed-num"><t t-esc="fmtPct(row.pct)"/></td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="azed-table-row">
+                    <div class="azed-chart-card azed-table-card">
+                        <h4>Top 5 Brokers</h4>
+                        <table class="azed-table">
+                            <thead><tr><th>Broker</th><th class="azed-num">Count</th><th class="azed-num">Value</th></tr></thead>
+                            <tbody>
+                                <t t-foreach="state.data.top_brokers" t-as="row" t-key="row.broker">
+                                    <tr class="azed-clickable" t-on-click="() => this.openDrill(row.drill)">
+                                        <td><t t-esc="row.broker"/></td>
+                                        <td class="azed-num"><t t-esc="row.count"/></td>
+                                        <td class="azed-num"><t t-esc="fmtMoney(row.value)"/></td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="azed-chart-card azed-table-card" t-if="state.pipeData">
+                        <h4>Sales Pipeline <span class="azed-hint">before signature</span></h4>
+                        <table class="azed-table">
+                            <thead><tr><th>Stage</th><th class="azed-num">Count</th><th class="azed-num">Value</th></tr></thead>
+                            <tbody>
+                                <t t-foreach="state.pipeData.stages" t-as="row" t-key="row.label">
+                                    <tr class="azed-clickable" t-on-click="() => this.openDrill(row.drill)">
+                                        <td>
+                                            <t t-esc="row.label"/>
+                                            <span t-if="row.counted_as_sold" class="azed-tag" title="Already counted in Total Sold Value">in sold</span>
+                                        </td>
+                                        <td class="azed-num"><t t-esc="row.count"/></td>
+                                        <td class="azed-num"><t t-esc="fmtMoney(row.value)"/></td>
+                                    </tr>
+                                </t>
+                                <tr t-if="!state.pipeData.stages.length"><td colspan="3" class="azed-empty">Nothing in the pipeline</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="azed-chart-card azed-table-card" t-if="state.pipeData">
+                        <div class="azed-table-header">
+                            <h4>Cancelled &amp; Terminated</h4>
+                            <a href="#" class="azed-link" t-on-click.prevent="() => this.openDrill(state.pipeData.cancelled.drill)">
+                                <t t-esc="state.pipeData.cancelled.count"/> · <t t-esc="fmtMoney(state.pipeData.cancelled.value)"/>
+                            </a>
+                        </div>
+                        <table class="azed-table">
+                            <thead><tr><th>Client</th><th>Unit</th><th>Date</th></tr></thead>
+                            <tbody>
+                                <t t-foreach="state.pipeData.cancelled.rows" t-as="row" t-key="row_index">
+                                    <tr class="azed-clickable" t-on-click="() => this.openDrill(row.drill)">
+                                        <td><t t-esc="row.client"/></td>
+                                        <td><t t-esc="row.unit"/></td>
+                                        <td><t t-esc="row.date"/></td>
+                                    </tr>
+                                </t>
+                                <tr t-if="!state.pipeData.cancelled.rows.length"><td colspan="3" class="azed-empty">No cancellations</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="azed-section-header azed-section-spaced" t-if="state.collData">
+                    <h3 class="azed-section-title azed-no-border">
+                        Collections vs Due — <t t-esc="state.collData.period_label"/>
+                        <span t-if="state.collLoading" class="azed-inline-loading">updating…</span>
+                    </h3>
+                    <div class="azed-period-filter">
+                        <button type="button"
+                                t-att-class="state.collPreset === 'this_month' ? 'azed-period-btn azed-period-active' : 'azed-period-btn'"
+                                t-on-click="() => this.onCollPresetChange('this_month')">This Month</button>
+                        <button type="button"
+                                t-att-class="state.collPreset === 'last_month' ? 'azed-period-btn azed-period-active' : 'azed-period-btn'"
+                                t-on-click="() => this.onCollPresetChange('last_month')">Last Month</button>
+                        <button type="button"
+                                t-att-class="state.collPreset === 'this_year' ? 'azed-period-btn azed-period-active' : 'azed-period-btn'"
+                                t-on-click="() => this.onCollPresetChange('this_year')">This Year</button>
+                        <span class="azed-period-sep">|</span>
+                        <input type="date" t-att-value="state.collDateFrom"
+                               t-on-change="(ev) => this.onCollCustomDateChange('from', ev)"/>
+                        <span class="azed-period-arrow">→</span>
+                        <input type="date" t-att-value="state.collDateTo"
+                               t-on-change="(ev) => this.onCollCustomDateChange('to', ev)"/>
+                    </div>
+                </div>
+
+                <div class="azed-kpi-row" t-if="state.collData">
+                    <div class="azed-kpi azed-kpi-hero azed-clickable" t-on-click="() => this.openDrill(state.collData.kpi_drill.due)">
+                        <span class="azed-kpi-label">Collection Rate</span>
+                        <span class="azed-kpi-value"><t t-esc="fmtPct(state.collData.kpi.collected_pct)"/></span>
+                        <span class="azed-kpi-sub">of installments due this period</span>
+                    </div>
+                    <div class="azed-kpi azed-clickable" t-on-click="() => this.openDrill(state.collData.kpi_drill.collected)">
+                        <span class="azed-kpi-label">Collected This Period</span>
+                        <span class="azed-kpi-value"><t t-esc="fmtMoney(state.collData.kpi.collected_in_period)"/></span>
+                        <span class="azed-kpi-sub">actual money received</span>
+                    </div>
+                    <div class="azed-kpi azed-clickable" t-on-click="() => this.openDrill(state.collData.kpi_drill.due)">
+                        <span class="azed-kpi-label">Due This Period</span>
+                        <span class="azed-kpi-value"><t t-esc="fmtMoney(state.collData.kpi.due_total)"/></span>
+                        <span class="azed-kpi-sub">installments with due date this period</span>
+                    </div>
+                    <div class="azed-kpi azed-clickable" t-on-click="() => this.openDrill(state.collData.kpi_drill.remaining)">
+                        <span class="azed-kpi-label">Remaining (Due, Unpaid)</span>
+                        <span class="azed-kpi-value"><t t-esc="fmtMoney(state.collData.kpi.due_remaining)"/></span>
+                        <span class="azed-kpi-sub">still to collect from this period's due</span>
+                    </div>
+                </div>
+
+                <div class="azed-chart-row" t-if="state.collData">
+                    <div class="azed-chart-card azed-chart-small">
+                        <h4>Due Status</h4>
+                        <div class="azed-canvas-wrap azed-canvas-small">
+                            <canvas t-ref="collDonutCanvas"/>
+                        </div>
+                    </div>
+                    <div class="azed-chart-card azed-chart-wide">
+                        <h4>Collected by Day (this period)</h4>
+                        <div class="azed-canvas-wrap">
+                            <canvas t-ref="collTimelineCanvas"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="azed-chart-card azed-table-card" t-if="state.collData">
+                    <h4>Due Status Breakdown</h4>
+                    <table class="azed-table">
+                        <thead>
+                            <tr>
+                                <th>Status</th>
+                                <th class="azed-num">Installments</th>
+                                <th class="azed-num">Amount</th>
+                                <th class="azed-num">Collected</th>
+                                <th class="azed-num">Remaining</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="state.collData.status_breakdown" t-as="row" t-key="row.label">
+                                <tr t-att-class="row.label === 'Total' ? 'azed-total-row azed-clickable' : 'azed-clickable'" t-on-click="() => this.openDrill(row.drill)">
+                                    <td>
+                                        <span t-if="row.color" class="azed-dot" t-attf-style="background:{{row.color}}"/>
+                                        <t t-esc="row.label"/>
+                                    </td>
+                                    <td class="azed-num"><t t-esc="row.count"/></td>
+                                    <td class="azed-num"><t t-esc="fmtMoney(row.amount)"/></td>
+                                    <td class="azed-num azed-pos"><t t-esc="fmtMoney(row.collected)"/></td>
+                                    <td class="azed-num azed-neg"><t t-esc="fmtMoney(row.remaining)"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                    <p class="azed-table-note">
+                        Amount is the full value of the installments due in this period; Collected is the part
+                        of it already received, Remaining the part still to collect.
+                        <t t-if="state.collData.kpi.collected_other > 0.5">
+                            "Collected this period" is higher by <t t-esc="fmtMoney(state.collData.kpi.collected_other)"/>,
+                            money received in this period on installments due in another one (late or advance payments).
+                        </t>
+                    </p>
+                </div>
+
+                <div class="azed-chart-card azed-table-card" t-if="state.collData and state.collData.top_unpaid.length">
+                    <h4>Top Unpaid Due This Period</h4>
+                    <table class="azed-table">
+                        <thead>
+                            <tr>
+                                <th>Client</th>
+                                <th>Unit</th>
+                                <th>Due Date</th>
+                                <th class="azed-num">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="state.collData.top_unpaid" t-as="row" t-key="row_index">
+                                <tr class="azed-clickable" t-on-click="() => this.openDrill(row.drill)">
+                                    <td><t t-esc="row.client"/></td>
+                                    <td><t t-esc="row.unit"/></td>
+                                    <td><t t-esc="row.due_date"/></td>
+                                    <td class="azed-num"><t t-esc="fmtMoney(row.amount)"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="azed-section-title azed-section-spaced" t-if="state.recvData">Overdue Receivables (as of today)</h3>
+
+                <div class="azed-kpi-row" t-if="state.recvData">
+                    <div class="azed-kpi azed-kpi-hero azed-clickable" t-on-click="() => this.openDrill(state.recvData.drill)">
+                        <span class="azed-kpi-label">Total Overdue</span>
+                        <span class="azed-kpi-value"><t t-esc="fmtMoney(state.recvData.total)"/></span>
+                        <span class="azed-kpi-sub">EGP, due date reached and unpaid</span>
+                    </div>
+                    <div class="azed-kpi azed-clickable" t-on-click="() => this.openDrill(state.recvData.drill)">
+                        <span class="azed-kpi-label">Overdue Installments</span>
+                        <span class="azed-kpi-value"><t t-esc="state.recvData.count"/></span>
+                        <span class="azed-kpi-sub">installments</span>
+                    </div>
+                    <div class="azed-kpi">
+                        <span class="azed-kpi-label">Clients Behind</span>
+                        <span class="azed-kpi-value"><t t-esc="state.recvData.clients"/></span>
+                        <span class="azed-kpi-sub">clients with overdue amounts</span>
+                    </div>
+                </div>
+
+                <div class="azed-chart-row" t-if="state.recvData">
+                    <div class="azed-chart-card azed-chart-small">
+                        <h4>Overdue Ageing</h4>
+                        <div class="azed-canvas-wrap azed-canvas-small">
+                            <canvas t-ref="ageingCanvas"/>
+                        </div>
+                    </div>
+                    <div class="azed-chart-card azed-chart-wide azed-table-card">
+                        <h4>Top 5 Overdue Clients</h4>
+                        <table class="azed-table">
+                            <thead><tr><th>Client</th><th class="azed-num">Oldest (days)</th><th class="azed-num">Overdue</th></tr></thead>
+                            <tbody>
+                                <t t-foreach="state.recvData.top_clients" t-as="row" t-key="row.client">
+                                    <tr class="azed-clickable" t-on-click="() => this.openDrill(row.drill)">
+                                        <td><t t-esc="row.client"/></td>
+                                        <td class="azed-num"><t t-esc="row.oldest"/></td>
+                                        <td class="azed-num"><t t-esc="fmtMoney(row.amount)"/></td>
+                                    </tr>
+                                    <tr t-foreach="row.units" t-as="u" t-key="u.unit" class="azed-subrow azed-clickable"
+                                        t-on-click="() => this.openDrill(u.drill)">
+                                        <td>↳ <t t-esc="u.unit"/></td>
+                                        <td/>
+                                        <td class="azed-num"><t t-esc="fmtMoney(u.amount)"/></td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="azed-chart-card azed-table-card" t-if="state.recvData">
+                    <h4>Ageing Breakdown</h4>
+                    <table class="azed-table">
+                        <thead><tr><th>Overdue by</th><th class="azed-num">Installments</th><th class="azed-num">Amount</th><th class="azed-num">%</th></tr></thead>
+                        <tbody>
+                            <t t-foreach="state.recvData.ageing" t-as="row" t-key="row.label">
+                                <tr class="azed-clickable" t-on-click="() => this.openDrill(row.drill)">
+                                    <td><span class="azed-dot" t-attf-style="background:{{row.color}}"/><t t-esc="row.label"/></td>
+                                    <td class="azed-num"><t t-esc="row.count"/></td>
+                                    <td class="azed-num"><t t-esc="fmtMoney(row.amount)"/></td>
+                                    <td class="azed-num"><t t-esc="fmtPct(row.pct)"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="azed-section-title azed-section-spaced" t-if="state.cashData">Cash Position</h3>
+
+                <div class="azed-kpi-row" t-if="state.cashData">
+                    <div class="azed-kpi azed-kpi-hero azed-clickable" t-on-click="() => this.openDrill(state.cashData.kpi_drill.cash)">
+                        <span class="azed-kpi-label">Cash &amp; Bank Today</span>
+                        <span class="azed-kpi-value"><t t-esc="fmtMoney(state.cashData.kpi.cash_total)"/></span>
+                        <span class="azed-kpi-sub">across all cash/bank accounts</span>
+                    </div>
+                    <div class="azed-kpi azed-clickable" t-on-click="() => this.openDrill(state.cashData.kpi_drill.in_hand)">
+                        <span class="azed-kpi-label">Cheques In Hand</span>
+                        <span class="azed-kpi-value"><t t-esc="fmtMoney(state.cashData.kpi.in_hand_total)"/></span>
+                        <span class="azed-kpi-sub">received, not yet deposited</span>
+                    </div>
+                    <div class="azed-kpi azed-clickable" t-on-click="() => this.openDrill(state.cashData.kpi_drill.inst_overdue)">
+                        <span class="azed-kpi-label">Overdue Installments</span>
+                        <span class="azed-kpi-value"><t t-esc="fmtMoney(state.cashData.kpi.inst_overdue)"/></span>
+                        <span class="azed-kpi-sub">due, still unpaid</span>
+                    </div>
+                    <div class="azed-kpi azed-clickable" t-on-click="() => this.openDrill(state.cashData.kpi_drill.pay_overdue)">
+                        <span class="azed-kpi-label">Overdue Payables</span>
+                        <span class="azed-kpi-value"><t t-esc="fmtMoney(state.cashData.kpi.pay_overdue)"/></span>
+                        <span class="azed-kpi-sub">of <t t-esc="fmtMoney(state.cashData.kpi.pay_total)"/> total payables</span>
+                    </div>
+                </div>
+
+                <div class="azed-chart-row" t-if="state.cashData">
+                    <div class="azed-chart-card azed-chart-small">
+                        <h4>Cheque Status</h4>
+                        <div class="azed-canvas-wrap azed-canvas-small">
+                            <canvas t-ref="chequeDonutCanvas"/>
+                        </div>
+                    </div>
+                    <div class="azed-chart-card azed-chart-wide">
+                        <h4>Cash In / Out (last 6 months)</h4>
+                        <div class="azed-canvas-wrap">
+                            <canvas t-ref="cashFlowCanvas"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="azed-chart-card" t-if="state.cashData">
+                    <div class="azed-table-header">
+                        <h4>Cheque Deposit Forecast <span class="azed-hint">cheques not collected yet, by cheque date</span></h4>
+                        <span class="azed-hint" t-if="state.cashData.forecast.length">
+                            Later than 8 weeks: <b><t t-esc="fmtMoney(state.cashData.forecast[state.cashData.forecast.length - 1].hand + state.cashData.forecast[state.cashData.forecast.length - 1].hermes)"/></b>
+                        </span>
+                    </div>
+                    <div class="azed-canvas-wrap">
+                        <canvas t-ref="forecastCanvas"/>
+                    </div>
+                </div>
+
+                <div class="azed-chart-card azed-table-card" t-if="state.cashData and state.cashData.returned.count">
+                    <div class="azed-table-header">
+                        <h4>Returned / Bounced Cheques</h4>
+                        <a href="#" class="azed-link" t-on-click.prevent="() => this.openDrill(state.cashData.returned.drill)">
+                            <t t-esc="state.cashData.returned.count"/> cheques · <t t-esc="fmtMoney(state.cashData.returned.amount)"/> — see all
+                        </a>
+                    </div>
+                    <table class="azed-table">
+                        <thead><tr><th>Cheque</th><th>Client</th><th>Unit</th><th>Date</th><th class="azed-num">Amount</th></tr></thead>
+                        <tbody>
+                            <t t-foreach="state.cashData.returned.rows" t-as="row" t-key="row_index">
+                                <tr class="azed-clickable" t-on-click="() => this.openDrill(row.drill)">
+                                    <td><t t-esc="row.cheque_no"/></td>
+                                    <td><t t-esc="row.client"/></td>
+                                    <td><t t-esc="row.unit"/></td>
+                                    <td><t t-esc="row.date"/></td>
+                                    <td class="azed-num"><t t-esc="fmtMoney(row.amount)"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="azed-chart-card azed-table-card" t-if="state.cashData">
+                    <h4>Cheque Status Breakdown</h4>
+                    <table class="azed-table">
+                        <thead>
+                            <tr>
+                                <th>Status</th>
+                                <th class="azed-num">Cheques</th>
+                                <th class="azed-num">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="state.cashData.cheque_status" t-as="row" t-key="row.label">
+                                <tr t-att-class="row.label === 'Total' ? 'azed-total-row azed-clickable' : 'azed-clickable'" t-on-click="() => this.openDrill(row.drill)">
+                                    <td>
+                                        <span t-if="row.color" class="azed-dot" t-attf-style="background:{{row.color}}"/>
+                                        <t t-esc="row.label"/>
+                                    </td>
+                                    <td class="azed-num"><t t-esc="row.count"/></td>
+                                    <td class="azed-num"><t t-esc="fmtMoney(row.amount)"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="azed-chart-card azed-table-card" t-if="state.cashData and state.cashData.cash_rows.length">
+                    <h4>Cash &amp; Bank Accounts</h4>
+                    <table class="azed-table">
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Account</th>
+                                <th class="azed-num">Amount</th>
+                                <th class="azed-num">EGP Equivalent</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="state.cashData.cash_rows" t-as="row" t-key="row.code + row.name">
+                                <tr class="azed-clickable" t-on-click="() => this.openDrill(row.drill)">
+                                    <td><t t-esc="row.code"/></td>
+                                    <td><t t-esc="row.name"/></td>
+                                    <td class="azed-num">
+                                        <t t-esc="fmtMoney(row.display_amount)"/> <span class="azed-currency-tag"><t t-esc="row.currency"/></span>
+                                    </td>
+                                    <td class="azed-num">
+                                        <t t-if="row.is_foreign"><t t-esc="fmtMoney(row.balance)"/></t>
+                                        <t t-else="">—</t>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            </div>
+        </div>
+    </t>
+
+</templates>

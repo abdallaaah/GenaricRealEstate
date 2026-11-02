@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_cost_distribution_wizard_form" model="ir.ui.view">
+        <field name="name">arkzayed.cost.distribution.wizard.form</field>
+        <field name="model">arkzayed.cost.distribution.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Distribute Cost to Units">
+                <group>
+                    <field name="move_line_id" invisible="1"/>
+                    <field name="description" readonly="1"/>
+                    <field name="line_total" readonly="1"/>
+                    <field name="remaining_amount" readonly="1"/>
+                    <field name="amount_to_distribute"/>
+                    <field name="total_area" readonly="1"/>
+                    <field name="cost_per_sqm" readonly="1"/>
+                </group>
+                <group>
+                    <field name="zone_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                    <field name="building_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                </group>
+                <separator string="Buildings" invisible="not building_line_ids"/>
+                <field name="building_line_ids" readonly="1" invisible="not building_line_ids">
+                    <list create="0" delete="0" edit="0">
+                        <field name="building_id"/>
+                        <field name="unit_count"/>
+                        <field name="area"/>
+                        <field name="share"/>
+                        <field name="amount"/>
+                    </list>
+                </field>
+                <separator string="Units"/>
+                <field name="unit_ids">
+                    <list>
+                        <field name="building_id"/>
+                        <field name="system_code"/>
+                        <field name="unit_area"/>
+                    </list>
+                </field>
+                <footer>
+                    <button name="action_confirm" type="object" string="Distribute" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

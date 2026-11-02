@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Server Action to Update Gross with Ceil -->
+        <record id="action_update_gross_ceil" model="ir.actions.server">
+            <field name="name">Recalculate Gross Areas (Round Up)</field>
+            <field name="model_id" ref="model_real_estate_unit"/>
+            <field name="binding_model_id" ref="model_real_estate_unit"/>
+            <field name="binding_view_types">list,form</field>
+            <field name="state">code</field>
+            <field name="code"><![CDATA[
+for rec in records:
+    vals = {}
+
+    if rec.indoor_gross_area:
+        vals['indoor_gross_area'] = -(-rec.indoor_gross_area // 1)
+
+    if rec.terrace_gross_area:
+        vals['terrace_gross_area'] = -(-rec.terrace_gross_area // 1)
+
+    if rec.outdoor_gross_area:
+        vals['outdoor_gross_area'] = -(-rec.outdoor_gross_area // 1)
+
+    if vals:
+        rec.write(vals)
+            ]]></field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_proposal_form_inherit" model="ir.ui.view">
+            <field name="name">view.proposal.form.inherit</field>
+            <field name="model">sale.proposal</field>
+            <field name="inherit_id" ref="arkzayed_18_realestate_development.view_sale_proposal_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                    <button name="action_download_word" type="object" string="Download Word Contract"
+                            class="btn-secondary" icon="fa-file-word-o"
+                            invisible="not template_id"/>
+                    <button name="%(sale_proposal_contract_report_action)d" type="action" string="Download PDF Contract"
+                            class="btn-secondary" icon="fa-file-pdf-o"
+                            invisible="not template_id"/>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Report Template">
+                        <group>
+                            <field name="template_id"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

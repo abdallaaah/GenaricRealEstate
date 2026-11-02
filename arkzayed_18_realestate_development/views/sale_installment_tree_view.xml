@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_sales_make_invoice" model="ir.actions.server">
+            <field name="name">Make Payment</field>
+            <field name="type">ir.actions.server</field>
+            <field name="state">code</field>
+            <field name="model_id" ref="arkzayed_18_realestate_development.model_installment_lines"/>
+            <field name="binding_model_id" ref="arkzayed_18_realestate_development.model_installment_lines"/>
+            <field name="binding_view_types">list</field>
+            <field name="code">
+                records.make_payment()
+            </field>
+        </record>
+
+        <record id="sale_installment_tree" model="ir.ui.view">
+            <field name="name">sale_installment_tree</field>
+            <field name="model">installment.lines</field>
+            <field name="arch" type="xml">
+                <list default_order="date">
+                    <field name="sale_proposal_id"/>
+                    <field name="customer_id"/>
+                    <field name="date"/>
+                    <field name="name"/>
+                    <field name="amount"/>
+                    <field name="amount_residual"/>
+                    <field name="tax_ids" widget="many2many_tags"/>
+                    <field name="vat_id"/>
+                    <field name="total_amount"/>
+                    <field name="paid_amount"/>
+                    <field name="remaining_amount"/>
+                    <field name="payment_methods"/>
+                    <field name="contract_state"/>
+                    <field name="cheque_state" widget="badge"
+                           string="Cheque State"
+                           decoration-warning="cheque_state == 'draft'"
+                           decoration-info="cheque_state == 'collect'"
+                           decoration-success="cheque_state == 'done'"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="action_view_sales_installment_tree" model="ir.actions.act_window">
+            <field name="name">Sales Installment</field>
+            <field name="res_model">installment.lines</field>
+            <field name="view_mode">list</field>
+            <!-- Updated domain to show only installments from contracts signed by client or later -->
+            <field name="domain">[('contract_state', 'in', ['signed_client', 'signed_ceo', 'ready_to_deliver',
+                'delivered'])]
+            </field>
+            <!-- Group by customer for better organization -->
+            <field name="context">{'group_by': 'customer_id'}</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'list', 'view_id': ref('sale_installment_tree')}),
+              ]"/>
+        </record>
+
+        <menuitem id="menu_sales_installment" name="Sales Installments" parent="menu_reports_root"
+                  action="action_view_sales_installment_tree"/>
+
+    </data>
+</odoo>

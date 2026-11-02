@@ -1,0 +1,8 @@
+<odoo>
+    <record id="seq_cheque_portfolio" model="ir.sequence">
+        <field name="name">Cheque Portfolio</field>
+        <field name="code">cheque.portfolio</field>
+        <field name="prefix">PF/%(year)s/</field>
+        <field name="padding">4</field>
+    </record>
+</odoo>

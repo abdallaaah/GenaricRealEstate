@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- RESERVATION ACTIONS -->
+    <record id="action_dept_plan_reservation" model="ir.actions.report">
+        <field name="name">Departments Payment Plan</field>
+        <field name="model">real.estate.sale.reservation</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">arkzayed_18_realestate_development.dept_plan_res</field>
+        <field name="report_file">arkzayed_18_realestate_development.dept_plan_res</field>
+        <field name="print_report_name">f"Departments Payment Plan - {object.unit_id.system_code or object.name}"</field>
+        <field name="paperformat_id" ref="arkzayed_18_realestate_development.report_payment_plan_paperformat"/>
+        <field name="binding_model_id" ref="model_real_estate_sale_reservation"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="action_ceo_plan_reservation" model="ir.actions.report">
+        <field name="name">CEO Payment Plan</field>
+        <field name="model">real.estate.sale.reservation</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">arkzayed_18_realestate_development.ceo_plan_res</field>
+        <field name="report_file">arkzayed_18_realestate_development.ceo_plan_res</field>
+        <field name="print_report_name">f"CEO Payment Plan - {object.unit_id.system_code or object.name}"</field>
+        <field name="paperformat_id" ref="arkzayed_18_realestate_development.report_payment_plan_paperformat"/>
+        <field name="binding_model_id" ref="model_real_estate_sale_reservation"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- CONTRACT ACTIONS -->
+    <record id="action_dept_plan_proposal" model="ir.actions.report">
+        <field name="name">Departments Payment Plan</field>
+        <field name="model">sale.proposal</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">arkzayed_18_realestate_development.dept_plan_prop</field>
+        <field name="report_file">arkzayed_18_realestate_development.dept_plan_prop</field>
+        <field name="print_report_name">f"Departments Payment Plan - {object.unit_id.system_code or object.name}"</field>
+        <field name="paperformat_id" ref="arkzayed_18_realestate_development.report_payment_plan_paperformat"/>
+        <field name="binding_model_id" ref="model_sale_proposal"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="action_ceo_plan_proposal" model="ir.actions.report">
+        <field name="name">CEO Payment Plan</field>
+        <field name="model">sale.proposal</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">arkzayed_18_realestate_development.ceo_plan_prop</field>
+        <field name="report_file">arkzayed_18_realestate_development.ceo_plan_prop</field>
+        <field name="print_report_name">f"CEO Payment Plan - {object.unit_id.system_code or object.name}"</field>
+        <field name="paperformat_id" ref="arkzayed_18_realestate_development.report_payment_plan_paperformat"/>
+        <field name="binding_model_id" ref="model_sale_proposal"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- Base Table Layout Template -->
+    <template id="mgmt_payment_plan_table_template">
+        <style>
+            .mgmt-table {
+                width: 100%;
+                border-collapse: collapse;
+                font-family: Arial, sans-serif;
+            }
+            .mgmt-table th, .mgmt-table td {
+                border: 1px solid #000000;
+                text-align: center;
+                font-size: 12px;
+            }
+            .mgmt-title-row {
+                font-weight: bold;
+                font-size: 15px;
+                text-align: center;
+            }
+            .mgmt-header-label {
+                font-weight: bold;
+                text-align: center;
+            }
+            .mgmt-header-val {
+                text-align: center;
+                font-weight: bold;
+            }
+            .table-head-row th {
+                font-weight: bold;
+                background-color: #ffffff;
+            }
+            .maint-row td {
+                background-color: #d9d9d9 !important;
+                font-weight: bold;
+            }
+            .total-row td {
+                font-weight: bold;
+                background-color: #ffffff;
+            }
+            .sig-dept-container {
+                margin-top: 40px;
+                width: 100%;
+                font-family: Arial, sans-serif;
+            }
+            .sig-dept-table {
+                width: 100%;
+                border-collapse: collapse;
+                border: 2px solid #000000;
+            }
+            .sig-dept-table td {
+                border-right: 1px solid #000000;
+                text-align: center;
+                font-weight: bold;
+                font-size: 15px;
+                width: 25%;
+                vertical-align: middle;
+            }
+            .sig-dept-table td:last-child {
+                border-right: none; /* Prevents double border on the right edge */
+            }
+            .sig-dept-table tr.label-row td {
+                padding: 8px 4px;
+                border-bottom: none; /* Removes horizontal line between row 1 and row 2 */
+            }
+            .sig-dept-table tr.space-row td {
+                height: 45px; /* Empty signature height */
+                border-top: none; /* Removes horizontal line between row 1 and row 2 */
+                text-size: 10px; /* Adjusts the size of the dots */
+            }
+            .notes-block {
+                margin-top: 40px;
+                font-size: 15px;
+                font-weight: bold;
+                font-family: Arial, sans-serif;
+            }
+            .sig-ceo-container {
+                margin-top: 40px;
+                width: 100%;
+                direction: rtl;
+                font-family: Arial, sans-serif;
+            }
+            .sig-ceo-col {
+                width: 48%;
+                display: inline-block;
+                vertical-align: top;
+            }
+        </style>
+
+        <div class="page">
+            <t t-if="signature_type == 'ceo'">
+                <h1 style="text-align: center; font-weight: bold;">ملحق ٤</h1>
+            </t>
+            <table class="mgmt-table">
+                <!-- Main Header Title -->
+                <tr>
+                    <td colspan="5" class="mgmt-title-row">جدول السداد</td>
+                </tr>
+
+                <!-- Summary Meta Section -->
+                <tr>
+                    <td colspan="3" class="mgmt-header-label">Unit ID:</td>
+                    <td colspan="2" class="mgmt-header-val">
+                        <t t-esc="item['unit_id']"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="mgmt-header-label">Unit BUA</td>
+                    <td colspan="2" class="mgmt-header-val">
+                        <t t-esc="item['unit_bua']"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="mgmt-header-label">Unit Type</td>
+                    <td colspan="2" class="mgmt-header-val">
+                        <t t-esc="item['unit_type']"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="mgmt-header-label">Sold Price:</td>
+                    <td colspan="2" class="mgmt-header-val">
+                        <t t-esc="'{:,.0f}'.format(item['sold_price'])"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="mgmt-header-label">Maintenance Fees:</td>
+                    <td colspan="2" class="mgmt-header-val">
+                        <t t-esc="'{:,.0f}'.format(item['maintenance_fees'])"/>
+                    </td>
+                </tr>
+
+                <!-- Installment Column Titles -->
+                <tr class="table-head-row">
+                    <th style="width: 20%;">#</th>
+                    <th style="width: 20%;">Name</th>
+                    <th style="width: 20%;">Date of Installment</th>
+                    <th style="width: 20%;">Installment %</th>
+                    <th style="width: 20%;">Unit Installment</th>
+                    <th style="width: 20%;">Maintenance Installment</th>
+                </tr>
+
+                <!-- Unit Installment Lines -->
+                <t t-foreach="item['installments']" t-as="line">
+                    <tr>
+                        <td><t t-esc="line['serial']"/></td>
+                        <td><t t-esc="line['label']"/></td>
+                        <td><t t-esc="line['date']"/></td>
+                        <td><t t-esc="'{:.2f}%'.format(line['percentage'])"/></td>
+                        <td><t t-esc="'{:,.2f}'.format(line['unit_amount'])"/></td>
+                        <td></td>
+                    </tr>
+                </t>
+
+                <!-- Maintenance Installments Row (Grey background, before totals) -->
+                <t t-foreach="item['maintenance_installments']" t-as="m_line">
+                    <tr class="maint-row">
+                        <td>-</td>
+                        <td><t t-esc="m_line['label']"/></td>
+                        <td><t t-esc="m_line['date']"/></td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td><t t-esc="'{:,.0f}'.format(m_line['maintenance_amount'])"/></td>
+                    </tr>
+                </t>
+
+                <!-- Total Row -->
+                <tr class="total-row">
+                    <td colspan="3">Total</td>
+                    <td><t t-esc="'{:.2f}%'.format(item['total_percentage'])"/></td>
+                    <td><t t-esc="'{:,.0f}'.format(item['total_unit_amount'])"/></td>
+                    <td><t t-esc="'{:,.0f}'.format(item['total_maint_amount'])"/></td>
+                </tr>
+            </table>
+
+            <!-- Signature 1: Departments Payment Plan -->
+            <t t-if="signature_type == 'department'">
+                <div class="sig-dept-container">
+                    <table class="sig-dept-table">
+                        <tr class="label-row">
+                            <td>Eng. Ahmed Talaat:</td>
+                            <td>Operations:</td>
+                            <td>Finance:</td>
+                            <td>Client:</td>
+                        </tr>
+                        <tr class="space-row">
+                            <td>.....................</td>
+                            <td>.....................</td>
+                            <td>.....................</td>
+                            <td>.....................</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="notes-block">
+                    Notes :
+                </div>
+            </t>
+
+            <!-- Signature 2: CEO Payment Plan -->
+            <t t-if="signature_type == 'ceo'">
+                <div class="sig-ceo-container">
+                    <div class="sig-ceo-col" style="float: right; text-align: right;">
+                        <div style="font-weight: bold; margin-bottom: 5px;">الطرف الأول البائع</div>
+                        <div style="font-weight: bold; margin-bottom: 12px;">شركة ذا أرك للبنية التحتية م.م.ش.</div>
+                        <div style="margin-bottom: 4px;"><strong>عنه:</strong> م. محمد أمين</div>
+                        <div style="margin-bottom: 4px;"><strong>الصفة:</strong> العضو المنتدب</div>
+                        <div style="margin-bottom: 4px;"><strong>التاريخ:</strong></div>
+                        <div><strong>التوقيع:</strong></div>
+                    </div>
+
+                    <div class="sig-ceo-col" style="float: left; text-align: right;">
+                        <div style="font-weight: bold; margin-bottom: 25px;">الطرف الثاني المشتري</div>
+                        <div style="margin-bottom: 4px;">
+                            <strong>الإسم:</strong>
+                            <span t-esc="item['doc'].customer_id.ref or item['doc'].customer_id.name or ''"/>
+                        </div>
+                        <div style="margin-bottom: 4px;"><strong>التاريخ:</strong></div>
+                        <div><strong>التوقيع:</strong></div>
+                    </div>
+                </div>
+            </t>
+        </div>
+    </template>
+
+    <!-- Template 1: Departments Payment Plan (Reservation) -->
+    <template id="dept_plan_res">
+        <t t-call="web.html_container">
+            <t t-foreach="custom_report_data" t-as="item">
+                <t t-set="o" t-value="item['doc']"/>
+                <t t-set="signature_type" t-value="'department'"/>
+                <t t-call="web.basic_layout">
+                    <t t-call="arkzayed_18_realestate_development.mgmt_payment_plan_table_template"/>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <!-- Template 2: CEO Payment Plan (Reservation) -->
+    <template id="ceo_plan_res">
+        <t t-call="web.html_container">
+            <t t-foreach="custom_report_data" t-as="item">
+                <t t-set="o" t-value="item['doc']"/>
+                <t t-set="signature_type" t-value="'ceo'"/>
+                <t t-call="web.basic_layout">
+                    <t t-call="arkzayed_18_realestate_development.mgmt_payment_plan_table_template"/>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <!-- Template 3: Departments Payment Plan (Proposal) -->
+    <template id="dept_plan_prop">
+        <t t-call="web.html_container">
+            <t t-foreach="custom_report_data" t-as="item">
+                <t t-set="o" t-value="item['doc']"/>
+                <t t-set="signature_type" t-value="'department'"/>
+                <t t-call="web.basic_layout">
+                    <t t-call="arkzayed_18_realestate_development.mgmt_payment_plan_table_template"/>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <!-- Template 4: CEO Payment Plan (Proposal) -->
+    <template id="ceo_plan_prop">
+        <t t-call="web.html_container">
+            <t t-foreach="custom_report_data" t-as="item">
+                <t t-set="o" t-value="item['doc']"/>
+                <t t-set="signature_type" t-value="'ceo'"/>
+                <t t-call="web.basic_layout">
+                    <t t-call="arkzayed_18_realestate_development.mgmt_payment_plan_table_template"/>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,212 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* isky_base_modification
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-14 12:18+0000\n"
+"PO-Revision-Date: 2019-10-16 14:16+0200\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: en_US\n"
+"X-Generator: Poedit 1.8.7.1\n"
+
+#. module: isky_base_modification
+#: model_terms:ir.ui.view,arch_db:isky_base_modification.view_country_form_inherit
+msgid "Address format..."
+msgstr "تنسيق العنوان "
+
+#. module: isky_base_modification
+#: model_terms:ir.ui.view,arch_db:isky_base_modification.view_country_form_inherit
+msgid "Advanced Address Formatting"
+msgstr "تنسيق العنوان متقدم"
+
+#. module: isky_base_modification
+#: model:ir.model.fields,field_description:isky_base_modification.field_res_company__name_ar
+msgid "Arabic Name"
+msgstr "الاسم بالعربى"
+
+#. module: isky_base_modification
+#: model:ir.model.fields,field_description:isky_base_modification.field_res_company__cr_number
+msgid "CR Number"
+msgstr ""
+
+#. module: isky_base_modification
+#: model_terms:ir.ui.view,arch_db:isky_base_modification.view_country_form_inherit
+msgid ""
+"Change the way\n"
+"                                        addresses\n"
+"                                        are displayed in reports"
+msgstr ""
+
+#. module: isky_base_modification
+#: model_terms:ir.ui.view,arch_db:isky_base_modification.view_country_form_inherit
+msgid ""
+"Choose a subview of partners that includes only\n"
+"                                        address fields, to change the way users can input addresses."
+msgstr ""
+
+#. module: isky_base_modification
+#: model:ir.actions.act_window,name:isky_base_modification.city_city_action
+#: model:ir.model.fields,field_description:isky_base_modification.field_res_country_state__city_ids
+#: model:ir.ui.menu,name:isky_base_modification.city_city_menu
+#: model_terms:ir.ui.view,arch_db:isky_base_modification.view_country_state_form_inherit
+msgid "Cities"
+msgstr "مدن"
+
+#. module: isky_base_modification
+#: model:ir.model.fields,field_description:isky_base_modification.field_city_city__name
+#: model:ir.model.fields,field_description:isky_base_modification.field_neighborhood_neighborhood__city_id
+msgid "City"
+msgstr "مدينه"
+
+#. module: isky_base_modification
+#: model_terms:ir.ui.view,arch_db:isky_base_modification.view_country_form_inherit
+#: model_terms:ir.ui.view,arch_db:isky_base_modification.view_country_state_form_inherit
+#: model_terms:ir.ui.view,arch_db:isky_base_modification.view_country_state_tree_inherit
+msgid "Code"
+msgstr "كود"
+
+#. module: isky_base_modification
+#: model:ir.model,name:isky_base_modification.model_res_company
+msgid "Companies"
+msgstr "شركات"
+
+#. module: isky_base_modification
+#: model:ir.model,name:isky_base_modification.model_res_partner
+msgid "Contact"
+msgstr "جهة اتصال"
+
+#. module: isky_base_modification
+#: model:ir.model,name:isky_base_modification.model_res_country
+#: model:ir.model.fields,field_description:isky_base_modification.field_city_city__country_id
+msgid "Country"
+msgstr "بلد"
+
+#. module: isky_base_modification
+#: model:ir.model,name:isky_base_modification.model_res_country_state
+msgid "Country state"
+msgstr "ولايه"
+
+#. module: isky_base_modification
+#: model:ir.model.fields,field_description:isky_base_modification.field_city_city__create_uid
+#: model:ir.model.fields,field_description:isky_base_modification.field_neighborhood_neighborhood__create_uid
+msgid "Created by"
+msgstr "تم انشاؤه بواسة"
+
+#. module: isky_base_modification
+#: model:ir.model.fields,field_description:isky_base_modification.field_city_city__create_date
+#: model:ir.model.fields,field_description:isky_base_modification.field_neighborhood_neighborhood__create_date
+msgid "Created on"
+msgstr "تم إنشاؤه على"
+
+#. module: isky_base_modification
+#: model:ir.model.fields,field_description:isky_base_modification.field_city_city__display_name
+#: model:ir.model.fields,field_description:isky_base_modification.field_neighborhood_neighborhood__display_name
+msgid "Display Name"
+msgstr "اسم العرض"
+
+#. module: isky_base_modification
+#: model:ir.model.fields,field_description:isky_base_modification.field_res_country__is_egypt
+msgid "Egypt ??"
+msgstr "مصر ؟"
+
+#. module: isky_base_modification
+#: model:ir.model.fields,field_description:isky_base_modification.field_res_company__fax
+msgid "Fax"
+msgstr "فاكس"
+
+#. module: isky_base_modification
+#: model:ir.model.fields,field_description:isky_base_modification.field_city_city__state_id
+msgid "Governorate"
+msgstr "محافظه"
+
+#. module: isky_base_modification
+#: model_terms:ir.ui.view,arch_db:isky_base_modification.view_country_form_inherit
+msgid "Governorates"
+msgstr "محافظات"
+
+#. module: isky_base_modification
+#: model:ir.model.fields,field_description:isky_base_modification.field_res_partner__home_phone
+#: model:ir.model.fields,field_description:isky_base_modification.field_res_users__home_phone
+msgid "Home Phone"
+msgstr "رقم التليفون"
+
+#. module: isky_base_modification
+#: model:ir.model.fields,field_description:isky_base_modification.field_city_city__id
+#: model:ir.model.fields,field_description:isky_base_modification.field_neighborhood_neighborhood__id
+msgid "ID"
+msgstr "هوية شخصية"
+
+#. module: isky_base_modification
+#: model:ir.model.fields,field_description:isky_base_modification.field_city_city____last_update
+#: model:ir.model.fields,field_description:isky_base_modification.field_neighborhood_neighborhood____last_update
+msgid "Last Modified on"
+msgstr "اخر تعديل على "
+
+#. module: isky_base_modification
+#: model:ir.model.fields,field_description:isky_base_modification.field_city_city__write_uid
+#: model:ir.model.fields,field_description:isky_base_modification.field_neighborhood_neighborhood__write_uid
+msgid "Last Updated by"
+msgstr "اخر تحديث بواسطة"
+
+#. module: isky_base_modification
+#: model:ir.model.fields,field_description:isky_base_modification.field_city_city__write_date
+#: model:ir.model.fields,field_description:isky_base_modification.field_neighborhood_neighborhood__write_date
+msgid "Last Updated on"
+msgstr "اخر تحديث على "
+
+#. module: isky_base_modification
+#: model:ir.model.fields,field_description:isky_base_modification.field_res_company__mail_box
+#: model:ir.model.fields,field_description:isky_base_modification.field_res_partner__mail_box
+#: model:ir.model.fields,field_description:isky_base_modification.field_res_users__mail_box
+#: model_terms:ir.ui.view,arch_db:isky_base_modification.isky_view_company_form_inherit
+#: model_terms:ir.ui.view,arch_db:isky_base_modification.res_partner_form_view_inherit
+msgid "Mail Box"
+msgstr "صندوق الرسايل"
+
+#. module: isky_base_modification
+#: model_terms:ir.ui.view,arch_db:isky_base_modification.view_country_form_inherit
+#: model_terms:ir.ui.view,arch_db:isky_base_modification.view_country_state_form_inherit
+#: model_terms:ir.ui.view,arch_db:isky_base_modification.view_country_state_tree_inherit
+msgid "Name"
+msgstr "الاسم"
+
+#. module: isky_base_modification
+#: model:ir.model.fields,field_description:isky_base_modification.field_res_country__nationality
+msgid "Nationality"
+msgstr "الجنسية"
+
+#. module: isky_base_modification
+#: model:ir.model.fields,field_description:isky_base_modification.field_neighborhood_neighborhood__name
+msgid "Neighborhood"
+msgstr "حى"
+
+#. module: isky_base_modification
+#: model:ir.actions.act_window,name:isky_base_modification.neighborhood_neighborhood_action
+#: model:ir.model.fields,field_description:isky_base_modification.field_city_city__neighborhood_ids
+#: model:ir.ui.menu,name:isky_base_modification.neighborhood_neighborhood_menu
+#: model_terms:ir.ui.view,arch_db:isky_base_modification.city_city_form_view
+msgid "Neighborhoods"
+msgstr "احياء"
+
+#. module: isky_base_modification
+#: model:ir.model.fields,field_description:isky_base_modification.field_res_company__po_box
+msgid "P.O.Box"
+msgstr ""
+
+#. module: isky_base_modification
+#: model:ir.model,name:isky_base_modification.model_city_city
+msgid "city.city"
+msgstr ""
+
+#. module: isky_base_modification
+#: model:ir.model,name:isky_base_modification.model_neighborhood_neighborhood
+msgid "neighborhood.neighborhood"
+msgstr ""

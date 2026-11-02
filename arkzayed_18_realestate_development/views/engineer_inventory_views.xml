@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_ark_engineer_inventory_search" model="ir.ui.view">
+        <field name="name">ark.engineer.inventory.search</field>
+        <field name="model">ark.engineer.inventory</field>
+        <field name="arch" type="xml">
+            <search string="Units">
+                <field name="unit_code"/>
+                <field name="building_name"/>
+                <field name="floor_name"/>
+                <field name="client_name"/>
+                <field name="client_arabic_name"/>
+                <field name="contract_ref"/>
+                <field name="reservation_serial"/>
+                <field name="sales"/>
+                <field name="mobile"/>
+                <filter name="sold" string="Sold" domain="[('unit_status', '=', 'sold')]"/>
+                <filter name="reserved" string="Reserved" domain="[('unit_status', '=', 'reserved')]"/>
+                <filter name="available" string="Available" domain="[('unit_status', 'in', ['available', 'available_for_sale'])]"/>
+                <filter name="blocked" string="Blocked" domain="[('unit_status', 'in', ['blocked', 'on_hold_ma'])]"/>
+                <separator/>
+                <filter name="has_contract" string="Has contract" domain="[('contract_ref', '!=', False)]"/>
+                <filter name="no_contract" string="No contract" domain="[('contract_ref', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_project" string="Boulevard" context="{'group_by': 'project_id'}"/>
+                    <filter name="group_building" string="Building" context="{'group_by': 'building_id'}"/>
+                    <filter name="group_floor" string="Floor" context="{'group_by': 'floor_id'}"/>
+                    <filter name="group_status" string="Status" context="{'group_by': 'unit_status'}"/>
+                    <filter name="group_type" string="Type" context="{'group_by': 'unit_type'}"/>
+                    <filter name="group_subtype" string="Unit Type" context="{'group_by': 'unit_subtype'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_ark_engineer_inventory_residential" model="ir.ui.view">
+        <field name="name">ark.engineer.inventory.residential</field>
+        <field name="model">ark.engineer.inventory</field>
+        <field name="arch" type="xml">
+            <list string="Residential" js_class="ark_engineer_inventory_list" create="0" edit="0" delete="0" duplicate="0">
+                <field name="unit_code" optional="show"/>
+                <field name="project_name" optional="show"/>
+                <field name="building_name" optional="show"/>
+                <field name="unit_subtype" optional="show"/>
+                <field name="floor_name" optional="show"/>
+                <field name="net_area" optional="show"/>
+                <field name="gross_area" optional="show"/>
+                <field name="garden_area" optional="show"/>
+                <field name="land_area" optional="show"/>
+                <field name="unit_price" optional="show"/>
+                <field name="price_per_meter" optional="show"/>
+                <field name="unit_status" optional="show"/>
+                <field name="reservation_date" optional="show"/>
+                <field name="contract_date" optional="show"/>
+                <field name="sold_price" optional="show"/>
+                <field name="payment_plan" optional="show"/>
+                <field name="discount_percentage" optional="show"/>
+                <field name="down_payment" optional="show"/>
+                <field name="dp_percentage" optional="show"/>
+                <field name="maintenance" optional="show"/>
+                <field name="maintenance_percentage" optional="show"/>
+                <field name="contract_type" optional="show"/>
+                <field name="payment_type" optional="show"/>
+                <field name="sales" optional="show"/>
+                <field name="sales_manager" optional="show"/>
+                <field name="sales_director" optional="show"/>
+                <field name="source" optional="show"/>
+                <field name="brokerage" optional="show"/>
+                <field name="agent_name" optional="show"/>
+                <field name="client_name" optional="show"/>
+                <field name="client_arabic_name" optional="show"/>
+                <field name="address" optional="show"/>
+                <field name="national_id" optional="show"/>
+                <field name="mobile" optional="show"/>
+                <field name="email" optional="show"/>
+                <field name="nationality" optional="show"/>
+                <field name="reservation_serial" optional="show"/>
+                <field name="contract_ref" optional="show"/>
+                <field name="contract_status" optional="show"/>
+                <field name="commission_paid" optional="show"/>
+                <field name="quarter" optional="show"/>
+                <field name="year" optional="show"/>
+                <field name="month" optional="show"/>
+                <field name="m2_price" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ark_engineer_inventory_admin_retail" model="ir.ui.view">
+        <field name="name">ark.engineer.inventory.admin.retail</field>
+        <field name="model">ark.engineer.inventory</field>
+        <field name="arch" type="xml">
+            <list string="Admin &amp; Retail" js_class="ark_engineer_inventory_list" create="0" edit="0" delete="0" duplicate="0">
+                <field name="unit_code" optional="show"/>
+                <field name="project_name" optional="show"/>
+                <field name="building_name" optional="show"/>
+                <field name="unit_subtype" optional="show"/>
+                <field name="floor_name" optional="show"/>
+                <field name="indoor_net_area" optional="show"/>
+                <field name="indoor_gross_area" optional="show"/>
+                <field name="gross_area" optional="show"/>
+                <field name="unit_price" optional="show"/>
+                <field name="price_per_meter" optional="show"/>
+                <field name="unit_status" optional="show"/>
+                <field name="reservation_date" optional="show"/>
+                <field name="contract_date" optional="show"/>
+                <field name="sold_price" optional="show"/>
+                <field name="payment_plan" optional="show"/>
+                <field name="discount_percentage" optional="show"/>
+                <field name="down_payment" optional="show"/>
+                <field name="dp_percentage" optional="show"/>
+                <field name="maintenance" optional="show"/>
+                <field name="maintenance_percentage" optional="show"/>
+                <field name="contract_type" optional="show"/>
+                <field name="payment_type" optional="show"/>
+                <field name="sales" optional="show"/>
+                <field name="sales_manager" optional="show"/>
+                <field name="sales_director" optional="show"/>
+                <field name="source" optional="show"/>
+                <field name="brokerage" optional="show"/>
+                <field name="agent_name" optional="show"/>
+                <field name="client_name" optional="show"/>
+                <field name="client_arabic_name" optional="show"/>
+                <field name="address" optional="show"/>
+                <field name="national_id" optional="show"/>
+                <field name="mobile" optional="show"/>
+                <field name="email" optional="show"/>
+                <field name="nationality" optional="show"/>
+                <field name="reservation_serial" optional="show"/>
+                <field name="contract_ref" optional="show"/>
+                <field name="contract_status" optional="show"/>
+                <field name="commission_paid" optional="show"/>
+                <field name="quarter" optional="show"/>
+                <field name="year" optional="show"/>
+                <field name="month" optional="show"/>
+                <field name="m2_price" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ark_engineer_inventory_medical" model="ir.ui.view">
+        <field name="name">ark.engineer.inventory.medical</field>
+        <field name="model">ark.engineer.inventory</field>
+        <field name="arch" type="xml">
+            <list string="Medical" js_class="ark_engineer_inventory_list" create="0" edit="0" delete="0" duplicate="0">
+                <field name="unit_code" optional="show"/>
+                <field name="project_name" optional="show"/>
+                <field name="building_name" optional="show"/>
+                <field name="unit_subtype" optional="show"/>
+                <field name="floor_name" optional="show"/>
+                <field name="indoor_net_area" optional="show"/>
+                <field name="indoor_gross_area" optional="show"/>
+                <field name="gross_area" optional="show"/>
+                <field name="unit_price" optional="show"/>
+                <field name="price_per_meter" optional="show"/>
+                <field name="unit_status" optional="show"/>
+                <field name="block_reason" optional="show"/>
+                <field name="reservation_date" optional="show"/>
+                <field name="sold_price" optional="show"/>
+                <field name="maintenance" optional="show"/>
+                <field name="maintenance_percentage" optional="show"/>
+                <field name="payment_type" optional="show"/>
+                <field name="sales" optional="show"/>
+                <field name="sales_manager" optional="show"/>
+                <field name="source" optional="show"/>
+                <field name="client_name" optional="show"/>
+                <field name="address" optional="show"/>
+                <field name="national_id" optional="show"/>
+                <field name="mobile" optional="show"/>
+                <field name="reservation_serial" optional="show"/>
+                <field name="quarter" optional="show"/>
+                <field name="year" optional="show"/>
+                <field name="m2_price" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_ark_engineer_residential" model="ir.actions.act_window">
+        <field name="name">Residential</field>
+        <field name="res_model">ark.engineer.inventory</field>
+        <field name="view_mode">list</field>
+        <field name="domain">[('unit_type', '=', 'residential')]</field>
+        <field name="context">{'engineer_kind': 'residential'}</field>
+        <field name="search_view_id" ref="view_ark_engineer_inventory_search"/>
+        <field name="view_ids" eval="[(5, 0, 0), (0, 0, {'view_mode': 'list', 'view_id': ref('view_ark_engineer_inventory_residential')})]"/>
+    </record>
+
+    <record id="action_ark_engineer_admin_retail" model="ir.actions.act_window">
+        <field name="name">Admin &amp; Retail</field>
+        <field name="res_model">ark.engineer.inventory</field>
+        <field name="view_mode">list</field>
+        <field name="domain">[('unit_type', 'in', ['office', 'retail'])]</field>
+        <field name="context">{'engineer_kind': 'admin_retail'}</field>
+        <field name="search_view_id" ref="view_ark_engineer_inventory_search"/>
+        <field name="view_ids" eval="[(5, 0, 0), (0, 0, {'view_mode': 'list', 'view_id': ref('view_ark_engineer_inventory_admin_retail')})]"/>
+    </record>
+
+    <record id="action_ark_engineer_medical" model="ir.actions.act_window">
+        <field name="name">Medical</field>
+        <field name="res_model">ark.engineer.inventory</field>
+        <field name="view_mode">list</field>
+        <field name="domain">[('unit_type', '=', 'medical')]</field>
+        <field name="context">{'engineer_kind': 'medical'}</field>
+        <field name="search_view_id" ref="view_ark_engineer_inventory_search"/>
+        <field name="view_ids" eval="[(5, 0, 0), (0, 0, {'view_mode': 'list', 'view_id': ref('view_ark_engineer_inventory_medical')})]"/>
+    </record>
+
+    <menuitem id="menu_engineer_root" name="Engineer Menu" parent="arkzayed_18_realestate_development.menu_real_estate_root"
+              sequence="7" groups="group_engineer_menu"/>
+    <menuitem id="menu_engineer_residential" name="Residential" parent="menu_engineer_root"
+              action="action_ark_engineer_residential" sequence="1" groups="group_engineer_menu"/>
+    <menuitem id="menu_engineer_admin_retail" name="Admin &amp; Retail" parent="menu_engineer_root"
+              action="action_ark_engineer_admin_retail" sequence="2" groups="group_engineer_menu"/>
+    <menuitem id="menu_engineer_medical" name="Medical" parent="menu_engineer_root"
+              action="action_ark_engineer_medical" sequence="3" groups="group_engineer_menu"/>
+
+</odoo>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_cost_allocation_list" model="ir.ui.view">
+        <field name="name">arkzayed.cost.allocation.list</field>
+        <field name="model">arkzayed.cost.allocation</field>
+        <field name="arch" type="xml">
+            <list string="Cost Allocations" create="0" edit="0" delete="0">
+                <field name="create_date" string="Allocated On"/>
+                <field name="create_uid" string="Allocated By" widget="many2one_avatar_user"/>
+                <field name="move_id"/>
+                <field name="bill_date" optional="hide"/>
+                <field name="partner_id" optional="show"/>
+                <field name="description" optional="show"/>
+                <field name="building_id"/>
+                <field name="unit_id"/>
+                <field name="cost_type" widget="badge"
+                       decoration-info="cost_type == 'direct'" decoration-warning="cost_type == 'indirect'"/>
+                <field name="unit_area" optional="show"/>
+                <field name="rate_per_sqm" optional="show"/>
+                <field name="percentage" optional="hide"/>
+                <field name="amount" sum="Total"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_cost_allocation_pivot" model="ir.ui.view">
+        <field name="name">arkzayed.cost.allocation.pivot</field>
+        <field name="model">arkzayed.cost.allocation</field>
+        <field name="arch" type="xml">
+            <pivot string="Cost Allocations">
+                <field name="building_id" type="row"/>
+                <field name="cost_type" type="col"/>
+                <field name="amount" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_cost_allocation_search" model="ir.ui.view">
+        <field name="name">arkzayed.cost.allocation.search</field>
+        <field name="model">arkzayed.cost.allocation</field>
+        <field name="arch" type="xml">
+            <search string="Cost Allocations">
+                <field name="unit_id"/>
+                <field name="building_id"/>
+                <field name="move_id"/>
+                <field name="partner_id"/>
+                <field name="description"/>
+                <field name="create_uid" string="Allocated By"/>
+                <filter name="direct" string="Direct" domain="[('cost_type', '=', 'direct')]"/>
+                <filter name="indirect" string="Indirect" domain="[('cost_type', '=', 'indirect')]"/>
+                <separator/>
+                <filter name="this_month" string="This Month"
+                        domain="[('create_date', '>=', (context_today().replace(day=1)).strftime('%Y-%m-%d'))]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_building" string="Building" context="{'group_by': 'building_id'}"/>
+                    <filter name="group_unit" string="Unit" context="{'group_by': 'unit_id'}"/>
+                    <filter name="group_bill" string="Bill" context="{'group_by': 'move_id'}"/>
+                    <filter name="group_vendor" string="Vendor" context="{'group_by': 'partner_id'}"/>
+                    <filter name="group_type" string="Cost Type" context="{'group_by': 'cost_type'}"/>
+                    <filter name="group_user" string="Allocated By" context="{'group_by': 'create_uid'}"/>
+                    <filter name="group_month" string="Month" context="{'group_by': 'create_date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_cost_allocation" model="ir.actions.act_window">
+        <field name="name">Details by Unit</field>
+        <field name="res_model">arkzayed.cost.allocation</field>
+        <field name="view_mode">list,pivot</field>
+        <field name="search_view_id" ref="view_cost_allocation_search"/>
+    </record>
+
+    <menuitem id="menu_cost_allocation_report" name="Details by Unit"
+              parent="menu_arkzayed_cost_root" action="action_cost_allocation" sequence="30"/>
+
+</odoo>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+   <!-- Odoo View Definition for Whatsapp Message Form -->
+   <record id="blocked_unit_reason_wizard_form" model="ir.ui.view">
+       <field name="name">blocked.unit.reason.wizard.form</field>
+       <field name="model">blocked.unit.reason</field>
+       <field name="priority" eval="8"/>
+       <field name="arch" type="xml">
+           <form string="Block Unit">
+               <group>
+                   <field name="reason_id"/>
+               </group>
+               <group>
+               </group>
+               <footer>
+                   <button name="action_block_unit" string="Block" type="object" class="btn-primary"/>
+                   <button name="cancel" string="Cancel" special="cancel"/>
+               </footer>
+           </form>
+       </field>
+   </record>
+</odoo>

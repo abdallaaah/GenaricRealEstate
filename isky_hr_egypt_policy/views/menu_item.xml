@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- add employee policy group menu -->
+        <menuitem name="Policy Groups"
+                  parent="hr.menu_human_resources_configuration"
+                  id="policy_group_menu"
+                  sequence="9"
+                  action="policy_group_action"/>
+    </data>
+</odoo>

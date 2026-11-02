@@ -1,0 +1,247 @@
+<odoo>
+
+    <record id="action_report_cheque_manage_receipt" model="ir.actions.report">
+        <field name="name">Cheque Receipt Voucher</field>
+        <field name="model">cheque.manage</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">arkzayed_18_realestate_development.report_cheque_manage_receipt_document</field>
+        <field name="report_file">arkzayed_18_realestate_development.report_cheque_manage_receipt_document</field>
+        <field name="print_report_name">'Receipt - %s' % (object.seq_no)</field>
+        <field name="binding_model_id" ref="arkzayed_18_realestate_development.model_cheque_manage"/>
+        <field name="binding_type">report</field>
+    </record>
+
+
+    <template id="report_cheque_manage_receipt_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page" dir="rtl" style="font-family: 'Arial', sans-serif; direction: rtl; text-align: right;">
+
+                        <style>
+                            .receipt-table, .receipt-table td, .receipt-table th {
+                                border: 1px solid #000;
+                                border-collapse: collapse;
+                            }
+                            .receipt-table td, .receipt-table th {
+                                padding: 6px 8px;
+                                vertical-align: middle;
+                            }
+                            .label-cell {
+                                width: 30%;
+                                font-weight: bold;
+                                background-color: #f2f2f2;
+                            }
+                            .value-cell {
+                                width: 70%;
+                                min-height: 20px;
+                                text-align: center;
+                            }
+                            /* nested cheque-details table, no outer border of its own -
+                               it sits inside the "طريقة الدفع" cell */
+                            .cheque-details-table, .cheque-details-table td {
+                                border: none !important;
+                                border-collapse: collapse;
+                                width: 100%;
+                            }
+
+                             .details-block {
+                                width: 100%;
+                            }
+                            .details-row {
+                                display: flex;
+                                justify-content: space-between;
+                                padding: 2px 4px;
+                                font-size: 14px;
+                                border: none !important;
+                            }
+                            .details-label {
+                                font-weight: bold;
+                                width: 55%;
+                                text-align: right;
+                            }
+                            .details-value {
+                                width: 45%;
+                                text-align: left;
+                            }
+                            .details-title {
+                                text-align: center;
+                                font-weight: bold;
+                                margin-bottom: 4px;
+                            }
+                        </style>
+
+
+                        <div class="logo-no-border">
+                            <img t-att-src="'/arkzayed_18_realestate_development/static/src/img/peoplefork_logo.png'" border="0" style="max-height:60px; border:none !important; outline:none !important;"/>
+                        </div>
+                        <h3 style="text-decoration: underline; text-align: center; margin-bottom: 5px;">
+                             إيصال استلام شيك
+                        </h3>
+
+                        <table class="receipt-table" style="width:300px; margin: 0 auto 10px auto;">
+                            <tr>
+                                <td class="label-cell" style="text-align:center; width:40%;">رقم</td>
+                                <td class="value-cell" style="text-align:center; width:60%;">
+                                    <span t-field="o.realestate_related_seq"/>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table class="receipt-table" style="width:100%; margin-bottom: 0;">
+                            <tr>
+                                <td class="label-cell" style="width:30%;">كود الوحدة</td>
+                                <td class="value-cell" style="width:70%;">
+                                    <span t-field="o.unit_id.system_code"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label-cell">التاريخ</td>
+                                <td class="value-cell">
+                                    <span t-field="o.cheque_date"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label-cell">استلمنا نحن</td>
+                                <td class="value-cell">
+                                    <span>شركة ذا ارك للبنية التحتية</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label-cell">عن مشروع</td>
+                                <td class="value-cell">
+                                    <span>ارك ويست - السادس من اكتوبر</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label-cell">اسم العميل</td>
+                                <td class="value-cell">
+                                    <t t-if="o.payer.ref">
+                                        <span t-field="o.payer.ref"/>
+                                    </t>
+                                    <t t-else="">
+                                        <span t-field="o.payer.name"/>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label-cell">
+                                    <t t-if="o.payer.national_id">رقم بطاقة الرقم القومي للعميل</t>
+                                    <t t-elif="o.payer.passport_number">رقم جواز السفر للعميل</t>
+                                    <t t-else="">رقم بطاقة الرقم القومي للعميل</t>
+                                </td>
+                                <td class="value-cell">
+                                    <t t-if="o.payer.national_id"><span t-field="o.payer.national_id"/></t>
+                                    <t t-elif="o.payer.passport_number"><span t-field="o.payer.passport_number"/></t>
+                                </td>
+                            </tr>
+                        </table>
+
+
+                        <table class="receipt-table" style="width:100%; margin-top: 15px;">
+                            <thead>
+                                <tr style="text-align:center;">
+                                    <th style="width:15%;">تاريخ الدفعه</th>
+                                    <th style="width:35%;">البيان</th>
+                                    <th style="width:15%;">المبلغ</th>
+                                    <th style="width:35%;">طريقة الدفع</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-if="o.allocation_ids">
+                                    <tr t-foreach="o.allocation_ids" t-as="line">
+                                        <td style="text-align:center;">
+                                            <span t-field="line.line_date"/>
+                                        </td>
+
+                                        <td style="text-align:center;">
+                                            <span t-field="line.label"/>
+                                        </td>
+
+                                        <td style="text-align:center;">
+                                           <span t-field="line.allocated_amount"/>
+                                        </td>
+
+                                        <td>
+                                            <div class="details-block">
+                                                    <div class="details-title">شيك بنكي</div>
+                                                    <div class="details-row">
+                                                        <span class="details-label">رقم الشيك: </span>
+                                                        <span class="details-value"><span t-field="o.cheque_no"/></span>
+                                                    </div>
+                                                    <div class="details-row">
+                                                        <span class="details-label">البنك المسحوب عليه: </span>
+                                                        <t t-if="o.bank_id">
+                                                             <span class="details-value"><span t-field="o.bank_id.name"/></span>
+                                                        </t>
+                                                    </div>
+                                                    <div class="details-row">
+                                                        <span class="details-label">تاريخ الاستحقاق: </span>
+                                                        <span class="details-value"><span t-field="o.cheque_date"/></span>
+                                                    </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <t t-else="">
+                                    <tr>
+                                        <td style="text-align:center;">
+                                            <span t-field="o.cheque_date"/>
+                                        </td>
+
+                                        <td style="text-align:center;">
+                                            <span t-field="o.description"/>
+                                        </td>
+
+                                        <td style="text-align:center;">
+                                           <span t-field="o.amount"/>
+                                        </td>
+
+                                        <td>
+                                            <div class="details-block">
+                                                    <div class="details-title">شيك بنكي</div>
+                                                    <div class="details-row">
+                                                        <span class="details-label">رقم الشيك: </span>
+                                                        <span class="details-value"><span t-field="o.cheque_no"/></span>
+                                                    </div>
+                                                    <div class="details-row">
+                                                        <span class="details-label">البنك المسحوب عليه: </span>
+                                                        <t t-if="o.bank_id">
+                                                             <span class="details-value"><span t-field="o.bank_id.name"/></span>
+                                                        </t>
+                                                    </div>
+                                                    <div class="details-row">
+                                                        <span class="details-label">تاريخ الاستحقاق: </span>
+                                                        <span class="details-value"><span t-field="o.cheque_date"/></span>
+                                                    </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="2" style="text-align:center; font-weight:bold;">الإجمالي</td>
+                                    <td style="text-align:center; font-weight:bold;">
+                                        <span t-field="o.amount"/>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+
+                        <table class="receipt-table" style="width:100%; margin-top: 0;">
+                            <tr>
+                                <td class="value-cell" style="width:100%; text-align:center; font-weight:bold; text-align:center;">
+                                   <span t-field="o.amount_in_words"/>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

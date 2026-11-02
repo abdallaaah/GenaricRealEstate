@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <data>
+
+        <!-- Search View for Cheque Management -->
+        <record id="cheque_manage_search_view" model="ir.ui.view">
+            <field name="name">cheque.manage.search</field>
+            <field name="model">cheque.manage</field>
+            <field name="arch" type="xml">
+                <search string="Search Cheques">
+                    <!-- Search Fields -->
+                    <field name="seq_no" string="Sequence"/>
+                    <field name="cheque_no" string="Cheque Number"/>
+                    <field name="realestate_related_seq" string="Realestate Related Sequence"/>
+                    <field name="payer" string="Partner"/>
+                    <field name="cheque_portfolio_ids"/>
+                    <field name="unit_id" string="Unit"/>
+                    <field name="eoi_id" string="EOI"/>
+                    <field name="sale_proposal_id" string="Sale Proposal"/>
+                    <field name="sale_reservation_id" string="Sale Reservation"/>
+                    <field name="bank_id" string="Bank"/>
+                    <field name="name" string="Description"/>
+
+                    <!-- Filters -->
+                    <filter string="Draft" name="draft" domain="[('state','=','draft')]"/>
+                    <filter string="Collected" name="collected" domain="[('state','=','collect')]"/>
+                    <filter string="Under Collection" name="under_collection" domain="[('state','=','register')]"/>
+                    <filter string="Done" name="done" domain="[('state','=','done')]"/>
+                    <filter string="Returned" name="returned" domain="[('state','=','return')]"/>
+                    <filter string="Bounced" name="bounced" domain="[('bounced','=',True)]"/>
+
+                    <separator/>
+
+                    <filter string="Installment" name="installment" domain="[('source_type','=','installment')]"/>
+                    <filter string="Maintenance" name="maintenance" domain="[('source_type','=','maintenance')]"/>
+
+                    <separator/>
+
+                    <filter string="Current Month" name="current_month"
+                            domain="[('cheque_date','&gt;=', (context_today() - relativedelta(day=1)).strftime('%Y-%m-%d')),
+                                     ('cheque_date','&lt;', (context_today() + relativedelta(day=31, days=1)).strftime('%Y-%m-%d'))]"/>
+                    <filter string="Next Month" name="next_month"
+                            domain="[('cheque_date','&gt;=', (context_today() + relativedelta(months=1, day=1)).strftime('%Y-%m-%d')),
+                                     ('cheque_date','&lt;', (context_today() + relativedelta(months=2, day=1)).strftime('%Y-%m-%d'))]"/>
+
+                    <!-- Group By -->
+                    <group expand="0" string="Group By">
+                        <filter string="Partner" name="group_payer" context="{'group_by':'payer'}"/>
+                        <filter string="Unit" name="group_unit" context="{'group_by':'unit_id'}"/>
+                        <filter string="State" name="group_state" context="{'group_by':'state'}"/>
+                        <filter string="Source Type" name="group_source_type" context="{'group_by':'source_type'}"/>
+                        <filter string="Bank" name="group_bank" context="{'group_by':'bank_id'}"/>
+                        <filter string="Cheque Date" name="group_cheque_date" context="{'group_by':'cheque_date'}"/>
+                        <filter string="Sale Contract" name="group_sale_proposal" context="{'group_by':'sale_proposal_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="incoming_cheque_manage_view_form_inherit" model="ir.ui.view">
+            <field name="name">cheque.manage</field>
+            <field name="model">cheque.manage</field>
+            <field name="inherit_id" ref="arkzayed_18_gt_cheque_management.incoming_cheque_manage_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[2]//group[1]" position="inside">
+                    <field name="realestate_related_seq" readonly="1" invisible="cheq_type != 'incoming'"/>
+
+                    <field name="from_eoi" readonly="id" invisible="cheq_type != 'incoming'"/>
+                    <field name="from_reservation" readonly="id" invisible="cheq_type != 'incoming'"/>
+                    <field name="from_contract" readonly="id" invisible="cheq_type != 'incoming'"/>
+                    <field name="eoi_id" readonly="state == 'posted'"/>
+                    <field name="sale_proposal_id" readonly="state == 'posted'"/>
+                    <field name="additional_proposal_ids" widget="many2many_tags"
+                           options="{'no_create': True}"
+                           readonly="state != 'draft'"
+                           invisible="cheq_type != 'incoming' or not sale_proposal_id"
+                           domain="[('customer_id', '=', payer), ('id', '!=', sale_proposal_id), ('state', 'not in', ['cancelled', 'terminated'])]"/>
+                    <field name="additional_unit_ids" widget="many2many_tags"
+                           options="{'no_create': True}"
+                           readonly="state != 'draft'"
+                           invisible="cheq_type != 'incoming' or not sale_proposal_id"
+                           domain="[('sale_contract_id.customer_id', '=', payer), ('sale_contract_id', '!=', sale_proposal_id)]"/>
+                    <field name="sale_reservation_id" readonly="state == 'posted'"/>
+                    <field name="unit_id" readonly="state == 'posted'"
+                           domain="[('sale_contract_id.customer_id', '=', payer)] if payer else [('sale_contract_id', '!=', False)]"/>
+
+                </xpath>
+
+                <xpath expr="//header" position="inside">
+                    <button name="action_open_split_wizard" type="object"
+                            string="Replace With Individual Cheques" class="btn-secondary"
+                            invisible="cheq_type != 'incoming' or state not in ('draft', 'collect') or not allocation_ids"/>
+                </xpath>
+
+                <xpath expr="//field[@name='cheque_receive_date']" position="after">
+                    <field name="source_type" readonly="1"/>
+                </xpath>
+
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button class="oe_stat_button" type="object" name="action_view_collection_entry"
+                            icon="fa-book" invisible="collection_entry_count == 0">
+                        <field name="collection_entry_count" widget="statinfo" string="Collection Entry"/>
+                    </button>
+                </xpath>
+
+                <!-- Installment Allocations Tab -->
+                <xpath expr="//sheet/notebook" position="inside">
+                    <page name="installment_allocations" string="Installment Allocations" invisible="not sale_proposal_id and not sale_reservation_id">
+                        <field name="available_installment_ids" invisible="1"/>
+                        <field name="available_maintenance_ids" invisible="1"/>
+                        <group>
+                            <field name="unallocated_amount" readonly="1"/>
+                        </group>
+                        <field name="allocation_ids" readonly="state != 'draft'">
+                            <list editable="bottom">
+                                <field name="installment_id" domain="[('id', 'in', parent.available_installment_ids)]"/>
+                                <field name="maintenance_id" domain="[('id', 'in', parent.available_maintenance_ids)]"/>
+                                <field name="source_doc" readonly="1"/>
+                                <field name="label"/>
+                                <field name="line_date" readonly="1"/>
+                                <field name="line_remaining_amount" readonly="1"/>
+                                <field name="allocated_amount" sum="Total Allocated"/>
+                            </list>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="incoming_cheque_manage_view_list_inherit" model="ir.ui.view">
+            <field name="name">cheque.manage</field>
+            <field name="model">cheque.manage</field>
+            <field name="inherit_id" ref="arkzayed_18_gt_cheque_management.cheque_manage_list_views"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//list/field[@name='state']" position="before">
+                    <field name="sale_proposal_id" string="contract"/>
+                    <field name="sale_reservation_id" string="Reservation"/>
+                    <field name="unit_id" string="Unit"/>
+                </xpath>
+
+
+            </field>
+        </record>
+
+        <!-- Server Action: Direct Under Collection -->
+        <record id="action_server_direct_under_collection" model="ir.actions.server">
+            <field name="name">Direct Under Collection</field>
+            <field name="model_id" ref="arkzayed_18_gt_cheque_management.model_cheque_manage"/>
+            <field name="binding_model_id" ref="arkzayed_18_gt_cheque_management.model_cheque_manage"/>
+            <field name="binding_type">action</field>
+            <field name="binding_view_types">list,form</field>
+            <field name="state">code</field>
+            <field name="code">
+                for record in records:
+                record.write({'state': 'register'})
+            </field>
+        </record>
+
+        <!-- Server Action: Receive -->
+        <record id="action_server_receive" model="ir.actions.server">
+            <field name="name">Direct To Receive</field>
+            <field name="model_id" ref="arkzayed_18_gt_cheque_management.model_cheque_manage"/>
+            <field name="binding_model_id" ref="arkzayed_18_gt_cheque_management.model_cheque_manage"/>
+            <field name="binding_type">action</field>
+            <field name="binding_view_types">list,form</field>
+            <field name="state">code</field>
+            <field name="code">
+                for record in records:
+                record.write({'state': 'collect'})
+            </field>
+        </record>
+
+    </data>
+</odoo>

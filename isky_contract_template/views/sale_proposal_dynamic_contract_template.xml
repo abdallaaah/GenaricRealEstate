@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="sale_proposal_dynamic_contract_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <!-- IF CHECKED: Use the layout with the company header/logo -->
+                <t t-if="o.template_id and o.template_id.with_logo">
+                    <t t-call="web.external_layout">
+                        <!-- Arabic Page Number Footer -->
+                        <div class="footer" dir="rtl" style="font-size: 17px; font-family: 'Amiri', 'Traditional Arabic', sans-serif; font-weight: bold;">
+                            <div class="text-center" style=" padding-top: 5px;">
+                                <span>صفحة</span>
+                                <span class="page"/>
+                                <span>من</span>
+                                <span class="topage"/>
+                            </div>
+                        </div>
+                        <div class="page" dir="rtl">
+                            <t t-out="o.body_html"/>
+                        </div>
+                    </t>
+                </t>
+
+                <!-- IF NOT CHECKED: Use the basic layout without the logo -->
+                <t t-else="">
+                    <t t-call="web.basic_layout">
+                        <!-- Arabic Page Number Footer -->
+                        <div class="footer" dir="rtl" style="font-size: 17px; font-family: 'Amiri', 'Traditional Arabic', sans-serif; font-weight: bold;">
+                            <div class="text-center" style=" padding-top: 5px;">
+                                <span>صفحة</span>
+                                <span class="page"/>
+                                <span>من</span>
+                                <span class="topage"/>
+                            </div>
+                        </div>
+                        <div class="page" dir="rtl">
+                            <t t-out="o.body_html"/>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

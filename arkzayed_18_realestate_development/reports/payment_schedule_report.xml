@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Paper Format -->
+        <record id="paperformat_payment_schedule_a4" model="report.paperformat">
+            <field name="name">Payment Schedule A4</field>
+            <field name="default" eval="False"/>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">0</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <!-- Report Action -->
+        <record id="payment_schedule_report_action" model="ir.actions.report">
+            <field name="name">Payment Schedule Report</field>
+            <field name="model">sale.proposal</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">arkzayed_18_realestate_development.payment_schedule_report_template</field>
+            <field name="report_file">arkzayed_18_realestate_development.payment_schedule_report_template</field>
+            <field name="print_report_name">'Payment Schedule - %s' % (object.name)</field>
+            <field name="binding_model_id" ref="model_sale_proposal"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="paperformat_payment_schedule_a4"/>
+        </record>
+
+        <!-- Report Template -->
+        <template id="payment_schedule_report_template">
+            <t t-call="web.html_container">
+                <t t-call="web.basic_layout">
+                    <t t-foreach="docs" t-as="o">
+                        <div class="page" style="font-family: Arial, sans-serif;">
+                            <style>
+                                body {
+                                    font-family: Arial, sans-serif;
+                                }
+
+                                /* Company Logo Header */
+                                .ps-logo-container {
+                                    width: 100%;
+                                    text-align: left;
+                                    margin-bottom: 15px;
+                                }
+                                .ps-logo-container img {
+                                    max-height: 80px;
+                                    width: auto;
+                                    object-fit: contain;
+                                }
+
+                                /* Header Section */
+                                .ps-header {
+                                    width: 100%;
+                                    border-collapse: collapse;
+                                    margin-bottom: 15px;
+                                }
+                                .ps-header td {
+                                    padding: 8px 10px;
+                                    border: 1px solid #000;
+                                    font-size: 11pt;
+                                }
+                                .ps-header .label {
+                                    font-weight: bold;
+                                    background-color: #f0f0f0;
+                                    width: 35%;
+                                    text-align: left;
+                                }
+                                .ps-header .value {
+                                    text-align: left;
+                                    width: 65%;
+                                }
+
+                                /* Collection Section */
+                                .ps-collection {
+                                    width: 100%;
+                                    border-collapse: collapse;
+                                    margin-bottom: 15px;
+                                }
+                                .ps-collection td {
+                                    padding: 8px 10px;
+                                    border: 1px solid #000;
+                                    font-size: 10pt;
+                                }
+                                .ps-collection .label {
+                                    font-weight: bold;
+                                    background-color: #f0f0f0;
+                                    width: 60%;
+                                    text-align: left;
+                                }
+                                .ps-collection .value {
+                                    text-align: center;
+                                    width: 40%;
+                                    font-weight: bold;
+                                }
+
+                                /* Payment Schedule Table */
+                                .ps-schedule {
+                                    width: 100%;
+                                    border-collapse: collapse;
+                                    margin-top: 10px;
+                                }
+                                .ps-schedule th {
+                                    background-color: #1f4e78;
+                                    color: #fff;
+                                    border: 1px solid #000;
+                                    padding: 10px 5px;
+                                    font-size: 10pt;
+                                    font-weight: bold;
+                                    text-align: center;
+                                    vertical-align: middle;
+                                }
+                                .ps-schedule td {
+                                    border: 1px solid #000;
+                                    padding: 8px 5px;
+                                    font-size: 9pt;
+                                    text-align: center;
+                                    vertical-align: middle;
+                                }
+                                .ps-schedule .amount-col {
+                                    text-align: right;
+                                    padding-right: 10px;
+                                }
+                                .ps-schedule .date-col {
+                                    text-align: center;
+                                }
+                                .ps-schedule .status-collected {
+                                    font-weight: bold;
+                                    color: #006400;
+                                }
+                                .ps-schedule .status-not-collected {
+                                    font-weight: bold;
+                                    color: #8B0000;
+                                }
+                                .ps-schedule .status-not-due {
+                                    font-weight: bold;
+                                    color: #FF8C00;
+                                }
+
+                                @page {
+                                    size: A4 portrait;
+                                    margin: 10mm;
+                                }
+                            </style>
+
+                            <!-- Company Logo Top Section -->
+                            <div class="ps-logo-container">
+                                <t t-set="company" t-value="o.company_id or res_company"/>
+                                <t t-if="company.logo">
+                                    <span t-field="company.logo" t-options='{"widget": "image", "style": "max-height: 80px;"}'/>
+                                </t>
+                            </div>
+
+                            <!-- Header Information -->
+                            <table class="ps-header">
+                                <tr>
+                                    <td class="label">Unit Number:</td>
+                                    <td class="value">
+                                      <t t-esc="(o.unit_id and (o.unit_id.unit_number or o.unit_id.display_name)) or ''"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="label">Client Name:</td>
+                                    <td class="value"><t t-esc="o.customer_id.name or ''"/></td>
+                                </tr>
+<!--                                <tr>-->
+<!--                                    <td class="label">Area:</td>-->
+<!--                                    <td class="value"><t t-esc="o.contracted_build_up_area or 0"/></td>-->
+<!--                                </tr>-->
+<!--                                <tr>-->
+<!--                                    <td class="label">Terrace:</td>-->
+<!--                                    <td class="value"><t t-esc="o.contracted_terrace_area or 0"/></td>-->
+<!--                                </tr>-->
+                                <tr>
+                                    <td class="label">Unit Price:</td>
+                                        <td class="value">
+                                            <t t-esc="'{:,.0f}'.format(o.price_after_discount)"/>
+                                        </td>
+                                </tr>
+                                <tr>
+                                    <td class="label">Maintenance Fees</td>
+                                    <td class="value">
+                                        <t t-esc="'{:,.0f}'.format(o.maintenance_price or 0)"/>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- Collection Percentages -->
+                            <table class="ps-collection">
+                                <tr>
+                                    <td class="label">Unit Price Collection :</td>
+                                    <td class="value">
+                                        <t t-esc="'{:.0f}%'.format(o.paid_installments_percentage or 0)"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="label">Paid Installment Amount :</td>
+                                    <td class="value">
+                                        <t t-esc="'{:,.0f}'.format(o.paid_installments_amount or 0)"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="label">Maintenance Fees Collection :</td>
+                                    <td class="value">
+                                        <t t-esc="'{:.0f}%'.format(o.paid_maintenance_percentage or 0)"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="label">Total Collection :</td>
+                                    <td class="value">
+                                        <t t-set="total_collection" t-value="((o.paid_installments_amount + o.paid_maintenance_amount) / (o.unit_price + o.maintenance_price) * 100) if (o.unit_price + o.maintenance_price) > 0 else 0"/>
+                                        <t t-esc="'{:.0f}%'.format(total_collection)"/>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- Payment Schedule Table -->
+                            <table class="ps-schedule">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 25%;">Amount</th>
+                                        <th style="width: 20%;">Cheque Date</th>
+                                        <th style="width: 35%;">Statement</th>
+                                        <th style="width: 20%;">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Unit Installments -->
+                                    <t t-set="today" t-value="datetime.date.today()"/>
+
+                                    <t t-foreach="o.installment_ids.sorted(key=lambda x: x.date or datetime.date.max)" t-as="line">
+                                        <tr>
+                                            <td class="amount-col">
+                                                <t t-esc="'{:,.2f}'.format(line.amount or 0)"/>
+                                            </td>
+                                            <td class="date-col">
+                                                <t t-if="line.date">
+                                                    <t t-esc="line.date.strftime('%d/%b/%y')"/>
+                                                </t>
+                                            </td>
+                                            <td style="text-align: left; padding-left: 10px;">
+                                                <t t-esc="line.name or ''"/>
+                                            </td>
+                                            <td>
+                                                <t t-set="line_date" t-value="line.date"/>
+                                                <t t-if="line.paid">
+                                                    <span class="status-collected">Collected</span>
+                                                </t>
+                                                <t t-if="not line.paid and line_date and line_date &lt; today">
+                                                    <span class="status-not-collected">Not Collected</span>
+                                                </t>
+                                                <t t-if="not line.paid and (not line_date or line_date &gt;= today)">
+                                                    <span class="status-not-due">Not Due Yet</span>
+                                                </t>
+                                            </td>
+                                        </tr>
+                                    </t>
+
+                                    <!-- Maintenance Installments -->
+                                    <t t-foreach="o.maintenance_installment_ids.sorted(key=lambda x: x.date or datetime.date.max)" t-as="maint">
+                                        <tr>
+                                            <td class="amount-col">
+                                                <t t-esc="'{:,.2f}'.format(maint.amount or 0)"/>
+                                            </td>
+                                            <td class="date-col">
+                                                <t t-if="maint.date">
+                                                    <t t-esc="maint.date.strftime('%d/%b/%y')"/>
+                                                </t>
+                                            </td>
+                                            <td style="text-align: left; padding-left: 10px;">
+                                                <t t-esc="maint.name or ''"/>
+                                            </td>
+                                            <td>
+                                                <t t-set="maint_date" t-value="maint.date"/>
+                                                <t t-if="maint.paid">
+                                                    <span class="status-collected">Collected</span>
+                                                </t>
+                                                <t t-if="not maint.paid and maint_date and maint_date &lt; today">
+                                                    <span class="status-not-collected">Not Collected</span>
+                                                </t>
+                                                <t t-if="not maint.paid and (not maint_date or maint_date &gt;= today)">
+                                                    <span class="status-not-due">Not Due Yet</span>
+                                                </t>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

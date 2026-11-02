@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="fixed_bonus_form_view" model="ir.ui.view">
+            <field name="name">fixed.bonus.form.view</field>
+            <field name="model">fixed.bonus</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="bonus_type_id"/>
+                            <field name="bonus_amount"/>
+                            <field name="contract_id"/>
+                        </group>
+                    </sheet>
+                    <chatter/>
+                </form></field>
+        </record>
+        <record id="exp_inh_contract_form" model="ir.ui.view">
+            <field name="name">exp.inh.contract.form</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[@name='information']/group" position="inside">
+                    <group name="total_salary" string="Total Salary"/>
+                </xpath>
+                <xpath expr="//field[@name='wage']" position="after">
+                    <field name="wage_amount_words"/>
+                </xpath>
+                <xpath expr="//field[@name='date_start']" position="after">
+                    <field invisible="1" name="start_date_higri"/>
+                </xpath>
+                <xpath expr="//field[@name='date_end']" position="before">
+                    <field invisible="1" name="end_date_higri"/>
+                </xpath>
+                <xpath expr="//field[@name='date_start']" position="before">
+                    <field name="contract_period"/>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page name="general_terms" string="General Terms">
+                        <field name="general_terms" widget="html"/>
+                    </page>
+                </xpath>
+                <xpath expr="//notebook/page[@name='other']" position="before">
+                    <page name="fixed_bonus" string="Fixed Bonus">
+                        <field context="{'form_view_ref':'isky_hr_egypt_allowances_application_contract.fixed_bonus_form_view'}" name="fixed_bonus_ids" nolabel="1">
+                            <list editable="bottom">
+                                <field name="bonus_type_id"/>
+                                <field name="bonus_amount" sum="Total Amount"/>
+                            </list></field>
+                        <field invisible="1" name="total_bonus_amount"/>
+                    </page>
+                </xpath>
+                <xpath expr="//page[1]" position="after">
+                    <page name="allow_ded" string="Allowances &amp; Deductions">
+                        <group col="2" name="salary_and_advantages" position="after">
+                            <group string="House Allowance">
+                                <field name="with_accommodation" readonly="house_periodic == True"/>
+                                <field name="house_periodic" readonly="with_accommodation == True"/>
+                                <field name="house_allowance_type" readonly="with_accommodation == True"/>
+                                <field invisible="house_periodic != True" name="house_number_of_months" readonly="with_accommodation == True" required="house_periodic == True"/>
+                                <field name="housing" readonly="with_accommodation == True"/>
+                                <field name="housing_amount"/>
+                                <field invisible="house_periodic != True" name="house_date" readonly="with_accommodation == True" required="house_periodic == True"/>
+                            </group>
+                            <group string="Transportation Allowance">
+                                <field name="transportation_allowance_type" readonly="with_accommodation == True"/>
+                                <field name="transportation" readonly="with_accommodation == True"/>
+                                <field invisible="transportation_allowance_type != 'percentage'" name="transportation_amount" readonly="with_accommodation == True"/>
+                            </group>
+                            <group string="Natural Work Allowance">
+                                <field name="natural_allowance_type"/>
+                                <field name="natural_work"/>
+                                <field invisible="natural_allowance_type != 'percentage'" name="natural_work_amount"/>
+                            </group>
+                            <group string="Food Allowance">
+                                <field name="food_allowance_type"/>
+                                <field name="food_allowance"/>
+                                <field invisible="food_allowance_type != 'percentage'" name="food_allowance_amount"/>
+                            </group>
+                            <group string="Mobile Allowance">
+                                <field name="mobile_allowance_type"/>
+                                <field name="mobile_allowance"/>
+                                <field invisible="mobile_allowance_type != 'percentage'" name="mobile_allowance_amount"/>
+                            </group>
+                            <group string="Car Allowance">
+                                <field name="car_allowance_type"/>
+                                <field name="car_allowance"/>
+                                <field invisible="car_allowance_type != 'percentage'" name="car_allowance_amount"/>
+                            </group>
+                            <group string="Other Allowance">
+                                <field name="other_allowance_amount"/>
+                            </group>
+                            <group string="Fellowship">
+                                <field name="fellowship_fund"/>
+                                <field invisible="fellowship_fund != 'yes'" name="fellowship_deduction_amount"/>
+                            </group>
+                            <group string="Other Deductions">
+                                <field name="other_deduction_amount"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath></field>
+        </record>
+        <record id="hr_contract_view_tree_inherit" model="ir.ui.view">
+            <field name="name">hr.contract.view.tree.inherit</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='employee_id']" position="after">
+                    <field invisible="1" name="check_month"/>
+                </xpath>
+                <xpath expr="//list" position="attributes">
+                    <attribute name="decoration-danger">not check_month > 2</attribute>
+                </xpath></field>
+        </record>
+        <record id="fixed_bonus_action" model="ir.actions.act_window">
+            <field name="name">Fixed Bonus</field>
+            <field name="res_model">fixed.bonus</field>
+            <field name="view_mode">list,form</field>
+        </record>
+    </data>
+</odoo>

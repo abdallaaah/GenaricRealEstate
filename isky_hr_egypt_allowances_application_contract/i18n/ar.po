@@ -1,0 +1,2728 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* isky_hr_egypt_allowances_application_contract
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-12-11 14:03+0000\n"
+"PO-Revision-Date: 2019-12-11 14:03+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid ")\n"
+"                                                    ریال"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid ")\n"
+"                                                zip ("
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid ")\n"
+"                                            <span style=\"color: #333399;\">S.R.</span>, payable to him at the end\n"
+"                                            of every Gregorian month."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid ")\n"
+"                                            ريال سعودى تدفع له فى نهاية كل شهر ميلادى"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid ")\n"
+"                                            من الراتب الاساسى يدفع شهريا الا اذا قام الطرف الاول بتوفير السكن المناسب\n"
+"                                            ففى هذا الحالة لايستحق الطرف الثانى بدل سكن ."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid ")\n"
+"                                            يدفع شهريا الا اذا قام الطرف الاول بتامين المواصلات المناسبة."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid ") of the basic\n"
+"                                            salary,\n"
+"                                            which will be paid at the end of every month. The First Party may provide\n"
+"                                            suitable housing and in such case the Second Party shall not be entitled\n"
+"                                            to housing allowance."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_salary_report_template
+msgid ") وبناء عليه نتعهد تعهدا غير مشروطا وغير قابل للنقض بان نقوم بتحويل راتبه الشهري ومكافأة\n"
+"                                نهاية الخدمة الي الحساب المذكور اعلاه ودون ادني مسئولية علي الشركة\n"
+"                                <br/>\n"
+"\n"
+"                                كما نتعھد بإبلاغكم خطیا وعلى الفور في حال فصله عن العمل أو انتھاء خدمته معنا لأي سبب كان\n"
+"                                ، یسري مفعول التزامنا حتى استلامنا اشعار خطي\n"
+"                                من البنك"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "),\n"
+"                                            which will be paid at the end of every month."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid ")SR"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid ")ريال"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid ",\n"
+"                                            provided\n"
+"                                            that the first three months shall be a probation period, during which\n"
+"                                            the\n"
+"                                            First Party shall have the right to terminate this contract without end\n"
+"                                            of\n"
+"                                            service award, compensation, or prior notice in case of failure of the\n"
+"                                            Second Party to perform his duties."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid ", starting\n"
+"                                            from the date of"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid ",براتب اساسى قدره\n"
+"                                            ("
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "- Basic ("
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "- Housing ("
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "- Tran ("
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "1- The above preamble is considered as part and\n"
+"                                            parcel of this contract."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "10. The Second Party shall not reveal to the media or any other\n"
+"                                            third party any special information belonging to the First Party unless\n"
+"                                            as per written permission."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "11. The Second Party shall submit his qualification certifications and\n"
+"                                            other necessary documents in compliance with the provisions of the Company's\n"
+"                                            Internal Bylaw."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "12. The Second Party shall comply with the instructions of the First Party\n"
+"                                            with regard to medical checkups. However, if a physician approved by the\n"
+"                                            Company states that the Second Party is not medically fit to carry out\n"
+"                                            his duties,this contract shall be deemed invalid according to the Saudi\n"
+"                                            Labour Law."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "13. The Second Party shall maintain timely attendance in accordance with\n"
+"                                            the work timetable set by the First Party, who will have the right,\n"
+"                                            in case of any violation thereof, to impose the penalties he deems suitable\n"
+"                                            in accordance with the Company's Internal Bylaw and the requirements\n"
+"                                            of the Saudi Labour Law."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "14. In case of absence from work due to sickness the Second Party must\n"
+"                                            support the case by a certificate from a doctor approved by the company"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "15. The company shall have the right to promptly terminate this\n"
+"                                                contract as per a written notice and disciplinary actions might\n"
+"                                                be\n"
+"                                                taken in the following cases:"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "16. The laws and regulations adopted by the Company are part and parcel of\n"
+"                                            this contract."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "17. In case this contract is\n"
+"                                            terminated for any reason, the Second Party shall handover to the\n"
+"                                            First Party, or whom he authorizes, within oneweek as of the date of\n"
+"                                            expiry of the contract,all items in his custody, whether documents,\n"
+"                                            files, books, amounts of any kind, or any other assets kept in his\n"
+"                                            custody for work purpose."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "18-a - The Second Party is entitled\n"
+"                                            to a yearly vacation of"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "19- The Second Party is entitled to medical care for him at the expense of\n"
+"                                            the First Party as provided for in the Company's Internal Bylaw."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "2. The Second Party agrees to work for the First Party in the position of"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "20- The working contractual hours are"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "21- The Second Party is entitled to a housing allowance of ("
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "22- Unless the First Party provides suitable transportation,\n"
+"                                            the Second Party is entitled to transportation allowance of\n"
+"                                            ("
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "23- The Second Party is entitled to an end of service award,\n"
+"                                            provided that he has accomplished two years of work with the Company as per\n"
+"                                            the terms of the Saudi Labour Law."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "24- End of service will be paid as per current last basic salary,\n"
+"                                            housing allowance, transportation allowance and regular food allowance as\n"
+"                                            per Saudi Labor Law. End of service excludes bonuses, commissions\n"
+"                                            and all/any type of incentive."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "25- At the end of his service with the Company the Second Party shall\n"
+"                                            be given an experience certificate that includes his term of work with the\n"
+"                                            Company and complies with applied laws and regulations."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "26- The Second Party acknowledges\n"
+"                                            that he has read the Company's Internal Bylaw. He undertakes to\n"
+"                                            comply with it and all other generalizations issued by the Company\n"
+"                                            management from time to time."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "27- The Company'sInternal Bylaw and the Saudi Labour Law shall be\n"
+"                                            applicable for any case not provided for herein."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "28- Any conflict arising on this contract or any of its articles shall be\n"
+"                                            solved amicably. Otherwise, reference shall be made to the Saudi Labour law"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "29- This contract has been issued in two copies, each party having a copy."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "3. a. The duration of this\n"
+"                                            contract\n"
+"                                            is"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "4. The Second Party shall comply with the laws and regulations applied\n"
+"                                            by the First Party. He undertakes to abideby the instructions and\n"
+"                                            orders of higher officials and exert utmost\n"
+"                                            efforts to carry out his duties in the best required way."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "5. The Second Party shall observe good conduct and maintain cordial\n"
+"                                            relationship with others, whether inside or outside the Company."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "6. The Second Party shall not import or use narcotics or drinks, engage in\n"
+"                                            any political activity, gatherings, demonstrations, strikes,or any work\n"
+"                                            deemed illegal by the laws applied in Saudi Arabia. The First Party shall\n"
+"                                            have the right, in case of such violations, to terminate this contract\n"
+"                                            without compensation, payment of any type, or prior notice."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "7. The Second Party acknowledges that any research or invention he makes\n"
+"                                            shall be the property of the First Party."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "8. The Second Party shall keep confidential all secrets revealed\n"
+"                                            to him during his service with the First Party, including the secrets\n"
+"                                            of the First Party's subsidiary companies or any special\n"
+"                                            secrets related to the commercial transactions of the First Party with the\n"
+"                                            others. The Second Party must not disclose any of the above secrets\n"
+"                                            during the validity of this contract and within two years following its\n"
+"                                            expiry."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "9. The Second Party shall not work for any other party during seasonal\n"
+"                                            leaves or annual vacations unless as per written notice of the First Party."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid ": تم بعون الله وتوفيقه الاتفاق بين كل من"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_cancel_contract_template
+msgid ":الاسم"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid ":فى حالة"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_salary_report_template
+msgid ":ملاحظات"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_job_offer_report_template
+msgid "<br/>\n"
+"                                                    <strong>ملاحظات:</strong>\n"
+"                                                    <br/>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "<br/>\n"
+"                                            Cores' of"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_salary_report_template
+msgid "<br/>\n"
+"                                <br/>(البدلات : ("
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_salary_report_template
+msgid "<br/>\n"
+"                                <br/>(الراتب\n"
+"                                الاساسي : ("
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_salary_report_template
+msgid "<br/>\n"
+"                                <br/>المسمى الوظیفي :"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_salary_report_template
+msgid "<br/>\n"
+"                                <br/>رقم الھویة :"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_salary_report_template
+msgid "<br/>\n"
+"                                <br/>نؤكد بأن الموظف المذكور اعلاه هو موظف لدينا وقد طلب منا تحويل صافي راتبه الشهري\n"
+"                                الي حسابه رقم ("
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_salary_report_template
+msgid "<br/>I understand that MR"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "<span style=\"color: #333399;\">\n"
+"                                                    (21)\n"
+"                                                </span>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "<span style=\"color: #333399;\">\n"
+"                                                    (30)\n"
+"                                                </span>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "<span style=\"color: #333399;\">\n"
+"                                                    (40)\n"
+"                                                </span>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "<span style=\"color: #333399;\">\n"
+"                                                    (54)\n"
+"                                                </span>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_salary_report_template
+msgid "<span style=\"padding-right:50px\">القسم :</span>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_job_offer_report_template
+msgid "<span style=\"padding-right:5px\">سنة ميلادية</span>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_job_offer_report_template
+msgid "<span style=\"padding-right:5px\">سنتين ميلادتين</span>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_cancel_contract_template
+msgid "<span style=\"text-decoration: underline; font-size: 20px;\">\n"
+"                                    <strong>الموضوع: عدم تجديد عقد عمل</strong>\n"
+"                                </span>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "<span style=\"text-decoration: underline;\">\n"
+"                                                    <strong>Obligations of the Second Party</strong>\n"
+"                                                </span>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "<span style=\"text-decoration: underline;\">\n"
+"                                                    <strong>التزامات الطرف الثانى ‬</strong>\n"
+"                                                </span>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "<span style=\"text-decoration: underline;\">\n"
+"                                                <strong>Entitlements of the Second Party</strong>\n"
+"                                            </span>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "<span style=\"text-decoration: underline;\">\n"
+"                                                <strong>حقوق الطرف الثانى ‬</strong>\n"
+"                                            </span>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "<span style=\"text-decoration: underline;\">\n"
+"                                    <strong>Employment Contract</strong>\n"
+"                                </span>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_start_work_report_template
+msgid "<span>\n"
+"                                        <strong style=\"text-decoration: underline;\">.ملاحظة:</strong>\n"
+"                                        يلزم تعبئة نموزج\n"
+"                                        المباشرة بعد مباشرة الموظف لعمله سواء تعيين جديد او عودة من ‫إ‬جازة\n"
+"                                    </span>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "<span>ID No</span>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "<span>Name</span>"
+msgstr "<span>الإسم</span>"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "<span>Nationality</span>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_start_work_report_template
+msgid "<span>الأصل : ملف الموظف *</span>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "<span>بمدينة</span>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "<span>تليفون</span>\n"
+"                                                ("
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "<span>ص.ب</span>\n"
+"                                                ("
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_start_work_report_template
+msgid "<span>صورة : الرواتب *</span>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_start_work_report_template
+msgid "<span>صورة : ملف المباشرات ‬*</span>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_start_work_report_template
+msgid "<strong>\n"
+"                                                    المسمي الوظيفى\n"
+"                                                </strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_start_work_report_template
+msgid "<strong>\n"
+"                                                :مباشرة موظف جديد ‫بتاريخ\n"
+"                                            </strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "<strong>\n"
+"                                                <span style=\"text-decoration: underline;\">Final Rules</span>\n"
+"                                            </strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "<strong>\n"
+"                                                <span style=\"text-decoration: underline;\">احكام ختامية</span>\n"
+"                                            </strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "<strong>(Second Party)</strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "<strong>(Signature)</strong>\n"
+"                                            <br/>\n"
+"                                            <br/>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "<strong>(Stamp)</strong>\n"
+"                                            <br/>\n"
+"                                            <br/>\n"
+"                                            <br/>\n"
+"                                            <br/>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "<strong>(The Second Party)</strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "<strong>(الطرف ثانى)</strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "<strong>(‫الطرف‬ ‫الثاني‬)</strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_cancel_contract_template
+msgid "<strong>..................................................:التاريخ</strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_cancel_contract_template
+msgid "<strong>.................................................:التوقيع</strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "<strong>:ملاحظات</strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "<strong>First Party: The Company</strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "<strong>General Manager</strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "<strong>Hereinafter referred to as the Employee or</strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "<strong>Name</strong>"
+msgstr "<strong>اسم</strong>"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "<strong>Nationality</strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "<strong>Notes :</strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "<strong>Preamble</strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "<strong>Represented herein by:</strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "<strong>Signature</strong>"
+msgstr "<strong>التوقيع</strong>"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "<strong>Special Note:</strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_start_work_report_template
+msgid "<strong>التاريخ</strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_start_work_report_template
+msgid "<strong>التوقیع‬</strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_start_work_report_template
+msgid "<strong>الرقم الوظيفي</strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "<strong>الطرف أول (الشركة)</strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_cancel_contract_template
+msgid "<strong>المدير التنفيذى</strong>‬\n"
+"                                <br/>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "<strong>المدير العام</strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "<strong>تمھید</strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_start_work_report_template
+msgid "<strong>رئيس اللجنة التنفيذية</strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "<strong>عقد عمل أعزب</strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "<strong>عقد عمل</strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_start_work_report_template
+msgid "<strong>مباشرة عمل</strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_start_work_report_template
+msgid "<strong>مدير التجزئة</strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_cancel_contract_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_start_work_report_template
+msgid "<strong>ملاحظات:</strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "<strong>ملاحظة هامة</strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "<strong>ويشار اليه فى هذا العقد بالموظف</strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "<strong>ويمثلها وينوب عنها :</strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "<strong>‫(التوقيع)</strong>\n"
+"                                            <br/>\n"
+"                                            <br/>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "<strong>‫(الختم)</strong>\n"
+"                                            <br/>\n"
+"                                            <br/>\n"
+"                                            <br/>\n"
+"                                            <br/>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_start_work_report_template
+msgid "<strong>‫إسم الموظف / العامل‬</strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_start_work_report_template
+msgid "<strong>‫الإسم‬</strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "<strong>‫التوقيع‬</strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_start_work_report_template
+msgid "<strong>‫الجنسیة‬</strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_start_work_report_template
+msgid "<strong>‫موقع‬ ‫العمل‬</strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_start_work_report_template
+msgid "<strong>‫‫ ‫إدارة الموارد البشرية</strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "Address\n"
+"                                            ("
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.hr_applicant_form_view_inherit
+msgid "Allowances"
+msgstr "البدلات"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.exp_inh_contract_form
+msgid "Allowances & Deductions"
+msgstr "البدلات والخصومات"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: selection:hr.applicant,car_allowance_type:0
+#: selection:hr.applicant,food_allowance_type:0
+#: selection:hr.applicant,house_allowance_type:0
+#: selection:hr.applicant,mobile_allowance_type:0
+#: selection:hr.applicant,natural_allowance_type:0
+#: selection:hr.applicant,transportation_allowance_type:0
+#: selection:hr.contract,car_allowance_type:0
+#: selection:hr.contract,food_allowance_type:0
+#: selection:hr.contract,house_allowance_type:0
+#: selection:hr.contract,mobile_allowance_type:0
+#: selection:hr.contract,natural_allowance_type:0
+#: selection:hr.contract,transportation_allowance_type:0
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_fixed_bonus__bonus_amount
+msgid "Amount"
+msgstr "مبلغ"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "And"
+msgstr "و"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "Any addition or amendment in this contract will be followed by an\n"
+"                                            addendum and it will be part of this contract"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model,name:isky_hr_egypt_allowances_application_contract.model_hr_applicant
+msgid "Applicant"
+msgstr "المتقدم"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.exp_inh_hr_applicant_search
+msgid "Applicant's Name"
+msgstr "اسم مقدم الطلب"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.hr_applicant_form_view_inherit
+msgid "Application Summary"
+msgstr "ملخص طلب التعيين"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_applicant__job_id
+msgid "Applied Job"
+msgstr "وظيفة مطبقة"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "As the First Party is a (Joint Stock\n"
+"                                                Company) company working in different commercial areas;\n"
+"                                                and as the Second Party has expressed his intent to work for\n"
+"                                                the First Party in the position of"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_fixed_bonus__contract_id
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_contract__fixed_bonus_ids
+msgid "Bonus"
+msgstr "اضافى"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "CR Number is ("
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_applicant__car_allowance
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_contract__car_allowance
+msgid "Car (Monthly)"
+msgstr "سيارة (شهريا)"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:hr.salary.rule,name:isky_hr_egypt_allowances_application_contract.hr_salary_rule_car
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.exp_inh_contract_form
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.hr_applicant_form_view_inherit
+msgid "Car Allowance"
+msgstr "بدل سيارة"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_applicant__car_allowance_amount
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_contract__car_allowance_amount
+msgid "Car Amount (Monthly)"
+msgstr "مبلغ بدل السيارة (شهريا)"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_applicant__car_allowance_type
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_contract__car_allowance_type
+msgid "Car Type"
+msgstr "نوع بدل السيارة"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_contract__check_month
+msgid "Check Month No."
+msgstr "رقم الشهر"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.exp_inh_hr_applicant_search
+msgid "Company"
+msgstr "المؤسسة"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.exp_inh_hr_applicant_search
+msgid "Contact"
+msgstr "جهة الاتصال"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_applicant__contract_created
+msgid "Contract Created"
+msgstr "العقد المنشأ"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_applicant__contract_period
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_contract__contract_period
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_employee__contract_period
+msgid "Contract Period"
+msgstr "مده العقد"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_applicant__app_contract_proposal
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_recruitment_stage__contract_proposal
+msgid "Contract Proposal"
+msgstr "اقتراح العقد"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.hr_applicant_form_view_inherit
+msgid "Create Contract"
+msgstr "اشاء عقد"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_fixed_bonus__create_uid
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_fixed_bonus_type__create_uid
+msgid "Created by"
+msgstr "أنشئ بواسطة"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_fixed_bonus__create_date
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_fixed_bonus_type__create_date
+msgid "Created on"
+msgstr "أنشئ في"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_applicant__birthday
+msgid "Date of Birth"
+msgstr "تاريخ الميلاد"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_applicant__department_id
+msgid "Department"
+msgstr "القسم"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_fixed_bonus__display_name
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_fixed_bonus_type__display_name
+msgid "Display Name"
+msgstr "اسم العرض"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_contract__is_egyptian
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_employee__is_egyptian
+msgid "Egyptian"
+msgstr "مصرى"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model,name:isky_hr_egypt_allowances_application_contract.model_hr_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_applicant__emp_id
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.exp_inh_hr_applicant_search
+msgid "Employee"
+msgstr "الموظف"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model,name:isky_hr_egypt_allowances_application_contract.model_hr_contract
+msgid "Employee Contract"
+msgstr "عقد الموظف"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,help:isky_hr_egypt_allowances_application_contract.field_hr_applicant__emp_id
+msgid "Employee linked to the applicant."
+msgstr "الموظف المرتبط بمقدم الطلب."
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_contract__end_date_higri
+msgid "End Date(Higri)"
+msgstr "تاريخ الانهاء(هجرى)"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: selection:hr.contract,work_type:0
+msgid "Exempt"
+msgstr "معفى"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "Fax ("
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.hr_applicant_form_view_inherit
+msgid "Feedback of interviews..."
+msgstr "ردود الفعل من المقابلات..."
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.exp_inh_contract_form
+msgid "Fellowship"
+msgstr "الزمالة"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:hr.salary.rule,name:isky_hr_egypt_allowances_application_contract.hr_rule_fellowship_deduction
+msgid "Fellowship Deduction"
+msgstr "خصم الزمالة"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_contract__fellowship_deduction_amount
+msgid "Fellowship Deduction Amount"
+msgstr "مبلغ خصم الزمالة"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_contract__fellowship_fund
+msgid "Fellowship Fund"
+msgstr "صندوق الزمالة"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: selection:hr.applicant,gender:0
+msgid "Female"
+msgstr "انثى"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:hr.salary.rule,name:isky_hr_egypt_allowances_application_contract.fixed_bonus_salary_rule
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.exp_inh_contract_form
+msgid "Fixed Bonus"
+msgstr "اضافى ثابت"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_applicant__food_allowance
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_contract__food_allowance
+msgid "Food (Monthly)"
+msgstr "بدل طعام (شهريا)"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:hr.salary.rule,name:isky_hr_egypt_allowances_application_contract.hr_salary_rule_food
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.exp_inh_contract_form
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.hr_applicant_form_view_inherit
+msgid "Food Allowance"
+msgstr "بدل طعام"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_applicant__food_allowance_amount
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_contract__food_allowance_amount
+msgid "Food Amount (Monthly)"
+msgstr "بدل طعام (شهريا)"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_applicant__food_allowance_type
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_contract__food_allowance_type
+msgid "Food Type"
+msgstr "نوع بدل الطعام"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: selection:hr.contract,work_type:0
+msgid "Full"
+msgstr "كامل"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_applicant__gender
+msgid "Gender"
+msgstr "الجنس"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.hr_applicant_form_view_inherit
+msgid "General Information"
+msgstr "المعلومات العامة"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_contract__general_terms
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.exp_inh_contract_form
+msgid "General Terms"
+msgstr "شروط عامة"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "Gregorian year"
+msgstr "السنة الميلادية"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: selection:hr.contract,work_type:0
+msgid "Half"
+msgstr "نص"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.exp_inh_hr_applicant_search
+msgid "Has Email?"
+msgstr "لديه ايميل ؟"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.exp_inh_hr_applicant_search
+msgid "Has not Email?"
+msgstr "ليس لديه ايميل ؟"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.exp_inh_contract_form
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.hr_applicant_form_view_inherit
+msgid "House Allowance"
+msgstr "بدل سكن"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_applicant__house_allowance_type
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_contract__house_allowance_type
+msgid "House Type"
+msgstr "نوع بدل السكن"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_applicant__housing
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_contract__housing
+msgid "Housing (Monthly)"
+msgstr "نوع بدل السكن(شهريا)"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:hr.salary.rule,name:isky_hr_egypt_allowances_application_contract.hr_salary_rule_house
+msgid "Housing Allowance"
+msgstr "بدل سكن"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_contract__housing_amount
+msgid "Housing Amount"
+msgstr "مبلغ بدل السكن"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_applicant__housing_amount
+msgid "Housing Amount (Monthly)"
+msgstr "مبلغ بدل الاقامة (شهريا)"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_contract__house_date
+msgid "Housing Date"
+msgstr "تاريخ الاسكان"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_fixed_bonus__id
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_fixed_bonus_type__id
+msgid "ID"
+msgstr "المعرف"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.hr_applicant_form_view_inherit
+msgid "Identification & Passport"
+msgstr "جواز السفر(الرقم التعريفى)"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_applicant__iqama_issue_date
+msgid "Iqama Issue Date"
+msgstr " تاريخ اصدار الإقامة"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_applicant__iqama_issue_place
+msgid "Iqama Issue Place"
+msgstr " مكان اصدار الإقامة"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_applicant__iqama_number
+msgid "Iqama Number"
+msgstr "رقم الاقامه"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model,name:isky_hr_egypt_allowances_application_contract.model_hr_job
+msgid "Job Position"
+msgstr "المنصب الوظيفي"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_applicant__salary_proposed
+msgid "Job Salary"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.exp_inh_hr_job_form
+msgid "Job Specification"
+msgstr "مواصفات الوظيفة"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_fixed_bonus____last_update
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_fixed_bonus_type____last_update
+msgid "Last Modified on"
+msgstr "آخر تعديل في"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_fixed_bonus__write_uid
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_fixed_bonus_type__write_uid
+msgid "Last Updated by"
+msgstr "آخر تحديث بواسطة"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_fixed_bonus__write_date
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_fixed_bonus_type__write_date
+msgid "Last Updated on"
+msgstr "آخر تحديث في"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: selection:hr.applicant,gender:0
+msgid "Male"
+msgstr "ذكر"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_applicant__mobile_allowance
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_contract__mobile_allowance
+msgid "Mobile (Monthly)"
+msgstr "بدل موبيل (شهريا)"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:hr.salary.rule,name:isky_hr_egypt_allowances_application_contract.hr_salary_rule_mobile
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.exp_inh_contract_form
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.hr_applicant_form_view_inherit
+msgid "Mobile Allowance"
+msgstr "بدل موبيل"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_applicant__mobile_allowance_amount
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_contract__mobile_allowance_amount
+msgid "Mobile Amount (Monthly)"
+msgstr "بدل موبيل (شهريا)"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_applicant__mobile_allowance_type
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_contract__mobile_allowance_type
+msgid "Mobile Type"
+msgstr "نوع الموبيل"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,help:isky_hr_egypt_allowances_application_contract.field_hr_applicant__car_allowance
+#: model:ir.model.fields,help:isky_hr_egypt_allowances_application_contract.field_hr_applicant__car_allowance_amount
+#: model:ir.model.fields,help:isky_hr_egypt_allowances_application_contract.field_hr_contract__car_allowance
+#: model:ir.model.fields,help:isky_hr_egypt_allowances_application_contract.field_hr_contract__car_allowance_amount
+msgid "Monthly Car Amount"
+msgstr "مبلغ بدل السيارة شهريا"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,help:isky_hr_egypt_allowances_application_contract.field_hr_applicant__food_allowance
+#: model:ir.model.fields,help:isky_hr_egypt_allowances_application_contract.field_hr_applicant__food_allowance_amount
+#: model:ir.model.fields,help:isky_hr_egypt_allowances_application_contract.field_hr_contract__food_allowance
+#: model:ir.model.fields,help:isky_hr_egypt_allowances_application_contract.field_hr_contract__food_allowance_amount
+msgid "Monthly Food Amount"
+msgstr "مبلغ بدل الطعام شهريا"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,help:isky_hr_egypt_allowances_application_contract.field_hr_applicant__housing
+#: model:ir.model.fields,help:isky_hr_egypt_allowances_application_contract.field_hr_applicant__housing_amount
+#: model:ir.model.fields,help:isky_hr_egypt_allowances_application_contract.field_hr_contract__housing
+#: model:ir.model.fields,help:isky_hr_egypt_allowances_application_contract.field_hr_contract__housing_amount
+msgid "Monthly Housing Amount"
+msgstr "مبلغ بدل السكن شهريا"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,help:isky_hr_egypt_allowances_application_contract.field_hr_applicant__mobile_allowance
+#: model:ir.model.fields,help:isky_hr_egypt_allowances_application_contract.field_hr_applicant__mobile_allowance_amount
+#: model:ir.model.fields,help:isky_hr_egypt_allowances_application_contract.field_hr_contract__mobile_allowance
+#: model:ir.model.fields,help:isky_hr_egypt_allowances_application_contract.field_hr_contract__mobile_allowance_amount
+msgid "Monthly Mobile Amount"
+msgstr "مبلغ بدل الموبيل شهريا"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,help:isky_hr_egypt_allowances_application_contract.field_hr_applicant__natural_work
+#: model:ir.model.fields,help:isky_hr_egypt_allowances_application_contract.field_hr_applicant__natural_work_amount
+#: model:ir.model.fields,help:isky_hr_egypt_allowances_application_contract.field_hr_contract__natural_work
+#: model:ir.model.fields,help:isky_hr_egypt_allowances_application_contract.field_hr_contract__natural_work_amount
+msgid "Monthly Natural Work Amount"
+msgstr "مبلغ بدل طبيعه عمل شهريا"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,help:isky_hr_egypt_allowances_application_contract.field_hr_applicant__transportation
+#: model:ir.model.fields,help:isky_hr_egypt_allowances_application_contract.field_hr_applicant__transportation_amount
+#: model:ir.model.fields,help:isky_hr_egypt_allowances_application_contract.field_hr_contract__transportation
+#: model:ir.model.fields,help:isky_hr_egypt_allowances_application_contract.field_hr_contract__transportation_amount
+msgid "Monthly Transportation Amount"
+msgstr "مبلغ بدل المواصلات شهريا"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "Ms/"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_contract__house_number_of_months
+msgid "NO.Of Months"
+msgstr "عدد الشهور"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_fixed_bonus_type__name
+msgid "Name"
+msgstr "الاسم"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_applicant__nationality_id
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.exp_inh_hr_applicant_search
+msgid "Nationality"
+msgstr "الجنسية"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_applicant__natural_work
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_contract__natural_work
+msgid "Natural Work (Monthly)"
+msgstr "بدل طبيعه عمل (شهريا)"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:hr.salary.rule,name:isky_hr_egypt_allowances_application_contract.hr_salary_rule_natural_work
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.exp_inh_contract_form
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.hr_applicant_form_view_inherit
+msgid "Natural Work Allowance"
+msgstr "بدل طبيعه عمل"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_applicant__natural_work_amount
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_contract__natural_work_amount
+msgid "Natural Work Amount (Monthly)"
+msgstr "مبلغ بدل طبيعه عمل شهريا"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_applicant__natural_allowance_type
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_contract__natural_allowance_type
+msgid "Natural Work Type"
+msgstr "نوع بدل طبيعه عمل"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: selection:hr.contract,contract_period:0
+msgid "Nine Months"
+msgstr "تسعة أشهر"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: selection:hr.contract,fellowship_fund:0
+msgid "No"
+msgstr "عدد"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_applicant__notes
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.hr_applicant_form_view_inherit
+msgid "Notes"
+msgstr "ملاحظات"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_salary_report_template
+msgid "Notes :"
+msgstr "ملاحظات :"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: code:addons/isky_hr_egypt_allowances_application_contract/models/hr_contract_inherit.py:124
+#, python-format
+msgid "Number of months must be greater than zero."
+msgstr "يجب أن يكون عدد الأشهر أكبر من الصفر."
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "On the day of Date of"
+msgstr "في يوم من تاريخ"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: selection:hr.applicant,contract_period:0
+#: selection:hr.contract,contract_period:0
+#: selection:hr.employee,contract_period:0
+msgid "One Year"
+msgstr "سنه واحده"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:hr.salary.rule,name:isky_hr_egypt_allowances_application_contract.hr_salary_rule_other_allowance
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.exp_inh_contract_form
+msgid "Other Allowance"
+msgstr "بدلات أخرى"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_contract__other_allowance_amount
+msgid "Other Allowance Amount"
+msgstr "مبلغ البدل الآخر"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:hr.salary.rule,name:isky_hr_egypt_allowances_application_contract.hr_salary_rule_bonus_allowance
+msgid "Other Bonus"
+msgstr "مكافأة أخرى"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "P.O. Box ("
+msgstr "ص ب: صندوق"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: selection:hr.contract,work_type:0
+msgid "Partial"
+msgstr "جزئى"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_applicant__passport_issue_date
+msgid "Passport Issue Date"
+msgstr "تاريخ اصدار جواز السفر"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_applicant__passport_id
+msgid "Passport No"
+msgstr "رقم جواز السفر"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_applicant__passport_issue_place
+msgid "Passport Place Of Issue"
+msgstr "مكان اصدار جواز السفر"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model,name:isky_hr_egypt_allowances_application_contract.model_hr_payslip
+msgid "Pay Slip"
+msgstr "قسيمة المرتب"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: selection:hr.applicant,car_allowance_type:0
+#: selection:hr.applicant,food_allowance_type:0
+#: selection:hr.applicant,house_allowance_type:0
+#: selection:hr.applicant,mobile_allowance_type:0
+#: selection:hr.applicant,natural_allowance_type:0
+#: selection:hr.applicant,transportation_allowance_type:0
+#: selection:hr.contract,car_allowance_type:0
+#: selection:hr.contract,food_allowance_type:0
+#: selection:hr.contract,house_allowance_type:0
+#: selection:hr.contract,mobile_allowance_type:0
+#: selection:hr.contract,natural_allowance_type:0
+#: selection:hr.contract,transportation_allowance_type:0
+msgid "Percentage"
+msgstr "نسبه"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_contract__house_periodic
+msgid "Periodic"
+msgstr "دوري"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.hr_applicant_form_view_inherit
+msgid "Personal Information"
+msgstr "معلومات شخصية"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_contract__employee_policy_id
+msgid "Policy Group"
+msgstr "سياسة"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.exp_inh_hr_job_search
+msgid "Recruitment Responsible"
+msgstr "مسؤول التوظيف"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model,name:isky_hr_egypt_allowances_application_contract.model_hr_recruitment_stage
+msgid "Recruitment Stages"
+msgstr "مراحل التعيين"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_applicant__refused_reason
+msgid "Refused Reason"
+msgstr "سبب الرفض"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_applicant__first_hiring_date
+msgid "Register Date"
+msgstr "تاريخ التسجيل"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "Represented herein by the Director Manager\n"
+"                                                <span>..............................................</span>\n"
+"                                                or whom he authorizes, hereinafter referred to as The Company or\n"
+"                                                (the First Party)"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "SR)"
+msgstr "ريال سعودى"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,help:isky_hr_egypt_allowances_application_contract.field_hr_applicant__salary_proposed
+msgid "Salary Proposed by the Organisation"
+msgstr "الراتب المقترح من المنظمة"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: code:addons/isky_hr_egypt_allowances_application_contract/models/hr_payslip_inherit.py:20
+#, python-format
+msgid "Salary Slip of %s for %s"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_applicant__structure_id
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_job__structure_id
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.exp_inh_hr_contract_search
+msgid "Salary Structure"
+msgstr "هيكل المرتب"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "Saudi Joint Stock Company"
+msgstr "شركة مساهمة سعودية"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: selection:hr.contract,contract_period:0
+msgid "Six Months"
+msgstr "سته اشهر"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: code:addons/isky_hr_egypt_allowances_application_contract/models/hr_applicant_inherit.py:175
+#, python-format
+msgid "Sorry .. Iqama number must be equal 10 digit !!"
+msgstr "آسف .. يجب أن يكون رقم الإقامة مساوياً لـ 10 أرقام !!"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: code:addons/isky_hr_egypt_allowances_application_contract/models/hr_payslip_inherit.py:30
+#, python-format
+msgid "Sorry .. this employee has a confirmed payslip with same contract in this period"
+msgstr "آسف .. هذا الموظف لديه راتبمؤكد بنفس العقد في هذه الفترة"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.exp_inh_hr_applicant_search
+msgid "Source"
+msgstr "مصدر"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_contract__start_date_higri
+msgid "Start Date(Higri)"
+msgstr "تاريخ البدء(هجرى)"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "Tel ("
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: selection:hr.contract,contract_period:0
+msgid "Three Months"
+msgstr "ثلاثه اشهر"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.exp_inh_contract_form
+msgid "Total Amount"
+msgstr "إجمالي المبلغ"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_contract__total_bonus_amount
+msgid "Total Bonus"
+msgstr "اجمالى الاضافى"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_applicant__transportation
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_contract__transportation
+msgid "Transportation (Monthly)"
+msgstr "بدل المواصلات (شهريا)"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:hr.salary.rule,name:isky_hr_egypt_allowances_application_contract.hr_salary_rule_transportation
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.exp_inh_contract_form
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.hr_applicant_form_view_inherit
+msgid "Transportation Allowance"
+msgstr "بدل مواصلات"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_applicant__transportation_amount
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_contract__transportation_amount
+msgid "Transportation Amount (Monthly)"
+msgstr "مبلغ بدل المواصلات شهريا"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_applicant__transportation_allowance_type
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_contract__transportation_allowance_type
+msgid "Transportation Type"
+msgstr "نوع بدل  المواصلات"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: selection:hr.applicant,contract_period:0
+#: selection:hr.employee,contract_period:0
+msgid "Two Years"
+msgstr "سنتين"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_fixed_bonus__bonus_type_id
+msgid "Type"
+msgstr "النوع"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: selection:hr.contract,contract_period:0
+msgid "Unlimited Contract"
+msgstr "عقد غير محدود"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_contract__wage_amount_words
+msgid "Wage in Words"
+msgstr "الأجر بالكلمات"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_applicant__with_accommodation
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_contract__with_accommodation
+msgid "With Accommodation"
+msgstr "باقامه"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model.fields,field_description:isky_hr_egypt_allowances_application_contract.field_hr_contract__work_type
+msgid "Work Type"
+msgstr "نوع العمل"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: selection:hr.contract,fellowship_fund:0
+msgid "Yes"
+msgstr "نعم"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_job_offer_report_template
+msgid "_____________"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "a. The Second Party fails to carry out his ‫ duties under this\n"
+"                                                contract"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "at its headquarters or any of its sites inside the Kingdom of Saudi Arabia,\n"
+"                                            in accordance with work requirements and the provisions of the\n"
+"                                            Company's regulations. The Second Party agrees to work as."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "b. The Second Party fails to comply with the ‫ laws and\n"
+"                                                regulations\n"
+"                                                adopted by the Company, or commit an act of breach in\n"
+"                                                accordance\n"
+"                                                with Article (80) of the Saudi Labour Law"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "b. This contract shall expire by the end of its original term unless\n"
+"                                            it is renewed to a similar term or terms as per an\n"
+"                                            agreement with the Second Party. The Second Party shall abide by the\n"
+"                                            provisions of this contract in case of such renewals"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "c- the company discovers at any time a forgery in any of the\n"
+"                                                documents or certificates submitted by the Second Party."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "c. Subject to the probation period and the\n"
+"                                            <br/>provisions of (a) and (b) above, the First Party<br/>shall have the\n"
+"                                            right to terminate this contract prior<br/>to the expiry of its original\n"
+"                                            or\n"
+"                                            renewed term by<br/>virtue of a minimum of (30) days prior written\n"
+"                                            <br/>\n"
+"                                            notice. The Second Party shall have the right to<br/>terminate this\n"
+"                                            contract\n"
+"                                            prior to the expiry of its<br/>original or renewed term by virtue of a\n"
+"                                            minimum<br/>of (60) days prior written notice."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "days upon completion of 11 working\n"
+"                                            months each year. The starting date of the vacation shall be determined\n"
+"                                            by the Company management in accordance with work requirements.\n"
+"                                            The vacation wage shall be paid in advance prior to leaving for an\n"
+"                                            entitled vacation."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model,name:isky_hr_egypt_allowances_application_contract.model_fixed_bonus
+msgid "fixed.bonus"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.model,name:isky_hr_egypt_allowances_application_contract.model_fixed_bonus_type
+msgid "fixed.bonus.type"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "hours in 6 days per week. Duty times shall be arranged\n"
+"                                            in accordance with work requirements, whereas overtime hours, weekend\n"
+"                                            leaves, sick leaves, and any other leave shall be determined as provided\n"
+"                                            for in the Company's Internal Bylaw."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "in"
+msgstr "في"
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "in return for a basic salary of\n"
+"                                            ("
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "the First Party having no objection thereof as per the terms and\n"
+"                                                provisions herein.\n"
+"                                                Therefore, the two parties have agreed in their full legal capacity on\n"
+"                                                the\n"
+"                                                following:"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "the following contract has been made\n"
+"                                            and entered into by &amp; between:"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_salary_report_template
+msgid "wishes to obtain a\n"
+"                                loan from your institution . in this regard fully support this application on the\n"
+"                                basis that (company name) , will not bear any responsibility and offers no guarantee\n"
+"                                relative to his application.\n"
+"                                <br/>\n"
+"                                <br/>The company agrees to transfer his monthly salary to\n"
+"                                his given account no (IBAN number )\n"
+"                                <br/>\n"
+"                                <br/>Company also agrees to pay over to your\n"
+"                                institution in the event that leaves the services of our company upon request form\n"
+"                                your representative his salary and End of service benefit .\n"
+"                                <br/>\n"
+"                                <br/>This will well be\n"
+"                                processed we also agrees to inform you immediately in writhing about his separation."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "أ- فشل الطرف الثانى القيام بواجباته الوارده تحت العقد الحالى"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "أساسي\n"
+"                                                    ("
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "أنه فى\n"
+"                                            <span/>\n"
+"                                            -\n"
+"                                            <br/>"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.financial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.it_specification_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.partial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.safety_template
+msgid "ادارة الموارد\n"
+"                                                البشرية والشؤون اﻷدارية"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_salary_report_template
+msgid "اسم الموظف :"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_job_offer_report_template
+msgid "الاجازة السنوية فقط(30)يوم مدفوعة الاجر عن كل (سنة) ميلادية خدمة."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_job_offer_report_template
+msgid "الاجمالي"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.financial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_job_offer_report_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.it_specification_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.partial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.safety_template
+msgid "الادارة"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_job_offer_report_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "الاسم"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.financial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.it_specification_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.partial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.safety_template
+msgid "الاسم باللغه العربية"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.financial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_job_offer_report_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.it_specification_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.partial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.safety_template
+msgid "التاريخ"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_job_offer_report_template
+msgid "التاريخ\n"
+"                                                    <br/>\n"
+"                                                    <br/>_____________"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_cancel_contract_template
+msgid "التاریخ :"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_job_offer_report_template
+msgid "التوقيع"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.financial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_job_offer_report_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.it_specification_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.partial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.safety_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "الجنسية"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_cancel_contract_template
+msgid "الحترمة"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_job_offer_report_template
+msgid "الدرجة"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.financial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.it_specification_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.partial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.safety_template
+msgid "الدرجه\n"
+"                                                العلمية"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.financial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.it_specification_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.partial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.safety_template
+msgid "الدرجه\n"
+"                                                كاملة"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.financial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.it_specification_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.partial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.safety_template
+msgid "الرئيس المباشر"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_job_offer_report_template
+msgid "الراتب الاساسي"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_job_offer_report_template
+msgid "الراتب و العلاوات"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "الرمز البريدى"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "السادة"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_salary_report_template
+msgid "السادة البنك السعودي الفرنسي المحترمین"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_cancel_contract_template
+msgid "السلام عليكم ورحمه الله وبركاتة‫‪،‬‬"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_cancel_contract_template
+msgid "السيد :"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_cancel_contract_template
+msgid "السيدة :"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_job_offer_report_template
+msgid "العلاج : يكون العلاج مجانا للموظف و عائلتة داخل الممكلة العربية السعودية\n"
+"                                                (حسب نظام الشركة)"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_job_offer_report_template
+msgid "الفرع"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.financial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.it_specification_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.partial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.safety_template
+msgid "القسم"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.financial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.it_specification_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.partial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.safety_template
+msgid "المؤهل\n"
+"                                                الدراسى"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_job_offer_report_template
+msgid "المؤهل العلمي"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.financial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.it_specification_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.partial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.safety_template
+msgid "المباشرة"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_cancel_contract_template
+msgid "المحترم"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.financial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.it_specification_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.partial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.safety_template
+msgid "المدير التنفيذى"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_job_offer_report_template
+msgid "المرتبة"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.financial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.it_specification_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.partial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.safety_template
+msgid "المسمى الوظيفى"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.financial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.it_specification_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.partial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.safety_template
+msgid "المعهد"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "الموافق"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.financial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.it_specification_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.partial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.safety_template
+msgid "النسبة"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_job_offer_report_template
+msgid "الوظيفة"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_job_offer_report_template
+msgid "اوافق على ما جاء في تفاصيل هذا\n"
+"                                                العرض و أؤكد بانني على استعداد لمباشر العمل خلال() و الالتزام بالبنود\n"
+"                                                المدونة اعلاه"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "اى اضافه او تعديل فى هذا العقد لابد ان يتبع بملحق ويعتبر جزء من هذا العقد"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "ب- ینتھي ھذا العقد بانتھاء مدته الأصلیة\n"
+"                                            إلا إذا تم تجدیده لفترة أو لفترات أخرى متعاقبة بموافقة\n"
+"                                            الطرف الأول، وفي تلك الحالة یلتزم الطرف الثاني بكافة بنود وأحكام ھذا\n"
+"                                            العقد"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "ب-فشل الطرف الثانى الالتزام او التقيد بلوائح وقواعد الشركة او قام باى\n"
+"                                                عمل اى اخلاء بالماده رقم (80) من قانون العمل والعمال"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_cancel_contract_template
+msgid "بالاشاره الي عقد العمل المبرم معكم بتاريخ"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_job_offer_report_template
+msgid "بدل السكن"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_job_offer_report_template
+msgid "بدل الموصلات"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.financial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.it_specification_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.partial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.safety_template
+msgid "بدل سكن"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "بدل سكن\n"
+"                                                    ("
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.financial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.it_specification_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.partial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.safety_template
+msgid "بدل مواصلات"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "بدل مواصلات\n"
+"                                                    ("
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "بموجب السجل التجاري رقم ("
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.financial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.it_specification_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.partial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.safety_template
+msgid "بيانات شخصية"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.financial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.it_specification_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.partial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.safety_template
+msgid "بيانات وظيفية"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_job_offer_report_template
+msgid "تاريخ الاصدار"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.financial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.it_specification_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.partial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.safety_template
+msgid "تاريخ التعين"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.financial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.it_specification_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.partial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.safety_template
+msgid "تاريخ الميلاد"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_salary_report_template
+msgid "تاریخ التعیین :"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_job_offer_report_template
+msgid "تتحمل الشركة رسوم نقل الكفالة للمرة الاولى فقط"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.actions.report,name:isky_hr_egypt_allowances_application_contract.isky_employee_salary_report
+msgid "تثبيت راتب"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_job_offer_report_template
+msgid "تذاكر سفر لغير السعوديين (حسب نظام الشركة) (الموظف و زوجتة و\n"
+"                                                طفلين)"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.actions.report,name:isky_hr_egypt_allowances_application_contract.it_specification_report
+msgid "تعين IT"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.actions.report,name:isky_hr_egypt_allowances_application_contract.partial_report
+msgid "تعين التجزئة"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.actions.report,name:isky_hr_egypt_allowances_application_contract.financial_report
+msgid "تعين اﻷدارة المالية"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.actions.report,name:isky_hr_egypt_allowances_application_contract.safety_report
+msgid "تعين اﻷمن والسلامة"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_job_offer_report_template
+msgid "تفاصيل عرض العمل"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.financial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.it_specification_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.partial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.safety_template
+msgid "ثلاثة اشهر"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "ج- اكتشاف الشركة فى اى وقت كان تزويرا فى اى من شهادات وثائق الطرف\n"
+"                                                الثانى التى يتم تقديمها للشركة"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "ج-مع مراعاة فترة التجربة ومانص علية فى الفترة (أ,ب)‬\n"
+"                                            من تللك المادة يكون للطرف الاول الحق فى انهاء العقد قبل انتهاء مدته الاصلية\n"
+"                                            او المجدده\n"
+"                                            وذللك باشعار خطى موجه للطرف الثانى قبل الانهاء او الانتهاء ب(30)يوم على\n"
+"                                            الاقل\n"
+"                                            ويكون للطرف الثانى الحق فى انهاء هذا العقد قبل انتهاء مدته الاصليه او\n"
+"                                            المجدده\n"
+"                                            وذللك باشعار خطى قبل الانهاء او الانتهاء ب (60)يوم عل الاقل وذللك لامكانية\n"
+"                                            توفير البديل."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.financial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.it_specification_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.partial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.safety_template
+msgid "جزئي"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "حيث ان الطرف الاول وهى شركة (مساهمة) تعمل فى عدة مجالات تجارية\n"
+"                                                وحيث ان الطرف الثانى ابدى رغبته فى العمل لدى الطرف الاول بوظيفة"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.financial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.it_specification_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.partial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.safety_template
+msgid "راتب اساسي"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.financial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.it_specification_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.partial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.safety_template
+msgid "رقم الاثبات الشخصى"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_job_offer_report_template
+msgid "رقم البطاقة الاحوال / الاقامة"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "رقم الجواز"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "رقم الهوية"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_job_offer_report_template
+msgid "رقم جواز السفر"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "ساعه لمدة خمسه ايام فى الاسبوع ويتم يحديد\n"
+"                                            مواعيدها وفقا لظروف العمل وتكون ساعات العمل الاضافى\n"
+"                                            وعظلة نهاية الاسبوع والعطلات الاخرى والاجازات المرضية وفقا للائحة الداخلية\n"
+"                                            للشركة."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "سنة میلادیتة كاملھ\n"
+"                                                )\n"
+"                                                تبدأ من تاریخ"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_job_offer_report_template
+msgid "سنويا"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "شركة مساهمة سعودية"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_job_offer_report_template
+msgid "شهريا"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.actions.report,name:isky_hr_egypt_allowances_application_contract.isky_cancel_contract_report
+msgid "عدم تجديد العقد"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.actions.report,name:isky_hr_egypt_allowances_application_contract.isky_job_offer_report
+msgid "عرض عمل"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.actions.report,name:isky_hr_egypt_allowances_application_contract.single_contract_report
+msgid "عقد عمل"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "فاكس ("
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_job_offer_report_template
+msgid "فترة التجربة : (90) يوم حسب نظام العمل و العمال السعودي اعتبار من تاريخ\n"
+"                                                مباشرة العمل"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.financial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.it_specification_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.partial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.safety_template
+msgid "فتره التجربة"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.financial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.it_specification_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.partial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.safety_template
+msgid "كامل"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "لدى مركزه الرئيسى أو أى موقع أخر تابع\n"
+"                                            للطرف الأول داخل المملكة العربية السعودية\n"
+"                                            وفقا لاحتياجات العمل ووفقا للقوانين السارية واللوائح\n"
+"                                            والقواعد المطبقة فى اللائحة الداخلية للطرف الاول .\n"
+"                                            وقد وافق الطرف الثانى على تعيينه فى وظيفة"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "م، على أن تكون الثلاثة أشھر\n"
+"                                            الأولي فترة تجریبیة یجوز خلالھا للطرف الأول فسخ العقد دون مكافأة أو سبق\n"
+"                                            اعلام للطرف الثاني أو تعویضه، وذلك في حالة عدم صلاحیته للعمل."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model:ir.actions.report,name:isky_hr_egypt_allowances_application_contract.isky_start_work_report
+msgid "مباشرة عمل"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_job_offer_report_template
+msgid "مدة العقد"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.it_specification_template
+msgid "مدير IT"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_job_offer_report_template
+msgid "مدير ادارة الموارد البشرية"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_job_offer_report_template
+msgid "مدير الادارة"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.partial_template
+msgid "مدير التجزئة"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.financial_template
+msgid "مدير اﻷداره المالية"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.safety_template
+msgid "مدير اﻷمن والسلامة"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_job_offer_report_template
+msgid "مسؤول شؤون\n"
+"                                                    <br/>\n"
+"                                                    <br/>_____________"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.financial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.it_specification_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.partial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.safety_template
+msgid "معفى"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_job_offer_report_template
+msgid "مكان الاصدار"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.financial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.it_specification_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.partial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.safety_template
+msgid "ملاحظات"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_job_offer_report_template
+msgid "ملاحظة : في حالة استقالة الموظف الغير سعودي او انهاء خدماتة لاسباب مخلة\n"
+"                                                بالعمل او الشرف او عدم اطاعة الاوامر فان الشركة لن تمنحة تنازل و سوف\n"
+"                                                يسافر الموظف الى بلدة بتأشيرة خروج نهائي دون تمتع باي حقوق,و تحسم رسوم\n"
+"                                                اشتراك التأمينات الاجتماعية من مستحقاتة للسعودي و غير السعودي."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_job_offer_report_template
+msgid "ممیزات وشروط\n"
+"                                                أخرى"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.financial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.it_specification_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.partial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.safety_template
+msgid "موهلات علمية"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.financial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.it_specification_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.partial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.safety_template
+msgid "نصفى"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.financial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.it_specification_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.partial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.safety_template
+msgid "نوع الدوام"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_cancel_contract_template
+msgid "وتقبلوا ‬‫‪‬‬صادق‬ تحیاتنا‬ ‫‪،،،،،،،‬"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "وعنوانه\n"
+"                                            ("
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "وقد وافق الطرف الاول على ذللك وفقا لشروط وبنود هذا العقد\n"
+"                                                لذا فقد اتفق الطرفان وهم بكامل الاهلية المعتبرة\n"
+"                                                شرعا وقانونا على مايلى :-"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "ويمثلها وينوب عنها فى هذا العقد مدير عام الشركة\n"
+"                                                <span>..............................................</span>\n"
+"                                                أو من يفوضه ويشار اليها فى هذا العقد بالشركة (الطرف الاول)"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_job_offer_report_template
+msgid "يعتبر هذا العرض لاغيا في حالة عدم مباشرة العمل في التاريخ\n"
+"                                                المحدد ادناه او عدم امكانية نقل الكفالة حسب النظام"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "يوما تبدأ بعد مرور احد عشر\n"
+"                                            شهرا عمل ويحدد تاريخ التمتع بها وفق ماتقرره ادارة الشركة وحسب ظروف العمل على\n"
+"                                            ان يدفع اجر الاجازة مقدما عند استحقاقها ."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "١ .يعتبر التمهيد السابق جزءا لايتجزأ من هذا العقد ."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "١٠- يلتزم الطرف الثانى بعدم الكشف\n"
+"                                            لوسائل الاعلام او الى اى طرف ثالث عن امور خاصة بالطرف الاول\n"
+"                                            الا بعد الموافقه الخطيه من الطرف الاول بذللك ."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "١١- يلتزم الطرف الثانى بتقديم كافة شهادات التاهيل الخاصة\n"
+"                                            به وكافة الوثائق الضرورية وذللك وفقا للقوانين واللائحه المطبقه داخل الشركه."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "١٢- يلتزم الطرف الثانى باتباع تعليمات الطرف الاول\n"
+"                                            فيما يتعلق باجراء الكشف الطبى وفقا لما هو محدد\n"
+"                                            بسياسةالشركة وفى حالة ان الطبيب المعتمد من قبل الشركة\n"
+"                                            اصدر بان الطرف الثانى غير لائق طبيا للقيام بعمله فان هذا\n"
+"                                            العقد يعتبر لاغيا وفقا لقانون العمل السعودى"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "١٣- على الطرف الثانى ان يلتزم بمواعيد الحضور والانصراف\n"
+"                                            التى يحددها الطرف الاول وفى حاله المخالفة يحق للطرف الاول\n"
+"                                            ان يوقع على الطرف الثانى الجزاءات التى يراها مناسبه\n"
+"                                            حسب نظام الشركة والعمل والعمال"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "١٤-فى حالة الغياب عن العمل بسبب المرض يجب ان يدعم ذللك ويؤيد بشهادة من طبيب\n"
+"                                            معتمد من قبل الشركة"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "١٥- يجوز للشركة انهاء العقد فورا عبر\n"
+"                                                اشعار خطى ويمكن ان تتخد الاجراءات التاديبيه المناسبة"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "١٦-اللوائح والانظمة الاخرى المطبقة فى الشركة تشكل جزءا لايتجزأ من العقد\n"
+"                                            الحالى ."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "١٧-عند انهاء او انتهاء عقد عمل الطرف الثانى\n"
+"                                            لدى الطرف الاول لاى سبب كان يلتزم الطرف الثانى\n"
+"                                            بتسليم الطرف الاول او ما ينوب عنه كل مافى\n"
+"                                            عهدته من مستندات او ملفات او دفاتر او اموال\n"
+"                                            من اى نوع واى موجودات تتعلق بعمله لدى الطرف\n"
+"                                            الاول وذللك خلال اسبوع من تاريخ الانهاء او الانتهاء"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "١٨- يستحق الطرف الثانى اجازة سنوية مدتها"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "١٩- يستحق الطرف الثانى العناية الطبية على نفقة الطرف الاول وفق ماهو منصوص\n"
+"                                            عليه باللائحه الداخلية للشركة"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "٢ .وافق الطرف الثانى أن يعمل الطرف الأول بوظيفة"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "٢٠- ساعات العمل التعاقدية هى"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "٢١-يستحق الطرف الثانى بدل سكن مقداره\n"
+"                                            ("
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "٢٢-يستحق الطرف الثانى بدل مواصلات مقداره\n"
+"                                            ("
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "٢٣-يستحق الطرف الثانى مكافاه نهاية خدمة\n"
+"                                            شريطة ان يكون قد اكمل عامين على الاقل من\n"
+"                                            العمل لدى الشركة حسب شروط قانون العمل والعمال."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "٢٤- لاتحتسب مبالغ العمولات والحوافز والنسب والمكافات\n"
+"                                            والهبات وكل مايمنح للموظف غير البدلات الاساسية فى استحقاق نهاية الخدمة."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "٢٥-بنهاية الخدمة يتم منح الطرف الثانى شهادة خبرة\n"
+"                                            تحتوى على فترة عمله وتتفق مع القوانين والانظمة المطبقة."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "٢٦-يقر الطرف الثانى بانه اطلع على اللائحه الداخلية\n"
+"                                            للشركة بتنظيم العمل ويتعهد بالتقيد بها وبكافة التعاميم\n"
+"                                            الادارية التى تصدرها ادارة الشركة بهذ الشان ."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "٢٧-يسرى هذا العقد على كل من لم يرد ذكره\n"
+"                                            فى النظام الداخلى للطرف الاول وكذللك نظام\n"
+"                                            العمل والعمال السعودى."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "٢٨-فى حالة نشوء نزاع حول هذا العقد او اى بند من بنوده يتم حله بطرق\n"
+"                                            ودية وفى حالة التعذر يتم اللجوء الى نظام العمل والعمال ."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "٢٩-حرر هذا العقد نسختين بيد كل طرف نسخة للعمل بموجبها عند اللزوم."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "٣ .أ- مدة ھذا العقد ھي\n"
+"                                            ("
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "٤-يلتزم الطرف\n"
+"                                            الثانى بكافةاللوائح والانظمة والقواعد\n"
+"                                            المطبقة لدى الطرف الاول كما يلتزم باتباع تعليمات واوامر رؤسائه\n"
+"                                            وبذل قصارى جهده للقيام بواجباته بشكل متقن وبافضل مايكون\n"
+"                                            ‬"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "٦- يتعهد الطرف الثانى بعدم استيراد او تناول\n"
+"                                            المشروبات الكحوليةاو المخدرات او القيام باى نشاط\n"
+"                                            سياسى او التحريض على التجمعات او التظاهرات او الاضرابات\n"
+"                                            او باى عمل يتنافى مع الانظمة المرعية فى المملكة العربية السعودية\n"
+"                                            وفى حالة مخالفة ذللك يكون للطرف الاول الحق فى فسخ العقد\n"
+"                                            دون صرف اى حقوق او مستحقات ودون سابق انذار او تعويض"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "٧-يتعهد الطرف الثانى بان اى ابحاث او ابتكارات يقوم بها\n"
+"                                            اثناء فترة عملة لدى الطرف الاول تكون ملكا للطرف الاول وحده‬"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "٨-يتعهد الطرف الثانى بالمحافظة على كافة الاسرار التى يتطلع عليها اثناء عمله\n"
+"                                            لدى الطرف الاول\n"
+"                                            وكذللك كافة اسرار الشركات الفرعية التابعه له او اى اسرار خاصة بمعاملات\n"
+"                                            تجارية بين\n"
+"                                            الطرف الاول والغير وذللك اثناء فترة سريان هذا العقد ولدة عامين من تاريخ\n"
+"                                            انهائه او انتهائه."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "٩- يتعهد الطرف الثانى اثناء سريان هذا العقد بعدم العمل\n"
+"                                            لدى الغير خلال فتره العطلات او الاجازات السنويه\n"
+"                                            او الموسمية الا اذا كانت هناك موافقه خطية من الطرف الاول"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_job_offer_report_template
+msgid "ھذا العقد جزء من عقد العمل الذي سوف یتم توقیعه بین الموظف والشركة بعد\n"
+"                                                إنتھاء إجراءات نقل الكفالة للموظف الغير سعودي\n"
+"                                                وبعد انتھاء فترة التجربة حسب نظام العمل ، ویعتبر ھذا العرض نھائیا ویحل\n"
+"                                                محل أي اتفاقیات أو مفاوضات سابقة ."
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "‫الاسم‬"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "‫الجنسیة‬"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.financial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.it_specification_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.partial_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.safety_template
+msgid "‫قرار تعين Effective Decision"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_job_offer_report_template
+msgid "‫‪Job Offer Specification"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_job_offer_report_template
+msgid "‫‪RKETING CO.‬‬"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_cancel_contract_template
+msgid "‫‪،‬‬\n"
+"                                يؤسفنا ابلاغكم بعدم رغبة الشركة في تجديد عقدكم المنتهي في تاريخ"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_cancel_contract_template
+msgid "‫‪،‬‬ وعليه نأمل\n"
+"                                تسليم المهام الموكلة لكم بطريقة التسليم والتسلم ‫آملین‬ مراجعة ادارة الموارد\n"
+"                                البشرية لتصفية مستحقاتكم"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.single_contract_template
+msgid "‫‫‬ ٥- يتعهد الطرف الثانى بان يتبع قواعد الاخلاق والامانه والشرف\n"
+"                                            فى عمله وفى علاقاته مع الغير سواء كان داخل الشركه او خارجها"
+msgstr ""
+
+#. module: isky_hr_egypt_allowances_application_contract
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_allowances_application_contract.isky_cancel_contract_template
+msgid "‬شاكرین ‫لكم جھودكم ‬التي ‬بذلتموھا‬ في‬\n"
+"                                سبیل‬\n"
+"                                خدمة ‬الشركة‬،متمنین‬ لكم‬ التوفيق في حياتكم العملية"
+msgstr ""

@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="paperformat_eoi_tight" model="report.paperformat">
+        <field name="name">EOI Tight Margins</field>
+        <field name="format">custom</field>
+        <field name="page_height">300</field>
+        <field name="page_width">210</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">15</field>
+        <field name="margin_bottom">15</field>
+        <field name="margin_left">7</field>
+        <field name="margin_right">7</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">5</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <!-- Report Action -->
+    <record id="action_report_eoi_request" model="ir.actions.report">
+        <field name="name">EOI Form With Client Source</field>
+        <field name="model">eoi.eoi</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">arkzayed_18_realestate_development.report_eoi_request</field>
+        <field name="report_file">arkzayed_18_realestate_development.report_eoi_request</field>
+        <field name="print_report_name">'EOI Form - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="model_eoi_eoi"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="arkzayed_18_realestate_development.paperformat_eoi_tight"/>
+    </record>
+
+    <record id="action_report_eoi_request_with_no_client_source" model="ir.actions.report">
+        <field name="name">EOI Form With No Client Source</field>
+        <field name="model">eoi.eoi</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">arkzayed_18_realestate_development.report_eoi_request_no_source</field>
+        <field name="report_file">arkzayed_18_realestate_development.report_eoi_request_no_source</field>
+        <field name="print_report_name">'EOI Form With No Client Source - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="model_eoi_eoi"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="arkzayed_18_realestate_development.paperformat_eoi_tight"/>
+    </record>
+
+    <template id="report_eoi_request">
+        <t t-set="show_client_source" t-value="True"/>
+        <t t-call="arkzayed_18_realestate_development.report_eoi_request_body"/>
+    </template>
+
+    <template id="report_eoi_request_no_source">
+        <t t-set="show_client_source" t-value="False"/>
+        <t t-call="arkzayed_18_realestate_development.report_eoi_request_body"/>
+    </template>
+
+    <!-- Report Template -->
+    <template id="report_eoi_request_body">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page" style="font-family: Arial, sans-serif; font-size: 12pt; color:#1a1a1a;">
+
+                        <style>
+                            .eoi-header { display:table; width:100%; border-bottom:2px solid #b08d57; padding-bottom:8px; margin-bottom:10px;  margin-top:100px; }
+                            .eoi-header-left, .eoi-header-mid, .eoi-header-right { display:table-cell; vertical-align:middle; }
+                            .eoi-header-left { width:40%; font-size:15pt; font-weight:bold; }
+                            .eoi-header-left .eoi-tag { color:#b08d57; }
+                            .eoi-header-mid { width:30%; text-align:center; }
+                            .ref-box { display:inline-block; border:1.3px solid #333; padding:4px 14px; font-weight:bold; font-size:12pt; }
+                            .eoi-header-right { width:30%; text-align:right; font-style:italic; font-size:16pt; font-family: Georgia, serif; }
+                            .eoi-header-right .light { font-style:normal; font-weight:300; font-size:15pt; }
+                            .form-title { font-size:12pt; font-weight:bold; margin:6px 0 10px 0; }
+                            .field-line { border-bottom:1px solid #999; display:inline-block; min-width:25%; height:13px; }
+                            .section-title { background:#f1ebe1; border-left:4px solid #b08d57; padding:4px 10px; font-weight:bold; font-size:12pt; margin:12px 0 6px 0; }
+                            .hint { font-size:12pt; color:#666; font-style:italic; font-weight:normal; }
+                            table.info-table { width:100%; border-collapse:collapse; margin-bottom:4px; }
+                            table.info-table td { padding:4px 6px; vertical-align:bottom;  }
+                            table.info-table td.label { width:22%; white-space:nowrap; padding-left:14px !important; }
+                            table.info-table td.value { border:none; border-bottom:1px solid #999; }
+                            table.box-table { width:100%; border-collapse:collapse; border:1px solid #999; margin-bottom:4px; }
+                            table.box-table td { border:1px solid #999; padding:6px 8px; font-size:12pt; vertical-align:middle; }
+                            table.box-table td.amount-label { font-weight:bold; width:22%;}
+                            .checkbox { display:inline-block; width:10px; height:10px; border:1.2px solid #555; margin-right:4px; margin-left:10px; vertical-align:middle; }
+                            .checkbox.checked { background:#444; }
+                            table.phase-table { width:100%; border-collapse:collapse; border:1px solid #999; }
+                            table.phase-table td { border:1px solid #999; padding:5px 8px; font-size:12pt; vertical-align:middle; }
+                            td.phase-header { font-weight:bold; background:#f6f3ed; }
+                            .opt { display:inline-block; margin-right:14px; white-space:nowrap; }
+                            .sales-team { margin-top:16px; font-weight:bold; }
+                            .sales-team-box { border:1px solid #ccc; height:50px; margin-top:4px; }
+                            .footer-logo { display:table; width:100%; margin-top:18px; border-top:1px solid #b08d57; padding-top:6px; }
+                            .footer-logo .fl-left { display:table-cell; width:50%; }
+                            .footer-logo .fl-right { display:table-cell; width:50%; text-align:right; font-style:italic; font-size:15pt; font-family: Georgia, serif; }
+                            .footer-logo .fl-right .light { font-style:normal; font-weight:300; font-size:12pt; }
+                            .eoi-tag-box { display:inline-block; border:1.3px solid #333; padding:2px 10px; font-weight:bold; font-size:12pt; }
+                            .disclaimer-box { border:1px solid #999; padding:12px 14px; margin-top:16px; }
+                            .disclaimer-box .title { font-weight:bold; margin-bottom:8px; }
+                            .disclaimer-box p { margin:0 0 10px 0; line-height:1.4; }
+                            .sign-section { margin-top:26px; }
+                            .sign-row { display:table; width:100%; margin-bottom:18px; }
+                            .sign-cell { display:table-cell; width:33%; vertical-align:bottom; padding-right:10px; }
+                            .sign-cell .sline { border-bottom:1.5px solid #555; display:block; height:13px; width:85%; margin-top:25px; }
+                            .source-row { margin-top:6px; }
+                            .source-row .opt { margin-right:22px; }
+                        </style>
+
+                        <!-- PAGE 1 -->
+                        <div class="eoi-header">
+                            <div class="eoi-header-left"><span class="eoi-tag">EOI</span> FORM</div>
+                            <div class="eoi-header-mid"><span class="ref-box" t-esc="o.name"/></div>
+                            <div class="eoi-header-right">
+                                <img src="/arkzayed_18_realestate_development/static/img/direction_white.jpeg"
+                                     style="height:100px; weight:100px; object-fit:contain;"/>
+                            </div>
+                        </div>
+
+                        <div class="form-title">EXPRESSION OF INTEREST FORM</div>
+
+                        <div style="margin-bottom:10px;">
+                            Date:
+                            <span t-esc="o.create_date" t-options="{'widget': 'date'}"/>
+                        </div>
+
+                        <div class="section-title">PERSONAL INFORMATION</div>
+
+                        <table class="info-table">
+                            <tr>
+                                <td class="label">Client Full Name</td>
+                                <td class="value"><span t-if="o.customer_id" t-esc="o.customer_id.name"/></td>
+                            </tr>
+                            <tr>
+                                <td class="label">National ID Number</td>
+                                <td class="value"><span t-if="o.customer_id and o.customer_id.national_id" t-esc="o.customer_id.national_id"/></td>
+                            </tr>
+                            <tr>
+                                <td class="label">Nationality</td>
+                                <td class="value"><span t-if="o.customer_id and o.customer_id.nationality" t-esc="o.customer_id.nationality"/></td>
+                            </tr>
+                            <tr>
+                                <td class="label">Mobile No.</td>
+                                <td class="value"><span t-if="o.customer_id and o.customer_id.mobile" t-esc="o.customer_id.mobile"/></td>
+                            </tr>
+                            <tr>
+                                <td class="label">Email</td>
+                                <td class="value"><span t-if="o.customer_id and o.customer_id.email" t-esc="o.customer_id.email"/></td>
+                            </tr>
+                            <tr>
+                                <td class="label">Address</td>
+                                <td class="value"><span t-if="o.address" t-esc="o.address"/></td>
+                            </tr>
+                        </table>
+
+                        <div class="section-title">PAYMENT PREFERENCE</div>
+
+                        <table class="box-table">
+                            <tr>
+                                <td class="amount-label">EOI Amount (EGP):</td>
+                                <td>
+                                    <span t-attf-class="checkbox #{'checked' if o.residential_type in ['villa', 'loft'] else ''}"/>
+                                    Villa &amp; Loft <t t-if="o.residential_type in ['villa', 'loft']">- <span t-if="o.residential_type in ['villa', 'loft']" t-esc="('{:,.2f}' if o.reservation_amount != int(o.reservation_amount) else '{:,.0f}').format(o.reservation_amount)"/> <span t-esc="o.currency_id.name"/> .</t>
+                                </td>
+                                <td>
+                                    <span t-attf-class="checkbox #{'checked' if o.residential_type == 'apartment' else ''}"/>
+                                    apartment <t t-if="o.residential_type == 'apartment'">- <span t-esc="('{:,.2f}' if o.reservation_amount != int(o.reservation_amount) else '{:,.0f}').format(o.reservation_amount)"/> <span t-esc="o.currency_id.name"/> .</t>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    <span class="opt">
+                                        <span t-attf-class="checkbox #{'checked' if o.payment_methods == 'cash' else ''}"/>Cash
+                                    </span>
+                                    <span class="opt">
+                                        <span t-attf-class="checkbox #{'checked' if o.payment_methods == 'cheque' else ''}"/>Cheque
+                                    </span>
+                                    <span class="opt">
+                                        <span t-attf-class="checkbox #{'checked' if o.payment_methods == 'bank' else ''}"/>Bank Transfer
+                                    </span>
+                                </td>
+                            </tr>
+                        </table>
+
+                   <div class="section-title">UNIT TYPE</div>
+
+                    <table class="phase-table">
+
+                        <!-- Phase One -->
+                        <tr t-if="o.phase_one_id">
+                            <td class="phase-header" colspan="3">
+                                <span t-attf-class="checkbox #{'checked' if o.phase_id == o.phase_one_id else ''}"/>
+                                <span t-esc="o.phase_one_id.name"/>
+                            </td>
+                        </tr>
+                        <tr t-if="o.phase_one_id == o.phase_id">
+                            <td style="font-weight:bold; width:22%; padding-left:10px;">Unit Type:</td>
+                            <td><span t-if="o.apartment_type_id and o.residential_type == 'apartment'" t-esc="o.apartment_type_id.name"/></td>
+                            <td><span t-if="o.villa_type_id and o.residential_type == 'villa'" t-esc="o.villa_type_id.name"/>
+                                <span t-if="o.loft_type_id and o.residential_type == 'loft'" t-esc="o.loft_type_id.name"/></td>
+                        </tr>
+
+                        <!-- Phase Two -->
+                        <tr t-if="o.phase_two_id">
+                            <td class="phase-header" colspan="3">
+                                <span t-attf-class="checkbox #{'checked' if o.phase_id == o.phase_two_id else ''}"/>
+                                <span t-esc="o.phase_two_id.name"/>
+                            </td>
+                        </tr>
+                        <tr t-if="o.phase_two_id == o.phase_id">
+                            <td style="font-weight:bold; width:22%; padding-left:10px;">Unit Type:</td>
+                            <td><span t-if="o.apartment_type_id and o.residential_type == 'apartment'" t-esc="o.apartment_type_id.name"/></td>
+                            <td><span t-if="o.villa_type_id and o.residential_type == 'villa'" t-esc="o.villa_type_id.name"/>
+                                <span t-if="o.loft_type_id and o.residential_type == 'loft'" t-esc="o.loft_type_id.name"/></td>
+                        </tr>
+
+                        <!-- Phase Three -->
+                        <tr t-if="o.phase_three_id">
+                            <td class="phase-header" colspan="3">
+                                <span t-attf-class="checkbox #{'checked' if o.phase_id == o.phase_three_id else ''}"/>
+                                <span t-esc="o.phase_three_id.name"/>
+                            </td>
+                        </tr>
+                        <tr t-if="o.phase_three_id == o.phase_id">
+                            <td style="font-weight:bold; width:22%; padding-left:10px;">Unit Type:</td>
+                            <td><span t-if="o.apartment_type_id and o.residential_type == 'apartment'" t-esc="o.apartment_type_id.name"/></td>
+                            <td><span t-if="o.villa_type_id and o.residential_type == 'villa'" t-esc="o.villa_type_id.name"/>
+                                <span t-if="o.loft_type_id and o.residential_type == 'loft'" t-esc="o.loft_type_id.name"/></td>
+                        </tr>
+
+                        <!-- Phase Four -->
+                        <tr t-if="o.phase_four_id">
+                            <td class="phase-header" colspan="3">
+                                <span t-attf-class="checkbox #{'checked' if o.phase_id == o.phase_four_id else ''}"/>
+                                <span t-esc="o.phase_four_id.name"/>
+                            </td>
+                        </tr>
+                        <tr t-if="o.phase_four_id == o.phase_id">
+                            <td style="font-weight:bold; width:22%; padding-left:10px;">Unit Type:</td>
+                            <td><span t-if="o.apartment_type_id and o.residential_type == 'apartment'" t-esc="o.apartment_type_id.name"/></td>
+                            <td><span t-if="o.villa_type_id and o.residential_type == 'villa'" t-esc="o.villa_type_id.name"/>
+                                <span t-if="o.loft_type_id and o.residential_type == 'loft'" t-esc="o.loft_type_id.name"/></td>
+                        </tr>
+
+                    </table>
+
+                        <div class="sales-team">Our Sales Team:</div>
+                        <div class="sales-team-box" style="border:1px solid #ccc; padding:10px; margin-top:4px; height:80px">
+                            <div class="sign-row">
+                                <div class="sign-cell">
+                                    <div style="font-weight:bold; margin-bottom:4px;">Sales Agent</div>
+                                    <div><span t-esc="o.user_id.name"/></div>
+                                </div>
+                                <div class="sign-cell">
+                                    <div style="font-weight:bold; margin-bottom:4px;">Sales Manager</div>
+                                    <div><span t-esc="o.user_id.sale_team_id.sales_manager_id.name"/></div>
+                                </div>
+                                <div class="sign-cell">
+                                    <div style="font-weight:bold; margin-bottom:4px;">Director</div>
+                                    <div><span t-esc="o.user_id.sale_team_id.director_id.name"/></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- PAGE 2 -->
+<!--                        <div style="page-break-before: always;"/>-->
+
+                        <div class="sign-section">
+                            <!-- Client Source -->
+                            <div  t-if="show_client_source" class="source-row" style="margin-top:20px;">
+                                <strong>Client Source:</strong>
+                                <span class="opt" style="margin-left:10px;">
+                                    <span t-attf-class="checkbox #{'checked' if o.referred_by == 'direct' else ''}"/>Direct
+                                </span>
+                                <span class="opt">
+                                    <span t-attf-class="checkbox #{'checked' if o.referred_by == 'broker' else ''}"/>Indirect
+                                </span>
+                                <span class="opt">
+                                    <span t-attf-class="checkbox #{'checked' if o.referred_by == 'ambassador' else ''}"/>Ambassador
+                                </span>
+                            </div>
+
+                        <div class="disclaimer-box">
+                            <div class="title">Disclaimer:</div>
+                            <p>- presentation, the application shall be deemed automatically null and void, without the need for prior notice or court ruling.</p>
+                            <p>- In the event of an approved refund, the paid amount shall be returned within (14) business days from the date of submitting the official refund request.</p>
+                        </div>
+
+                            <!-- Client Signature -->
+                            <div class="sign-row" style="margin-top:50px;">
+                                <div class="sign-cell">
+                                    <div style="margin-top:4px; font-size:15pt; ">Authoritative Signature</div>
+                                    <span class="sline"/>
+                                </div>
+                                <div class="sign-cell">&#160;</div>
+                                <div class="sign-cell">
+                                    <div style="margin-top:4px; font-size:15pt; ">Client Signature</div>
+                                    <span class="sline"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

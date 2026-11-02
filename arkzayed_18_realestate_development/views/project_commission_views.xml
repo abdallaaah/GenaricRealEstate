@@ -1,0 +1,43 @@
+<odoo>
+    <data>
+        <record id="project_commission_tree" model="ir.ui.view">
+            <field name="name">project_commission_tree</field>
+            <field name="model">realestate.project.commission</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="project_ids"/>
+                    <field name="broker_ids"/>
+                    <field name="percentage"/>
+                    <field name="company_id"/>
+                </list>
+            </field>
+        </record>
+        <record id="project_commission_form" model="ir.ui.view">
+            <field name="name">project_commission_form</field>
+            <field name="model">realestate.project.commission</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="project_ids" widget="many2many_tags"/>
+                            <field name="broker_ids" widget="many2many_tags"/>
+                            <label for="percentage"/>
+                            <div class="d-flex">
+                                <field name="percentage" class="me-2"
+                                       style="max-width: 2rem !important;"/> %
+
+                            </div>
+                            <field name="company_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="project_commission_action">
+            <field name="name">Project Commission</field>
+            <field name="res_model">realestate.project.commission</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+    </data>
+</odoo>

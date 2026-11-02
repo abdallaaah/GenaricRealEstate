@@ -1,0 +1,668 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- Paper Format -->
+        <record id="report_reservation_unit_paperformat" model="report.paperformat">
+            <field name="name">Reservation Unit Report Format</field>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+            <field name="header_line">False</field>
+            <field name="header_spacing">20</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <!-- Report Action -->
+        <record id="action_report_reservation_unit" model="ir.actions.report">
+            <field name="name">Reservation Unit Report</field>
+            <field name="model">real.estate.sale.reservation</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">arkzayed_18_realestate_development.reservation_unit_report</field>
+            <field name="report_file">arkzayed_18_realestate_development.reservation_unit_report</field>
+            <field name="print_report_name">"Reservation Report - %s" % (object.customer_id.name)</field>
+            <field name="binding_model_id" ref="arkzayed_18_realestate_development.model_real_estate_sale_reservation"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="arkzayed_18_realestate_development.report_reservation_unit_paperformat"/>
+        </record>
+
+        <template id="reservation_unit_report">
+            <t t-call="web.html_container">
+                <meta charset="utf-8"/>
+
+                <style>
+                    @page {
+                        size: A4;
+                        margin: 8mm 10mm 14mm 10mm;
+                    }
+
+                    html, body {
+                        width: 100%;
+                        direction: rtl !important;
+                        text-align: right !important;
+                        font-family: 'Cairo', 'Rajawali', 'Almar', sans-serif;
+                        font-size: 11pt;
+                        line-height: 1.45;
+                        color: #000;
+                        margin: 0 !important;
+                        padding: 0 !important;
+                    }
+
+                    * {
+                        box-sizing: border-box;
+                    }
+
+                    .sheet {
+                        width: 100%;
+                        max-width: 190mm;
+                        margin: 0 auto !important;
+                        padding: 4px 0 10mm 0;
+                        direction: rtl;
+                        text-align: right;
+                        position: relative;
+                    }
+
+                    .date-row {
+                        margin-top: 4px;
+                        margin-bottom: 6px;
+                        text-align: right;
+                    }
+
+                    .date-row .lbl {
+                        font-weight: 600;
+                        font-size: 10.5pt;
+                        display: inline;
+                        margin-left: 4px;
+                    }
+
+                    .date-row .fill-inline {
+                        display: inline-block;
+                        vertical-align: middle;
+                        min-width: 110px;
+                        height: 18px;
+                        padding: 1px 6px;
+                        font-size: 10.5pt;
+                        border-bottom: 1px dotted #666;
+                    }
+
+                    .title {
+                        text-align: center;
+                        font-size: 14pt;
+                        font-weight: 700;
+                        margin: 14px 0 12px 0;
+                        color: #000;
+                    }
+
+                    .section {
+                        margin-top: 10px;
+                        margin-bottom: 10px;
+                    }
+
+                    .section-h {
+                        font-weight: 700;
+                        font-size: 11.5pt;
+                        margin-bottom: 6px;
+                        padding: 3px 8px;
+                        background-color: #f4f6f8;
+                    }
+
+                    .field-row {
+                        display: table;
+                        width: 100%;
+                        margin-bottom: 5px;
+                    }
+
+                    .field-lbl {
+                        display: table-cell;
+                        width: 1%;
+                        white-space: nowrap;
+                        font-weight: 700;
+                        padding-left: 8px;
+                        vertical-align: bottom;
+                        font-size: 10.5pt;
+                    }
+
+                    .field-val {
+                        display: table-cell;
+                        border-bottom: 1px dotted #666;
+                        vertical-align: bottom;
+                        padding: 0 4px;
+                        font-size: 10.5pt;
+                        text-align: right;
+                    }
+
+                    .ltr {
+                        direction: ltr !important;
+                        unicode-bidi: bidi-override;
+                        text-align: left !important;
+                    }
+
+                    .signature-table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        margin-top: 10px;
+                        border: 1px solid #000;
+                    }
+
+                    .signature-table th {
+                        background-color: #f4f6f8;
+                        border: 1px solid #000;
+                        padding: 6px;
+                        font-weight: bold;
+                        text-align: center;
+                        font-size: 11pt;
+                    }
+
+                    .signature-table td {
+                        border: 1px solid #000;
+                        padding: 6px 8px;
+                        vertical-align: top;
+                        font-size: 10pt;
+                    }
+
+                    .conditions-list {
+                        margin-top: 6px;
+                    }
+
+                    .conditions-list > div {
+                        margin-bottom: 6px;
+                        line-height: 1.45;
+                        text-align: justify;
+                        font-size: 10pt;
+                    }
+
+                    .conditions-list strong {
+                        color: #000;
+                        margin-left: 3px;
+                    }
+
+                    .nowrap {
+                        white-space: nowrap;
+                    }
+                </style>
+
+                <t t-foreach="docs" t-as="o">
+                    <div class="sheet">
+                        <br/><br/><br/>
+                        <div class="date-row">
+                            <span class="lbl">التاريخ:</span>
+                            <span class="fill-inline ltr">
+                                <t t-if="o.reservation_start_date">
+                                    <t t-esc="o.reservation_start_date.strftime('%d/%m/%Y')"/>
+                                </t>
+                                <t t-else="">&#160;</t>
+                            </span>
+                        </div>
+
+                        <!-- Title -->
+                        <div class="title">استمارة حجز مشروع The Rafts of Ark</div>
+
+                        <!-- Customer Data Section -->
+                        <div class="section">
+                            <div class="section-h">بيانات العميل</div>
+
+                            <!-- Single Ownership -->
+                            <t t-if="o.ownership != 'multiple'">
+                                <div class="field-row">
+                                    <div class="field-lbl">الاسم بالكامل:</div>
+                                    <div class="field-val"><t t-esc="o.customer_id.ref or o.customer_id.name or ''"/></div>
+                                </div>
+
+                                <div class="field-row">
+                                    <div class="field-lbl nowrap">رقم قومي/جواز سفر:</div>
+                                    <div class="field-val">
+                                        <span class="ltr">
+                                            <t t-if="o.customer_national_id"><t t-esc="o.customer_national_id"/></t>
+                                            <t t-elif="o.customer_passport_number"><t t-esc="o.customer_passport_number"/></t>
+                                            <t t-else="">&#160;</t>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="field-row">
+                                    <div class="field-lbl">الجنسية:</div>
+                                    <div class="field-val"><t t-esc="(o.customer_id and o.customer_id.country_id.nationality) or ''"/></div>
+                                </div>
+
+                                <div class="field-row">
+                                    <div class="field-lbl">العنوان:</div>
+                                    <div class="field-val"><t t-esc="o.customer_id.street if o.customer_id else ''"/></div>
+                                </div>
+
+                                <div class="field-row">
+                                    <div class="field-lbl">رقم التليفون:</div>
+                                    <div class="field-val">
+                                        <span class="ltr">
+                                            <t t-if="o.customer_id and o.customer_id.mobile"><t t-esc="o.customer_id.mobile"/></t>
+                                            <t t-elif="o.customer_id and o.customer_id.phone"><t t-esc="o.customer_id.phone"/></t>
+                                            <t t-else="">&#160;</t>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="field-row">
+                                    <div class="field-lbl">البريد الإلكتروني:</div>
+                                    <div class="field-val">
+                                        <span class="ltr">
+                                            <t t-esc="o.customer_email or (o.customer_id and o.customer_id.email) or ''"/>
+                                        </span>
+                                    </div>
+                                </div>
+                            </t>
+
+                            <!-- Multiple Ownership -->
+                            <t t-if="o.ownership == 'multiple'">
+                                <t t-foreach="o.customer_new_ownership_ids" t-as="owner">
+                                    <div style="margin-bottom: 6px; padding: 6px; border: 1px solid #ddd; border-radius: 4px;">
+                                        <div class="field-row">
+                                            <div class="field-lbl">الاسم:</div>
+                                            <div class="field-val"><t t-esc="owner.customer_id.ref or owner.customer_id.name or ''"/></div>
+                                        </div>
+
+                                        <div class="field-row">
+                                            <div class="field-lbl nowrap">رقم قومي/جواز سفر:</div>
+                                            <div class="field-val">
+                                                <span class="ltr">
+                                                    <t t-if="owner.customer_id.national_id"><t t-esc="owner.customer_id.national_id"/></t>
+                                                    <t t-elif="owner.customer_id.passport_number"><t t-esc="owner.customer_id.passport_number"/></t>
+                                                    <t t-else="">&#160;</t>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="field-row">
+                                            <div class="field-lbl">الجنسية:</div>
+                                            <div class="field-val"><t t-esc="owner.customer_id.nationality or ''"/></div>
+                                        </div>
+
+                                        <div class="field-row">
+                                            <div class="field-lbl">العنوان:</div>
+                                            <div class="field-val"><t t-esc="owner.customer_id.street if owner.customer_id else ''"/></div>
+                                        </div>
+
+                                        <div class="field-row">
+                                            <div class="field-lbl">رقم التليفون:</div>
+                                            <div class="field-val">
+                                                <span class="ltr">
+                                                    <t t-if="owner.customer_id.mobile"><t t-esc="owner.customer_id.mobile"/></t>
+                                                    <t t-elif="owner.customer_id.phone"><t t-esc="owner.customer_id.phone"/></t>
+                                                    <t t-else="">&#160;</t>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="field-row">
+                                            <div class="field-lbl">البريد الإلكتروني:</div>
+                                            <div class="field-val">
+                                                <span class="ltr">
+                                                    <t t-esc="owner.customer_id.email or ''"/>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </t>
+                            </t>
+                        </div>
+
+                        <!-- Company Data Section -->
+                        <div class="section">
+                            <div class="section-h">بيانات الشركة</div>
+                            <table class="signature-table">
+                                <tbody>
+                                    <tr>
+                                        <td class="nowrap" style="font-weight: bold; width: 220px; background-color: #f4f6f8; font-size: 10.5pt;">الاسم</td>
+                                        <td><span style="font-size: 10.5pt;">ذا أرك للبنية التحتية</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="nowrap" style="font-weight: bold; background-color: #f4f6f8; font-size: 10.5pt;">مقيدة بالسجل التجارى تحت رقم</td>
+                                        <td><span style="font-size: 10.5pt;"><t t-esc="o.company_id.company_registry or ''"/></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="nowrap" style="font-weight: bold; background-color: #f4f6f8; font-size: 10.5pt;">العنوان</td>
+                                        <td><span style="font-size: 10.5pt;">الدور الثانى بالمبنى الادارى ارابيلا كانترى كلاب – التجمع الخامس – القاهرة الجديدة</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Unit Data Section -->
+                        <div class="section">
+                            <div class="section-h">بيانات الوحدة</div>
+
+                            <!-- Villa Unit Type -->
+                            <t t-if="o.unit_type == 'residential' and o.unit_id.residential_type == 'villa'">
+                                <div class="field-row">
+                                    <div class="field-lbl">نوع الوحدة:</div>
+                                    <div class="field-val">
+                                        <t t-if="o.unit_id.villa_type_id">
+                                            <t t-esc="o.unit_id.villa_type_id.display_name"/>
+                                        </t>
+                                        <t t-else="">
+                                            <t t-esc="o.unit_type"/>
+                                        </t>
+                                    </div>
+                                </div>
+
+                                <div class="field-row">
+                                    <div class="field-lbl">مساحة الأرض:</div>
+                                    <div class="field-val">
+                                        <span class="ltr">
+                                            <t t-esc="'{:,.2f}'.format(o.round_up_area(o.unit_id.landed_area) or 0.0)"/>
+                                        </span>
+                                        <span> م2</span>
+                                    </div>
+                                </div>
+
+                                <div class="field-row">
+                                    <div class="field-lbl">مساحة المبني:</div>
+                                    <div class="field-val">
+                                        <span class="ltr">
+                                            <t t-esc="'{:,.2f}'.format(o.round_up_area(o.unit_id.indoor_gross_area) or 0.0)"/>
+                                        </span>
+                                        <span> م2</span>
+                                    </div>
+                                </div>
+                            </t>
+
+                            <!-- Apartment Unit Type -->
+                            <t t-elif="o.unit_type == 'residential' and o.unit_id.residential_type == 'apartment'">
+                                <div class="field-row">
+                                    <div class="field-lbl">نوع الوحدة:</div>
+                                    <div class="field-val">وحدة سكنية</div>
+                                </div>
+
+                                  <div class="field-row">
+                                    <div class="field-lbl">المساحة الإجمالية:</div>
+                                    <div class="field-val">
+                                        <span >
+                                            <t t-if="o.unit_id.indoor_gross_area">
+                                                <t t-esc="'{:,.2f}'.format(o.round_up_area(o.unit_id.indoor_gross_area))"/>
+                                                <span> م2  مساحة داخلية</span>
+                                            </t>
+                                            <t t-if="o.unit_id.indoor_gross_area and o.unit_id.outdoor_gross_area">
+                                                <span> + </span>
+                                            </t>
+                                            <t t-if="o.unit_id.outdoor_gross_area">
+                                                <t t-esc="'{:,.2f}'.format(o.round_up_area(o.unit_id.outdoor_gross_area))"/>
+                                                <span> م2  مساحة خارجية</span>
+                                            </t>
+                                            <t t-if="(o.unit_id.indoor_gross_area or o.unit_id.outdoor_gross_area) and o.unit_id.terrace_gross_area">
+                                                <span> + </span>
+                                            </t>
+                                            <t t-if="o.unit_id.terrace_gross_area">
+                                                <t t-esc="'{:,.2f}'.format(o.round_up_area(o.unit_id.terrace_gross_area))"/>
+                                                <t t-if="o.unit_id.outdoor_gross_area">
+                                                    <span> م2  تراس</span>
+                                                </t>
+                                                <t t-else="">
+                                                    <span> م2  مساحة خارجية</span>
+                                                </t>
+                                            </t>
+                                        </span>
+                                    </div>
+                                </div>
+                            </t>
+
+                            <!-- Retail Unit Type -->
+                            <t t-elif="o.unit_type == 'retail'">
+                                <div class="field-row">
+                                    <div class="field-lbl">نوع الوحدة:</div>
+                                    <div class="field-val">مساحة تجارية</div>
+                                </div>
+
+                                    <div class="field-row">
+                                    <div class="field-lbl">المساحة الإجمالية:</div>
+                                    <div class="field-val">
+                                        <span >
+                                            <t t-if="o.unit_id.indoor_gross_area">
+                                                <t t-esc="'{:,.2f}'.format(o.round_up_area(o.unit_id.indoor_gross_area))"/>
+                                                <span> م2  مساحة داخلية</span>
+                                            </t>
+                                            <t t-if="o.unit_id.indoor_gross_area and o.unit_id.outdoor_gross_area">
+                                                <span> + </span>
+                                            </t>
+                                            <t t-if="o.unit_id.outdoor_gross_area">
+                                                <t t-esc="'{:,.2f}'.format(o.round_up_area(o.unit_id.outdoor_gross_area))"/>
+                                                <span> م2  مساحة خارجية</span>
+                                            </t>
+                                            <t t-if="(o.unit_id.indoor_gross_area or o.unit_id.outdoor_gross_area) and o.unit_id.terrace_gross_area">
+                                                <span> + </span>
+                                            </t>
+                                            <t t-if="o.unit_id.terrace_gross_area">
+                                                <t t-esc="'{:,.2f}'.format(o.round_up_area(o.unit_id.terrace_gross_area))"/>
+                                                <t t-if="o.unit_id.outdoor_gross_area">
+                                                    <span> م2  تراس</span>
+                                                </t>
+                                                <t t-else="">
+                                                    <span> م2  مساحة خارجية</span>
+                                                </t>
+                                            </t>
+                                        </span>
+                                    </div>
+                                </div>
+                            </t>
+
+                            <!-- Other Unit Types (Office, Medical, Entertainment, Industrial, etc.) -->
+                            <t t-else="">
+                                <div class="field-row">
+                                    <div class="field-lbl">نوع الوحدة:</div>
+                                    <div class="field-val">
+                                        <t t-if="o.unit_type == 'office' and o.unit_id.office_type_id">
+                                            <t t-esc="o.unit_id.office_type_id.display_name"/>
+                                        </t>
+                                        <t t-elif="o.unit_type == 'medical' and o.unit_id.medical_type_id">
+                                            <t t-esc="o.unit_id.medical_type_id.display_name"/>
+                                        </t>
+                                        <t t-elif="o.unit_type == 'entertainment' and o.unit_id.entertainment_type_id">
+                                            <t t-esc="o.unit_id.entertainment_type_id.display_name"/>
+                                        </t>
+                                        <t t-elif="o.unit_type == 'industrial' and o.unit_id.industrial_type_id">
+                                            <t t-esc="o.unit_id.industrial_type_id.display_name"/>
+                                        </t>
+                                        <t t-else="">
+                                            <t t-esc="o.unit_type"/>
+                                        </t>
+                                    </div>
+                                </div>
+
+                                <div class="field-row">
+                                    <div class="field-lbl">المساحة الإجمالية:</div>
+                                    <div class="field-val">
+                                        <span >
+                                            <t t-if="o.unit_id.indoor_gross_area">
+                                                <t t-esc="'{:,.2f}'.format(o.round_up_area(o.unit_id.indoor_gross_area))"/>
+                                                <span> م2  مساحة داخلية</span>
+                                            </t>
+                                            <t t-if="o.unit_id.indoor_gross_area and o.unit_id.outdoor_gross_area">
+                                                <span> + </span>
+                                            </t>
+                                            <t t-if="o.unit_id.outdoor_gross_area">
+                                                <t t-esc="'{:,.2f}'.format(o.round_up_area(o.unit_id.outdoor_gross_area))"/>
+                                                <span> م2  مساحة خارجية</span>
+                                            </t>
+                                            <t t-if="(o.unit_id.indoor_gross_area or o.unit_id.outdoor_gross_area) and o.unit_id.terrace_gross_area">
+                                                <span> + </span>
+                                            </t>
+                                            <t t-if="o.unit_id.terrace_gross_area">
+                                                <t t-esc="'{:,.2f}'.format(o.round_up_area(o.unit_id.terrace_gross_area))"/>
+                                                <t t-if="o.unit_id.outdoor_gross_area">
+                                                    <span> م2  تراس</span>
+                                                </t>
+                                                <t t-else="">
+                                                    <span> م2  مساحة خارجية</span>
+                                                </t>
+                                            </t>
+                                        </span>
+                                    </div>
+                                </div>
+                            </t>
+
+                            <!-- Common Fields for All Unit Types -->
+                            <div class="field-row">
+                                <div class="field-lbl">رقم الوحدة:</div>
+                                <div class="field-val">
+                                    <span class="ltr"><t t-esc="(o.unit_id and o.unit_id.system_code) or ''"/></span>
+                                </div>
+                            </div>
+
+                            <div class="field-row">
+                                <div class="field-lbl">السعر الإجمالي:</div>
+                                <div class="field-val">
+                                    <span class="ltr"><t t-esc="'{:,.0f}'.format(o.price_after_discount or 0.0)"/></span>
+                                    <span> جنيه مصري</span>
+                                </div>
+                            </div>
+
+                            <div class="field-row">
+                                <div class="field-lbl">دفعة الحجز:</div>
+                                <div class="field-val">
+                                    <span class="ltr"><t t-esc="'{:,.0f}'.format(o.down_payment or 0.0)"/></span>
+                                    <span> جنيه مصري</span>
+                                </div>
+                            </div>
+
+                            <div class="field-row">
+                                <div class="field-lbl">طريقة سداد دفعة الحجز:</div>
+                                <div class="field-val">
+                                    <t t-esc="o._get_formatted_payment_methods()"/>
+                                </div>
+                            </div>
+
+                            <div class="field-row">
+                                <div class="field-lbl">تاريخ سداد دفعة الحجز:</div>
+                                <div class="field-val">
+                                    <t t-if="o.down_payment_date">
+                                        <t t-esc="o.date_to_arabic(o.down_payment_date)"/>
+                                    </t>
+                                    <t t-else="">&#160;</t>
+                                </div>
+                            </div>
+
+                            <div class="field-row">
+                                <div class="field-lbl">نظام السداد:</div>
+                                <div class="field-val">
+                                    <span >
+                                        <t t-if="o.installment_template_id" t-esc="o.installment_template_id.arabic_name or o.installment_template_id.name or ''"/>
+                                        <t t-if="o.installment_template_2_id">/</t>
+                                        <t t-if="o.installment_template_2_id" t-esc="o.installment_template_2_id.arabic_name or o.installment_template_2_id.name or ''"/>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Terms and Conditions Section -->
+                        <div class="section">
+                            <div class="section-h">الشروط والأحكام</div>
+                            <div class="conditions-list">
+                                <div>
+                                    <strong>1.</strong>
+                                    <span>أقر بموافقتي على نظام السداد الموضح أعلاه وموافقتي على الشروط الآتية:</span>
+                                </div>
+
+                                <div>
+                                    <strong>2.</strong>
+                                    <span>بحد أقصى اسبوعين من تاريخ هذه الاستمارة التزم بالتوقيع على عقد البيع وسداد باقي الثمن بموجب شيكات بنكية تسلم للشركة عند التعاقد.</span>
+                                </div>
+
+                                <div>
+                                    <strong>3.</strong>
+                                    <span>في حالة عدم التزامي بالتعاقد في الموعد المحدد تعتبر استمارة الحجز كأن لم تكن دون حاجة إلى تنبيه أو إنذار ويحق للشركة بيع الوحدة للغير ويحق للشركة خصم مبلغ 10% من إجمالي الثمن الوحدة كتعويض اتفاقي لصالح الشركة ولا يحق لي المطالبة باستردادها.</span>
+                                </div>
+
+                                <div>
+                                    <strong>4.</strong>
+                                    <span>التزم عند توقيع العقد بتسليم الشركة شيكات بنكية بمبلغ</span> <span t-esc="'{:,.2f}'.format(o.maintenance_price or 0.0)"/> <span> جنيه مصري مستحقة السداد قبل موعد الاستلام يحتفظ بها تحت حساب مصروفات صيانة ونظافة وأمن المدينة.</span>
+                                </div>
+
+                                <div>
+                                    <strong>5.</strong>
+                                    <span>لا يعتبر التعاقد قائم بيني وبين الشركة قانوناً إلا بعد التوقيع على العقد.</span>
+                                </div>
+
+                                <div>
+                                    <strong>6.</strong>
+                                    <span>أقر بأن عنوان المراسلة داخل جمهورية مصر العربية والثابت في هذه الاستمارة هو موطني المختار الذي يصح عليه قانوناً إخطاري بكافة المراسلات وأتعهد بإخطار الشركة رسميا في حالة تغير هذا الموطن وإلا صحت جميع المراسلات التي تم على هذا العنوان وبشرط أن يكون الموطن الجديد داخل جمهورية مصر العربية كما يحق للشركة مخاطبتي على البريد الإلكتروني أو برسالة على الهاتف المحمول المذكورين أعلاه.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Signature Table -->
+                        <table class="signature-table" style="page-break-inside: avoid;">
+                            <thead>
+                                <tr>
+                                    <th style="width: 50%;">العميل</th>
+                                    <th style="width: 50%;">الشركة</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="field-row" style="margin: 3px 0;">
+                                            <div class="field-lbl" style="width: 60px; font-size: 10pt;">الاسم:</div>
+                                            <div class="field-val" style="font-size: 10pt;"><t t-esc="o.customer_id.ref or o.customer_id.name or ''"/></div>
+                                        </div>
+                                        <div style="margin-top: 25px;">
+                                            <span style="font-size: 10pt;">التوقيع: __________________</span>
+                                        </div>
+                                        <div style="margin-top: 10px;">
+                                            <span style="font-size: 10pt;">التاريخ: __________________</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="field-row" style="margin: 3px 0;">
+                                            <div class="field-lbl" style="width: 60px; font-size: 10pt;">البائع:</div>
+                                            <div class="field-val" style="font-size: 10pt;">
+                                                <t t-esc="o.user_id.partner_id.ref or o.user_id.name or ''"/>
+                                                <t t-if="o.split_deal">
+                                                    <t t-foreach="o.sales_ids" t-as="co_seller">
+                                                        <t t-if="co_seller.id != o.user_id.id"> / <t t-esc="co_seller.partner_id.ref or co_seller.name or ''"/></t>
+                                                    </t>
+                                                </t>
+                                            </div>
+                                        </div>
+                                        <t t-set="signature_employee" t-value="o.env['hr.employee'].sudo().search_read([('sales_reservation_signature', '=', True)], ['name'], limit=1)"/>
+                                        <t t-if="signature_employee">
+                                            <div class="field-row" style="margin: 3px 0;">
+                                                <div class="field-lbl" style="width: 60px; font-size: 10pt;">رأيس القطاع التجاري</div>
+                                                <div class="field-val" style="font-size: 10pt;"><t t-esc="signature_employee[0]['name']"/></div>
+                                            </div>
+                                        </t>
+                                        <t t-if="o.sales_manager_names_ar or o.sales_manager_names">
+                                            <div class="field-row" style="margin: 3px 0;">
+                                                <div class="field-lbl" style="width: 120px; font-size: 10pt;">مدير المبيعات:</div>
+                                                <div class="field-val" style="font-size: 10pt;"><t t-esc="o.sales_manager_names_ar or o.sales_manager_names or ''"/></div>
+                                            </div>
+                                        </t>
+                                        <t t-if="o.sales_operation_names_ar or o.sales_operation_names">
+                                            <div class="field-row" style="margin: 3px 0;">
+                                                <div class="field-lbl" style="width: 140px; font-size: 10pt;">مدير المبيعات:</div>
+                                                <div class="field-val" style="font-size: 10pt;"><t t-esc="o.sales_operation_names_ar or o.sales_operation_names or ''"/></div>
+                                            </div>
+                                        </t>
+                                        <t t-if="o.referred_by">
+                                            <div class="field-row" style="margin: 3px 0;">
+                                                <div class="field-lbl" style="width: 60px; font-size: 10pt;">المصدر:</div>
+                                                <div class="field-val" style="font-size: 10pt;"><t t-if="o.referred_by in ['broker', 'customer', 'ambassador']" t-esc="o.referred_by_partner_id.ref or o.referred_by_partner_id.name or ''"/>
+                                                                                                <t t-elif="o.referred_by == 'management'">الادارة</t>
+                                                                                                <t t-elif="o.referred_by == 'direct'">مباشر</t>
+                                                                                                <t t-elif="o.referred_by == 'other'" t-esc="o.other or ''"/>
+                                                                                                <t t-elif="o.referred_by == 'employee'" t-esc="o.referred_by_employee_id.user_partner_id.ref or o.referred_by_employee_id.name or ''"/>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </t>
+
+            </t>
+        </template>
+
+    </data>
+</odoo>

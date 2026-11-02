@@ -1,0 +1,486 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* isky_social_insurance_tony
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-12-04 06:57+0000\n"
+"PO-Revision-Date: 2019-12-11 14:15+0200\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: aa\n"
+"X-Generator: Poedit 2.2.3\n"
+
+#. module: isky_social_insurance_tony
+#: model_terms:ir.ui.view,arch_db:isky_social_insurance_tony.hr_insurance_form_view
+msgid ""
+"<span class=\"o_stat_text\">\n"
+"                                        Import Data\n"
+"                                    </span>"
+msgstr ""
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_line__additional_fixed_si
+msgid "Additional Fixed"
+msgstr "الثابت الاضافى"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_line__additional_variable_si
+msgid "Additional Variable"
+msgstr "المتغير الاضافى"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_annual_increase_line__annual_insurance_id
+msgid "Annual Increase"
+msgstr "الزيادة السنوية"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model,name:isky_social_insurance_tony.model_insurance_annual_increase_line
+msgid "Annual Increase Line"
+msgstr "بيانات الزيادة السنوية"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_hr_insurance_annual_increase__annual_insurance_line_ids
+msgid "Annual Insurance Line"
+msgstr "بيانات الزيادة السنوية"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_hr_contract__si_area
+msgid "Area"
+msgstr "المنطقة"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_policy__company_fixed_percentage
+msgid "Company Fixed Percentage"
+msgstr "نسبة الثابت للشركة"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_policy__company_variable_percentage
+msgid "Company Variable Percentage"
+msgstr "نسبة المتغير للشركة"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_line__contract_id
+msgid "Contract"
+msgstr "العقد"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_hr_insurance__create_uid
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_hr_insurance_annual_increase__create_uid
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_annual_increase_line__create_uid
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_line__create_uid
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_policy__create_uid
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_status__create_uid
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_type__create_uid
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_si_position__create_uid
+msgid "Created by"
+msgstr "أنشئ بواسطة"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_hr_insurance__create_date
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_hr_insurance_annual_increase__create_date
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_annual_increase_line__create_date
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_line__create_date
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_policy__create_date
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_status__create_date
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_type__create_date
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_si_position__create_date
+msgid "Created on"
+msgstr "أنشئ في"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_hr_insurance_annual_increase__annual_date
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_annual_increase_line__annual_date
+msgid "Date"
+msgstr "التاريخ"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_hr_insurance__display_name
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_hr_insurance_annual_increase__display_name
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_annual_increase_line__display_name
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_line__display_name
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_policy__display_name
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_status__display_name
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_type__display_name
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_si_position__display_name
+msgid "Display Name"
+msgstr "الاسم المعروض"
+
+#. module: isky_social_insurance_tony
+#: selection:hr.insurance,state:0
+#: selection:hr.insurance.annual.increase,state:0
+msgid "Draft"
+msgstr "مسودة"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_annual_increase_line__employee_id
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_line__employee_id
+msgid "Employee"
+msgstr "الموظف"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model,name:isky_social_insurance_tony.model_hr_contract
+msgid "Employee Contract"
+msgstr "عقد الموظف"
+
+#. module: isky_social_insurance_tony
+#: model_terms:ir.ui.view,arch_db:isky_social_insurance_tony.hr_insurance_form_view
+msgid "Employee Data"
+msgstr "بيانات الموظف"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_line__employee_fixed_additional
+msgid "Employee Fixed Additional"
+msgstr "الاضافى الثابت للموظف"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_policy__employee_fixed_percentage
+msgid "Employee Fixed Percentage"
+msgstr "نسبة الثابت للموظف"
+
+#. module: isky_social_insurance_tony
+#: model_terms:ir.ui.view,arch_db:isky_social_insurance_tony.hr_insurance_annual_form_view
+msgid "Employee Social Data"
+msgstr "بيانات التأمين للموظف"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_line__employee_variable_additional
+msgid "Employee Variable Additional"
+msgstr "الاضافى المتغير للموظف"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_policy__employee_variable_percentage
+msgid "Employee Variable Percentage"
+msgstr "نسبة المتغير للموظف"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_hr_insurance_annual_increase__employee_ids
+#: model_terms:ir.ui.view,arch_db:isky_social_insurance_tony.hr_insurance_annual_form_view
+msgid "Employees"
+msgstr "الموظفون"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_line__fixed_si
+msgid "Fixed"
+msgstr "الثابت"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_line__fixed_si_company
+msgid "Fixed Company"
+msgstr "ثابت الشركة"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_policy__fixed_si_date
+msgid "Fixed Date"
+msgstr "تاريخ الثابت"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_line__fixed_si_employee
+msgid "Fixed Employee"
+msgstr "ثابت الموظف"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_line__fixed_si_per_day
+msgid "Fixed Per day"
+msgstr "الاجر الثابت اليومى"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model,name:isky_social_insurance_tony.model_hr_insurance
+msgid "HR Insurance"
+msgstr "التأمين"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_hr_insurance__id
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_hr_insurance_annual_increase__id
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_annual_increase_line__id
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_line__id
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_policy__id
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_status__id
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_type__id
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_si_position__id
+msgid "ID"
+msgstr "المعرف"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model,name:isky_social_insurance_tony.model_insurance_policy
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_line__insurance_id
+msgid "Insurance"
+msgstr "التأمين"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model,name:isky_social_insurance_tony.model_hr_insurance_annual_increase
+msgid "Insurance Annual Increase"
+msgstr "الزيادة الثانوية للتأمينات"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_hr_contract__insurance_line_ids
+msgid "Insurance Data"
+msgstr "بيانات التأمينات"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_hr_insurance__insurance_date
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_line__insurance_date
+msgid "Insurance Date"
+msgstr "تاريخ التأمين"
+
+#. module: isky_social_insurance_tony
+#: model:ir.actions.act_window,name:isky_social_insurance_tony.action_hr_insurance_tony
+#: model:ir.ui.menu,name:isky_social_insurance_tony.menu_hr_insurance
+msgid "Insurance Form"
+msgstr "التأمينات"
+
+#. module: isky_social_insurance_tony
+#: model:ir.actions.act_window,name:isky_social_insurance_tony.action_insurance_history
+#: model:ir.ui.menu,name:isky_social_insurance_tony.insurance_history_menu
+msgid "Insurance History"
+msgstr "تاريخ التأمينات"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model,name:isky_social_insurance_tony.model_insurance_line
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_hr_insurance__insurance_line_ids
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_annual_increase_line__insurance_line_id
+#: model_terms:ir.ui.view,arch_db:isky_social_insurance_tony.insurance_line_tree_view
+msgid "Insurance Line"
+msgstr "بيانات التأمينات"
+
+#. module: isky_social_insurance_tony
+#: model:ir.actions.act_window,name:isky_social_insurance_tony.action_hr_insurance_line_tony
+msgid "Insurance Lines"
+msgstr "بيانات التأمينات"
+
+#. module: isky_social_insurance_tony
+#: model:ir.actions.act_window,name:isky_social_insurance_tony.action_insurance_policy
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_policy_group__insurance_policy_id
+#: model:ir.ui.menu,name:isky_social_insurance_tony.menu_insurance_policy
+msgid "Insurance Policy"
+msgstr "سياسة التأمينات"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model,name:isky_social_insurance_tony.model_insurance_status
+msgid "Insurance Status"
+msgstr "حالة التأمينات"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model,name:isky_social_insurance_tony.model_insurance_type
+msgid "Insurance Type"
+msgstr "نوع التأمين"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_hr_insurance____last_update
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_hr_insurance_annual_increase____last_update
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_annual_increase_line____last_update
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_line____last_update
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_policy____last_update
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_status____last_update
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_type____last_update
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_si_position____last_update
+msgid "Last Modified on"
+msgstr "آخر تعديل في"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_hr_insurance__write_uid
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_hr_insurance_annual_increase__write_uid
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_annual_increase_line__write_uid
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_line__write_uid
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_policy__write_uid
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_status__write_uid
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_type__write_uid
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_si_position__write_uid
+msgid "Last Updated by"
+msgstr "آخر تحديث بواسطة"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_hr_insurance__write_date
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_hr_insurance_annual_increase__write_date
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_annual_increase_line__write_date
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_line__write_date
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_policy__write_date
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_status__write_date
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_type__write_date
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_si_position__write_date
+msgid "Last Updated on"
+msgstr "آخر تحديث في"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,help:isky_social_insurance_tony.field_insurance_line__contract_id
+msgid "Latest contract of the employee"
+msgstr "اخر عقد للموظف"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_policy__name
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_status__name
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_type__name
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_si_position__name
+msgid "Name"
+msgstr "الاسم"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_annual_increase_line__new_social_amount
+msgid "New Social Amount"
+msgstr "الاجر التأمينى الجديد"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_hr_contract__si_number
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_line__si_number
+msgid "Number"
+msgstr "الرقم"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_hr_contract__si_office
+msgid "Office"
+msgstr "مكتب التأمينات"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_annual_increase_line__old_social_amount
+msgid "Old Social Amount"
+msgstr "الاجر التأمينى القديم"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model,name:isky_social_insurance_tony.model_hr_payslip
+msgid "Pay Slip"
+msgstr "إيصال المرتب"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_hr_insurance_annual_increase__percentage
+msgid "Percentage"
+msgstr "النسبة"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_hr_contract__si_position_id
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_line__si_position_id
+msgid "Position At SI"
+msgstr "وظيفة الموظف في التأمينات"
+
+#. module: isky_social_insurance_tony
+#: model:ir.actions.act_window,name:isky_social_insurance_tony.action_si_position
+#: model:ir.model,name:isky_social_insurance_tony.model_si_position
+#: model_terms:ir.ui.view,arch_db:isky_social_insurance_tony.si_position_tree_view
+msgid "SI Position"
+msgstr "وظيفة التأمينات"
+
+#. module: isky_social_insurance_tony
+#: model:ir.ui.menu,name:isky_social_insurance_tony.si_position_menu
+msgid "SI Positions"
+msgstr "وظائف التأمينات"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_hr_insurance__insurance_sequence
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_hr_insurance_annual_increase__annual_insurance_sequence
+msgid "Sequence"
+msgstr "التسلسل"
+
+#. module: isky_social_insurance_tony
+#: model:hr.salary.rule,name:isky_social_insurance_tony.social_insurance_rule
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_hr_contract__social_insurance_amount
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_hr_payslip__social_insurance_amount
+#: model:ir.ui.menu,name:isky_social_insurance_tony.menu_hr_insurance_root
+#: model_terms:ir.ui.view,arch_db:isky_social_insurance_tony.hr_contract_form_view_inherit_social
+msgid "Social Insurance"
+msgstr "التأمينات"
+
+#. module: isky_social_insurance_tony
+#: model:ir.ui.menu,name:isky_social_insurance_tony.menu_insurance_annual_increase
+msgid "Social Insurance Annual Increase"
+msgstr "الزيادة السنوية للتأمينات"
+
+#. module: isky_social_insurance_tony
+#: model:ir.actions.act_window,name:isky_social_insurance_tony.action_hr_insurance_annual_increase
+msgid "Social Insurance Annual Insurance"
+msgstr "الزيادة السنوية للتأمينات"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_hr_contract__si_org_number
+msgid "Social Org. Number"
+msgstr "الرقم  التأمينى للشركة"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_hr_contract__si_status_id
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_hr_insurance__state
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_hr_insurance_annual_increase__state
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_line__state
+msgid "Status"
+msgstr "الحالة"
+
+#. module: isky_social_insurance_tony
+#: model_terms:ir.ui.view,arch_db:isky_social_insurance_tony.hr_insurance_annual_form_view
+#: model_terms:ir.ui.view,arch_db:isky_social_insurance_tony.hr_insurance_form_view
+msgid "Submit"
+msgstr "تأكيد"
+
+#. module: isky_social_insurance_tony
+#: selection:hr.insurance,state:0
+#: selection:hr.insurance.annual.increase,state:0
+msgid "Submitted"
+msgstr "مؤكد"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_line__total_si
+msgid "Total"
+msgstr "الإجمالي"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_line__total_company
+msgid "Total Company"
+msgstr "اجمالى الشركة"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_line__total_employee
+msgid "Total Employee"
+msgstr "إجمالي الموظف"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_line__total_employee_after_additional
+msgid "Total Employee after additional"
+msgstr "اجمالى الموظف بعد الاضافى"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_line__total_insurance
+msgid "Total Insurance"
+msgstr "اجمالى التأمين"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_hr_contract__si_type_id
+msgid "Type"
+msgstr "النوع"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_line__variable_si
+msgid "Variable"
+msgstr "المتغير"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_line__variable_si_company
+msgid "Variable Company"
+msgstr "متغير الشركة"
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_policy__variable_si_date
+msgid "Variable Date"
+msgstr "تاريخ المتغير "
+
+#. module: isky_social_insurance_tony
+#: model:ir.model.fields,field_description:isky_social_insurance_tony.field_insurance_line__variable_si_employee
+msgid "Variable Employee"
+msgstr "المتغير للموظف"
+
+#. module: isky_social_insurance_tony
+#: model_terms:ir.ui.view,arch_db:isky_social_insurance_tony.hr_insurance_annual_form_view
+#: model_terms:ir.ui.view,arch_db:isky_social_insurance_tony.hr_insurance_annual_tree_view
+#: model_terms:ir.ui.view,arch_db:isky_social_insurance_tony.hr_insurance_form_view
+#: model_terms:ir.ui.view,arch_db:isky_social_insurance_tony.hr_insurance_tree_view
+#: model_terms:ir.ui.view,arch_db:isky_social_insurance_tony.si_position_form_view
+#: model_terms:ir.ui.view,arch_db:isky_social_insurance_tony.view_insurance_policy_form_view
+#: model_terms:ir.ui.view,arch_db:isky_social_insurance_tony.view_insurance_policy_tree
+msgid "arch"
+msgstr ""
+
+#. module: isky_social_insurance_tony
+#: model:ir.model,name:isky_social_insurance_tony.model_policy_group
+msgid "policy.group"
+msgstr ""

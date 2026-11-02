@@ -1,0 +1,13 @@
+<odoo>
+    <record id="view_hr_departure_wizard_form" model="ir.ui.view">
+            <field name="name">view.hr.departure.wizard.form</field>
+            <field name="model">hr.departure.wizard</field>
+            <field name="inherit_id" ref="hr.hr_departure_wizard_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='departure_date']" position="after">
+                    <field name="resignation_date"/>
+
+                </xpath>
+            </field>
+        </record>
+</odoo>

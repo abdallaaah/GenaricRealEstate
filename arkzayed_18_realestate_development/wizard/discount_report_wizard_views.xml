@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_discount_report_wizard_form" model="ir.ui.view">
+        <field name="name">discount.report.wizard.form</field>
+        <field name="model">discount.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Discount Review">
+                <sheet>
+                    <div class="alert alert-info" role="alert">
+                        Shows every contract that was sold with a discount in the period: how much was given,
+                        by month, unit type and sales source, and the biggest discounts.
+                    </div>
+                    <group>
+                        <group>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                        </group>
+                        <group>
+                            <field name="include_drafts"/>
+                            <field name="show_units"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <field name="excel_file" filename="excel_filename" invisible="1"/>
+                    <field name="excel_filename" invisible="1"/>
+                </sheet>
+                <footer>
+                    <button name="action_print_pdf" type="object" string="Print PDF" class="btn-primary" icon="fa-print"/>
+                    <button name="action_export_excel" type="object" string="Export Excel" class="btn-secondary" icon="fa-file-excel-o"/>
+                    <button string="Close" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_discount_report_wizard" model="ir.actions.act_window">
+        <field name="name">Discount Review</field>
+        <field name="res_model">discount.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_discount_report"
+              name="Discount Review"
+              parent="arkzayed_18_realestate_development.menu_reports_root"
+              action="action_discount_report_wizard"
+              sequence="52"/>
+
+</odoo>

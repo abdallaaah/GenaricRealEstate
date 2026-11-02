@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="action_broker_team" model="ir.actions.act_window">
+            <field name="name">Broker Team</field>
+            <field name="res_model">broker.team</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+
+        <record id="broker_team_list" model="ir.ui.view">
+            <field name="name">broker.team.list</field>
+            <field name="model">broker.team</field>
+            <field name="arch" type="xml">
+                <list string="Broker Team">
+                    <field name="broker_id"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="broker_team_form" model="ir.ui.view">
+            <field name="name">broker.team.form</field>
+            <field name="model">broker.team</field>
+            <field name="arch" type="xml">
+                <form string="Broker Team">
+                    <sheet>
+                        <group>
+                            <field name="broker_id"/>
+                        </group>
+                        <notebook>
+                            <page string="Members">
+                                <field name="line_ids">
+                                    <list editable="bottom">
+                                        <field name="partner_id" context="{'default_is_agent': 1}"/>
+                                        <field name="commission"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+
+</odoo>

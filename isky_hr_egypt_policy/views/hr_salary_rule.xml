@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="salary_rule_form_type_inherit" model="ir.ui.view">
+            <field name="name">salary.rule.form.inherit</field>
+            <field name="model">hr.salary.rule</field>
+            <field name="inherit_id" ref="hr_payroll.hr_salary_rule_form"/>
+            <field name="arch" type="xml">
+                <field name="active" position="after">
+                    <field name="type"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

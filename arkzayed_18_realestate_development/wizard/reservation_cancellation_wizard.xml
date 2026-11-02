@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="reservation_cancellation_wizard_form" model="ir.ui.view">
+        <field name="name">reservation.cancellation.wizard.form</field>
+        <field name="model">reservation.cancellation.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Cancel Reservation">
+                <group>
+                    <field name="sale_reservation_id" invisible="1"/>
+                    <field name="cancellation_type" widget="radio"/>
+                    <field name="paid_amount" readonly="1"/>
+                    <field name="penalty_amount" invisible="cancellation_type != 'with_penalty'"/>
+                    <field name="refund_amount" readonly="1"/>
+                </group>
+                <footer>
+                    <button name="action_confirm_cancellation" string="Confirm Cancellation" type="object" class="btn-primary"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>
+

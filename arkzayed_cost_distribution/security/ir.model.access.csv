@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_arkzayed_cost_allocation,arkzayed.cost.allocation,model_arkzayed_cost_allocation,,1,1,1,1
+access_arkzayed_cost_distribution_wizard,arkzayed.cost.distribution.wizard,model_arkzayed_cost_distribution_wizard,,1,1,1,1
+access_arkzayed_cost_distribution_wizard_building,arkzayed.cost.distribution.wizard.building,model_arkzayed_cost_distribution_wizard_building,,1,1,1,1
+access_arkzayed_cost_distribution,arkzayed.cost.distribution,model_arkzayed_cost_distribution,,1,1,1,1

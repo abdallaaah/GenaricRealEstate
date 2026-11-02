@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="eoi_refrence" model="ir.sequence">
+            <field name="name">EOI Reference</field>
+            <field name="code">eoi.eoi</field>
+            <field name="prefix">EOI/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="view_real_estate_eoi_tree" model="ir.ui.view">
+            <field name="name">real.estate.eoi.tree</field>
+            <field name="model">eoi.eoi</field>
+            <field name="arch" type="xml">
+                <list string="Real Estate Units">
+                    <field name="name"/>
+                    <field name="customer_id"/>
+                    <field name="brand_name"/>
+                    <field name="academic_qualifications"/>
+                    <field name="unit_type" readonly="unit_type == 'residential'"/>
+                    <field name="reservation_amount"/>
+                    <field name="company_id"/>
+                    <field name="status" widget="badge"
+                           decoration-success="status == 'accepted'"
+                           decoration-danger="status == 'rejected'"
+                           decoration-warning="status in ['to_refunded', 'refunded']"
+                           decoration-info="status == 'paid'"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_real_estate_eoi_form" model="ir.ui.view">
+            <field name="name">real.estate.eoi.from</field>
+            <field name="model">eoi.eoi</field>
+            <field name="arch" type="xml">
+                <form string="Real Estate Unit">
+                    <header>
+                        <field name="status"
+                               widget="statusbar"
+                               statusbar_visible="new,submitted,paid,accepted"/>
+
+                        <button name="action_submit" type="object" string="Submit" class="oe_highlight"
+                                invisible="status not in ['new']"/>
+
+                        <button name="create_payment" type="object" string="Create Payment" class="btn-info"
+                                invisible="status not in ['submitted'] or payment_methods == 'cheque' or payment_status == 'partial'"
+                                context="{'payment_methods': payment_methods}"/>
+
+                        <button name="create_cheque_payment" type="object" string="Create Cheque" class="btn-info"
+                                invisible="status not in ['submitted'] or payment_methods != 'cheque' or payment_status == 'partial'"/>
+
+                        <button name="check_payment" type="object" string="Check Payment" class="btn-warning"
+                                invisible="status not in ['submitted'] or payment_methods == 'cheque' or payment_status == 'partial'"/>
+
+                        <button name="check_cheque_payment" type="object" string="Check Cheque Payment"
+                                class="btn-warning"
+                                invisible="status not in ['submitted'] or payment_methods != 'cheque' or payment_status == 'partial'"/>
+
+                        <button name="check_partial_payment" type="object" string="Check Partial Payment"
+                                class="btn-warning"
+                                invisible="status not in ['submitted'] or payment_status != 'partial'"/>
+
+                        <button name="accept_eoi" type="object" string="Accept" class="btn-success"
+                                invisible="status not in ['paid']"/>
+
+                        <button name="reject_eoi" type="object" string="Reject" class="btn-danger"
+                                invisible="status not in ['paid']"/>
+
+                        <button name="action_create_reservation" type="object" string="Create Reservation"
+                                class="btn-info" invisible="status not in ['accepted'] or reservation_count &gt; 0"/>
+
+                        <button name="refund_eoi_payment" type="object" string="To Be Refunded" class="btn-danger"
+                                invisible="status not in ['rejected'] or payment_methods == 'cheque'"/>
+
+                        <button name="refund" type="object" string="Refund" class="btn-danger"
+                                invisible="status not in ['to_refunded']"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_show_payment"
+                                    type="object" class="oe_stat_button" icon="fa-money"
+                                    invisible="payment_methods not in ['cash', 'bank']">
+                                <field name="payment_count" widget="statinfo" string="Payment"/>
+                            </button>
+                            <button name="action_show_cheques"
+                                    type="object" class="oe_stat_button" icon="fa-money"
+                                    invisible="payment_methods != 'cheque'">
+                                <field name="cheque_count" widget="statinfo" string="Cheques"/>
+                            </button>
+                            <button name="action_view_reservations"
+                                    type="object" class="oe_stat_button" icon="fa-calendar-check-o">
+                                <field name="reservation_count" widget="statinfo" string="Reservations"/>
+                            </button>
+                        </div>
+
+                        <group>
+                            <div class="oe_title">
+                                <label for="name" string="Reference"/>
+                                <h1>
+                                    <field name="name"/>
+                                </h1>
+                            </div>
+                        </group>
+
+                        <group>
+                            <!-- Customer Information Group -->
+                            <group string="Customer Information">
+                                <field name="company_id" invisible="1"/>
+                                <field name="customer_id" readonly="status != 'new'" context="{'default_is_customer': True}"/>
+                                <field name="brand_name" readonly="status != 'new'"/>
+                                <field name="customer_code"/>
+                                <field name="national_id"/>
+                                <field name="mobile"/>
+                                <field name="email"/>
+                                <field name="street_1"/>
+<!--                                <field name="address_1"/>-->
+<!--                                <field name="address_2"/>-->
+<!--                                <field name="address" readonly="1"/>-->
+<!--                                <field name="jop_position" readonly="1"/>-->
+<!--                                <field name="academic_qualifications" readonly="1"/>-->
+                                <field name="user_id"/>
+                                <field name="split_deal" widget="boolean_toggle"/>
+                            </group>
+                            <!-- Unit Details Group -->
+                            <group string="Unit Details">
+                                <field name="unit_type" required="1" readonly="status != 'new' or unit_type == 'residential'"/>
+                                <field name="public_area" invisible="unit_type != 'public_area'"
+                                       readonly="status != 'new'"/>
+                                <field name="industrial_type" invisible="unit_type != 'industrial'"
+                                       readonly="status != 'new'"/>
+                                <field name="retail_type" invisible="unit_type != 'retail'" readonly="status != 'new'"/>
+                                <field name="office_type_id" invisible="unit_type != 'office'"
+                                       readonly="status != 'new'"/>
+                                <field name="residential_type" invisible="unit_type != 'residential'"
+                                       readonly="status != 'new'"/>
+                                <field name="apartment_type_id"
+                                       invisible="residential_type != 'apartment'"
+                                       readonly="status != 'new'"
+                                       options="{'no_create': True, 'no_create_edit': True}"/>
+                                <field name="villa_type_id"
+                                       invisible="residential_type != 'villa'"
+                                       readonly="status != 'new'"
+                                       options="{'no_create': True, 'no_create_edit': True}"/>
+                                <field name="loft_type_id"
+                                       invisible="residential_type != 'loft'"
+                                       readonly="status != 'new'"
+                                       options="{'no_create': True, 'no_create_edit': True}"/>
+                                <field name="entertainment_type" invisible="unit_type != 'entertainment'"
+                                       readonly="status != 'new'"/>
+                                <field name="finishing_type" readonly="status != 'new'"/>
+                                <field name="project_id"/>
+                                <field name="phase_id" invisible="not project_id" domain="[('id', 'in', phase_domain_ids)]"/>
+                            </group>
+                        </group>
+
+                        <group>
+                            <!-- Referral Information Group -->
+                            <group string="Referral Information">
+                                <field name="referred_by" readonly="status != 'new'"/>
+                                <field name="referred_by_partner_id" string="Customer"
+                                       invisible="referred_by != 'customer'"
+                                       domain="[('is_customer', '=', True)]" readonly="status != 'new'"/>
+                                <field name="referred_by_partner_id" string="Broker" invisible="referred_by != 'broker'"
+                                       domain="[('is_broker', '=', True)]" readonly="status != 'new'"/>
+                                <field name="has_contract" invisible="not is_broker_partner" groups="arkzayed_18_realestate_development.group_operation_manager_approval"/>
+                                <field name="referred_by_partner_id" string="Ambassador"
+                                       invisible="referred_by != 'ambassador'" domain="[('is_ambassador', '=', True)]"
+                                       readonly="status != 'new'"/>
+                                <field name="referred_by_employee_id" string="Employee"
+                                       readonly="status != 'new'"
+                                       invisible="referred_by != 'employee'"/>
+                                <field name="other" invisible="referred_by != 'other'"
+                                       readonly="status != 'new'"/>
+                            </group>
+                            <!-- Payment Information Group -->
+                            <group string="Payment Information">
+                                <label for="reservation_amount"/>
+                                <div name="reservation_amount" class="o_row">
+                                    <field name="reservation_amount" readonly="status != 'new'"/>
+                                    <field name="currency_id" options="{'no_create': True, 'no_open': True}"
+                                           required="1" readonly="status != 'new'"/>
+                                </div>
+                                <field name="payment_methods" readonly="status != 'new'"/>
+                                <field name="payment_status" readonly="status != 'new'"/>
+                            </group>
+                        </group>
+
+                        <group string="Payments" invisible="payment_status != 'partial'">
+                            <field name="eoi_payment_ids" context="{'default_eoi_id': id}">
+                                <list editable="bottom">
+                                    <field name="amount" readonly="is_payed"/>
+                                    <field name="payment_attachment" readonly="is_payed"/>
+                                    <field name="remaining_amount" readonly="1"/>
+                                    <field name="payment_method" readonly="is_payed"/>
+                                    <field name="is_payed" readonly="1"/>
+                                    <button name="create_payment" type="object" string="Create Payment"
+                                            invisible="is_payed or payment_method not in ['bank_transfer', 'cash'] or parent.status != 'submitted'"/>
+                                    <button name="create_cheque" type="object" string="Create Cheque"
+                                            invisible="is_payed or payment_method != 'bank_cheque' or parent.status != 'submitted'"/>
+                                </list>
+                            </field>
+                        </group>
+
+                        <notebook>
+                            <page string="Notes">
+                                <group>
+                                    <field name="internal_notes" readonly="status != 'new'"/>
+                                </group>
+                            </page>
+                            <page name="commission" string="Commission">
+                                <field name="commission_ids">
+                                    <list editable="bottom">
+                                        <field name="employee_id" force_save="1"/>
+                                        <field name="jop_position" force_save="1"/>
+                                        <field name="commission" force_save="1"/>
+                                    </list>
+                                </field>
+                            </page>
+
+                            <!-- Add Split With page -->
+                            <page name="split_with" string="Split With" invisible="split_deal == False">
+                                <group>
+                                    <field name="split_with" invisible="1"/>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="partner_ids" widget="many2many_tags"/>
+                                        <field name="employee_ids" widget="many2many_tags"/>
+                                        <field name="broker_ids" widget="many2many_tags"/>
+                                        <field name="ambassador_ids" widget="many2many_tags"/>
+                                    </group>
+                                    <group>
+                                        <field name="non_sales_ids" widget="many2many_tags"/>
+                                        <field name="sales_ids" widget="many2many_tags"/>
+                                        <field name="other"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+
+                        <field name="active" invisible="1"/>
+                        <field name="company_id" invisible="1"/>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_real_estate_eoi_search" model="ir.ui.view">
+            <field name="name">real.estate.eoi.search</field>
+            <field name="model">eoi.eoi</field>
+            <field name="arch" type="xml">
+                <search string="EOI">
+                    <!-- Search Fields -->
+                    <field name="name" string="Reference" filter_domain="[('name', 'ilike', self)]"/>
+                    <field name="customer_id" string="Customer"/>
+                    <field name="customer_id" string="Customer Phone" filter_domain="[('customer_id.phone', 'ilike', self)]"/>
+                    <field name="brand_name" string="Brand Name"/>
+                    <field name="user_id" string="Salesperson"/>
+                    <field name="referred_by_partner_id" string="Referred By"/>
+
+                    <separator/>
+
+                    <!-- Status Filters -->
+                    <filter string="New" name="new" domain="[('status', '=', 'new')]"/>
+                    <filter string="Submitted" name="submitted" domain="[('status', '=', 'submitted')]"/>
+                    <filter string="Paid" name="paid" domain="[('status', '=', 'paid')]"/>
+                    <filter string="Accepted" name="accepted" domain="[('status', '=', 'accepted')]"/>
+                    <filter string="Rejected" name="rejected" domain="[('status', '=', 'rejected')]"/>
+                    <filter string="To Be Refunded" name="to_refunded" domain="[('status', '=', 'to_refunded')]"/>
+                    <filter string="Refunded" name="refunded" domain="[('status', '=', 'refunded')]"/>
+
+                    <separator/>
+
+                    <!-- Quick Filters -->
+                    <filter string="Active" name="active" domain="[('active', '=', True)]"/>
+                    <filter string="Archived" name="archived" domain="[('active', '=', False)]"/>
+                    <filter string="Split Deals" name="split_deals" domain="[('split_deal', '=', True)]"/>
+
+                    <separator/>
+
+                    <!-- Unit Type Filters -->
+                    <filter string="Office" name="office" domain="[('unit_type', '=', 'office')]"/>
+                    <filter string="Retail" name="retail" domain="[('unit_type', '=', 'retail')]"/>
+                    <filter string="Residential" name="residential" domain="[('unit_type', '=', 'residential')]"/>
+                    <filter string="Industrial" name="industrial" domain="[('unit_type', '=', 'industrial')]"/>
+                    <filter string="Public Area" name="public_area" domain="[('unit_type', '=', 'public_area')]"/>
+                    <filter string="Entertainment" name="entertainment" domain="[('unit_type', '=', 'entertainment')]"/>
+
+                    <separator/>
+
+                    <!-- Payment Method Filters -->
+                    <filter string="Cash Payment" name="cash_payment" domain="[('payment_methods', '=', 'cash')]"/>
+                    <filter string="Bank Transfer" name="bank_transfer" domain="[('payment_methods', '=', 'bank')]"/>
+                    <filter string="Cheque Payment" name="cheque_payment"
+                            domain="[('payment_methods', '=', 'cheque')]"/>
+
+                    <separator/>
+
+                    <!-- Referral Filters -->
+                    <filter string="Referred by Customer" name="ref_customer"
+                            domain="[('referred_by', '=', 'customer')]"/>
+                    <filter string="Referred by Broker" name="ref_broker" domain="[('referred_by', '=', 'broker')]"/>
+                    <filter string="Referred by Ambassador" name="ref_ambassador"
+                            domain="[('referred_by', '=', 'ambassador')]"/>
+                    <filter string="Referred by Employee" name="ref_employee"
+                            domain="[('referred_by', '=', 'employee')]"/>
+                    <filter string="Other Referral" name="ref_other" domain="[('referred_by', '=', 'other')]"/>
+
+                    <separator/>
+
+                    <!-- Finishing Type Filters -->
+                    <filter string="Core &amp; Shell" name="core_shell" domain="[('finishing_type', '=', 'core_shell')]"/>
+                    <filter string="Semi Finished" name="semi_finished"
+                            domain="[('finishing_type', '=', 'semi_finished')]"/>
+                    <filter string="Fully Finished" name="fully_finished"
+                            domain="[('finishing_type', '=', 'fully_finished')]"/>
+                    <filter string="Furnished" name="furnished" domain="[('finishing_type', '=', 'furnished')]"/>
+
+                    <separator/>
+
+                    <!-- Academic Qualification Filters -->
+                    <filter string="Bachelor" name="bachelor" domain="[('academic_qualifications', '=', 'bachelor')]"/>
+                    <filter string="Diploma" name="diploma" domain="[('academic_qualifications', '=', 'diploma')]"/>
+                    <filter string="Master" name="master" domain="[('academic_qualifications', '=', 'master')]"/>
+                    <filter string="PhD" name="phd" domain="[('academic_qualifications', '=', 'phd')]"/>
+
+                    <separator/>
+
+                    <!-- Group By -->
+                    <group expand="0" string="Group By">
+                        <filter string="Status" name="group_status" context="{'group_by': 'status'}"/>
+                        <filter string="Customer" name="group_customer" context="{'group_by': 'customer_id'}"/>
+                        <filter string="Salesperson" name="group_salesperson" context="{'group_by': 'user_id'}"/>
+                        <filter string="Unit Type" name="group_unit_type" context="{'group_by': 'unit_type'}"/>
+                        <filter string="Payment Method" name="group_payment_method"
+                                context="{'group_by': 'payment_methods'}"/>
+                        <filter string="Finishing Type" name="group_finishing_type"
+                                context="{'group_by': 'finishing_type'}"/>
+                        <filter string="Referred By" name="group_referred_by" context="{'group_by': 'referred_by'}"/>
+                        <filter string="Academic Qualifications" name="group_academic"
+                                context="{'group_by': 'academic_qualifications'}"/>
+                        <filter string="Job Position" name="group_job_position" context="{'group_by': 'jop_position'}"/>
+                        <filter string="Currency" name="group_currency" context="{'group_by': 'currency_id'}"/>
+                        <filter string="Company" name="group_company" context="{'group_by': 'company_id'}"/>
+                        <separator/>
+                        <filter string="Retail Type" name="group_retail_type" context="{'group_by': 'retail_type'}"/>
+                        <filter string="Residential Type" name="group_residential_type"
+                                context="{'group_by': 'residential_type'}"/>
+                        <filter string="Industrial Type" name="group_industrial_type"
+                                context="{'group_by': 'industrial_type'}"/>
+                        <filter string="Entertainment Type" name="group_entertainment_type"
+                                context="{'group_by': 'entertainment_type'}"/>
+                        <filter string="Public Area" name="group_public_area" context="{'group_by': 'public_area'}"/>
+                        <filter string="Office Type" name="group_office_type" context="{'group_by': 'office_type_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_real_estate_eoi" model="ir.actions.act_window">
+            <field name="name">EOI</field>
+            <field name="res_model">eoi.eoi</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+
+    </data>
+</odoo>

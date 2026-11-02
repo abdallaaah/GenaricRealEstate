@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!--Attachment Action-->
+    <record id="action_attachment_view" model="ir.actions.act_window">
+        <field name="name">Attachments</field>
+        <field name="res_model">ir.attachment</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('cheque_id','in',active_ids)]</field>
+        <field name="context">{'default_cheque_id':active_id}</field>
+    </record>
+    <!--Incoming List View-->
+    <record id="cheque_manage_list_views" model="ir.ui.view">
+        <field name="name">cheque.manage</field>
+        <field name="model">cheque.manage</field>
+        <field name="arch" type="xml">
+            <list string="Incoming Cheques">
+                <field name="seq_no"/>
+                <field name="payer"/>
+                <field name="cheque_no"/>
+                <field name="debit_account"/>
+                <field name="cheque_date"/>
+                <field name="cheque_receive_date"/>
+                <field name="amount" widget="monetary"
+                       options="{'currency_field': 'company_currency_id', 'field_digits': True}"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="company_currency_id" invisible="1"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <!--Outgoing List View-->
+    <record id="cheque_manage_outgoing_list_views" model="ir.ui.view">
+        <field name="name">cheque.manage</field>
+        <field name="model">cheque.manage</field>
+        <field name="arch" type="xml">
+            <list string="Outgoing Cheques">
+                <field name="payer"/>
+                <field name="cheque_no"/>
+                <field name="credit_account"/>
+                <field name="cheque_date"/>
+                <field name="cheque_receive_date"/>
+                <field name="amount" widget="monetary"
+                       options="{'currency_field': 'company_currency_id', 'field_digits': True}"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="company_currency_id" invisible="1"/>
+                <field name="outgoing_state"/>
+            </list>
+        </field>
+    </record>
+
+    <!--Form View-->
+    <record id="incoming_cheque_manage_view_form" model="ir.ui.view">
+        <field name="name">cheque.manage</field>
+        <field name="model">cheque.manage</field>
+        <field name="arch" type="xml">
+            <form string="Incoming Cheque">
+                <header>
+                    <button name="submit_under_collection_action" type="object" string="Under Collection"
+                            invisible="state not in ['return_to_client', 'collect'] or cheq_type != 'incoming'"
+                            class="btn-info"/>
+                    <button name="cheque_collect" type="object" string="Receive"
+                            invisible="state != 'draft' or cheq_type != 'incoming'" class="btn-info"/>
+                    <button name="cheque_collect" type="object" string="HandIn"
+                            invisible="state != 'draft' or cheq_type != 'outgoing'" class="oe_highlight"/>
+                    <button name="action_collect" type="object" string="Collect" class="oe_highlight" invisible="1"/>
+                    <button name="under_collection_action"
+                            string="Collect"
+                            type="object"
+                            class="btn-info"
+                            invisible="state not in ['register', 'to_adib'] or cheq_type != 'incoming'"/>
+                    <button name="action_return_wizard" type="object" string="Return" class="oe_highlight"
+                            invisible="state in ['done','draft', 'return','cancel','deposit','return_to_client','to_hermes','to_adib']"/>
+
+                    <button name="action_return_to_hermes" type="object" string="Return To Hermes" class="oe_highlight"
+                            invisible="state != 'to_hermes'"/>
+                    <button name="to_hermes_action" type="object" string="To Hermes" class="oe_highlight"
+                            invisible="state not in ['collect'] or cycle_type != 'hermes'"/>
+                    <button name="to_adib_action" type="object" string="To Adib" class="oe_highlight"
+                            invisible="state not in ['collect'] or cycle_type != 'adib'"/>
+                    <button name="return_adib_action" type="object" string="Return From Adib" class="oe_highlight"
+                            invisible="state != 'to_adib'"/>
+                    <button name="action_return_to_client" type="object" string="Return To Client" class="oe_highlight"
+                            invisible="state != 'return_to_client'"/>
+                    <button name="under_collection_action"
+                            string="Release"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="state != 'collect' or cheq_type != 'outgoing'"/>
+                    <button name="action_cancel" type="object" string="Cancel" class="btn-danger"
+                            invisible="state in ['done','cancel','return','bounce','deposit']"/>
+
+                    <field name="state" widget="statusbar" invisible="cheq_type=='outgoing'"
+                           statusbar_visible="draft,collect,return_to_client,register,deposit,done"/>
+                    <field name="outgoing_state" widget="statusbar" invisible="cheq_type=='incoming'"
+                           statusbar_visible="draft,hand_in,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="%(action_attachment_view)d"
+                                type="action"
+                                class="oe_stat_button"
+                                icon="fa-cloud-upload">
+                            <field name="attachment_count" widget="statinfo" string="Attachments"/>
+                        </button>
+                        <button class="oe_stat_button"
+                                name="button_journal_entries"
+                                type="object"
+                                groups="account.group_account_user"
+                                invisible="move_line_ids == []"
+                                icon="fa-bars">
+                            <field name="journal_item_count" widget="statinfo"/>
+                        </button>
+                        <field name="move_line_ids" invisible="1"/>
+                        <button class="oe_stat_button" name="open_payment_matching_screen" string="Payment Matching"
+                                type="object" icon="fa-university"/>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="seq_no" readonly="1"/>
+                        </h1>
+                        <h3>
+                            <field name="name" readonly="state != 'draft'"/>
+                        </h3>
+                    </div>
+                    <group>
+                        <group col="2">
+                            <field name="bank_id" readonly="state != 'draft'" required="cheq_type == 'outgoing'"/>
+                            <field name="cheque_no" required="1" readonly="state != 'draft'"/>
+                            <field name="amount" widget="monetary"
+                                   options="{'currency_field': 'company_currency_id', 'field_digits': True}"
+                                   required="1" readonly="state != 'draft'"/>
+                            <field name="is_merged" readonly="1" invisible="not is_merged"/>
+                            <field name="merged_into_id" readonly="1" invisible="not is_merged"/>
+                            <field name="is_consolidated" readonly="1" invisible="not is_consolidated"/>
+                        </group>
+                        <group col="2">
+                            <field name="payer" required="1" readonly="state != 'draft'" options="{'no_create': True}"/>
+                            <field name="cheque_date" readonly="state != 'draft'"/>
+                            <field name="cheque_receive_date" required="1" readonly="state != 'draft'"/>
+                            <field name="cashed_date" readonly="state != 'draft'" invisible="cashed_date == False"/>
+                            <field name="return_date" readonly="state != 'draft'" invisible="return_date == False"/>
+                            <field name="is_owner" invisible="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group col="2">
+                            <field name="equity_account_id" invisible="is_owner == False"/>
+                            <field name="credit_account"
+                                   readonly="state != 'draft'" invisible="cheq_type == 'incoming'"/>
+                            <field name="debit_account" required="cheq_type == 'incoming'" readonly="state != 'draft'"
+                                   invisible="cheq_type == 'outgoing'"/>
+                            <field name="journal_id" required="1" readonly="state != 'draft'"/>
+                        </group>
+                        <group col="2">
+                            <field name="company_id" required="1" groups="base.group_multi_company"
+                                   readonly="state != 'draft'"/>
+                            <field name="cheque_scan" readonly="state not in ('draft', 'collect')"/>
+                            <field name="cheq_type" invisible="1"/>
+                            <field name="company_currency_id" invisible="1"/>
+                            <field name="envelope_number" readonly="state != 'draft'"/>
+                            <field name="archive_place" readonly="state != 'draft'"/>
+                            <field name="cycle_type" readonly="state != 'draft'"/>
+                            <field name="memo" readonly="state != 'done'"/>
+
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description" name="desc">
+                            <field name="description"/>
+                        </page>
+                        <page string="Attachments">
+                            <field name="cheq_attachment_ids">
+                                <list string="Attachments">
+                                    <field name="name"/>
+                                    <field name="res_model"/>
+                                    <field name="res_field"/>
+                                    <field name="res_id"/>
+                                    <field name="type"/>
+                                    <field name="company_id" groups="base.group_multi_company"/>
+                                    <field name="create_uid"/>
+                                    <field name="create_date"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Return Reason">
+                            <group>
+                                <field name="return_reason_id" options="{'no_create': True}"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="outgoing_cheque_manage_view_form" model="ir.ui.view">
+        <field name="name">outgoing.cheque.manage</field>
+        <field name="model">cheque.manage</field>
+        <field name="inherit_id" ref="incoming_cheque_manage_view_form"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='state']" position="attributes">
+                <attribute name="statusbar_visible">draft,sent,deposit,done</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='payer']" position="attributes">
+                <attribute name="domain">[('parent_id','=', False)]</attribute>
+            </xpath>
+
+        </field>
+
+    </record>
+    <!--Incoming Action -->
+    <record id="action_cheque_manage" model="ir.actions.act_window">
+        <field name="name">Incoming Cheque</field>
+        <field name="res_model">cheque.manage</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('cheq_type','=','incoming')]</field>
+        <field name="context">{'default_cheq_type':'incoming'}</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'list', 'view_id': ref('cheque_manage_list_views')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('incoming_cheque_manage_view_form')})]"/>
+    </record>
+
+    <!--  Collect server action  -->
+    <record id="action_server_cheque_collect" model="ir.actions.server">
+        <field name="name">Collect Cheques (Incoming only)</field>
+        <field name="model_id" ref="model_cheque_manage"/>
+        <field name="binding_model_id" ref="model_cheque_manage"/>
+        <field name="binding_type">action</field>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+            for record in records:
+                if record.cheq_type != 'incoming':
+                    raise UserError("This action is only available for incoming cheques.")
+                record.cheque_collect()
+        </field>
+    </record>
+
+    <!--  Create Hermes server action  -->
+    <record id="action_server_cheque_create_hermes" model="ir.actions.server">
+        <field name="name">Create Hermes</field>
+        <field name="model_id" ref="model_cheque_manage"/>
+        <field name="binding_model_id" ref="model_cheque_manage"/>
+        <field name="binding_type">action</field>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+            for record in records:
+                if record.cheq_type != 'incoming':
+                    raise UserError("This action is only available for incoming cheques.")
+                if record.state != 'collect':
+                    raise UserError("Cheque must be in 'Received' state to create hermes.")
+                if record.cycle_type != 'hermes':
+                    raise UserError("Cheque must have cycle type set to 'Hermes'.")
+                record.to_hermes()
+        </field>
+    </record>
+
+    <!--  Return Hermes server action  -->
+    <record id="action_server_cheque_return_hermes" model="ir.actions.server">
+        <field name="name">Return Hermes</field>
+        <field name="model_id" ref="model_cheque_manage"/>
+        <field name="binding_model_id" ref="model_cheque_manage"/>
+        <field name="binding_type">action</field>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+            for record in records:
+                if record.cheq_type != 'incoming':
+                    raise UserError("This action is only available for incoming cheques.")
+                if record.state != 'to_hermes':
+                    raise UserError("Cheque must be in 'To Hermes' state to return from hermes.")
+                record.action_return_to_hermes()
+        </field>
+    </record>
+
+    <!--  Create Adib server action  -->
+    <record id="action_server_cheque_create_adib" model="ir.actions.server">
+        <field name="name">Create Adib</field>
+        <field name="model_id" ref="model_cheque_manage"/>
+        <field name="binding_model_id" ref="model_cheque_manage"/>
+        <field name="binding_type">action</field>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+for record in records:
+    if record.cheq_type != 'incoming':
+        raise UserError("This action is only available for incoming cheques.")
+    if record.state != 'collect':
+        raise UserError("Cheque must be in 'Received' state to create adib.")
+    if record.cycle_type != 'adib':
+        raise UserError("Cheque must have cycle type set to 'Adib'.")
+action = {
+    'name': 'To Adib',
+    'type': 'ir.actions.act_window',
+    'target': 'new',
+    'res_model': 'under.collection.wizard',
+    'view_mode': 'form',
+    'context': {
+        'active_ids': records.ids,
+        'action_to_adib': True,
+        'default_date': datetime.date.today(),
+    },
+}
+        </field>
+    </record>
+
+    <!--  Return Adib server action  -->
+    <record id="action_server_cheque_return_adib" model="ir.actions.server">
+        <field name="name">Return Adib</field>
+        <field name="model_id" ref="model_cheque_manage"/>
+        <field name="binding_model_id" ref="model_cheque_manage"/>
+        <field name="binding_type">action</field>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+for record in records:
+    if record.cheq_type != 'incoming':
+        raise UserError("This action is only available for incoming cheques.")
+    if record.state != 'to_adib':
+        raise UserError("Cheque must be in 'To Adib' state to return from adib.")
+action = {
+    'name': 'Return From Adib',
+    'type': 'ir.actions.act_window',
+    'target': 'new',
+    'res_model': 'under.collection.wizard',
+    'view_mode': 'form',
+    'context': {
+        'active_ids': records.ids,
+        'action_return_adib': True,
+        'default_date': datetime.date.today(),
+    },
+}
+        </field>
+    </record>
+
+
+    <!--Outgoing Action -->
+    <record id="action_cheque_manage_outgoing" model="ir.actions.act_window">
+        <field name="name">Outgoing Cheque</field>
+        <field name="res_model">cheque.manage</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="domain">[('cheq_type','=','outgoing')]</field>
+        <field name="context">{'default_cheq_type':'outgoing'}</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'list', 'view_id': ref('cheque_manage_outgoing_list_views')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('outgoing_cheque_manage_view_form')})]"/>
+    </record>
+
+    <!--Checque Menuitem-->
+    <menuitem id='main_menu_incoming_cheque_management' name='Cheque Management' parent='account.menu_finance'/>
+    <menuitem id='menu_incoming_cheque_management' name='Incoming Cheque' parent='main_menu_incoming_cheque_management'
+              action='action_cheque_manage'/>
+    <menuitem id='menu_outgoing_cheque_management' name='Outgoing Cheque' parent='main_menu_incoming_cheque_management'
+              action='action_cheque_manage_outgoing'/>
+    <!-- Configuration -->
+    <menuitem id="menu_cheque_management_configuration" name="Configuration" parent="account.menu_finance"/>
+    <menuitem id="menu_return_reason" name="Return Reason" parent="menu_cheque_management_configuration"
+              action="return_reason_action"/>
+    <menuitem id="cheque_portfolio_menu"
+              name="Cheque Portfolio"
+              action="cheque_portfolio_action"
+              parent="menu_cheque_management_configuration"/>
+</odoo>

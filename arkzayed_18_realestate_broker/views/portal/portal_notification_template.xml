@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_notification" name="Portal Notification" inherit_id="website.navbar_nav">
+        <xpath expr="//ul" position="after">
+            <ul>
+                <li id="notification_div">
+                    <a class="dropdown-toggle o-no-caret"
+                       href="#" title="Notifications" role="button" data-bs-toggle="dropdown">
+                        <i class="o_MessagingMenu_icon fa fa-lg fa-comments" role="img" aria-label="Messages"/>
+                    </a>
+                    <div class="dropdown-menu px-3 py-3"
+                         style="box-sizing:border-box; width:300px; height:100px;overflow-y:auto;"
+                         id="notification_list" role="menu">
+                    </div>
+                </li>
+            </ul>
+        </xpath>
+    </template>
+</odoo>

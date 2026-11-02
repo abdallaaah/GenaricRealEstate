@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_exp_training_form" model="ir.ui.view">
+            <field name="name">view.exp.training.form</field>
+            <field name="model">exp.training</field>
+            <field name="arch" type="xml">
+                <form string="Partner Training">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="course_id"/>
+                                <field name="start_date"/>
+                                <field name="duration"/>
+                                <field name="type_id"/>
+                                <field name="completion_rate"/>
+                                <field name="applicant_id"/>
+
+                            </group>
+                            <group>
+                                <field name="institute_id"/>
+                                <field name="course_date"/>
+                                <field name="cost"/>
+                                <field name="categ_id"/>
+                                <field name="employee_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_exp_training_tree" model="ir.ui.view">
+            <field name="name">view.exp_training.tree</field>
+            <field name="model">exp.training</field>
+            <field name="arch" type="xml">
+                <list string="Partner Training">
+                    <field name="course_id"/>
+                    <field name="start_date"/>
+                    <field name="duration"/>
+                    <field name="cost"/>
+                    <field name="categ_id"/>
+                    <field name="type_id"/>
+                    <field name="completion_rate"/>
+                    <field name="applicant_id"/>
+                    <field name="institute_id"/>
+                    <field name="course_date"/>
+                    <field name="employee_id"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_exp_training_search" model="ir.ui.view">
+            <field name="name">view.exp_training.search</field>
+            <field name="model">exp.training</field>
+            <field name="arch" type="xml">
+                <search string="Partner Training">
+                    <field name="course_id"/>
+                    <field name="duration"/>
+                    <field name="applicant_id"/>
+                    <field name="institute_id"/>
+                    <field name="course_date"/>
+                    <field name="employee_id"/>
+                    <group string="Group By" name="groupby">
+                        <filter name="applicant_id_groupby" string="Applicant" context="{'group_by': 'applicant_id'}"/>
+                        <filter name="employee_id_groupby" string="Employee" context="{'group_by': 'employee_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="exp_training_action" model="ir.actions.act_window">
+            <field name="name">Training</field>
+            <field name="res_model">exp.training</field>
+            <field name="view_mode">list,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a new Partner Training.
+                </p>
+            </field>
+        </record>
+
+        <record id="view_training_type_form" model="ir.ui.view">
+            <field name="name">view.training.type.form</field>
+            <field name="model">training.type</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_training_type_tree" model="ir.ui.view">
+            <field name="name">view.training.type.tree</field>
+            <field name="model">training.type</field>
+            <field name="arch" type="xml">
+                <list string="">
+                    <field name="name"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="training_type_action" model="ir.actions.act_window">
+            <field name="name">Training Type</field>
+            <field name="res_model">training.type</field>
+            <field name="view_mode">list,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a new  Training Type.
+                </p>
+            </field>
+        </record>
+
+         <record id="view_training_categ_form" model="ir.ui.view">
+            <field name="name">view.training.category.form</field>
+            <field name="model">training.category</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_training_categ_tree" model="ir.ui.view">
+            <field name="name">view.training.category.tree</field>
+            <field name="model">training.category</field>
+            <field name="arch" type="xml">
+                <list string="">
+                    <field name="name"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="training_categ_action" model="ir.actions.act_window">
+            <field name="name">Training category</field>
+            <field name="res_model">training.category</field>
+            <field name="view_mode">list,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a new  Training Type.
+                </p>
+            </field>
+        </record>
+
+          <record id="exp_course_form" model="ir.ui.view">
+            <field name="name">Course</field>
+            <field name="model">exp.course</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="exp_course_tree" model="ir.ui.view">
+            <field name="name">Course</field>
+            <field name="model">exp.course</field>
+            <field name="arch" type="xml">
+                <list string="">
+                            <field name="name"/>
+                </list>
+            </field>
+        </record>
+        <record id="exp_course_action" model="ir.actions.act_window">
+            <field name="name">Courses</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">exp.course</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+              </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+              </p>
+            </field>
+        </record>
+
+          <record id="exp_institute_form" model="ir.ui.view">
+            <field name="name">institute</field>
+            <field name="model">exp.institute</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="exp_institute_tree" model="ir.ui.view">
+            <field name="name">institute</field>
+            <field name="model">exp.institute</field>
+            <field name="arch" type="xml">
+                <list string="">
+                            <field name="name"/>
+                </list>
+            </field>
+        </record>
+        <record id="exp_institute_action" model="ir.actions.act_window">
+            <field name="name">institute</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">exp.institute</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+              </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+              </p>
+            </field>
+        </record>
+
+
+
+
+    </data>
+</odoo>

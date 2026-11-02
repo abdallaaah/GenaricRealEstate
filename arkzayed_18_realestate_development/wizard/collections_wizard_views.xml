@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_collections_wizard_form" model="ir.ui.view">
+        <field name="name">arkzayed.collections.report.wizard.form</field>
+        <field name="model">arkzayed.collections.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Collections Report">
+                <p class="text-muted">
+                    Prints the executive collections report as of today. Leave the filters empty
+                    to include all active contracts.
+                </p>
+                <group>
+                    <field name="project_id" options="{'no_create': True}"/>
+                    <field name="building_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                    <field name="customer_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                </group>
+                <footer>
+                    <button name="action_print" type="object" string="Print Report" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_collections_wizard" model="ir.actions.act_window">
+        <field name="name">Collections Executive Report</field>
+        <field name="res_model">arkzayed.collections.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_collections_report"
+              name="Collections Report"
+              parent="menu_reports_root"
+              action="action_collections_wizard"
+              sequence="52"/>
+    <menuitem id="menu_collections_installments"
+              name="Overdue Installments"
+              parent="menu_reports_root"
+              action="action_collections_installments"
+              sequence="53"/>
+
+</odoo>

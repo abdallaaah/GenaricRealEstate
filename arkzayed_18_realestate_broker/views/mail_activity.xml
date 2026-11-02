@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="mail_activity_inherit" model="ir.ui.view">
+        <field name="name">mail.activity.inherit</field>
+        <field name="model">mail.activity</field>
+        <field name="inherit_id" ref="mail.mail_activity_view_form_popup"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date_deadline']" position="after">
+                <field name="time_deadline"/>
+                <field name="time_type" string="When"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

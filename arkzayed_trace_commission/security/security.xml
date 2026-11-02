@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="module_category_trace_commission" model="ir.module.category">
+        <field name="name">Trace Commission</field>
+    </record>
+
+    <record id="group_trace_commission" model="res.groups">
+        <field name="name">Trace Commission Access</field>
+        <field name="category_id" ref="module_category_trace_commission"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        <field name="comment">Can open Trace Commission: search sales people, team leaders, managers, brokers and ambassadors and see the units they sold with price, commission and payment status.</field>
+    </record>
+
+    <data noupdate="1">
+        <record id="base.user_admin" model="res.users">
+            <field name="groups_id" eval="[(4, ref('group_trace_commission'))]"/>
+        </record>
+    </data>
+
+</odoo>

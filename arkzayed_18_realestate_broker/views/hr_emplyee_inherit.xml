@@ -1,0 +1,45 @@
+<odoo>
+    <data>
+        <record id="exp_inh_employee_from_view" model="ir.ui.view">
+            <field name="name">exp.inh.employee.form.view</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='job_id']" position="after">
+                    <field name="is_duplicity_tracker"/>
+                </xpath>
+                <xpath expr="//notebook//page[@name='hr_settings']" position="after">
+                    <page name="agent_tree" string="Agent Tree" >
+                        <group>
+                            <field name="director_id" invisible="not director_id"/>
+                            <field name="sales_manager_id" invisible="not sales_manager_id"/>
+                            <field name="team_leader_id" invisible="not team_leader_id"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Inherit Form View to Modify it -->
+<!--        <record id="employee_attachment_type_form" model="ir.ui.view">-->
+<!--            <field name="name">employee_attachment_type_form</field>-->
+<!--            <field name="model">hr.employee</field>-->
+<!--            <field name="inherit_id" ref="hr.view_employee_form"/>-->
+<!--            <field name="arch" type="xml">-->
+
+<!--                <xpath expr="//page[last()]" position="after">-->
+<!--                    <page name="attachment_type" string="Attachment Type">-->
+<!--                        <field name="attachment_line_ids">-->
+<!--                            <list editable="bottom">-->
+<!--                                <field name="attachment_type_id"/>-->
+<!--                                <field name="attachment"/>-->
+<!--                                <field name="expiry_date"/>-->
+<!--                            </list>-->
+<!--                        </field>-->
+<!--                    </page>-->
+<!--                </xpath>-->
+
+<!--            </field>-->
+<!--        </record>-->
+    </data>
+</odoo>

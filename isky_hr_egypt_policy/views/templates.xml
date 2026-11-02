@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <template id="assets_backend" inherit_id="web.assets_backend" name="assets">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/isky_hr_egypt_policy/static/src/css/style.css"/>
+            </xpath>
+        </template>
+    </data>
+</odoo>

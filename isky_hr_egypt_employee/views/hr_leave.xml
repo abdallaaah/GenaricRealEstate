@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="exp_inh_hr_leave_search" model="ir.ui.view">
+            <field name="name">hr.leave.inherit.search</field>
+            <field name="model">hr.leave</field>
+            <field name="inherit_id" ref="hr_holidays.view_hr_holidays_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group" position="before">
+                    <filter string="Has Work Location ?" name="has_work_location" domain="[('work_location_id', '!=', False)]"/>
+                </xpath>
+                <xpath expr="//group" position="inside">
+                    <filter string="Work Location" name="work_location_id" context="{'group_by':'work_location_id'}"/>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

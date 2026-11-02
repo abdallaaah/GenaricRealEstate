@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+
+          <record id="it_specification_report" model="ir.actions.report">
+            <field name="name">تعين IT</field>
+            <field name="model">hr.contract</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">isky_hr_egypt_allowances_application_contract.it_specification_template</field>
+            <field name="report_file">isky_hr_egypt_allowances_application_contract.it_specification_template</field>
+            <field name="print_report_name">'تعين IT'</field>
+            <field name="binding_model_id" ref="hr_contract.model_hr_contract"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <template id="it_specification_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout">
+                        <div class="page" style="direction:rtl;">
+                            <center style="font-weight: bold;">‫قرار تعين Effective Decision</center>
+                            <br/>
+                            <center>
+                                <table style="height: 80px;margin-left:100px;" width="580">
+                                    <tbody>
+                                        <tr style="background-color: #d4d4d6; height: 20px; text-align: center; border: 2px solid black;padding:5px">
+                                            <td style="width: 145;"></td>
+
+                                            <td style="width: 145; font-weight: bold;text-align:left">بيانات شخصية
+                                            </td>
+                                            <td style="width: 145;"></td>
+                                            <td style="width: 145;"></td>
+                                        </tr>
+                                        <tr style="height: 20px; text-align: center; border: 2px solid black;padding:2px">
+                                            <td style="width: 145;border: 2px solid black;">الاسم باللغه العربية</td>
+                                            <td style="width: 145px;">
+                                                <span t-field="o.employee_id.employee_arabic_name"/>
+                                            </td>
+                                            <td style="width: 145;"></td>
+                                            <td style="width: 145;"></td>
+                                        </tr>
+                                        <tr style="height: 20px; text-align: center; border: 2px solid black;padding:2px">
+                                            <td style="width: 145px;border: 2px solid black;">تاريخ الميلاد</td>
+                                            <td style="width: 145px;">
+                                                <span t-field="o.employee_id.birthday"/>
+                                            </td>
+                                            <td style="width: 145px;border: 2px solid black;">رقم الاثبات الشخصى</td>
+                                            <td style="width: 145px;border: 2px solid black;">
+                                                <span t-field="o.employee_id.identification_id"/>
+                                            </td>
+                                        </tr>
+                                        <tr style="height: 20px; text-align: center; border: 2px solid black;padding:2px">
+                                            <td style="width: 145px;border: 2px solid black;">الجنسية</td>
+                                            <td style="width: 145px;">
+                                                <span t-field="o.employee_id.country_id.name"/>
+                                            </td>
+                                            <td style="width: 145;"></td>
+                                            <td style="width: 145;"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </center>
+                            <br/>
+
+                            <center>
+                                <table style="height: 80px;margin-left:100px;" width="580">
+                                    <tbody>
+                                        <tr style="background-color: #d4d4d6; height: 20px; text-align: center; border: 2px solid black;padding:5px">
+                                            <td style="width: 96;"></td>
+                                            <td style="width: 96;"></td>
+                                            <td style="width: 96;"></td>
+                                            <td style="width: 96; font-weight: bold;text-align:center">موهلات علمية
+                                            </td>
+
+                                            <td style="width: 96;"></td>
+                                            <td style="width: 96;"></td>
+                                        </tr>
+                                        <tr style="height: 20px; text-align: center; border: 2px solid black;padding:5px">
+                                            <td style="width: 96; border: 2px solid black;">المعهد
+                                            </td>
+                                            <td style="width: 96; border: 2px solid black;">الدرجه
+                                                العلمية
+                                            </td>
+                                            <td style="width: 96; border: 2px solid black;">المؤهل
+                                                الدراسى
+                                            </td>
+                                            <td style="width: 96; border: 2px solid black;">التاريخ
+                                            </td>
+
+                                            <td style="width: 96; border: 2px solid black;">النسبة
+                                            </td>
+                                            <td style="width: 96; border: 2px solid black;">الدرجه
+                                                كاملة
+                                            </td>
+                                        </tr>
+                                        <t t-foreach="o.employee_id.education_ids" t-as="e">
+                                            <tr style="height: 20px; text-align: center; border: 2px solid black;padding:5px">
+                                                <td style="width: 96; border: 2px solid black;">
+                                                    <span t-field="e.name"/>
+                                                </td>
+                                                <td style="width: 96; border: 2px solid black;">
+                                                    <span t-field="e.degree_id.name"/>
+                                                </td>
+                                                <td style="width: 96; border: 2px solid black;">
+                                                    <span t-field="e.qualification"/>
+                                                </td>
+                                                <td style="width: 96; border: 2px solid black;">
+                                                    <span t-field="e.degree_date"/>
+                                                </td>
+
+                                                <td style="width: 96; border: 2px solid black;">
+                                                    <span t-field="e.degree_rate"/>
+                                                </td>
+                                                <td style="width: 96; border: 2px solid black;">
+                                                    <span t-field="e.full_rate"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </center>
+                            <br/>
+                            <center>
+                                <table style="height: 80px;margin-left:100px;" width="580">
+                                    <tbody>
+                                        <tr style="background-color: #d4d4d6; height: 20px; text-align: center; border: 2px solid black;padding:5px">
+                                            <td style="width: 145;"></td>
+
+                                            <td style="width: 145; font-weight: bold;text-align:left">بيانات وظيفية
+                                            </td>
+                                            <td style="width: 145;"></td>
+                                            <td style="width: 145;"></td>
+                                        </tr>
+                                        <tr style="height: 20px; text-align: center; border: 2px solid black;padding:2px">
+                                            <td style="width: 145;border: 2px solid black;">المسمى الوظيفى</td>
+                                            <td style="width: 145px;">
+                                                <span t-field="o.job_id"/>
+                                            </td>
+                                            <td style="width: 145;"></td>
+                                            <td style="width: 145;"></td>
+                                        </tr>
+                                        <tr style="height: 20px; text-align: center; border: 2px solid black;padding:2px">
+                                            <td style="width: 145;border: 2px solid black;">نوع الدوام</td>
+                                            <td style="width: 145px;">
+                                                <t t-if="o.work_type == 'full'">كامل</t>
+                                                <t t-if="o.work_type == 'partial'">جزئي</t>
+                                                <t t-if="o.work_type == 'half'">نصفى</t>
+                                                <t t-if="o.work_type == 'exempt'">معفى</t>
+                                            </td>
+                                            <td style="width: 145;"></td>
+                                            <td style="width: 145;"></td>
+                                        </tr>
+                                        <tr style="height: 20px; text-align: center; border: 2px solid black;padding:2px">
+                                            <td style="width: 145px;border: 2px solid black;">الادارة</td>
+                                            <td style="width: 145px;">
+                                                <span t-field="o.department_id.parent_id"/>
+                                            </td>
+                                            <td style="width: 145px;border: 2px solid black;">القسم</td>
+                                            <td style="width: 145px;border: 2px solid black;">
+                                                <span t-field="o.department_id"/>
+                                            </td>
+                                        </tr>
+                                        <tr style="height: 20px; text-align: center; border: 2px solid black;padding:2px">
+                                            <td style="width: 145px;border: 2px solid black;">الرئيس المباشر</td>
+                                            <td style="width: 145px;">
+                                                <span t-field="o.employee_id.parent_id"/>
+                                            </td>
+                                            <td style="width: 145px;border: 2px solid black;">تاريخ التعين</td>
+                                            <td style="width: 145px;border: 2px solid black;">
+                                                <span t-field="o.employee_id.first_hiring_date"/>
+                                            </td>
+                                        </tr>
+                                        <tr style="height: 20px; text-align: center; border: 2px solid black;padding:2px">
+                                            <td style="width: 145px;border: 2px solid black;">فتره التجربة</td>
+                                            <td style="width: 145px;">
+                                                ثلاثة اشهر
+                                            </td>
+                                            <td style="width: 145px;border: 2px solid black;">المباشرة</td>
+                                            <td style="width: 145px;border: 2px solid black;">
+                                                <span t-field="o.date_start"/>
+                                            </td>
+                                        </tr>
+                                        <tr style="height: 20px; text-align: center; border: 2px solid black;padding:2px">
+                                            <td style="width: 145px;border: 2px solid black;">راتب اساسي</td>
+                                            <td style="width: 145px;">
+                                                <span t-field="o.wage"/>
+                                            </td>
+                                            <td style="width: 145;"></td>
+                                            <td style="width: 145;"></td>
+                                        </tr>
+                                        <tr style="height: 20px; text-align: center; border: 2px solid black;padding:2px">
+                                            <td style="width: 145px;border: 2px solid black;">بدل سكن</td>
+                                            <td style="width: 145px;">
+                                                <span t-field="o.housing_amount"/>
+                                            </td>
+                                            <td style="width: 145;"></td>
+                                            <td style="width: 145;"></td>
+                                        </tr>
+                                        <tr style="height: 20px; text-align: center; border: 2px solid black;padding:2px">
+                                            <td style="width: 145px;border: 2px solid black;">بدل مواصلات</td>
+                                            <td style="width: 145px;">
+                                                <span t-field="o.transportation_amount"/>
+                                            </td>
+                                            <td style="width: 145;"></td>
+                                            <td style="width: 145;"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </center>
+                            <br/>
+                            <center>
+
+                                <table style="height: 80px;margin-left:100px;" width="580">
+                                    <tbody>
+                                        <tr style="background-color: #d4d4d6; height: 20px; text-align: center; border: 2px solid black;padding:5px">
+
+                                            <td style="width: 193; font-weight: bold;text-align:center; border: 2px solid black">
+                                                مدير IT
+                                            </td>
+                                            <td style="width: 193; font-weight: bold;text-align:center;border: 2px solid black">
+                                                ادارة الموارد
+                                                البشرية والشؤون اﻷدارية
+                                            </td>
+                                            <td style="width: 193; font-weight: bold;text-align:center; border: 2px solid black">
+                                                المدير التنفيذى
+
+                                            </td>
+
+                                        </tr>
+                                        <tr style="height: 20px; text-align: center; border: 2px solid black;padding:5px">
+
+                                            <td style="width: 193; font-weight: bold;text-align:center; border: 2px solid black">
+                                            </td>
+                                            <td style="width: 193; font-weight: bold;text-align:center;border: 2px solid black">
+                                            </td>
+                                            <td style="width: 193; font-weight: bold;text-align:center; border: 2px solid black">
+                                                <span t-field="o.employee_id.company_id.executive_committee_employee_id.employee_arabic_name"/>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <br/>
+                                <t t-if="o.notes">
+                                    <table>
+                                        <tr style="height: 20px; text-align: center; border: 2px solid black;padding:2px">
+                                            <td style="width: 145;border: 2px solid black;">ملاحظات</td>
+                                            <td style="width: 430px;">
+                                                <span t-field="o.notes"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </t>
+
+                            </center>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

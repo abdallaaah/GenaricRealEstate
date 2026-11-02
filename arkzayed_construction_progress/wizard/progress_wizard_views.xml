@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_progress_update_wizard_form" model="ir.ui.view">
+        <field name="name">arkzayed.progress.update.wizard.form</field>
+        <field name="model">arkzayed.progress.update.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Update Construction Progress">
+                <group>
+                    <field name="summary" readonly="1" string="Selected"/>
+                    <field name="percent" widget="float"/>
+                    <field name="date"/>
+                    <field name="note" placeholder="Optional, e.g. finishing works started"/>
+                </group>
+                <field name="unit_ids" invisible="1"/>
+                <field name="building_ids" invisible="1"/>
+                <footer>
+                    <button name="action_confirm" type="object" string="Update" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_progress_update_units" model="ir.actions.act_window">
+        <field name="name">Update Construction Progress</field>
+        <field name="res_model">arkzayed.progress.update.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="arkzayed_18_realestate_development.model_real_estate_unit"/>
+        <field name="binding_view_types">list,form</field>
+    </record>
+
+    <record id="action_progress_update_buildings" model="ir.actions.act_window">
+        <field name="name">Update Construction Progress</field>
+        <field name="res_model">arkzayed.progress.update.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="arkzayed_18_realestate_development.model_real_estate_building"/>
+        <field name="binding_view_types">list,form</field>
+    </record>
+
+</odoo>

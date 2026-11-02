@@ -1,0 +1,16 @@
+<odoo>
+    <record id="account_payment_form_view_inherit" model="ir.ui.view">
+                <field name="name">account.payment.form.view.inherit</field>
+                <field name="model">account.payment</field>
+                <field name="inherit_id" ref="account.view_account_payment_form"/>
+                <field name="arch" type="xml">
+
+                    <xpath expr="//field[@name='memo']" position="after">
+                        <field name="is_credit_card" invisible="payment_type != 'inbound'"/>
+                        <field name="card_number" invisible="not is_credit_card"/>
+                        <field name="credit_bank_id" invisible="not is_credit_card"/>
+                    </xpath>
+
+                </field>
+     </record>
+ </odoo>

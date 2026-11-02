@@ -1,0 +1,76 @@
+<odoo>
+
+    <!-- Sale Contract (sale.proposal) -->
+    <record id="action_server_check_deposit_wallet_xlsx" model="ir.actions.server">
+        <field name="name">Check Deposit Wallet Xlsx</field>
+        <field name="model_id" ref="arkzayed_18_realestate_development.model_sale_proposal"/>
+        <field name="binding_model_id" ref="arkzayed_18_realestate_development.model_sale_proposal"/>
+        <field name="binding_type">report</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_generate_excel_report()</field>
+    </record>
+
+    <record id="action_server_check_deposit_wallet_pdf" model="ir.actions.server">
+        <field name="name">Check Deposit Wallet Pdf</field>
+        <field name="model_id" ref="arkzayed_18_realestate_development.model_sale_proposal"/>
+        <field name="binding_model_id" ref="arkzayed_18_realestate_development.model_sale_proposal"/>
+        <field name="binding_type">report</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_print_check_deposit_wallet_pdf()</field>
+    </record>
+
+    <record id="action_server_payment_plan_xlsx_contract" model="ir.actions.server">
+        <field name="name">Payment Plan Xlsx</field>
+        <field name="model_id" ref="arkzayed_18_realestate_development.model_sale_proposal"/>
+        <field name="binding_model_id" ref="arkzayed_18_realestate_development.model_sale_proposal"/>
+        <field name="binding_type">report</field>
+        <field name="state">code</field>
+        <field name="code">action = records.with_context(is_pdf=False).action_get_installment_report()</field>
+    </record>
+
+    <record id="action_server_payment_plan_pdf_contract" model="ir.actions.server">
+        <field name="name">Payment Plan Pdf</field>
+        <field name="model_id" ref="arkzayed_18_realestate_development.model_sale_proposal"/>
+        <field name="binding_model_id" ref="arkzayed_18_realestate_development.model_sale_proposal"/>
+        <field name="binding_type">report</field>
+        <field name="state">code</field>
+        <field name="code">action = records.with_context(is_pdf=True).action_get_installment_report()</field>
+    </record>
+
+    <record id="action_server_download_documents_contract" model="ir.actions.server">
+        <field name="name">Download Documents</field>
+        <field name="model_id" ref="arkzayed_18_realestate_development.model_sale_proposal"/>
+        <field name="binding_model_id" ref="arkzayed_18_realestate_development.model_sale_proposal"/>
+        <field name="binding_type">report</field>
+        <field name="state">code</field>
+        <field name="code">action = records.with_context(with_download=True).action_unit_documents()</field>
+    </record>
+
+    <!-- Sale Reservation (real.estate.sale.reservation) -->
+    <record id="action_server_payment_plan_reservation" model="ir.actions.server">
+        <field name="name">Payment Plan</field>
+        <field name="model_id" ref="arkzayed_18_realestate_development.model_real_estate_sale_reservation"/>
+        <field name="binding_model_id" ref="arkzayed_18_realestate_development.model_real_estate_sale_reservation"/>
+        <field name="binding_type">report</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_print_payment_plan()</field>
+    </record>
+
+    <record id="action_server_unit_plan_reservation" model="ir.actions.server">
+        <field name="name">Unit Plan</field>
+        <field name="model_id" ref="arkzayed_18_realestate_development.model_real_estate_sale_reservation"/>
+        <field name="binding_model_id" ref="arkzayed_18_realestate_development.model_real_estate_sale_reservation"/>
+        <field name="binding_type">report</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_print_unit_plan()</field>
+    </record>
+
+    <record id="action_server_download_documents_reservation" model="ir.actions.server">
+        <field name="name">Download Documents</field>
+        <field name="model_id" ref="arkzayed_18_realestate_development.model_real_estate_sale_reservation"/>
+        <field name="binding_model_id" ref="arkzayed_18_realestate_development.model_real_estate_sale_reservation"/>
+        <field name="binding_type">report</field>
+        <field name="state">code</field>
+        <field name="code">action = records.with_context(with_download=True).action_unit_documents()</field>
+    </record>
+</odoo>

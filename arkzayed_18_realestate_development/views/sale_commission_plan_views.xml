@@ -1,0 +1,60 @@
+<odoo>
+    <data>
+        <record id="sale_commission_plan_view_form_inherit" model="ir.ui.view">
+            <field name="name">sale.commission.plan.view.form.inherit</field>
+            <field name="model">sale.commission.plan</field>
+            <field name="inherit_id" ref="sale_commission.sale_commission_plan_view_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='periodicity']" position="after">
+                    <field name="realestate_commission" widget="boolean_toggle"/>
+                </xpath>
+
+                <xpath expr="//page[field[@name='achievement_ids']]" position="attributes">
+                    <attribute name="invisible">realestate_commission</attribute>
+                </xpath>
+
+                <xpath expr="//notebook[@name='main_book']/page[4]" position="attributes">
+                    <attribute name="invisible">realestate_commission</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='user_type']" position="after">
+                    <field name="job_position_id" class="oe_inline" invisible="type == 'achieve'"/>
+                    <field name="job_level_id" class="oe_inline" invisible="type == 'target'"/>
+                </xpath>
+
+                <xpath expr="//field[@name='user_type']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='commission_amount']" position="replace">
+                    <label for="commission_amount" string="Commission Amount" invisible="type != 'achieve'"/>
+                    <div name="commission" class="o_row">
+                        <field name="commission_amount"
+                           string="Commission Amount"
+                           invisible="type != 'achieve'"/>
+
+                        <field name="commission_amount_display"
+                               class="oe_inline"
+                               invisible="type != 'achieve'"/>
+                    </div>
+
+                    <field name="commission_amount"
+                           string="On Target commission"
+                           invisible="type == 'achieve'"/>
+                </xpath>
+
+                <xpath expr="//field[@name='company_id']" position="before">
+                    <field name="collection"/>
+                    <field name="with_broker" widget="boolean_toggle"/>
+                    <field name="with_ambassador" widget="boolean_toggle"/>
+                </xpath>
+
+                <xpath expr="//field[@name='target_commission_ids']//field[@name='amount']" position="attributes">
+                    <attribute name="string">Commission/M</attribute>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

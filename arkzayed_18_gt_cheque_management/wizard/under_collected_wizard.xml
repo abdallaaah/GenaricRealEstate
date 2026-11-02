@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="under_collection_wizard_form" model="ir.ui.view">
+            <field name="name">under.collection.wizard.form.view</field>
+            <field name="model">under.collection.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group col="4">
+                        <field name="journal_id" required="context.get('action_under_collection') or context.get('action_collect')" invisible="context.get('action_submit_under_collection') or context.get('action_to_hermes') or context.get('action_return') or context.get('action_to_adib') or context.get('action_return_adib')"/>
+                        <field name="date"/>
+                    </group>
+                    <footer>
+                        <button string="Confirm"
+                                class="btn-primary"
+                                type="object"
+                                invisible="not context.get('action_under_collection')"
+                                name="under_collection_entry" />
+                        <button string="Confirm"
+                                class="btn-primary"
+                                type="object"
+                                invisible="not context.get('action_collect')"
+                                name="collect_entry" />
+                        <button string="Cancel" class="btn-secondary" special="cancel" />
+                        <button string="Confirm"
+                                class="btn-primary"
+                                type="object"
+                                invisible="not context.get('action_submit_under_collection')"
+                                name="submit_under_collection_entry" />
+                        <button string="Confirm"
+                                class="btn-primary"
+                                type="object"
+                                invisible="not context.get('action_to_hermes')"
+                                name="to_hermes_entry" />
+                        <button string="Confirm"
+                                class="btn-primary"
+                                type="object"
+                                invisible="not context.get('action_return')"
+                                name="return_entry"/>
+
+                        <button string="Confirm"
+                                class="btn-primary"
+                                type="object"
+                                invisible="not context.get('action_to_adib')"
+                                name="to_adib_entry" />
+
+                        <button string="Confirm"
+                                class="btn-primary"
+                                type="object"
+                                invisible="not context.get('action_return_adib')"
+                                name="return_adib_entry" />
+                    </footer>
+                </form>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

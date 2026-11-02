@@ -1,0 +1,48 @@
+<odoo>
+    <data>
+        <record id="zone_tree" model="ir.ui.view">
+            <field name="name">zone_tree</field>
+            <field name="model">zone</field>
+            <field name="arch" type="xml">
+                <list string="Zone">
+                    <field name="name"/>
+                    <field name="abbreviation"/>
+<!--                    <field name="code"/>-->
+                    <field name="parent_id"/>
+                    <field name="project_type_ids" widget="many2many_tags"
+                               options="{'no_quick_create':True, 'no_create_edit' : True,'no_open': True}"/>
+                    <field name="location" invisible="1"/>
+                    <field name="system_code"/>
+                    <field name="company_id"/>
+                </list>
+            </field>
+        </record>
+        <record id="zone_form" model="ir.ui.view">
+            <field name="name">zone_form</field>
+            <field name="model">zone</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="abbreviation"/>
+<!--                            <field name="code"/>-->
+                            <field name="parent_id"/>
+                            <field name="project_type_ids" widget="many2many_tags"
+                                   options="{'no_quick_create':True, 'no_create_edit' : True,'no_open': True}"/>
+                            <field name="system_code"/>
+                            <field name="company_id"/>
+<!--                            <field name="project_id" invisible="1"/>-->
+                        </group>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="zone_action">
+            <field name="name">Zone</field>
+            <field name="res_model">zone</field>
+            <field name="view_mode">list,form</field>
+        </record>
+    </data>
+</odoo>

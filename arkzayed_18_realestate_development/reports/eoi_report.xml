@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="paperformat_eoi_one_page" model="report.paperformat">
+            <field name="name">EOI One Page A4</field>
+            <field name="default" eval="False"/>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+
+            <field name="margin_top">15</field>
+            <field name="margin_bottom">15</field>
+            <field name="margin_left">15</field>
+            <field name="margin_right">15</field>
+
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">0</field>
+
+            <field name="dpi">90</field>
+</record>
+
+        <!-- EOI Report Action -->
+        <record id="eoi_report_action" model="ir.actions.report">
+            <field name="name">EOI Report</field>
+            <field name="model">eoi.eoi</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">arkzayed_18_realestate_development.eoi_report_template</field>
+            <field name="report_file">arkzayed_18_realestate_development.eoi_report_template</field>
+            <field name="print_report_name">'EOI - %s' % (object.name)</field>
+            <field name="binding_model_id" ref="model_eoi_eoi"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="arkzayed_18_realestate_development.paperformat_eoi_one_page"/>
+
+        </record>
+
+        <!-- EOI Report Template -->
+        <template id="eoi_report_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="arkzayed_18_realestate_development.eoi_external_layout_rtl">
+                        <style type="text/css">
+
+                /* RTL Support */
+                .o_rtl {
+                    direction: rtl;
+                    text-align: right;
+                }
+                body {
+                    font-family: 'Arial' , 'DejaVu Sans', 'Helvetica', sans-serif;
+                    font-size: 11pt;
+                    line-height: 1.4;
+                }
+
+                /* Header Styles */
+                .eoi-header {
+                    text-align: center;
+                    margin-bottom: 30px;
+                    padding-bottom: 15px;
+                    direction: ltr;
+
+                }
+
+                .eoi-title {
+                    font-size: 17pt;
+                    font-weight: bold;
+                    margin: 8px 0;
+                    color: #000;
+                }
+                .eoi-header h1 {
+                    direction: ltr;
+                    unicode-bidi: embed;
+                    text-align: center;
+                }
+                .eoi-subtitle {
+                    font-size: 15pt;
+                    font-weight: bold;
+                    margin: 5px 0;
+                    color: #333;
+                }
+
+                /* Date Section */
+                .eoi-date {
+                    text-align: right;
+                    margin-bottom: 20px;
+                    font-size: 12pt;
+                }
+
+                .date-field {
+                    display: inline-block;
+                    width: 35px;
+                    border-bottom: 1px solid #000;
+                    text-align: center;
+                    margin: 0 3px;
+                }
+
+                /* Customer Info Section */
+                .customer-info {
+                    margin: 15px 0;
+                    text-align: right;
+                }
+
+                .info-line {
+                    margin-bottom: 10px;
+                    font-size: 11pt;
+                }
+
+                .info-field {
+                    display: inline-block;
+                    min-width: 320px;
+                    border-bottom: 1px dotted #000;
+                    padding: 2px 4px;
+                }
+
+                /* Content Section */
+                .eoi-content {
+                    direction: rtl;
+                    text-align: right;
+                    margin: 20px 0;
+                    font-size: 11pt;
+                    line-height: 1.6;
+                    text-align: justify;
+                }
+
+                .highlight {
+                    font-weight: bold;
+                    color: #000;
+                }
+
+                /* Terms Section */
+                .eoi-terms {
+                    text-align: right;
+                    margin: 20px 0;
+                    font-size: 11pt;
+                    line-height: 1.6;
+                }
+
+                .terms-title {
+                    font-weight: bold;
+                    margin-bottom: 8px;
+                }
+
+                .term-item {
+                    margin-bottom: 10px;
+                    text-align: justify;
+                }
+
+                /* ===== Sales Information ===== */
+                .eoi-sales-info {
+                    text-align: right;
+                    font-size: 11pt;
+                    margin: 20px 0 30px 0;
+                }
+
+                .eoi-sales-info .terms-title {
+                    font-weight: bold;
+                    margin-bottom: 10px;
+                }
+
+                .eoi-sales-info p {
+                    margin: 8px 0;
+                    line-height: 1.6;
+                }
+
+                .eoi-sales-info .line {
+                    display: inline-block;
+                    min-width: 320px;
+                    border-bottom: 1px dotted #000;
+                    margin-right: 5px;
+                }
+                /* ===== Declaration Section ===== */
+                 .eoi-declaration {
+                    text-align: right;
+                    font-size: 11pt;
+                    margin-top: 30px;
+                }
+
+                .eoi-declaration .highlight {
+                    font-weight: bold;
+                    margin-bottom: 15px;
+                }
+
+                .eoi-declaration p {
+                    margin: 8px 0;
+                    line-height: 1.6;
+                }
+
+                .eoi-declaration .line {
+                    display: inline-block;
+                    min-width: 320px;
+                    border-bottom: 1px dotted #000;
+                    margin-right: 5px;
+                }
+                /* Footer */
+                .eoi-footer {
+                    margin-top: 90px;
+                    text-align: center;
+                    font-size: 10pt;
+                    color: #555;
+                    line-height: 0.5;
+                }
+
+                /* Print Optimization */
+                @media print {
+                    body {
+                        margin: 0;
+                        padding: 0;
+                    }
+
+                    .page {
+                        page-break-after: avoid;
+                    }
+                }
+            </style>
+                        <div class="page">
+
+                            <!-- Header Section -->
+                            <div class="eoi-header">
+                                <h1 style="font-size: 22pt; font-weight: bold; margin: 0;">
+                                    <t t-esc="o.company_id.name"/>
+                                </h1>
+                            </div>
+
+                            <!-- Date Section -->
+                            <div class="eoi-date">
+                                <span>التاريخ: </span>
+                                <span class="date-field">
+                                    <t t-esc="context_timestamp(datetime.datetime.now()).strftime('%d')"/>
+                                </span>
+                                <span> / </span>
+                                <span class="date-field">
+                                    <t t-esc="context_timestamp(datetime.datetime.now()).strftime('%m')"/>
+                                </span>
+                                <span> / 2025</span>
+                            </div>
+
+                            <!-- Title Section -->
+                            <div style="text-align: center; margin-bottom: 30px;">
+                                <h3 class="eoi-title">
+                                    إفادة بالرغبة في حجز وحدة في مشروع
+                                </h3>
+                                <h4 class="eoi-subtitle">
+                                    شركة ذا أرك (ويشار اليها فيما بعد ب "الشركة ")
+                                </h4>
+                            </div>
+
+                            <!-- Introduction -->
+                            <div style="text-align: right; margin-bottom: 20px;">
+                                <p style="margin-bottom: 15px;">أنا، الموقع أدناه:</p>
+                            </div>
+
+                            <!-- Customer Information Section -->
+                            <div class="customer-info">
+                                <div class="info-line">
+                                    <span>الاسم: </span>
+                                    <span class="info-field">
+<!--                                        <t t-if="o.customer_id">-->
+<!--                                            <t t-esc="o.customer_id.name"/>-->
+                                        <t t-if="o.brand_name">
+                                            <t t-esc="o.brand_name"/>
+                                        </t>
+                                    </span>
+                                </div>
+
+                                <div class="info-line">
+                                    <span>رقم القومي/ رقم جواز سفر: </span>
+                                    <span class="info-field">
+                                        <t t-if="o.customer_id and o.customer_id.national_id">
+                                            <t t-esc="o.customer_id.national_id"/>
+                                        </t>
+                                        <t t-elif="o.customer_id and o.customer_id.passport_number">
+                                            <t t-esc="o.customer_id.passport_number"/>
+                                        </t>
+                                    </span>
+                                </div>
+
+                                <div class="info-line">
+                                    <span>عنوان: </span>
+                                    <span class="info-field">
+                                        <t t-if="o.address">
+                                            <t t-esc="o.address"/>
+                                        </t>
+                                    </span>
+                                </div>
+
+                                <div class="info-line">
+                                    <span>رقم موبايل: </span>
+                                    <span class="info-field" style="direction: ltr;">
+                                        <t t-if="o.customer_id and o.customer_id.mobile">
+                                            <t t-esc="o.customer_id.mobile"/>
+                                        </t>
+                                        <t t-elif="o.customer_id and o.customer_id.phone">
+                                            <t t-esc="o.customer_id.phone"/>
+                                        </t>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Main Content -->
+                            <div class="eoi-content">
+                                <p style="margin-bottom: 15px;">
+                                    أفيدكم برغبتي في حجز وحدة (نوع الوحدة:
+                                    <span style="display: inline-block; min-width: 150px; border-bottom: 1px solid #000; text-align: center;">
+                                        <t t-if="o.unit_type">
+                                            <t t-if="o.unit_type == 'retail'">تجاري</t>
+                                            <t t-elif="o.unit_type == 'office'">مكتب</t>
+                                            <t t-elif="o.unit_type == 'medical'">عيادة</t>
+                                            <t t-elif="o.unit_type == 'residential'">سكني</t>
+                                            <t t-elif="o.unit_type == 'entertainment'">ترفيهي</t>
+                                            <t t-elif="o.unit_type == 'industrial'">صناعي</t>
+                                            <t t-elif="o.unit_type == 'parking'">موقف سيارات</t>
+                                            <t t-elif="o.unit_type == 'storage'">مخزن</t>
+                                            <t t-elif="o.unit_type == 'public_area'">منطقة عامة</t>
+                                            <t t-else="">
+                                                <t t-esc="o.unit_type"/>
+                                            </t>
+                                        </t>
+                                    </span>
+                                    ) في مشروع الشركة، وبأنني على استعداد أن أقوم بسداد مبلغ وقدره
+                                    <span class="highlight">
+                                        <t t-esc="'{:,.0f}'.format(o.reservation_amount)"/>
+                                    </span>
+                                    جنيه مصري (فقط
+                                    <span class="highlight">
+                                        <t t-esc="o.currency_id.with_context(lang='ar_001').amount_to_text(o.reservation_amount)"/>
+                                    </span>
+                                    لا غير) لإبداء جدية رغبتي في حجز وحدة في مشروع الشركة حين طرح وحداته للبيع أو فتح باب الحجز.
+                                </p>
+                            </div>
+
+                            <!-- Terms and Conditions -->
+                            <div class="eoi-terms">
+                                <p class="terms-title">كما اقر بتفهمي التام لما يلي:</p>
+
+                                <p class="term-item">
+1- يجب أن أسدد دفعة الحجز من سعر الوحدة عند اختيارها، على أن يُخصم مبلغ جدية الرغبة المشار إليه بعاليه من إجمالي سعر الوحدة.
+ولا يُنفَّذ حجز الوحدة إذا لم أسدد دفعة الحجز بالكامل وأوقّع استمارة الحجز خلال أسبوع من تاريخ طرح الوحدة.
+وفي حالة عدم الالتزام بذلك، يكون مبلغ جدية الرغبة المشار إليه بعاليه قابلًا للسداد وفق الشروط المنصوص عليها في استمارة الحجز.
+                                </p>
+
+                                <p class="term-item">
+                                    2- لا تشكل هذه الإفادة أي إلتزام على الشركة لتخصيص أو حجز أو بيع وحدة لي.
+                                </p>
+                            </div>
+
+                            <!-- Sales Information -->
+                            <div class="eoi-sales-info">
+
+                                <p class="terms-title">بيانات مسؤول المبيعات</p>
+
+                                <p>
+                                    مسؤول المبيعات:
+                                    <span class="line">
+                                        <t t-esc="o.user_id.name"/>
+                                    </span>
+                                </p>
+
+                                <p>
+                                    المدير المباشر:
+                                    <span class="line">
+                                        <t t-set="team_member"
+                                           t-value="o.env['crm.team.member'].search([('user_id','=',o.user_id.id)], limit=1)"/>
+                                        <t t-if="team_member and team_member.crm_team_id">
+                                            <t t-esc="team_member.crm_team_id.user_id.name"/>
+                                        </t>
+                                    </span>
+                                </p>
+
+                                <p>
+                                    مباشر / غير مباشر:
+                                    <span class="line">
+                                        <t t-if="o.referred_by == 'employee'">مباشر</t>
+                                        <t t-else="">غير مباشر</t>
+                                    </span>
+                                </p>
+
+                                <p t-if="o.referred_by == 'broker'">
+                                    شركة الوسيط العقارى:
+                                    <span class="line">
+                                        <t t-if="o.referred_by_partner_id">
+                                            <t t-esc="o.referred_by_partner_id.name"/>
+                                        </t>
+                                    </span>
+                                </p>
+
+                            </div>
+
+                      <!-- Declaration -->
+                     <div class="eoi-declaration">
+
+                        <p class="highlight">وهذا إقرار مني بذلك،</p>
+
+                        <p>
+                            الاسم:
+                            <span class="line"></span>
+                        </p>
+
+                        <p>
+                            التوقيع:
+                            <span class="line"></span>
+                        </p>
+
+                        <p>
+                            التاريخ:
+                            <span class="line"></span>
+                        </p>
+
+                    </div>
+
+
+
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>
+

@@ -1,0 +1,46 @@
+<odoo>
+    <data>
+        <record id="cheque_portfolio_form" model="ir.ui.view">
+            <field name="name">cheque.portfolio.form</field>
+            <field name="model">cheque.portfolio</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_title">
+                            <span class="o_form_label">Name</span>
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="bank_id" />
+                            <field name="cheque_ids" widget="many2many_tags" required="1" invisible="bank_id"/>
+                            <field name="cheque_ids" widget="many2many_tags" required="1" invisible="not bank_id" domain="[('bank_id', '=', bank_id)]"/>
+                            <field name="partner_ids" widget="many2many_tags"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="cheque_portfolio_list" model="ir.ui.view">
+            <field name="name">cheque.portfolio.list</field>
+            <field name="model">cheque.portfolio</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name" />
+                    <field name="bank_id"/>
+                    <field name="cheque_ids" widget="many2many_tags"/>
+                    <field name="partner_ids" widget="many2many_tags"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="cheque_portfolio_action" model="ir.actions.act_window">
+            <field name="name">Cheque Portfolio</field>
+            <field name="res_model">cheque.portfolio</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+    </data>
+</odoo>

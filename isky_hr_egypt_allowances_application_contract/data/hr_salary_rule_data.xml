@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="fixed_bonus_salary_rule" model="hr.salary.rule">
+            <field name="code">Fixed Bonus</field>
+            <field name="name">Fixed Bonus</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = contract.total_bonus_amount</field>
+            <field name="sequence" eval="8"/>
+            <field name="type">fixed_bonus</field>
+            <field name="note">Fixed Bonus</field>
+            <field name="struct_id" ref="isky_hr_egypt_policy.default_structure_002"/>
+        </record>
+
+        <record id="hr_salary_rule_bonus_allowance" model="hr.salary.rule">
+            <field name="code">Other Bonus</field>
+            <field name="name">Other Bonus</field>
+            <field name="type">bonus</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = (inputs.OB.amount) if inputs.OB else 0.0</field>
+            <field name="sequence" eval="13"/>
+            <field name="note">Other Bonus Allowance</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result =bool(inputs.OB)</field>
+            <field name="struct_id" ref="isky_hr_egypt_policy.default_structure_002"/>
+        </record>
+
+        <record id="hr_rule_input_bonus_allowance" model="hr.payslip.input.type">
+            <field name="code">OB</field>
+            <field name="name">Other Bonus Allowance Input</field>
+        </record>
+
+        <record id="hr_salary_rule_house" model="hr.salary.rule">
+            <field name="code">Housing</field>
+            <field name="name">Housing Allowance</field>
+            <field name="type">housing</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = contract.housing_amount</field>
+            <field name="sequence" eval="11"/>
+            <field name="note">Housing Allowance</field>
+            <field name="struct_id" ref="isky_hr_egypt_policy.default_structure_002"/>
+        </record>
+
+        <record id="hr_salary_rule_transportation" model="hr.salary.rule">
+            <field name="code">TRANS</field>
+            <field name="name">Transportation Allowance</field>
+            <field name="type">transportation</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = contract.transportation_amount</field>
+            <field name="sequence" eval="12"/>
+            <field name="note">Transportation Allowance</field>
+            <field name="struct_id" ref="isky_hr_egypt_policy.default_structure_002"/>
+        </record>
+
+        <record id="hr_salary_rule_food" model="hr.salary.rule">
+            <field name="code">Food</field>
+            <field name="name">Food Allowance</field>
+            <field name="type">food</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = contract.food_allowance_amount</field>
+            <field name="sequence" eval="12"/>
+            <field name="note">Food Allowance</field>
+            <field name="struct_id" ref="isky_hr_egypt_policy.default_structure_002"/>
+        </record>
+
+        <record id="hr_salary_rule_mobile" model="hr.salary.rule">
+            <field name="code">Mobile</field>
+            <field name="name">Mobile Allowance</field>
+            <field name="type">mobile</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = contract.mobile_allowance_amount</field>
+            <field name="sequence" eval="12"/>
+            <field name="note">Mobile Allowance</field>
+            <field name="struct_id" ref="isky_hr_egypt_policy.default_structure_002"/>
+        </record>
+
+        <record id="hr_salary_rule_natural_work" model="hr.salary.rule">
+            <field name="code">Natural Work</field>
+            <field name="name">Natural Work Allowance</field>
+            <field name="type">natural_work</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = contract.natural_work_amount</field>
+            <field name="sequence" eval="12"/>
+            <field name="note">Natural Work Allowance</field>
+            <field name="struct_id" ref="isky_hr_egypt_policy.default_structure_002"/>
+        </record>
+
+        <record id="hr_salary_rule_car" model="hr.salary.rule">
+            <field name="code">Car</field>
+            <field name="name">Car Allowance</field>
+            <field name="type">car</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = contract.car_allowance_amount</field>
+            <field name="sequence" eval="15"/>
+            <field name="note">Car Allowance</field>
+            <field name="struct_id" ref="isky_hr_egypt_policy.default_structure_002"/>
+        </record>
+
+        <record id="hr_salary_rule_other_allowance" model="hr.salary.rule">
+            <field name="code">OTHALLOWANCE</field>
+            <field name="name">Other Allowance</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = contract.other_allowance_amount</field>
+            <field name="sequence" eval="15"/>
+            <field name="note">Other Allowance</field>
+            <field name="struct_id" ref="isky_hr_egypt_policy.default_structure_002"/>
+        </record>
+
+        <record id="hr_rule_fellowship_deduction" model="hr.salary.rule">
+            <field name="name">Fellowship Deduction</field>
+            <field name="sequence" eval="110"/>
+            <field name="code">FELLOWSD</field>
+           <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = -contract.fellowship_deduction_amount</field>
+            <field name="struct_id" ref="isky_hr_egypt_policy.default_structure_002"/>
+        </record>
+
+        <record id="hr_rule_input_fellowship_deduction" model="hr.payslip.input.type">
+            <field name="code">FELLOWSDINP</field>
+            <field name="name">Fellowship Deduction Input</field>
+        </record>
+
+<!--        other_deduction_amount-->
+        <record id="hr_salary_rule_other_deduction" model="hr.salary.rule">
+            <field name="code">OTHDEDUCTION</field>
+            <field name="name">Other Deduction</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = -contract.other_deduction_amount</field>
+            <field name="sequence" eval="111"/>
+            <field name="note">Other Deduction</field>
+            <field name="struct_id" ref="isky_hr_egypt_policy.default_structure_002"/>
+        </record>
+
+    </data>
+</odoo>

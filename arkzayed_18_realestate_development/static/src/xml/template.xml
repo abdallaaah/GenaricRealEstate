@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="rentalDashboard">
+        <section class="section unit_dashboard">
+            <div class="container unit_dashboard">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 mb-4 mt32 mb16">
+                            <div class="row">
+                                <div class="col-12 col-sm-12 col-md-5">
+                                    <h2 class="section-header">Statistics</h2>
+                                </div>
+                            </div>
+                            <hr/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-lg-4 col-sm-6 total-unit">
+                                <div class="card card-xl-stretch mb-xl-8">
+                                    <!--begin::Body-->
+                                    <div class="card-body p-0">
+                                         <div class="d-flex flex-stack card-p flex-grow-1">
+                                              <span class="symbol symbol-50px me-2">
+                                                   <span class="symbol-label bg-light-info">
+                                                       <span class="svg-icon svg-icon-muted svg-icon-info svg-icon-2hx">
+                                                           <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                                xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M20 19.725V18.725C20 18.125 19.6 17.725 19 17.725H5C4.4 17.725 4 18.125 4 18.725V19.725H3C2.4 19.725 2 20.125 2 20.725V21.725H22V20.725C22 20.125 21.6 19.725 21 19.725H20Z"
+                                                                  fill="currentColor"/>
+                                                               <path opacity="0.3"
+                                                                     d="M22 6.725V7.725C22 8.325 21.6 8.725 21 8.725H18C18.6 8.725 19 9.125 19 9.725C19 10.325 18.6 10.725 18 10.725V15.725C18.6 15.725 19 16.125 19 16.725V17.725H15V16.725C15 16.125 15.4 15.725 16 15.725V10.725C15.4 10.725 15 10.325 15 9.725C15 9.125 15.4 8.725 16 8.725H13C13.6 8.725 14 9.125 14 9.725C14 10.325 13.6 10.725 13 10.725V15.725C13.6 15.725 14 16.125 14 16.725V17.725H10V16.725C10 16.125 10.4 15.725 11 15.725V10.725C10.4 10.725 10 10.325 10 9.725C10 9.125 10.4 8.725 11 8.725H8C8.6 8.725 9 9.125 9 9.725C9 10.325 8.6 10.725 8 10.725V15.725C8.6 15.725 9 16.125 9 16.725V17.725H5V16.725C5 16.125 5.4 15.725 6 15.725V10.725C5.4 10.725 5 10.325 5 9.725C5 9.125 5.4 8.725 6 8.725H3C2.4 8.725 2 8.325 2 7.725V6.725L11 2.225C11.6 1.925 12.4 1.925 13.1 2.225L22 6.725ZM12 3.725C11.2 3.725 10.5 4.425 10.5 5.225C10.5 6.025 11.2 6.725 12 6.725C12.8 6.725 13.5 6.025 13.5 5.225C13.5 4.425 12.8 3.725 12 3.725Z"
+                                                                     fill="currentColor"/>
+                                                           </svg>
+                                                       </span>
+                                                   </span>
+                                              </span>
+                                             <div class="d-flex flex-column text-end">
+                                                   <span class="text-dark fw-bolder fs-2"
+                                                         id="total_unit"><t t-out="state.total_unit"/></span>
+                                                 <span class="text-muted fw-bold mt-1">Total Units</span>
+                                             </div>
+                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="col-md-4 col-lg-4 col-sm-6 avail-unit">
+                                <div class="card card-xl-stretch mb-xl-8">
+                                    <!--begin::Body-->
+                                    <div class="card-body p-0">
+                                        <div class="d-flex flex-stack card-p flex-grow-1">
+                                            <span class="symbol symbol-50px me-2">
+                                                <span class="symbol-label bg-light-success">
+                                                    <span class="svg-icon svg-icon-muted svg-icon-success svg-icon-2hx"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path opacity="0.3"
+                                                              d="M18.0624 15.3454L13.1624 20.7453C12.5624 21.4453 11.5624 21.4453 10.9624 20.7453L6.06242 15.3454C4.56242 13.6454 3.76242 11.4452 4.06242 8.94525C4.56242 5.34525 7.46242 2.44534 11.0624 2.04534C15.8624 1.54534 19.9624 5.24525 19.9624 9.94525C20.0624 12.0452 19.2624 13.9454 18.0624 15.3454ZM13.0624 10.0453C13.0624 9.44534 12.6624 9.04534 12.0624 9.04534C11.4624 9.04534 11.0624 9.44534 11.0624 10.0453V13.0453H13.0624V10.0453Z"
+                                                              fill="currentColor"/>
+                                                        <path d="M12.6624 5.54531C12.2624 5.24531 11.7624 5.24531 11.4624 5.54531L8.06241 8.04531V12.0453C8.06241 12.6453 8.46241 13.0453 9.06241 13.0453H11.0624V10.0453C11.0624 9.44531 11.4624 9.04531 12.0624 9.04531C12.6624 9.04531 13.0624 9.44531 13.0624 10.0453V13.0453H15.0624C15.6624 13.0453 16.0624 12.6453 16.0624 12.0453V8.04531L12.6624 5.54531Z"
+                                                              fill="currentColor"/>
+                                                        </svg>
+                                                    </span>
+                                                </span>
+                                            </span>
+                                            <div class="d-flex flex-column text-end">
+                                                <span class="text-dark fw-bolder fs-2"
+                                                      id="avail_unit"><t t-out="state.avail_unit"/></span>
+                                                <span class="text-muted fw-bold mt-1">Available Units</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="col-md-4 col-lg-4 col-sm-6 sold-unit">
+                                <div class="card card-xl-stretch mb-xl-8">
+                                    <!--begin::Body-->
+                                    <div class="card-body p-0">
+                                        <div class="d-flex flex-stack card-p flex-grow-1">
+                                            <span class="symbol symbol-50px me-2">
+                                                <span class="symbol-label bg-light-danger">
+                                                    <!--begin::Svg Icon | path: assets/media/icons/duotune/maps/map001.svg-->
+                                                    <span class="svg-icon svg-icon-danger svg-icon-muted svg-icon-2hx">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                             viewBox="0 0 24 24" fill="none">
+                                                        <path opacity="0.3"
+                                                              d="M6 22H4V3C4 2.4 4.4 2 5 2C5.6 2 6 2.4 6 3V22Z"
+                                                              fill="black"/>
+                                                            <path d="M18 14H4V4H18C18.8 4 19.2 4.9 18.7 5.5L16 9L18.8 12.5C19.3 13.1 18.8 14 18 14Z"
+                                                                  fill="black"/>
+                                                        </svg>
+                                                    </span>
+                                                    <!--end::Svg Icon-->
+                                                </span>
+                                            </span>
+                                            <div class="d-flex flex-column text-end">
+                                                <span class="text-dark fw-bolder fs-2"
+                                                      id="sold_unit"><t t-out="state.sold_unit"/></span>
+                                                <span class="text-muted fw-bold mt-1">Sold Units</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--end::Body-->
+                                </div>
+                            </div>
+                    </div>
+                    <div class="row mt32">
+                          <div class="col-md-4 col-lg-4 col-sm-6 booked-unit">
+                            <div class="card card-xl-stretch mb-xl-8">
+                                <div class="card-body p-0">
+                                    <div class="d-flex flex-stack card-p flex-grow-1">
+                                        <span class="symbol symbol-50px me-2">
+                                            <span class="symbol-label bg-light-warning">
+                                                <span class="svg-icon svg-icon-muted svg-icon-warning svg-icon-2hx"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path opacity="0.3"
+                                                          d="M18 21.6C16.3 21.6 15 20.3 15 18.6V2.50001C15 2.20001 14.6 1.99996 14.3 2.19996L13 3.59999L11.7 2.3C11.3 1.9 10.7 1.9 10.3 2.3L9 3.59999L7.70001 2.3C7.30001 1.9 6.69999 1.9 6.29999 2.3L5 3.59999L3.70001 2.3C3.50001 2.1 3 2.20001 3 3.50001V18.6C3 20.3 4.3 21.6 6 21.6H18Z"
+                                                          fill="currentColor"/>
+                                                    <path d="M12 12.6H11C10.4 12.6 10 12.2 10 11.6C10 11 10.4 10.6 11 10.6H12C12.6 10.6 13 11 13 11.6C13 12.2 12.6 12.6 12 12.6ZM9 11.6C9 11 8.6 10.6 8 10.6H6C5.4 10.6 5 11 5 11.6C5 12.2 5.4 12.6 6 12.6H8C8.6 12.6 9 12.2 9 11.6ZM9 7.59998C9 6.99998 8.6 6.59998 8 6.59998H6C5.4 6.59998 5 6.99998 5 7.59998C5 8.19998 5.4 8.59998 6 8.59998H8C8.6 8.59998 9 8.19998 9 7.59998ZM13 7.59998C13 6.99998 12.6 6.59998 12 6.59998H11C10.4 6.59998 10 6.99998 10 7.59998C10 8.19998 10.4 8.59998 11 8.59998H12C12.6 8.59998 13 8.19998 13 7.59998ZM13 15.6C13 15 12.6 14.6 12 14.6H10C9.4 14.6 9 15 9 15.6C9 16.2 9.4 16.6 10 16.6H12C12.6 16.6 13 16.2 13 15.6Z"
+                                                          fill="currentColor"/>
+                                                    <path d="M15 18.6C15 20.3 16.3 21.6 18 21.6C19.7 21.6 21 20.3 21 18.6V12.5C21 12.2 20.6 12 20.3 12.2L19 13.6L17.7 12.3C17.3 11.9 16.7 11.9 16.3 12.3L15 13.6V18.6Z"
+                                                          fill="currentColor"/>
+                                                    </svg>
+                                                </span>
+                                            </span>
+                                        </span>
+                                        <div class="d-flex flex-column text-end">
+                                            <span class="text-dark fw-bolder fs-2"
+                                                  id="reserved_unit"><t t-out="state.reserved_unit"/></span>
+                                            <span class="text-muted fw-bold mt-1">Reserved Units</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!--end::Body-->
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-lg-4 col-sm-6 sale-unit">
+                            <div class="card card-xl-stretch mb-xl-8">
+                                <!--begin::Body-->
+                                <div class="card-body p-0">
+                                    <div class="d-flex flex-stack card-p flex-grow-1">
+                                        <span class="symbol symbol-50px me-2">
+                                            <span class="symbol-label bg-light-progress">
+                                                <span class="svg-icon svg-icon-progress svg-icon-muted svg-icon-2hx"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path opacity="0.3"
+                                                          d="M18 20.3C20.2091 20.3 22 18.5092 22 16.3C22 14.0909 20.2091 12.3 18 12.3C15.7909 12.3 14 14.0909 14 16.3C14 18.5092 15.7909 20.3 18 20.3Z"
+                                                          fill="currentColor"/>
+                                                    <path d="M18 18.3C17.4 18.3 17 17.9 17 17.3V15.3C17 14.7 17.4 14.3 18 14.3C18.6 14.3 19 14.7 19 15.3V17.3C19 17.9 18.6 18.3 18 18.3Z"
+                                                          fill="currentColor"/>
+                                                    <path d="M14.4 18.1001C14.5 18.5001 14.4 19.0001 14 19.2001C13.8 19.3001 13.7 19.3 13.5 19.3C13.2 19.3 12.8 19.1 12.6 18.8V18.7001C12.1 18.9001 11.6 19.0001 11 19.1001V19.2001C11 19.8001 10.6 20.2001 10 20.2001C9.4 20.2001 9 19.8001 9 19.2001V19.1001C8.4 19.0001 7.89999 18.9001 7.39999 18.7001V18.8C7.19999 19.1 6.9 19.3 6.5 19.3C6.3 19.3 6.2 19.3001 6 19.2001C5.5 18.9001 5.40001 18.3 5.60001 17.8V17.7001C5.20001 17.4001 4.79999 17 4.39999 16.5H4.3C4.1 16.6 4 16.6001 3.8 16.6001C3.5 16.6001 3.09999 16.4001 2.89999 16.1001C2.59999 15.6001 2.8 15.0001 3.3 14.7001H3.39999C3.19999 14.2001 3.1 13.7001 3 13.1001C2.4 13.1001 2 12.7001 2 12.1001C2 11.5001 2.4 11.1001 3 11.1001H3.10001C3.20001 10.5001 3.3 10 3.5 9.5H3.39999C2.89999 9.2 2.8 8.6001 3 8.1001C3.3 7.6001 3.89999 7.50007 4.39999 7.70007H4.5C4.8 7.30007 5.2 6.9 5.7 6.5V6.40002C5.4 5.90002 5.60001 5.3 6.10001 5C6.60001 4.7 7.2 4.90002 7.5 5.40002V5.5C8 5.3 8.50001 5.2001 9.10001 5.1001V5C9.10001 4.4 9.50001 4 10.1 4C10.7 4 11.1 4.4 11.1 5V5.1001C11.7 5.2001 12.2 5.3 12.7 5.5V5.40002C13 4.90002 13.6 4.8 14.1 5C14.6 5.3 14.7 5.90002 14.5 6.40002V6.5C14.9 6.8 15.3 7.20007 15.7 7.70007H15.8C16.3 7.40007 16.9 7.6001 17.2 8.1001C17.5 8.6001 17.3 9.2 16.8 9.5H16.7C16.9 10 17 10.5001 17.1 11.1001H17.2C17.8 11.1001 18.2 11.5001 18.2 12.1001C16 12.1001 14.2 13.9001 14.2 16.1001C14 17.0001 14.2 17.6001 14.4 18.1001ZM11.8 8.40002H8.89999C8.59999 8.40002 8.4 8.5001 8.2 8.6001C8.1 8.7001 7.99999 9.00005 7.89999 9.30005L7.39999 11.9C7.39999 12.1 7.3 12.3 7.3 12.3C7.3 12.5 7.4 12.6001 7.5 12.7001C7.6 12.8001 7.8 12.9 8 12.9C8.2 12.9 8.40001 12.8001 8.60001 12.6001C8.90001 12.4001 9.1 12.3001 9.2 12.2001C9.3 12.1001 9.59999 12.1001 9.89999 12.1001C10.2 12.1001 10.4 12.2 10.6 12.3C10.8 12.4 11 12.6 11.1 12.9C11.2 13.2 11.3 13.5 11.3 13.8C11.3 14.1 11.2 14.4001 11.1 14.7001C11 15.0001 10.8 15.2 10.6 15.3C10.4 15.4 10.1 15.5 9.89999 15.5C9.59999 15.5 9.30001 15.4001 9.10001 15.2001C8.80001 15.0001 8.7 14.8 8.5 14.4C8.3 14 8.1 13.9 7.8 13.9C7.6 13.9 7.5 14.0001 7.3 14.1001C7.2 14.2001 7.10001 14.4 7.10001 14.5C7.10001 14.7 7.19999 15 7.39999 15.3C7.59999 15.6 7.9 15.9001 8.3 16.1001C8.7 16.3001 9.19999 16.5 9.89999 16.5C10.5 16.5 11 16.4001 11.5 16.1001C12 15.8001 12.3 15.5001 12.5 15.1001C12.7 14.7001 12.9 14.2001 12.9 13.6001C12.9 13.2001 12.8 12.9001 12.7 12.6001C12.6 12.3001 12.4 12 12.2 11.8C12 11.6 11.7 11.4 11.4 11.3C11.1 11.2 10.8 11.1001 10.4 11.1001C9.99999 11.1001 9.5 11.2 9 11.5L9.3 9.70007H11.9C12.2 9.70007 12.4 9.6 12.5 9.5C12.6 9.4 12.7 9.2 12.7 9C12.6 8.6 12.3 8.40002 11.8 8.40002Z"
+                                                          fill="currentColor"/>
+                                                    </svg>
+                                                </span>
+                                            </span>
+                                        </span>
+                                        <div class="d-flex flex-column text-end">
+                                            <span class="text-dark fw-bolder fs-2"
+                                                  id="blocked_unit"><t t-out="state.blocked_unit"/></span>
+                                            <span class="text-muted fw-bold mt-1">Blocked</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!--end::Body-->
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-lg-4 col-sm-6 lease-unit">
+                            <div class="card card-xl-stretch mb-xl-8">
+                                <!--begin::Body-->
+                                <div class="card-body p-0">
+                                    <div class="d-flex flex-stack card-p flex-grow-1">
+                                        <span class="symbol symbol-50px me-2">
+                                            <span class="symbol-label bg-light-ship">
+                                                <span class="svg-icon svg-icon-muted svg-icon-general svg-icon-2hx"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M11 2.375L2 9.575V20.575C2 21.175 2.4 21.575 3 21.575H9C9.6 21.575 10 21.175 10 20.575V14.575C10 13.975 10.4 13.575 11 13.575H13C13.6 13.575 14 13.975 14 14.575V20.575C14 21.175 14.4 21.575 15 21.575H21C21.6 21.575 22 21.175 22 20.575V9.575L13 2.375C12.4 1.875 11.6 1.875 11 2.375Z"
+                                                          fill="currentColor"/>
+                                                    </svg>
+                                                </span>
+                                            </span>
+                                        </span>
+                                        <div class="d-flex flex-column text-end">
+                                            <span class="text-dark fw-bolder fs-2"
+                                                  id="lease_unit"><t t-out="state.lease_unit"/></span>
+                                            <span class="text-muted fw-bold mt-1">On Lease</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!--end::Body-->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 mb-4 mt32 mb16">
+                            <div class="row">
+                                <div class="col-12 col-sm-12 col-md-5">
+                                    <h2 class="section-header">Sale Details</h2>
+                                </div>
+                            </div>
+                            <hr/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-lg-4 col-sm-6 booked-unit-sale">
+                                <div class="card card-xl-stretch mb-xl-8">
+                                    <!--begin::Body-->
+                                    <div class="card-body p-0">
+                                        <div class="d-flex flex-stack card-p flex-grow-1">
+                                            <span class="symbol symbol-50px me-2">
+                                                <span class="symbol-label bg-light-info">
+                                                    <span class="svg-icon svg-icon-info svg-icon-muted svg-icon-2hx"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path opacity="0.3"
+                                                              d="M3 13H10C10.6 13 11 13.4 11 14V21C11 21.6 10.6 22 10 22H3C2.4 22 2 21.6 2 21V14C2 13.4 2.4 13 3 13Z"
+                                                              fill="currentColor"/>
+                                                        <path d="M7 16H6C5.4 16 5 15.6 5 15V13H8V15C8 15.6 7.6 16 7 16Z"
+                                                              fill="currentColor"/>
+                                                        <path opacity="0.3"
+                                                              d="M14 13H21C21.6 13 22 13.4 22 14V21C22 21.6 21.6 22 21 22H14C13.4 22 13 21.6 13 21V14C13 13.4 13.4 13 14 13Z"
+                                                              fill="currentColor"/>
+                                                        <path d="M18 16H17C16.4 16 16 15.6 16 15V13H19V15C19 15.6 18.6 16 18 16Z"
+                                                              fill="currentColor"/>
+                                                        <path opacity="0.3"
+                                                              d="M3 2H10C10.6 2 11 2.4 11 3V10C11 10.6 10.6 11 10 11H3C2.4 11 2 10.6 2 10V3C2 2.4 2.4 2 3 2Z"
+                                                              fill="currentColor"/>
+                                                        <path d="M7 5H6C5.4 5 5 4.6 5 4V2H8V4C8 4.6 7.6 5 7 5Z"
+                                                              fill="currentColor"/>
+                                                        <path opacity="0.3"
+                                                              d="M14 2H21C21.6 2 22 2.4 22 3V10C22 10.6 21.6 11 21 11H14C13.4 11 13 10.6 13 10V3C13 2.4 13.4 2 14 2Z"
+                                                              fill="currentColor"/>
+                                                        <path d="M18 5H17C16.4 5 16 4.6 16 4V2H19V4C19 4.6 18.6 5 18 5Z"
+                                                              fill="currentColor"/>
+                                                    </svg>
+                                                    </span>
+                                                </span>
+                                            </span>
+                                            <div class="d-flex flex-column text-end">
+                                                <span class="text-dark fw-bolder fs-2"
+                                                      id="sale_reserved"><t t-out="state.sale_reserved"/></span>
+                                                <span class="text-muted fw-bold mt-1">Total Reserved Units</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="col-md-4 col-lg-4 col-sm-6 sale-sold">
+                                <div class="card card-xl-stretch mb-xl-8">
+                                    <!--begin::Body-->
+                                    <div class="card-body p-0">
+                                        <div class="d-flex flex-stack card-p flex-grow-1">
+                                            <span class="symbol symbol-50px me-2">
+                                                <span class="symbol-label bg-light-success">
+                                                    <span class="svg-icon svg-icon-muted svg-icon-success svg-icon-2hx"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path opacity="0.3"
+                                                              d="M20.5543 4.37824L12.1798 2.02473C12.0626 1.99176 11.9376 1.99176 11.8203 2.02473L3.44572 4.37824C3.18118 4.45258 3 4.6807 3 4.93945V13.569C3 14.6914 3.48509 15.8404 4.4417 16.984C5.17231 17.8575 6.18314 18.7345 7.446 19.5909C9.56752 21.0295 11.6566 21.912 11.7445 21.9488C11.8258 21.9829 11.9129 22 12.0001 22C12.0872 22 12.1744 21.983 12.2557 21.9488C12.3435 21.912 14.4326 21.0295 16.5541 19.5909C17.8169 18.7345 18.8277 17.8575 19.5584 16.984C20.515 15.8404 21 14.6914 21 13.569V4.93945C21 4.6807 20.8189 4.45258 20.5543 4.37824Z"
+                                                              fill="currentColor"/>
+                                                        <path d="M10.5606 11.3042L9.57283 10.3018C9.28174 10.0065 8.80522 10.0065 8.51412 10.3018C8.22897 10.5912 8.22897 11.0559 8.51412 11.3452L10.4182 13.2773C10.8099 13.6747 11.451 13.6747 11.8427 13.2773L15.4859 9.58051C15.771 9.29117 15.771 8.82648 15.4859 8.53714C15.1948 8.24176 14.7183 8.24176 14.4272 8.53714L11.7002 11.3042C11.3869 11.6221 10.874 11.6221 10.5606 11.3042Z"
+                                                              fill="currentColor"/>
+                                                        </svg>
+                                                    </span>
+                                                </span>
+                                            </span>
+                                            <div class="d-flex flex-column text-end">
+                                                <span class="text-dark fw-bolder fs-2"
+                                                      id="sale_sold"><t t-out="state.sale_sold"/> </span>
+                                                <span class="text-muted fw-bold mt-1">Unit Sold</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="col-md-4 col-lg-4 col-sm-6 sold-total">
+                                <div class="card card-xl-stretch mb-xl-8">
+                                    <!--begin::Body-->
+                                    <div class="card-body p-0">
+                                        <div class="d-flex flex-stack card-p flex-grow-1">
+                                            <span class="symbol symbol-50px me-2">
+                                                <span class="symbol-label bg-light-danger">
+                                                    <span class="svg-icon svg-icon-muted svg-icon-danger svg-icon-2hx"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path opacity="0.3"
+                                                              d="M20 18H4C3.4 18 3 17.6 3 17V7C3 6.4 3.4 6 4 6H20C20.6 6 21 6.4 21 7V17C21 17.6 20.6 18 20 18ZM12 8C10.3 8 9 9.8 9 12C9 14.2 10.3 16 12 16C13.7 16 15 14.2 15 12C15 9.8 13.7 8 12 8Z"
+                                                              fill="currentColor"/>
+                                                        <path d="M18 6H20C20.6 6 21 6.4 21 7V9C19.3 9 18 7.7 18 6ZM6 6H4C3.4 6 3 6.4 3 7V9C4.7 9 6 7.7 6 6ZM21 17V15C19.3 15 18 16.3 18 18H20C20.6 18 21 17.6 21 17ZM3 15V17C3 17.6 3.4 18 4 18H6C6 16.3 4.7 15 3 15Z"
+                                                              fill="currentColor"/>
+                                                        </svg>
+                                                    </span>
+                                                </span>
+                                            </span>
+                                            <div class="d-flex flex-column text-end">
+                                                <span class="text-dark fw-bolder fs-2"
+                                                      id="sold_total"><t t-out="state.sold_total"/></span>
+                                                <span class="text-muted fw-bold mt-1">Total Sold Amount</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+
+                    <!--                    <div class="row">-->
+                    <!--                        <div class="col-md-12 mb-4 mt32 mb16">-->
+                    <!--                            <div class="row">-->
+                    <!--                                <div class="col-12 col-sm-12 col-md-5">-->
+                    <!--                                    <h2 class="section-header">Tenancy Details</h2>-->
+                    <!--                                </div>-->
+                    <!--                            </div>-->
+                    <!--                            <hr/>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                    <!--                    <div class="row">-->
+                    <!--                        <div class="col-md-4 col-lg-4 col-sm-6 draft-contract">-->
+                    <!--                            <div class="card card-xl-stretch mb-xl-8">-->
+                    <!--                                &lt;!&ndash;begin::Body&ndash;&gt;-->
+                    <!--                                <div class="card-body p-0">-->
+                    <!--                                    <div class="d-flex flex-stack card-p flex-grow-1">-->
+                    <!--                                        <span class="symbol symbol-50px me-2">-->
+                    <!--                                            <span class="symbol-label bg-light-info">-->
+                    <!--                                                <span class="svg-icon svg-icon-info svg-icon-muted svg-icon-2hx"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">-->
+                    <!--                                                    <path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd"-->
+                    <!--                                                          d="M2 4.63158C2 3.1782 3.1782 2 4.63158 2H13.47C14.0155 2 14.278 2.66919 13.8778 3.04006L12.4556 4.35821C11.9009 4.87228 11.1726 5.15789 10.4163 5.15789H7.1579C6.05333 5.15789 5.15789 6.05333 5.15789 7.1579V16.8421C5.15789 17.9467 6.05333 18.8421 7.1579 18.8421H16.8421C17.9467 18.8421 18.8421 17.9467 18.8421 16.8421V13.7518C18.8421 12.927 19.1817 12.1387 19.7809 11.572L20.9878 10.4308C21.3703 10.0691 22 10.3403 22 10.8668V19.3684C22 20.8218 20.8218 22 19.3684 22H4.63158C3.1782 22 2 20.8218 2 19.3684V4.63158Z"-->
+                    <!--                                                          fill="currentColor"/>-->
+                    <!--                                                    <path d="M10.9256 11.1882C10.5351 10.7977 10.5351 10.1645 10.9256 9.77397L18.0669 2.6327C18.8479 1.85165 20.1143 1.85165 20.8953 2.6327L21.3665 3.10391C22.1476 3.88496 22.1476 5.15129 21.3665 5.93234L14.2252 13.0736C13.8347 13.4641 13.2016 13.4641 12.811 13.0736L10.9256 11.1882Z"-->
+                    <!--                                                          fill="currentColor"/>-->
+                    <!--                                                    <path d="M8.82343 12.0064L8.08852 14.3348C7.8655 15.0414 8.46151 15.7366 9.19388 15.6242L11.8974 15.2092C12.4642 15.1222 12.6916 14.4278 12.2861 14.0223L9.98595 11.7221C9.61452 11.3507 8.98154 11.5055 8.82343 12.0064Z"-->
+                    <!--                                                          fill="currentColor"/>-->
+                    <!--                                                    </svg>-->
+                    <!--                                                </span>-->
+                    <!--                                            </span>-->
+                    <!--                                        </span>-->
+                    <!--                                        <div class="d-flex flex-column text-end">-->
+                    <!--                                            <span class="text-dark fw-bolder fs-2" id="draft_contract">0</span>-->
+                    <!--                                            <span class="text-muted fw-bold mt-1">Draft Contract</span>-->
+                    <!--                                        </div>-->
+                    <!--                                    </div>-->
+                    <!--                                </div>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="col-md-4 col-lg-4 col-sm-6 running-contract">-->
+                    <!--                            <div class="card card-xl-stretch mb-xl-8">-->
+                    <!--                                &lt;!&ndash;begin::Body&ndash;&gt;-->
+                    <!--                                <div class="card-body p-0">-->
+                    <!--                                    <div class="d-flex flex-stack card-p flex-grow-1">-->
+                    <!--                                        <span class="symbol symbol-50px me-2">-->
+                    <!--                                            <span class="symbol-label bg-light-warning">-->
+                    <!--                                                <span class="svg-icon svg-icon-warning svg-icon-muted svg-icon-2hx"><svg width="14" height="21" viewBox="0 0 14 21" fill="none" xmlns="http://www.w3.org/2000/svg">-->
+                    <!--                                                    <path opacity="0.3"-->
+                    <!--                                                          d="M12 6.20001V1.20001H2V6.20001C2 6.50001 2.1 6.70001 2.3 6.90001L5.6 10.2L2.3 13.5C2.1 13.7 2 13.9 2 14.2V19.2H12V14.2C12 13.9 11.9 13.7 11.7 13.5L8.4 10.2L11.7 6.90001C11.9 6.70001 12 6.50001 12 6.20001Z"-->
+                    <!--                                                          fill="currentColor"/>-->
+                    <!--                                                    <path d="M13 2.20001H1C0.4 2.20001 0 1.80001 0 1.20001C0 0.600012 0.4 0.200012 1 0.200012H13C13.6 0.200012 14 0.600012 14 1.20001C14 1.80001 13.6 2.20001 13 2.20001ZM13 18.2H10V16.2L7.7 13.9C7.3 13.5 6.7 13.5 6.3 13.9L4 16.2V18.2H1C0.4 18.2 0 18.6 0 19.2C0 19.8 0.4 20.2 1 20.2H13C13.6 20.2 14 19.8 14 19.2C14 18.6 13.6 18.2 13 18.2ZM4.4 6.20001L6.3 8.10001C6.7 8.50001 7.3 8.50001 7.7 8.10001L9.6 6.20001H4.4Z"-->
+                    <!--                                                          fill="currentColor"/>-->
+                    <!--                                                    </svg>-->
+                    <!--                                                </span>-->
+                    <!--                                            </span>-->
+                    <!--                                        </span>-->
+                    <!--                                        <div class="d-flex flex-column text-end">-->
+                    <!--                                            <span class="text-dark fw-bolder fs-2" id="running_contract">0</span>-->
+                    <!--                                            <span class="text-muted fw-bold mt-1">Running Contract</span>-->
+                    <!--                                        </div>-->
+                    <!--                                    </div>-->
+                    <!--                                </div>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="col-md-4 col-lg-4 col-sm-6 expire-contract">-->
+                    <!--                            <div class="card card-xl-stretch mb-xl-8">-->
+                    <!--                                &lt;!&ndash;begin::Body&ndash;&gt;-->
+                    <!--                                <div class="card-body p-0">-->
+                    <!--                                    <div class="d-flex flex-stack card-p flex-grow-1">-->
+                    <!--                                        <span class="symbol symbol-50px me-2">-->
+
+                    <!--                                            <span class="symbol-label bg-light-danger">-->
+                    <!--                                                <span class="svg-icon svg-icon-danger svg-icon-muted svg-icon-2hx"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">-->
+                    <!--                                                    <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5"-->
+                    <!--                                                          fill="currentColor"/>-->
+                    <!--                                                    <rect x="7" y="15.3137" width="12" height="2" rx="1"-->
+                    <!--                                                          transform="rotate(-45 7 15.3137)" fill="currentColor"/>-->
+                    <!--                                                    <rect x="8.41422" y="7" width="12" height="2" rx="1"-->
+                    <!--                                                          transform="rotate(45 8.41422 7)" fill="currentColor"/>-->
+                    <!--                                                    </svg>-->
+                    <!--                                                </span>-->
+                    <!--                                            </span>-->
+                    <!--                                        </span>-->
+                    <!--                                        <div class="d-flex flex-column text-end">-->
+                    <!--                                            <span class="text-dark fw-bolder fs-2" id="expire_contract">0</span>-->
+                    <!--                                            <span class="text-muted fw-bold mt-1">Expire Contract</span>-->
+                    <!--                                        </div>-->
+                    <!--                                    </div>-->
+                    <!--                                </div>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                    <!--                    <div class="row mt32 pb64">-->
+                    <!--                        <div class="col-md-4 col-lg-4 col-sm-6 rent-total">-->
+                    <!--                            <div class="card card-xl-stretch mb-xl-8">-->
+                    <!--                                &lt;!&ndash;begin::Body&ndash;&gt;-->
+                    <!--                                <div class="card-body p-0">-->
+                    <!--                                    <div class="d-flex flex-stack card-p flex-grow-1">-->
+                    <!--                                        <span class="symbol symbol-50px me-2">-->
+                    <!--                                            <span class="symbol-label bg-light-success">-->
+                    <!--                                                <span class="svg-icon svg-icon-muted svg-icon-success svg-icon-2hx"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">-->
+                    <!--                                                    <path opacity="0.3"-->
+                    <!--                                                          d="M20 18H4C3.4 18 3 17.6 3 17V7C3 6.4 3.4 6 4 6H20C20.6 6 21 6.4 21 7V17C21 17.6 20.6 18 20 18ZM12 8C10.3 8 9 9.8 9 12C9 14.2 10.3 16 12 16C13.7 16 15 14.2 15 12C15 9.8 13.7 8 12 8Z"-->
+                    <!--                                                          fill="currentColor"/>-->
+                    <!--                                                    <path d="M18 6H20C20.6 6 21 6.4 21 7V9C19.3 9 18 7.7 18 6ZM6 6H4C3.4 6 3 6.4 3 7V9C4.7 9 6 7.7 6 6ZM21 17V15C19.3 15 18 16.3 18 18H20C20.6 18 21 17.6 21 17ZM3 15V17C3 17.6 3.4 18 4 18H6C6 16.3 4.7 15 3 15Z"-->
+                    <!--                                                          fill="currentColor"/>-->
+                    <!--                                                    </svg>-->
+                    <!--                                                </span>-->
+                    <!--                                            </span>-->
+                    <!--                                        </span>-->
+                    <!--                                        <div class="d-flex flex-column text-end">-->
+                    <!--                                            <span class="text-dark fw-bolder fs-2" id="rent_total">0</span>-->
+                    <!--                                            <span class="text-muted fw-bold mt-1">Total Rent Amount</span>-->
+                    <!--                                        </div>-->
+                    <!--                                    </div>-->
+                    <!--                                </div>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="col-md-4 col-lg-4 col-sm-6 pending-invoice">-->
+                    <!--                            <div class="card card-xl-stretch mb-xl-8">-->
+                    <!--                                &lt;!&ndash;begin::Body&ndash;&gt;-->
+                    <!--                                <div class="card-body p-0">-->
+                    <!--                                    <div class="d-flex flex-stack card-p flex-grow-1">-->
+                    <!--                                        <span class="symbol symbol-50px me-2">-->
+                    <!--                                            <span class="symbol-label bg-light-danger">-->
+                    <!--                                                <span class="svg-icon svg-icon-muted svg-icon-danger svg-icon-2hx"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">-->
+                    <!--                                                <path opacity="0.3"-->
+                    <!--                                                      d="M21 22H3C2.4 22 2 21.6 2 21V5C2 4.4 2.4 4 3 4H21C21.6 4 22 4.4 22 5V21C22 21.6 21.6 22 21 22Z"-->
+                    <!--                                                      fill="currentColor"/>-->
+                    <!--                                                <path d="M6 6C5.4 6 5 5.6 5 5V3C5 2.4 5.4 2 6 2C6.6 2 7 2.4 7 3V5C7 5.6 6.6 6 6 6ZM11 5V3C11 2.4 10.6 2 10 2C9.4 2 9 2.4 9 3V5C9 5.6 9.4 6 10 6C10.6 6 11 5.6 11 5ZM15 5V3C15 2.4 14.6 2 14 2C13.4 2 13 2.4 13 3V5C13 5.6 13.4 6 14 6C14.6 6 15 5.6 15 5ZM19 5V3C19 2.4 18.6 2 18 2C17.4 2 17 2.4 17 3V5C17 5.6 17.4 6 18 6C18.6 6 19 5.6 19 5Z"-->
+                    <!--                                                      fill="currentColor"/>-->
+                    <!--                                                <path d="M8.8 13.1C9.2 13.1 9.5 13 9.7 12.8C9.9 12.6 10.1 12.3 10.1 11.9C10.1 11.6 10 11.3 9.8 11.1C9.6 10.9 9.3 10.8 9 10.8C8.8 10.8 8.59999 10.8 8.39999 10.9C8.19999 11 8.1 11.1 8 11.2C7.9 11.3 7.8 11.4 7.7 11.6C7.6 11.8 7.5 11.9 7.5 12.1C7.5 12.2 7.4 12.2 7.3 12.3C7.2 12.4 7.09999 12.4 6.89999 12.4C6.69999 12.4 6.6 12.3 6.5 12.2C6.4 12.1 6.3 11.9 6.3 11.7C6.3 11.5 6.4 11.3 6.5 11.1C6.6 10.9 6.8 10.7 7 10.5C7.2 10.3 7.49999 10.1 7.89999 10C8.29999 9.90003 8.60001 9.80003 9.10001 9.80003C9.50001 9.80003 9.80001 9.90003 10.1 10C10.4 10.1 10.7 10.3 10.9 10.4C11.1 10.5 11.3 10.8 11.4 11.1C11.5 11.4 11.6 11.6 11.6 11.9C11.6 12.3 11.5 12.6 11.3 12.9C11.1 13.2 10.9 13.5 10.6 13.7C10.9 13.9 11.2 14.1 11.4 14.3C11.6 14.5 11.8 14.7 11.9 15C12 15.3 12.1 15.5 12.1 15.8C12.1 16.2 12 16.5 11.9 16.8C11.8 17.1 11.5 17.4 11.3 17.7C11.1 18 10.7 18.2 10.3 18.3C9.9 18.4 9.5 18.5 9 18.5C8.5 18.5 8.1 18.4 7.7 18.2C7.3 18 7 17.8 6.8 17.6C6.6 17.4 6.4 17.1 6.3 16.8C6.2 16.5 6.10001 16.3 6.10001 16.1C6.10001 15.9 6.2 15.7 6.3 15.6C6.4 15.5 6.6 15.4 6.8 15.4C6.9 15.4 7.00001 15.4 7.10001 15.5C7.20001 15.6 7.3 15.6 7.3 15.7C7.5 16.2 7.7 16.6 8 16.9C8.3 17.2 8.6 17.3 9 17.3C9.2 17.3 9.5 17.2 9.7 17.1C9.9 17 10.1 16.8 10.3 16.6C10.5 16.4 10.5 16.1 10.5 15.8C10.5 15.3 10.4 15 10.1 14.7C9.80001 14.4 9.50001 14.3 9.10001 14.3C9.00001 14.3 8.9 14.3 8.7 14.3C8.5 14.3 8.39999 14.3 8.39999 14.3C8.19999 14.3 7.99999 14.2 7.89999 14.1C7.79999 14 7.7 13.8 7.7 13.7C7.7 13.5 7.79999 13.4 7.89999 13.2C7.99999 13 8.2 13 8.5 13H8.8V13.1ZM15.3 17.5V12.2C14.3 13 13.6 13.3 13.3 13.3C13.1 13.3 13 13.2 12.9 13.1C12.8 13 12.7 12.8 12.7 12.6C12.7 12.4 12.8 12.3 12.9 12.2C13 12.1 13.2 12 13.6 11.8C14.1 11.6 14.5 11.3 14.7 11.1C14.9 10.9 15.2 10.6 15.5 10.3C15.8 10 15.9 9.80003 15.9 9.70003C15.9 9.60003 16.1 9.60004 16.3 9.60004C16.5 9.60004 16.7 9.70003 16.8 9.80003C16.9 9.90003 17 10.2 17 10.5V17.2C17 18 16.7 18.4 16.2 18.4C16 18.4 15.8 18.3 15.6 18.2C15.4 18.1 15.3 17.8 15.3 17.5Z"-->
+                    <!--                                                      fill="currentColor"/>-->
+                    <!--                                            </svg>-->
+                    <!--                                            </span>-->
+                    <!--                                            </span>-->
+                    <!--                                        </span>-->
+                    <!--                                        <div class="d-flex flex-column text-end">-->
+                    <!--                                            <span class="text-dark fw-bolder fs-2" id="pending_invoice">0</span>-->
+                    <!--                                            <span class="text-muted fw-bold mt-1">Invoice Due Reminder</span>-->
+                    <!--                                        </div>-->
+                    <!--                                    </div>-->
+                    <!--                                </div>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+
+                    <div class="mt16 mb16">
+                        <h4>Unit Statistic</h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="box mt16 mb16">
+                                <h5 class="mb16">Unit Type</h5>
+                                <div id="unit_type"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="box mt16 mb16">
+                                <h5 class="mb16">Unit Stages</h5>
+                                <div id="unit_stage"></div>
+                            </div>
+                        </div>
+
+<!--                        <div class="col-md-6">-->
+<!--                            <div class="box mt16 mb16">-->
+<!--                                <h5 class="mb16">Broker wise Tenancies</h5>-->
+<!--                                <div id="top_brokers"></div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="col-md-6">-->
+<!--                            <div class="box mt16 mb16">-->
+<!--                                <h5 class="mb16">Broker wise Unit Sold</h5>-->
+<!--                                <div id="top_brokers_sale"></div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="col-md-6">-->
+<!--                            <div class="box mt16 mb16">-->
+<!--                                <h5 class="mb16">Unit Tenancy Due/Paid</h5>-->
+<!--                                <div id="tenancy_due_paid"></div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="col-md-6">-->
+<!--                            <div class="box mt16 mb16">-->
+<!--                                <h5 class="mb16">Unit Sold Due/Paid</h5>-->
+<!--                                <div id="sold_due_paid"></div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </t>
+</templates>

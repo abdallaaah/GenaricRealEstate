@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_commission_summary_report_wizard_form" model="ir.ui.view">
+        <field name="name">commission.summary.report.wizard.form</field>
+        <field name="model">commission.summary.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Commission Summary Report">
+                <p class="text-muted">
+                    Covers every commission (sales team achievements, broker, ambassador,
+                    agent, and non-sales employee claims). Cancelled records are excluded.
+                    Pick a contract to limit the report to just that deal, or leave it
+                    empty and use the date range for a company-wide report.
+                </p>
+                <group>
+                    <group>
+                        <field name="sale_proposal_id" options="{'no_create': True}"
+                               context="{'show_unit_in_name': 1}"/>
+                    </group>
+                </group>
+                <group invisible="sale_proposal_id">
+                    <group>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                    </group>
+                    <group>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_print_pdf" string="Print PDF" type="object" class="btn-primary"/>
+                    <button name="action_export_excel" string="Export Excel" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_commission_summary_report_wizard" model="ir.actions.act_window">
+        <field name="name">Commission Summary Report</field>
+        <field name="res_model">commission.summary.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_commission_summary_report"
+              name="Commission Summary Report"
+              parent="menu_reports_root"
+              action="action_commission_summary_report_wizard"
+              sequence="51"/>
+</odoo>

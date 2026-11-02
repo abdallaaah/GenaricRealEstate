@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="job_offer_report" model="ir.actions.report">
+            <field name="name">عرض عمل</field>
+            <field name="model">hr.applicant</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">isky_hr_egypt_allowances_application_contract.job_offer_report_template</field>
+            <field name="report_file">isky_hr_egypt_allowances_application_contract.job_offer_report_template</field>
+            <field name="print_report_name">'عرض عمل'</field>
+            <field name="binding_model_id" ref="hr_recruitment.model_hr_applicant"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <template id="job_offer_report_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout">
+                        <div class="page" style="direction:rtl;">
+
+                            <style>
+                                table
+                                {
+                                width:100%;
+                                }
+                                td
+                                {
+                                padding:5px;
+                                border:1px solid black;
+                                }
+                            </style>
+
+
+                            <center>
+                                <table style="height: 80px;margin-left:100px;" width="720">
+                                    <tbody>
+                                        <tr style="height: 20px; text-align: center">
+                                            <td style="width: 120; border:0px;">
+                                                <span t-field="o.company_id.name_ar"/>
+                                            </td>
+                                            <td style="width: 120; border:0px; ">تفاصيل عرض العمل</td>
+                                            <td style="width: 120; border:0px;">‫‪RKETING CO.‬‬</td>
+
+                                        </tr>
+                                        <tr style="height: 20px; text-align: center">
+                                            <td style="width: 120; border:0px;">
+                                            </td>
+                                            <td style="width: 120; border:0px;">‫‪Job Offer Specification</td>
+                                            <td style="width: 120; border:0px;">‬‬</td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </center>
+                            <div dir="rtl">
+                                <table style="width: 100%;">
+                                    <tbody>
+                                        <tr>
+                                            <td style="text-align: center;">الاسم</td>
+                                            <td style="width:20%; text-align: center;">
+                                                <span t-field="o.partner_name"/>
+                                            </td>
+                                            <td style="text-align: center;">الجنسية</td>
+                                            <td style="text-align: center;width:20%">
+                                                <span t-field="o.nationality_id.nationality"/>
+                                            </td>
+                                            <td style="text-align: center;">التاريخ</td>
+                                            <td style="text-align: center;width:20%">
+                                                <span t-field="o.first_hiring_date"/>
+                                            </td>
+                                        </tr>
+                                        <tr style="text-align: center;">
+                                            <td>رقم البطاقة الاحوال / الاقامة</td>
+                                            <td>
+                                                <span t-field="o.emp_id.iqama_number"/>
+                                            </td>
+                                            <td style="text-align: center;">مكان الاصدار</td>
+                                            <td>
+                                                <span t-field="o.emp_id.iqama_issue_place"/>
+                                            </td>
+                                            <td style="text-align: center;">تاريخ الاصدار</td>
+                                            <td>
+                                                <span t-field="o.emp_id.iqama_issue_date"/>
+                                            </td>
+                                        </tr>
+                                        <tr style="text-align: center;">
+                                            <td>رقم جواز السفر</td>
+                                            <td>
+                                                <span t-field="o.emp_id.passport_id"/>
+                                            </td>
+                                            <td style="text-align: center;">مكان الاصدار</td>
+                                            <td>
+                                                <span t-field="o.emp_id.passport_issue_place"/>
+                                            </td>
+                                            <td style="text-align: center;">تاريخ الاصدار</td>
+                                            <td>
+                                                <span t-field="o.emp_id.passport_issue_date"/>
+                                            </td>
+                                        </tr>
+                                        <tr style="text-align: center;">
+                                            <td>الوظيفة</td>
+                                            <td style="text-align: center;">
+                                                <span t-field="o.job_id"/>
+                                            </td>
+                                            <td style="text-align: center;">المرتبة</td>
+                                            <td></td>
+                                            <td style="text-align: center;">المؤهل العلمي</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr style="text-align: center;">
+                                            <td>الادارة</td>
+                                            <td>
+                                                <span t-field="o.department_id.parent_id.name"/>
+                                            </td>
+                                            <td style="text-align: center;">الفرع</td>
+                                            <td>
+                                                <span t-field="o.department_id.name"/>
+                                            </td>
+                                            <td style="text-align: center;">الدرجة</td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
+                                        <tr style="text-align: center;">
+                                            <td style="text-align: right;" colspan="6">مدة العقد
+                                                <t t-if="o.emp_id.contract_period == 'one_year'">
+                                                    <span style="padding-right:5px">سنة ميلادية</span>
+                                                </t>
+                                                <t t-if="o.emp_id.contract_period == 'two_year'">
+                                                    <span style="padding-right:5px">سنتين ميلادتين</span>
+                                                </t>
+                                                <input id="checkBox" type="checkbox"/>
+                                            </td>
+                                        </tr>
+                                        <tr style="text-align: center;">
+                                            <td colspan="2">الراتب و العلاوات</td>
+                                            <td colspan="2">شهريا</td>
+                                            <td colspan="2">سنويا</td>
+                                        </tr>
+                                        <tr style="text-align: center;">
+                                            <td style="text-align: right;" colspan="2">الراتب الاساسي</td>
+                                            <td colspan="2">
+                                                <span t-field="o.salary_proposed"/>
+                                            </td>
+                                            <td colspan="2">
+                                                <span t-esc="o.salary_proposed * 12"/>
+                                            </td>
+                                        </tr>
+                                        <tr style="text-align: center;">
+                                            <td style="text-align: right;" colspan="2">بدل السكن</td>
+                                            <td colspan="2">
+                                                <span t-field="o.contract_id.housing_amount"/>
+                                            </td>
+                                            <td colspan="2">
+                                                <span t-esc="o.contract_id.housing_amount * 12"/>
+                                            </td>
+                                        </tr>
+                                        <tr style="text-align: center;">
+                                            <td style="text-align: right;" colspan="2">بدل الموصلات</td>
+                                            <td colspan="2">
+                                                <span t-field="o.contract_id.transportation"/>
+                                            </td>
+                                            <td colspan="2">
+                                                <span t-esc="o.contract_id.transportation * 12"/>
+                                            </td>
+                                        </tr>
+                                        <t t-set="total" t-value="0"/>
+                                        <t t-set="total"
+                                           t-value="(o.contract_id.housing_amount + o.contract_id.transportation + o.salary_proposed)"/>
+                                        <tr style="text-align: center;">
+                                            <td style="text-align: right;" colspan="2">الاجمالي</td>
+                                            <td colspan="2">
+                                                <span t-esc="total"/>
+                                            </td>
+                                            <td colspan="2">
+                                                <span t-esc="total * 12"/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table style="width: 100%;">
+                                    <tbody>
+                                        <tr>
+                                            <td style="text-align: center;" colspan="3">ممیزات وشروط
+                                                أخرى
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3">
+                                                الاجازة السنوية فقط(30)يوم مدفوعة الاجر عن كل (سنة) ميلادية خدمة.
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3">تذاكر سفر لغير السعوديين (حسب نظام الشركة) (الموظف و زوجتة و
+                                                طفلين)
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3">
+                                                العلاج : يكون العلاج مجانا للموظف و عائلتة داخل الممكلة العربية السعودية
+                                                (حسب نظام الشركة)
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3">
+                                                فترة التجربة : (90) يوم حسب نظام العمل و العمال السعودي اعتبار من تاريخ
+                                                مباشرة العمل
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3">
+                                                تتحمل الشركة رسوم نقل الكفالة للمرة الاولى فقط
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3">
+                                                يعتبر هذا العرض لاغيا في حالة عدم مباشرة العمل في التاريخ
+                                                المحدد ادناه او عدم امكانية نقل الكفالة حسب النظام
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3">
+                                                ھذا العقد جزء من عقد العمل الذي سوف یتم توقیعه بین الموظف والشركة بعد
+                                                إنتھاء إجراءات نقل الكفالة للموظف الغير سعودي
+                                                وبعد انتھاء فترة التجربة حسب نظام العمل ، ویعتبر ھذا العرض نھائیا ویحل
+                                                محل أي اتفاقیات أو مفاوضات سابقة .
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3">
+                                                ملاحظة : في حالة استقالة الموظف الغير سعودي او انهاء خدماتة لاسباب مخلة
+                                                بالعمل او الشرف او عدم اطاعة الاوامر فان الشركة لن تمنحة تنازل و سوف
+                                                يسافر الموظف الى بلدة بتأشيرة خروج نهائي دون تمتع باي حقوق,و تحسم رسوم
+                                                اشتراك التأمينات الاجتماعية من مستحقاتة للسعودي و غير السعودي.
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <p>مسؤول شؤون
+                                                    <br/>
+                                                    <br/>_____________
+                                                </p>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <p>مدير الادارة</p>
+                                                <p>_____________</p>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <p>مدير ادارة الموارد البشرية</p>
+                                                <p>_____________</p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: right;" colspan="3">اوافق على ما جاء في تفاصيل هذا
+                                                العرض و أؤكد بانني على استعداد لمباشر العمل خلال() و الالتزام بالبنود
+                                                المدونة اعلاه
+                                            </td>
+                                        </tr>
+                                        <t t-if="o.notes">
+                                            <tr>
+                                                <td colspan="3">
+                                                    <br/>
+                                                    <strong>ملاحظات:</strong>
+                                                    <br/>
+                                                    <span t-esc="o.notes"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <p>الاسم</p>
+                                                <p>_____________</p>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <p>التوقيع</p>
+                                                <p>_____________</p>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <p>التاريخ
+                                                    <br/>
+                                                    <br/>_____________
+                                                </p>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

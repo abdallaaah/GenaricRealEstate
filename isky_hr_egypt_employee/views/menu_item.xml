@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <menuitem name="Education Qualifications"
+                  id="exp_education_qualification_menu"
+                  parent="hr.menu_human_resources_configuration"
+                  action="exp_education_qualification_action"
+                  sequence="20"/>
+
+        <menuitem name="Employee Experiences"
+                  id="exp_practical_experience_menu"
+                  parent="hr.menu_human_resources_configuration"
+                  action="exp_practical_experience_action"
+                  sequence="20"/>
+
+        <menuitem id="exp_training_menu"
+                  name="Trainings"
+                  parent="hr.menu_hr_root"
+                  action="exp_training_action"
+                  sequence="20"/>
+
+
+        <menuitem id="training_type_menu"
+                  name="Trainings Type"
+                  parent="hr.menu_human_resources_configuration"
+                  action="training_type_action"
+                  sequence="20"/>
+
+        <menuitem id="training_categ_menu"
+                  name="Trainings Category"
+                  parent="hr.menu_human_resources_configuration"
+                  action="training_categ_action"
+                  sequence="20"/>
+
+        <menuitem id="exp_skills_menu"
+                  name="Skills"
+                  parent="hr.menu_human_resources_configuration"
+                  action="exp_skills_action"
+                  sequence="20"/>
+         <menuitem id="course_menu_categ"
+                   name="Course"
+                   parent="hr.menu_human_resources_configuration"
+                   action="exp_course_action"
+                   sequence="20"/>
+       <menuitem id="institute_menu_categ"
+                 name="Institute"
+                 parent="hr.menu_human_resources_configuration"
+                 action="exp_institute_action"
+                 sequence="20"/>
+
+
+        <menuitem id="exp_informants_menu"
+                  name="Informants"
+                  parent="hr.menu_human_resources_configuration"
+                  action="exp_informants_action"
+                  sequence="20"/>
+
+
+        <menuitem id="hr.menu_employees_information"
+                  name="Employees Information"
+                  parent="hr.menu_hr_reporting_timesheet"
+                  action="employees_information_action"
+                  sequence="1"/>
+
+    </data>
+</odoo>

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="main_project_views_tree" model="ir.ui.view">
+        <field name="name">project.tree</field>
+        <field name="model">realestate.project</field>
+        <field name="arch" type="xml">
+            <list string="Project">
+                <field name="name"/>
+                <field name="abbreviation"/>
+<!--                <field name="code"/>-->
+                <field name="purchase_date"/>
+                <field name="total_area"/>
+                <field name="system_code"/>
+                <field name="company_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="main_project_type_form" model="ir.ui.view">
+        <field name="name">project.form</field>
+        <field name="model">realestate.project</field>
+        <field name="arch" type="xml">
+            <form string="Project">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="abbreviation"/>
+<!--                            <field name="code"/>-->
+                            <field name="purchase_date"/>
+                            <field name="project_type_ids" widget="many2many_tags" options="{'no_quick_create':True, 'no_create_edit' : True,'no_open': True}"/>
+                            <field name="location" invisible="1"/>
+                            <field name="system_code"/>
+                            <field name="company_id"/>
+                        </group>
+
+                        <group>
+                            <field name="launching_date"/>
+                            <field name="total_area"/>
+                            <field name="bua"/>
+                            <field name="main_owner"/>
+                            <field name="construction_date"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Documents">
+                            <group>
+                                <group>
+                                    <field name="project_plan"/>
+                                    <field name="license"/>
+                                    <field name="permits"/>
+                                    <field name="contracts"/>
+                                    <field name="guide_line"/>
+                                    <field name="handbook"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Features">
+                            <field name="feature_ids">
+                                <kanban>
+                                    <field name="id"/>
+                                    <field name="name"/>
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                            <div class="oe_kanban_global_click"
+                                                 style="width:160px;height:60px;border: none">
+                                                <div style="width:40%;">
+                                                    <img alt="Avtar"
+                                                         t-att-src="kanban_image('real.estate.feature','image',record.id.raw_value)"
+                                                         style="width:60px;height:60px;"/>
+                                                </div>
+                                                <div style="width:60%;padding-top: 5px">
+                                                    <h5 style="color:#714B67;">
+                                                        <strong>
+                                                            <field name="name"/>
+                                                        </strong>
+                                                    </h5>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                            </field>
+                        </page>
+                        <page string="Facilities">
+                            <field name="facility_ids">
+                                <kanban>
+                                    <field name="id"/>
+                                    <field name="name"/>
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                            <div class="oe_kanban_global_click"
+                                                 style="width:160px;height:60px;border: none">
+                                                <div style="width:40%;">
+                                                    <img alt="Avtar"
+                                                         t-att-src="kanban_image('real.estate.feature','image',record.id.raw_value)"
+                                                         style="width:60px;height:60px;"/>
+                                                </div>
+                                                <div style="width:60%;padding-top: 5px">
+                                                    <h5 style="color:#714B67;">
+                                                        <strong>
+                                                            <field name="name"/>
+                                                        </strong>
+                                                    </h5>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                            </field>
+                        </page>
+                        <page string="Nearby Connectivity">
+                            <field name="nearby_connectivity_ids">
+                                <kanban>
+                                    <field name="id"/>
+                                    <field name="name"/>
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                            <div class="oe_kanban_global_click"
+                                                 style="width:160px;height:60px;border: none">
+                                                <div style="width:40%;">
+                                                    <img alt="Avtar"
+                                                         t-att-src="kanban_image('real.estate.feature','image',record.id.raw_value)"
+                                                         style="width:60px;height:60px;"/>
+                                                </div>
+                                                <div style="width:60%;padding-top: 5px">
+                                                    <h5 style="color:#714B67;">
+                                                        <strong>
+                                                            <field name="name"/>
+                                                        </strong>
+                                                    </h5>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                            </field>
+                        </page>
+                        <page string="Project Phases">
+                            <field name="project_phases_ids">
+                                <kanban>
+                                    <field name="id"/>
+                                    <field name="name"/>
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                            <div class="oe_kanban_global_click"
+                                                 style="width:160px;height:60px;border: none">
+                                                <div style="width:40%;">
+                                                    <img alt="Avtar"
+                                                         t-att-src="kanban_image('real.estate.feature','image',record.id.raw_value)"
+                                                         style="width:60px;height:60px;"/>
+                                                </div>
+                                                <div style="width:60%;padding-top: 5px">
+                                                    <h5 style="color:#714B67;">
+                                                        <strong>
+                                                            <field name="name"/>
+                                                        </strong>
+                                                    </h5>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                            </field>
+                        </page>
+
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_main_project" model="ir.actions.act_window">
+        <field name="name">Project</field>
+        <field name="res_model">realestate.project</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

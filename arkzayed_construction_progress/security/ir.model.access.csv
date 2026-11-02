@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_progress_read,arkzayed.construction.progress read,model_arkzayed_construction_progress,base.group_user,1,0,0,0
+access_progress_engineer,arkzayed.construction.progress engineer,model_arkzayed_construction_progress,group_progress_engineer,1,0,1,0
+access_progress_manager,arkzayed.construction.progress manager,model_arkzayed_construction_progress,group_progress_manager,1,1,1,1
+access_progress_wizard,arkzayed.progress.update.wizard,model_arkzayed_progress_update_wizard,group_progress_engineer,1,1,1,1
+access_progress_report_wizard,arkzayed.progress.report.wizard,model_arkzayed_progress_report_wizard,base.group_user,1,1,1,1

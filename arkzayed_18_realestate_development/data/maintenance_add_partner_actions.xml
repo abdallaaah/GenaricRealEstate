@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_fix_missing_partner" model="ir.actions.server">
+        <field name="name">Fix Missing Partner Info</field>
+        <field name="model_id" ref="model_maintenance_installment_lines"/>
+        <field name="binding_model_id" ref="model_maintenance_installment_lines"/>
+        <field name="state">code</field>
+        <field name="code">
+for rec in records:
+    if not rec.partner_id:
+        if rec.sale_proposal_id:
+            rec['partner_id'] = rec.sale_proposal_id.customer_id.id
+        elif rec.reservation_id:
+            rec['partner_id'] = rec.reservation_id.customer_id.id
+        </field>
+    </record>
+</odoo>

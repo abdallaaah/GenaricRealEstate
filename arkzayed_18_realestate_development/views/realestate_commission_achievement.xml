@@ -1,0 +1,138 @@
+<odoo>
+    <data>
+
+        <record id="view_realestate_commission_achievement_list" model="ir.ui.view">
+            <field name="name">realestate.commission.achievement.list</field>
+            <field name="model">realestate.commission.achievement</field>
+            <field name="arch" type="xml">
+                <list string="Commission Achievements">
+                    <field name="opportunity_id"/>
+                    <field name="sale_proposal_id"/>
+                    <field name="unit_id"/>
+                    <field name="job_level_id"/>
+                    <field name="user_id"/>
+                    <field name="job_position_id"/>
+                    <field name="sales_volume"/>
+                    <field name="commission_percentage"/>
+                    <field name="commission_amount"/>
+                    <field name="total_commission_amount"/>
+                    <field name="state"/>
+                    <field name="paid_outside_system" widget="boolean_toggle" optional="show"/>
+                    <field name="commission_plan_id" optional="1"/>
+                    <field name="commission_target_id" optional="1"/>
+                    <field name="target_commission_rate_id" optional="1"/>
+                    <field name="is_tcr_sales_person" optional="1" widget="boolean_toggle"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_realestate_commission_achievement_form" model="ir.ui.view">
+            <field name="name">realestate.commission.achievement.form</field>
+            <field name="model">realestate.commission.achievement</field>
+            <field name="arch" type="xml">
+                <form string="Commission Achievement">
+                    <header>
+                        <button name="action_confirm" string="Confirm" type="object"
+                                class="oe_highlight" invisible="state != 'draft'"/>
+                        <button name="action_create_payment" string="Create Payment" type="object"
+                                class="btn-info" invisible="state != 'confirmed'"/>
+                        <button name="action_mark_paid_outside_system" string="Mark Paid Outside System" type="object"
+                                class="btn-secondary" invisible="state != 'confirmed'"
+                                confirm="This sale commission will be marked as Paid without creating a payment in the system. Use this only for old contracts whose commission was already paid before this system was in use. Continue?"/>
+                        <button name="action_reset_to_draft" string="Reset to Draft" type="object"
+                                invisible="state not in ['confirmed', 'cancelled']"/>
+                        <button name="action_cancel" string="Cancel" type="object"
+                                invisible="state not in ['draft', 'confirmed']"/>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="draft,confirmed,paid"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_view_payment" type="object"
+                                    class="oe_stat_button" icon="fa-pencil-square-o">
+                                <div class="o_stat_info">
+                                    <span class="o_stat_text">
+                                        Payments
+                                    </span>
+                                </div>
+                            </button>
+                            <button name="action_view_journal_entry" type="object"
+                                    class="oe_stat_button" icon="fa-book"
+                                    invisible="journal_entry_id == False">
+                                <field name="journal_entry_id" invisible="1"/>
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_text">Journal</span>
+                                    <span class="o_stat_text">Entry</span>
+                                </div>
+                            </button>
+                        </div>
+
+                        <group>
+                            <group>
+                                <field name="opportunity_id"/>
+                                <field name="sale_proposal_id"/>
+                                <field name="unit_id"/>
+                                <field name="job_level_id"/>
+                                <field name="user_id"/>
+                                <field name="job_position_id"/>
+                                <field name="commission_target_id"/>
+                                <field name="commission_plan_id"/>
+                            </group>
+                            <group>
+                                <field name="sales_volume"/>
+                                <field name="commission_percentage"/>
+                                <field name="commission_amount"/>
+                                <field name="is_tcr_sales_person" widget="boolean_toggle"/>
+                                <field name="payment_date" invisible="state not in ['paid']"/>
+                                <field name="paid_outside_system" widget="boolean_toggle" readonly="1"
+                                       invisible="not paid_outside_system"/>
+                                <field name="paid_outside_system_note"
+                                       invisible="not paid_outside_system"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_realestate_commission_achievement_search" model="ir.ui.view">
+            <field name="name">realestate.commission.achievement.search</field>
+            <field name="model">realestate.commission.achievement</field>
+            <field name="arch" type="xml">
+                <search string="Commission Achievements">
+                    <field name="opportunity_id"/>
+                    <field name="sale_proposal_id"/>
+                    <field name="unit_id"/>
+                    <field name="user_id"/>
+                    <field name="job_level_id"/>
+                    <field name="job_position_id"/>
+                    <separator/>
+                    <filter string="Paid Outside System" name="paid_outside_system"
+                            domain="[('paid_outside_system','=',True)]"/>
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter string="Opportunity" name="group_by_opportunity" context="{'group_by': 'opportunity_id'}"/>
+                        <filter string="User" name="group_by_user" context="{'group_by': 'user_id'}"/>
+                        <filter string="Job Level" name="group_by_job_level" context="{'group_by': 'job_level_id'}"/>
+                        <filter string="Job Position" name="group_by_job_position" context="{'group_by': 'job_position_id'}"/>
+                        <filter string="State" name="group_by_state" context="{'group_by': 'state'}"/>
+                        <filter string="Paid Outside System" name="group_by_paid_outside_system" context="{'group_by': 'paid_outside_system'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="realestate_commission_achivement" model="ir.actions.act_window">
+            <field name="name">Commission Achivement</field>
+            <field name="res_model">realestate.commission.achievement</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem
+            id="menu_commission_achivement"
+            action="realestate_commission_achivement"
+            parent="sale_commission.menu_sale_commission"
+            name="Realestate Commission"/>
+    </data>
+</odoo>

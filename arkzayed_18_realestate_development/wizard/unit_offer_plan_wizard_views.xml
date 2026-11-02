@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_unit_offer_plan_wizard_form" model="ir.ui.view">
+        <field name="name">unit.offer.plan.wizard.form</field>
+        <field name="model">unit.offer.plan.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Print Unit Offer Plan">
+                <sheet>
+                    <group>
+                        <field name="unit_id"/>
+                        <field name="project_id" invisible="1"/>
+                        <field name="template_ids" widget="many2many_tags"
+                               options="{'no_create': True}"
+                               placeholder="Select one or more payment plans..."/>
+                    </group>
+                    <div class="text-muted">
+                        Only the plans you pick here are printed, one page each, after the unit page.
+                    </div>
+                </sheet>
+                <footer>
+                    <button name="action_print" type="object" string="Print" class="btn-primary" icon="fa-print"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record model="ir.module.category" id="custody_group_category">
+            <field name="name">Custody</field>
+            <field name="description">Group Description.</field>
+            <field name="sequence">10</field>
+        </record>
+
+        <record id="custody_group" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="category_id" ref="custody_group_category"/>
+        </record>
+    </data>
+</odoo>

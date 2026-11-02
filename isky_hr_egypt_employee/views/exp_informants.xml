@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_exp_informants_form" model="ir.ui.view">
+            <field name="name">view.exp.informants.form</field>
+            <field name="model">exp.informants</field>
+            <field name="arch" type="xml">
+                <form string="Partner Informants">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="job"/>
+                                <field name="email"/>
+                                <field name="employee_id"/>
+                            </group>
+                            <group>
+                                <field name="company"/>
+                                <field name="mobile"/>
+                                <field name="applicant_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_exp_informants_tree" model="ir.ui.view">
+            <field name="name">view.exp_informants.tree</field>
+            <field name="model">exp.informants</field>
+            <field name="arch" type="xml">
+                <list string="Partner Informants">
+                    <field name="name"/>
+                    <field name="job"/>
+                    <field name="email"/>
+                    <field name="employee_id"/>
+                    <field name="company"/>
+                    <field name="mobile"/>
+                    <field name="applicant_id"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_exp_informants_search" model="ir.ui.view">
+            <field name="name">view.exp_informants.search</field>
+            <field name="model">exp.informants</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="job"/>
+                    <field name="email"/>
+                    <field name="employee_id"/>
+                    <field name="company"/>
+                    <field name="mobile"/>
+                    <field name="applicant_id"/>
+                    <group string="Group By" name="groupby">
+                        <filter name="name_groupby" string="name" context="{'group_by': 'name'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="exp_informants_action" model="ir.actions.act_window">
+            <field name="name">Partner Informants</field>
+            <field name="res_model">exp.informants</field>
+            <field name="view_mode">list,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a new Partner Informants.
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

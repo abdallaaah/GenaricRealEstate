@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+         <record id="employee_salary_report" model="ir.actions.report">
+            <field name="name">تثبيت راتب</field>
+            <field name="model">hr.contract</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">isky_hr_egypt_allowances_application_contract.salary_report_template</field>
+            <field name="report_file">isky_hr_egypt_allowances_application_contract.salary_report_template</field>
+            <field name="print_report_name">'تثبيت راتب'</field>
+            <field name="binding_model_id" ref="hr_contract.model_hr_contract"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <template id="salary_report_template">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page" style="font-size: 18px;">
+                        <t t-foreach="docs" t-as="o">
+                            <p style="text-align: right;">السادة البنك السعودي الفرنسي المحترمین</p>
+                            <p style="text-align: right;" dir="rtl">اسم الموظف :
+                                <span t-field="o.employee_id.employee_arabic_name"/>
+                                <br/>
+                                <br/>رقم الھویة :
+                                <span t-field="o.employee_id.identification_id"/>
+                                <br/>
+                                <br/>المسمى الوظیفي :
+                                <span t-field="o.job_id"/>
+                                <span style="padding-right:50px">القسم :</span>
+                                <span t-field="o.department_id"/>
+                                <br/>
+                                <br/>
+                            </p>
+                            <t t-set="total_allow" t-value="0"/>
+                            <t t-set="total_allow"
+                               t-value="(o.housing_amount + o.transportation_amount + o.natural_work_amount + o.food_allowance_amount + o.mobile_allowance_amount)"/>
+                            <p style="text-align: right;">تاریخ التعیین :
+                                <span t-field="o.employee_id.first_hiring_date"/>
+                                <br/>
+                                <br/>(الراتب
+                                الاساسي : (
+                                <span t-field="o.wage"/>
+                                <br/>
+                                <br/>(البدلات : (
+                                <span t-esc="total_allow"/>
+                                <br/>
+                                <br/>نؤكد بأن الموظف المذكور اعلاه هو موظف لدينا وقد طلب منا تحويل صافي راتبه الشهري
+                                الي حسابه رقم (
+                                <span t-field="o.employee_id.bank_account_id"/>
+                                ) وبناء عليه نتعهد تعهدا غير مشروطا وغير قابل للنقض بان نقوم بتحويل راتبه الشهري ومكافأة
+                                نهاية الخدمة الي الحساب المذكور اعلاه ودون ادني مسئولية علي الشركة
+                                <br/>
+
+                                كما نتعھد بإبلاغكم خطیا وعلى الفور في حال فصله عن العمل أو انتھاء خدمته معنا لأي سبب كان
+                                ، یسري مفعول التزامنا حتى استلامنا اشعار خطي
+                                من البنك
+                            </p>
+                            <p style="text-align: left;"><br/>I understand that MR
+                                <span t-field="o.employee_id.name"/>
+                                wishes to obtain a
+                                loan from your institution . in this regard fully support this application on the
+                                basis that (company name) , will not bear any responsibility and offers no guarantee
+                                relative to his application.
+                                <br/>
+                                <br/>The company agrees to transfer his monthly salary to
+                                his given account no (IBAN number )
+                                <br/>
+                                <br/>Company also agrees to pay over to your
+                                institution in the event that leaves the services of our company upon request form
+                                your representative his salary and End of service benefit .
+                                <br/>
+                                <br/>This will well be
+                                processed we also agrees to inform you immediately in writhing about his separation.
+                            </p>
+                            <br/>
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td>
+                                        <t t-if="o.notes">Notes :
+
+                                        </t>
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <span t-field="o.notes"/>
+                                    </td>
+                                    <td style="text-align: right;">
+                                        <t t-if="o.notes">:ملاحظات
+                                        </t>
+                                    </td>
+                                </tr>
+                            </table>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

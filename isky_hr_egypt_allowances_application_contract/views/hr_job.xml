@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Inherit Form view -->
+        <record id="exp_inh_hr_job_form" model="ir.ui.view">
+            <field name="name">exp.inh.hr.job.form</field>
+            <field name="model">hr.job</field>
+            <field name="inherit_id" ref="hr.view_hr_job_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='recruitment']" position="after">
+                    <group string="Job Specification">
+                        <field name="structure_id" required="1"/>
+                    </group>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Job Description">
+                        <group>
+                            <group>
+                                <field name="duties"/>
+                            </group>
+                            <group>
+                                <field name="equipment"/>
+                            </group>
+                            <group>
+                                <field name="span_of_control"/>
+                            </group>
+                            <group>
+                                <field name="job_summary"/>
+                            </group>
+                            <group>
+                                <field name="responsibilities"/>
+                            </group>
+                            <group>
+                                <field name="conditions"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Job Specification">
+                        <group>
+                            <group>
+                                <field name="knowledge"/>
+                            </group>
+                            <group>
+                                <field name="experience"/>
+                            </group>
+                            <group>
+                                <field name="skills"/>
+                            </group>
+                            <group>
+                                <field name="attitudes"/>
+                            </group>
+                            <group>
+                                <field name="abilities"/>
+                            </group>
+                            <group>
+                                <field name="competences"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath></field>
+        </record>
+        <record id="exp_inh_hr_job_search" model="ir.ui.view">
+            <field name="name">exp.inh.hr.job.search</field>
+            <field name="model">hr.job</field>
+            <field name="inherit_id" ref="hr.view_job_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group" position="inside">
+                    <filter context="{'group_by':'user_id'}" name="recruitment_responsible" string="Recruitment Responsible"/>
+                </xpath></field>
+        </record>
+        <record id="organization_report_tree_view" model="ir.ui.view">
+            <field name="name">hr.job.organization.tree.view</field>
+            <field name="model">hr.job</field>
+            <field name="arch" type="xml">
+                <list string="Organization Chart Report">
+                    <field name="name"/>
+                    <field name="department_id"/>
+                    <field name="parent_department_id"/>
+                    <field name="no_of_recruitment"/>
+                    <field name="structure_id"/>
+                </list></field>
+        </record>
+        <record id="organization_chart_action" model="ir.actions.act_window">
+            <field name="name">Organization Chart Report</field>
+            <field name="res_model">hr.job</field>
+            <field name="view_mode">list</field>
+            <field name="view_id" ref="organization_report_tree_view"/>
+        </record>
+    </data>
+</odoo>

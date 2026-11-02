@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="maintenance_installment_line_report_tree" model="ir.ui.view">
+        <field name="name">maintenance.installment.line.report.tree</field>
+        <field name="model">maintenance.installment.lines</field>
+        <field name="arch" type="xml">
+            <list string="Maintenance Installments" create="0" delete="0" edit="0" decoration-danger="is_overdue" decoration-success="paid"
+                decoration-warning="is_sale_proposal_vip">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="sale_proposal_id"/>
+                <field name="unit_id"/>
+                <field name="partner_id"/>
+                <field name="amount" sum="Total Amount"/>
+                <field name="paid_amount" sum="Total Paid"/>
+                <field name="remaining_amount" sum="Total Remaining"/>
+                <field name="paid" widget="boolean_toggle"/>
+                <field name="overdue_days"/>
+                <field name="vip_badge" widget="badge" decoration-warning="is_sale_proposal_vip" string="VIP"/>
+                <field name="is_overdue" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="maintenance_installment_line_report_search" model="ir.ui.view">
+        <field name="name">maintenance.installment.line.report.search</field>
+        <field name="model">maintenance.installment.lines</field>
+        <field name="arch" type="xml">
+            <search string="Search Maintenance Installments">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="unit_id"/>
+                <field name="sale_proposal_id"/>
+                <filter string="Paid" name="paid" domain="[('paid', '=', True)]"/>
+                <filter string="Not Paid" name="not_paid" domain="[('paid', '=', False)]"/>
+                <group expand="1" string="Group By">
+                    <filter string="Customer" name="group_by_partner" context="{'group_by':'partner_id'}"/>
+                    <filter string="Unit" name="group_by_unit" context="{'group_by':'unit_id'}"/>
+                    <filter string="Paid Status" name="group_by_paid" context="{'group_by':'paid'}"/>
+                    <filter string="Contract Type" name="group_by_contract_type" context="{'group_by':'contract_type'}"/>
+                    <filter string="Overdue" name="group_by_overdue" context="{'group_by':'is_overdue'}"/>
+                    <filter string="Date" name="group_by_date" context="{'group_by':'date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_maintenance_report" model="ir.actions.act_window">
+        <field name="name">Maintenance Report</field>
+        <field name="res_model">maintenance.installment.lines</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="maintenance_installment_line_report_tree"/>
+        <field name="search_view_id" ref="maintenance_installment_line_report_search"/>
+        <field name="context">{'search_default_group_by_unit': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No maintenance installments found
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_maintenance_report"
+              name="Maintenance Report"
+              parent="menu_reports_root"
+              action="action_maintenance_report"
+              sequence="10"/>
+</odoo>

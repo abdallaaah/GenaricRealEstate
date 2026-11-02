@@ -1,0 +1,153 @@
+<odoo>
+    <record id="report_payment_plan_paperformat" model="report.paperformat">
+            <field name="name">Payment Plan Format</field>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+            <field name="header_line">False</field>
+            <field name="header_spacing">20</field>
+            <field name="dpi">90</field>
+    </record>
+
+    <record id="payment_plan_report" model="ir.actions.report">
+            <field name="name">Payment Plan</field>
+            <field name="model">real.estate.sale.reservation</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">arkzayed_18_realestate_development.payment_plan_report_template</field>
+            <field name="report_file">arkzayed_18_realestate_development.payment_plan_report_template</field>
+            <field name="print_report_name">f"{object.customer_id.name}--{object.unit_id.system_code}"</field>
+            <field name="paperformat_id" ref="arkzayed_18_realestate_development.report_payment_plan_paperformat"/>
+    </record>
+
+    <template id="payment_plan_styles">
+        <style>
+            .pp-title {
+                text-align: center;
+                margin-bottom: 5px;
+                color: #2c3e50;
+                border-bottom: 2px solid #2c3e50;
+                padding-bottom: 10px;
+                font-size: 20px;
+            }
+            .pp-info-table {
+                width: 100%;
+                margin-bottom: 5px;
+            }
+            .pp-info-cell {
+                width: 50%;
+                text-align: center;
+                background: #f2f2f2;
+                border: 1px solid #dcdcdc;
+                color: #2c3e50;
+            }
+            .pp-label {
+                font-size: 13px;
+            }
+            .pp-value {
+                font-size: 15px;
+                font-weight: bold;
+                margin-top: 4px;
+            }
+            .pp-table {
+                width: 100%;
+                font-size: 15px;
+                color: #2c3e50;
+            }
+            .pp-table th {
+                text-align: center;
+                font-size: 15px;
+            }
+            .pp-table td {
+                text-align: center;
+                line-height: 1.4;
+                border-bottom: 1px solid #dcdcdc;
+                color: #2c3e50;
+            }
+            .pp-table td a {
+                color: #2c3e50 ;
+            }
+        </style>
+    </template>
+
+    <template id="payment_plan_report_template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <t t-call="arkzayed_18_realestate_development.payment_plan_styles"/>
+                <t t-foreach="docs" t-as="o">
+                    <div class="page">
+                        <h2 class="pp-title">Payment Plan</h2>
+
+                        <table class="pp-info-table">
+                            <tr>
+                                <td class="pp-info-cell">
+                                    <div class="pp-label">Client Name</div>
+                                    <div class="pp-value">
+                                        <t t-if="o.customer_id and o.customer_id.name" t-esc="o.customer_id.name"/>
+                                        <t t-else="">—</t>
+                                    </div>
+                                </td>
+                                <td class="pp-info-cell">
+                                    <div class="pp-label">Unit ID</div>
+                                    <div class="pp-value">
+                                        <t t-if="o.unit_id and o.unit_id.system_code" t-esc="o.unit_id.system_code"/>
+                                        <t t-else="">—</t>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="pp-info-cell">
+                                    <div class="pp-label">Sold Price</div>
+                                    <div class="pp-value">
+                                        <t t-if="o.installment_ids" t-esc="'{:,.2f}'.format(round(sum(o.installment_ids.mapped('total_amount')), 2))"/>
+                                        <t t-else="">0</t>
+                                        <t t-if="o.currency_id"> <t t-esc="o.currency_id.name"/></t>
+                                    </div>
+                                </td>
+                                <td class="pp-info-cell">
+                                    <div class="pp-label">Maintenance Fees</div>
+                                    <div class="pp-value">
+                                        <t t-if="o.maintenance_installment_ids" t-esc="'{:,.2f}'.format(round(sum(o.maintenance_installment_ids.mapped('total_amount')), 2))"/>
+                                        <t t-else="">0</t>
+                                        <t t-if="o.currency_id"> <t t-esc="o.currency_id.name"/></t>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table class="pp-table">
+                                <tr style="background: #2c3e50; color: #ffffff;">
+                                    <th>Name</th>
+                                    <th>Date</th>
+                                    <th>Percentage</th>
+                                    <th>Unit Installment</th>
+                                    <th>Maintenance Installment</th>
+                                </tr>
+                                <t t-set="installments" t-value="o._get_installments_grouped_by_date()"/>
+                                <t t-foreach="installments" t-as="line">
+                                    <tr>
+                                        <td><t t-esc="line['label']"/></td>
+                                        <td><t t-esc="line['date']"/></td>
+                                        <td><t t-esc="line['percentage']"/>%</td>
+                                        <td><t t-esc="'{:,.2f}'.format(line['unit_amount'])"/></td>
+                                        <td>
+                                            <t t-if="line['maintenance_amount']" t-esc="'{:,.2f}'.format(line['maintenance_amount'])"/>
+                                            <t t-else="">—</t>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td colspan="2">Total</td>
+                                    <td><t t-esc="round(sum(l['percentage'] for l in installments), 0)"/>%</td>
+                                    <td><t t-esc="'{:,.2f}'.format(round(sum(l['unit_amount'] for l in installments), 2))"/></td>
+                                    <td><t t-esc="'{:,.2f}'.format(round(sum(l['maintenance_amount'] for l in installments), 2))"/></td>
+                                </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

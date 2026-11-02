@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_crm_lead_form_inherit" model="ir.ui.view">
+        <field name="name">view_crm_lead_form_inherit</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='lead']/group/group[3]" position="inside">
+                <field name="referred_by"/>
+            </xpath>
+            <xpath expr="//page[@name='extra']/group/group[2]" position="inside">
+                <field name="referred_by"/>
+            </xpath>
+            <xpath expr="//page[@name='extra']/group/group[2]/field[@name='referred']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//page[@name='extra']/group/group[2]/field[@name='referred_by']" position="after">
+                <field name="partner_id" invisible="referred_by != 'customer'"/>
+                <field name="employee_id" invisible="referred_by != 'employee'"/>
+                <field name="broker_id" invisible="referred_by != 'broker'" context="{'default_is_broker':True}"/>
+                <field name="has_contract" invisible="broker_id == False" groups="arkzayed_18_realestate_development.group_operation_manager_approval"/>
+                <field name="other" invisible="referred_by != 'other'"/>
+                <field name="ambassador_id" invisible="referred_by != 'ambassador'"/>
+            </xpath>
+            <xpath expr="//page[@name='lead']/group/group[3]/field[@name='referred_by']" position="after">
+                <field name="partner_id" invisible="referred_by != 'customer'"/>
+                <field name="employee_id" invisible="referred_by != 'employee'"/>
+                <field name="broker_id" invisible="referred_by != 'broker'" context="{'default_is_broker':True}"/>
+                <field name="has_contract" invisible="broker_id == False" groups="arkzayed_18_realestate_development.group_operation_manager_approval"/>
+                <field name="other" invisible="referred_by != 'other'"/>
+                <field name="ambassador_id" invisible="referred_by != 'ambassador'"/>
+            </xpath>
+            <xpath expr="//page[@name='lead']/group/group[3]/field[@name='referred']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//group[@name='lead_priority']" position="after">
+                <group name="Acquisition Date">
+<!--                    <field name="acquisition_date"/>-->
+                    <field name="what_for"/>
+                </group>
+            </xpath>
+
+            <xpath expr="//field[@name='company_currency']" position="before">
+                <field name="currency_id"/>
+            </xpath>
+            <xpath expr="//field[@name='expected_revenue']" position="replace">
+                <field name="expected_revenue" class="o_input_13ch" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

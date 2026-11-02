@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="social_insurance_rule" model="hr.salary.rule">
+            <field name="amount_select">code</field>
+            <field name="code">SI</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="name">Social Insurance</field>
+            <field name="sequence" eval="101"/>
+            <field name="condition_select">none</field>
+            <field name="struct_id" ref="isky_hr_egypt_policy.default_structure_002"/>
+            <field name="amount_python_compute">result = -(payslip.social_insurance_amount)</field>
+        </record>
+
+        <record id="company_social_insurance_rule" model="hr.salary.rule">
+            <field name="amount_select">code</field>
+            <field name="code">CSI</field>
+            <field name="category_id" ref="hr_payroll.COMP"/>
+            <field name="name">Company Social Insurance</field>
+            <field name="sequence" eval="102"/>
+            <field name="condition_select">none</field>
+            <field name="struct_id" ref="isky_hr_egypt_policy.default_structure_002"/>
+            <field name="amount_python_compute">result = (contract.company_social_insurance_amount)</field>
+        </record>
+
+        <record id="hr_insurance_sequence" model="ir.sequence">
+            <field name="name">Insurance Form Sequence</field>
+            <field name="code">hr.insurance.sequence</field>
+            <field name="prefix">INS/</field>
+            <field name="padding">4</field>
+        </record>
+
+        <record id="hr_insurance_annual_sequence" model="ir.sequence">
+            <field name="name">Annual Insurance Form Sequence</field>
+            <field name="code">hr.insurance.annual.sequence</field>
+            <field name="prefix">INC/</field>
+            <field name="padding">4</field>
+        </record>
+    </data>
+</odoo>

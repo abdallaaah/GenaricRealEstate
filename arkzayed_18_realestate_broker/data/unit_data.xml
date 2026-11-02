@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Create Primary Unit Sequence -->
+        <record id="seq_primary_unit" model="ir.sequence">
+            <field name="name">Primary Unit Sequence</field>
+            <field name="code">unit.primary.sequence</field>
+            <field name="prefix">UP</field>
+            <field name="padding">6</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <!-- Create Resale Unit Sequence -->
+        <record id="seq_resale_unit" model="ir.sequence">
+            <field name="name">Resale Unit Sequence</field>
+            <field name="code">unit.resale.sequence</field>
+            <field name="prefix">UR</field>
+            <field name="padding">6</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+    </data>
+</odoo>

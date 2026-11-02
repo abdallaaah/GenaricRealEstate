@@ -1,0 +1,69 @@
+<odoo>
+    <data>
+        <record id="action_compute_last_message" model="ir.actions.server">
+            <field name="name">Compute Last Message</field>
+            <field name="model_id" ref="crm.model_crm_lead"/>
+            <field name="binding_model_id" ref="crm.model_crm_lead"/>
+            <field name="binding_view_types">list,form</field>
+            <field name="state">code</field>
+            <field name="code">
+                records._compute_last_message()
+            </field>
+        </record>
+        <record id="view_lead_tree_view_inherit" model="ir.ui.view">
+            <field name="name">view.lead.tree.view.inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_tree_view_oppor"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='stage_id']" position="attributes">
+                    <attribute name="column_invisible">context.get('default_type') == 'lead'</attribute>
+                </xpath>
+                <xpath expr="//field[@name='country_id']" position="attributes">
+                    <attribute name="column_invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='stage_id']" position="after">
+                    <field name="lead_stage_id" column_invisible="context.get('default_type') == 'opportunity'"/>
+                    <field name="create_date"/>
+                    <field name="create_uid"/>
+                    <field name="ninja_count" column_invisible="1"/>
+                    <field name="first_assignment_date" string="First Assignment Date"/>
+                    <field name="date_open" string="Last Assignment Date"/>
+                    <field name="phone"/>
+                    <field name="lead_sequence" column_invisible="context.get('default_type') == 'opportunity'"/>
+                    <field name="opportunity_sequence" column_invisible="context.get('default_type') == 'lead'"/>
+                    <field name="activity_ids" widget="many2many_tags"/>
+                    <field name="write_date" optional="hide"/>
+                    <field name="last_message"/>
+                    <field name="last_message_date"/>
+                    <field name="last_message_datetime"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_crm_case_leads_filter_inherit" model="ir.ui.view">
+            <field name="name">view.crm.case.leads.filter.inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.view_crm_case_leads_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="." position="inside">
+                    <field name="last_message"/>
+                    <field name="last_message_datetime"/>
+                </xpath>
+                <xpath expr="//group" position="inside">
+                    <filter string="Last Message" name="last_message_datetime" context="{'group_by': 'last_message'}"/>
+                    <filter string="Last Message Date" name="last_message_datetime" context="{'group_by': 'last_message_date'}"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="crm_lead_form_view_inherit" model="ir.ui.view">
+            <field name="name">crm.lead.form.view.inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='lead_info']" position="inside">
+                    <field name="is_personal_lead"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

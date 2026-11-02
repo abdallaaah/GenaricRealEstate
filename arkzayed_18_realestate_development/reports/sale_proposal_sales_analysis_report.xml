@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="sales_analysis_report_paperformat" model="report.paperformat">
+            <field name="name">Sales Analysis Report Format</field>
+            <field name="format">A4</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+            <field name="header_line">False</field>
+            <field name="header_spacing">20</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="action_sale_proposal_sales_analysis_report" model="ir.actions.report">
+            <field name="name">Sales Analysis Report</field>
+            <field name="model">sale.proposal.sales.analysis.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">arkzayed_18_realestate_development.sales_analysis_pdf</field>
+            <field name="report_file">arkzayed_18_realestate_development.sales_analysis_pdf</field>
+            <field name="paperformat_id" ref="arkzayed_18_realestate_development.sales_analysis_report_paperformat"/>
+        </record>
+
+        <template id="sales_analysis_pdf">
+            <t t-call="web.html_container">
+                <meta charset="utf-8"/>
+                <style>
+                    body {
+                        font-family: 'Arial', sans-serif;
+                        margin: 0;
+                        padding: 20px;
+                    }
+
+                    .page {
+                        page-break-after: always;
+                    }
+
+                    .title {
+                        text-align: center;
+                        font-size: 20px;
+                        font-weight: bold;
+                        margin-bottom: 30px;
+                    }
+
+                    .section-container {
+                        display: flex;
+                        gap: 40px;
+                        margin-bottom: 40px;
+                    }
+
+                    .section {
+                        flex: 1;
+                    }
+
+                    .section-title {
+                        font-size: 14px;
+                        font-weight: bold;
+                        margin-bottom: 15px;
+                        border-bottom: 2px solid #333;
+                        padding-bottom: 5px;
+                    }
+
+                    table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        margin-bottom: 20px;
+                        font-size: 11px;
+                    }
+
+                    th {
+                        background-color: #d3d3d3;
+                        border: 1px solid #999;
+                        padding: 8px;
+                        font-weight: bold;
+                        text-align: center;
+                    }
+
+                    td {
+                        border: 1px solid #999;
+                        padding: 8px;
+                        text-align: center;
+                    }
+
+                    .grand-total {
+                        background-color: #f0f0f0;
+                        font-weight: bold;
+                    }
+
+                    .label-col {
+                        text-align: right;
+                    }
+
+                    .number-col {
+                        text-align: left;
+                    }
+                </style>
+
+                <t t-foreach="docs" t-as="wizard">
+                    <div class="page">
+                        <div class="title">
+                            Sales Analysis Report (Year <t t-esc="str(wizard.date_from.year)"/>)
+                        </div>
+
+                        <!-- Monthly Sales Section -->
+                        <div class="section-container">
+                            <!-- Residential Monthly -->
+                            <div class="section">
+                                <div class="section-title">Residential - Monthly Sales Summary</div>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Month</th>
+                                            <th>Sum of Units</th>
+                                            <th>Price</th>
+                                            <th>%</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="residential_data['monthly']" t-as="item">
+                                            <tr>
+                                                <td t-esc="item['month']"/>
+                                                <td t-esc="item['units']"/>
+                                                <td t-esc="'{:,.0f}'.format(item['price'])"/>
+                                                <td t-esc="'{:.0f}%'.format(item['percentage'])"/>
+                                            </tr>
+                                        </t>
+                                        <tr class="grand-total">
+                                            <td>Grand Total</td>
+                                            <td t-esc="residential_data['total_units']"/>
+                                            <td t-esc="'{:,.0f}'.format(residential_data['total_price'])"/>
+                                            <td>100%</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Business Monthly -->
+                            <div class="section">
+                                <div class="section-title">Business District - Monthly Sales Summary</div>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Month</th>
+                                            <th>Sum of Units</th>
+                                            <th>Price</th>
+                                            <th>%</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="business_data['monthly']" t-as="item">
+                                            <tr>
+                                                <td t-esc="item['month']"/>
+                                                <td t-esc="item['units']"/>
+                                                <td t-esc="'{:,.0f}'.format(item['price'])"/>
+                                                <td t-esc="'{:.0f}%'.format(item['percentage'])"/>
+                                            </tr>
+                                        </t>
+                                        <tr class="grand-total">
+                                            <td>Grand Total</td>
+                                            <td t-esc="business_data['total_units']"/>
+                                            <td t-esc="'{:,.0f}'.format(business_data['total_price'])"/>
+                                            <td>100%</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <br/><br/><br/><br/><br/><br/>
+
+                        <!-- Type Breakdown Section -->
+                        <div class="section-container">
+                            <!-- Residential by Type -->
+                            <div class="section">
+                                <div class="section-title">Residential - Sales by Unit Type</div>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Unit Type</th>
+                                            <th>Sum of Units</th>
+                                            <th>Sum of Sold Price</th>
+                                            <th>%</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="residential_data['by_type']" t-as="item">
+                                            <tr>
+                                                <td t-esc="item['type']"/>
+                                                <td t-esc="item['units']"/>
+                                                <td t-esc="'{:,.0f}'.format(item['price'])"/>
+                                                <td t-esc="'{:.0f}%'.format(item['percentage'])"/>
+                                            </tr>
+                                        </t>
+                                        <tr class="grand-total">
+                                            <td>Grand Total</td>
+                                            <td t-esc="residential_data['total_units']"/>
+                                            <td t-esc="'{:,.0f}'.format(residential_data['total_price'])"/>
+                                            <td>100%</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Business by Type -->
+                            <div class="section">
+                                <div class="section-title">Business District - Sales by Type</div>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Type</th>
+                                            <th>Sum of Units</th>
+                                            <th>Sum of Sold Price</th>
+                                            <th>%</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="business_data['by_type']" t-as="item">
+                                            <tr>
+                                                <td t-esc="item['type']"/>
+                                                <td t-esc="item['units']"/>
+                                                <td t-esc="'{:,.0f}'.format(item['price'])"/>
+                                                <td t-esc="'{:.0f}%'.format(item['percentage'])"/>
+                                            </tr>
+                                        </t>
+                                        <tr class="grand-total">
+                                            <td>Grand Total</td>
+                                            <td t-esc="business_data['total_units']"/>
+                                            <td t-esc="'{:,.0f}'.format(business_data['total_price'])"/>
+                                            <td>100%</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Contract Details Section -->
+                        <div style="page-break-before: always; margin-top: 40px;">
+                            <div class="section-title">Contract Details</div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Contract</th>
+                                        <th>Issue Date</th>
+                                        <th>Customer</th>
+                                        <th>Unit</th>
+                                        <th>Discount %</th>
+                                        <th>Price Before Discount</th>
+                                        <th>Value</th>
+                                        <th>Discount Approved By</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-if="not contract_details">
+                                        <td colspan="8" class="ctr" style="text-align: center; color: #8a8a8a;">No contracts found for this period.</td>
+                                    </tr>
+                                    <t t-foreach="contract_details" t-as="detail">
+                                        <tr>
+                                            <td t-esc="detail['name']"/>
+                                            <td t-esc="detail['date'].strftime('%d/%m/%Y')"/>
+                                            <td t-esc="detail['customer']"/>
+                                            <td t-esc="detail['unit']"/>
+                                            <td style="text-align: center;" t-esc="'{:.2f}%'.format(detail['discount_percentage'])"/>
+                                            <td style="text-align: right;" t-esc="'{:,.0f}'.format(detail['price_before_discount'])"/>
+                                            <td style="text-align: right;" t-esc="'{:,.0f}'.format(detail['price'])"/>
+                                            <td t-esc="detail['discount_approved_by']"/>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

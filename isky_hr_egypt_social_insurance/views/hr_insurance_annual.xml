@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="hr_insurance_annual_form_view" model="ir.ui.view">
+            <field name="name">hr.insurance.annual.form.view</field>
+            <field name="model">hr.insurance.annual.increase</field>
+            <field name="arch" type="xml">
+                <form string="arch">
+                    <header>
+                        <button name="action_submit"
+                                invisible="state not in 'draft'"
+                                class="oe_highlight"
+                                type="object"
+                                string="Submit"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="annual_insurance_sequence" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="annual_date"
+                                       required="1"
+                                       readonly="state == 'submitted'"/>
+                            </group>
+                            <group>
+                                <field name="percentage"
+                                       required="1"
+                                       readonly="state == 'submitted'"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Employees">
+                                <field name="employee_ids"
+                                       required="1"
+                                       readonly="state == 'submitted'"/>
+                            </page>
+                            <page string="Employee Social Data">
+                                <field name="annual_insurance_line_ids"
+                                       readonly="state == 'submitted'">
+                                    <list editable="bottom" create="false">
+                                        <field name="insurance_line_id" invisible="1"/>
+                                        <field name="annual_date" required="1"/>
+                                        <field name="employee_id"
+                                               readonly="1"/>
+                                        <field name="old_social_amount" readonly="1"/>
+                                        <field name="new_social_amount" required="1"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_insurance_annual_tree_view" model="ir.ui.view">
+            <field name="name">hr.insurance.annual.tree.view</field>
+            <field name="model">hr.insurance.annual.increase</field>
+            <field name="arch" type="xml">
+                <list string="arch">
+                    <field name="annual_insurance_sequence"/>
+                    <field name="annual_date"/>
+                    <field name="percentage"/>
+                    <field name="state"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="action_hr_insurance_annual_increase" model="ir.actions.act_window">
+            <field name="name">Social Insurance Annual Insurance</field>
+            <field name="res_model">hr.insurance.annual.increase</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+
+    </data>
+</odoo>

@@ -1,0 +1,278 @@
+<odoo>
+
+    <!-- 1. Custom Paper Format (Only for the Signature Report) -->
+    <record id="paperformat_payment_receipt_with_signature" model="report.paperformat">
+        <field name="name">Payment Receipt Voucher with Signature PaperFormat</field>
+        <field name="default" eval="False"/>
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">20</field>
+        <field name="margin_bottom">60</field>
+        <field name="margin_left">10</field>
+        <field name="margin_right">10</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">15</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <!-- Report Action 1: WITHOUT Signature -->
+    <record id="action_report_payment_receipt" model="ir.actions.report">
+        <field name="name">Payment Receipt Voucher</field>
+        <field name="model">account.payment</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">arkzayed_18_realestate_development.report_payment_receipt_document</field>
+        <field name="report_file">arkzayed_18_realestate_development.report_payment_receipt_document</field>
+        <field name="print_report_name">'Receipt - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="account.model_account_payment"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- Report Action 2: WITH Signature -->
+    <record id="action_report_payment_receipt_with_signature" model="ir.actions.report">
+        <field name="name">Payment Receipt Voucher with Signature</field>
+        <field name="model">account.payment</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">arkzayed_18_realestate_development.report_payment_receipt_document_with_sig</field>
+        <field name="report_file">arkzayed_18_realestate_development.report_payment_receipt_document_with_sig</field>
+        <field name="print_report_name">'Receipt with Signature - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="account.model_account_payment"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="paperformat_payment_receipt_with_signature"/>
+        <field name="groups_id" eval="[(4, ref('arkzayed_18_realestate_development.group_payment_receipt_signature'))]"/>
+    </record>
+
+
+    <!-- Top-Level Template 1: Without Signature -->
+    <template id="report_payment_receipt_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="show_stamp" t-value="False"/>
+                <t t-call="arkzayed_18_realestate_development.report_payment_receipt_base"/>
+            </t>
+        </t>
+    </template>
+
+    <!-- Top-Level Template 2: With Signature -->
+    <template id="report_payment_receipt_document_with_sig">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="show_stamp" t-value="True"/>
+                <t t-call="arkzayed_18_realestate_development.report_payment_receipt_base"/>
+            </t>
+        </t>
+    </template>
+
+    <!-- SHARED BASE TEMPLATE (Reused by both reports) -->
+    <template id="report_payment_receipt_base">
+        <t t-call="web.external_layout">
+
+            <!-- Footer Stamp conditionally rendered ONLY if show_stamp is True -->
+            <t t-if="show_stamp">
+                <div class="footer" style="border: none !important; padding: 0 !important; margin: 0 !important;">
+                    <div style="float: left; text-align: left; padding-left: 10px;">
+                        <img t-att-src="'/arkzayed_18_realestate_development/static/src/img/stamp-transparent.png'"
+                             style="height: 160px; width: auto; max-width: 220px; border: none !important; display: block;"/>
+                    </div>
+                </div>
+            </t>
+
+            <div class="page" dir="rtl" style="font-family: 'Arial', sans-serif; direction: rtl; text-align: right;">
+
+                <style>
+                    .receipt-table, .receipt-table td, .receipt-table th {
+                        border: 1px solid #000;
+                        border-collapse: collapse;
+                    }
+                    .receipt-table td, .receipt-table th {
+                        padding: 6px 8px;
+                        vertical-align: middle;
+                    }
+                    .label-cell {
+                        width: 30%;
+                        font-weight: bold;
+                        background-color: #f2f2f2;
+                    }
+                    .value-cell {
+                        width: 70%;
+                        min-height: 20px;
+                        text-align: center;
+                    }
+                    .details-block {
+                        width: 100%;
+                    }
+                    .details-row {
+                        display: flex;
+                        justify-content: space-between;
+                        padding: 2px 4px;
+                        font-size: 14px;
+                        border: none !important;
+                    }
+                    .details-label {
+                        font-weight: bold;
+                        width: 55%;
+                        text-align: right;
+                    }
+                    .details-value {
+                        width: 45%;
+                        text-align: left;
+                    }
+                    .details-title {
+                        text-align: center;
+                        font-weight: bold;
+                        margin-bottom: 4px;
+                    }
+                </style>
+
+                <div class="logo-no-border">
+                    <img t-att-src="'/arkzayed_18_realestate_development/static/src/img/peoplefork_logo.png'" border="0" style="max-height:60px; border:none !important; outline:none !important;"/>
+                </div>
+
+                <h3 style="text-decoration: underline; text-align: center; margin-bottom: 5px;">إيصال استلام
+                    <t t-if="o.journal_id.type == 'bank'">تحويل بنكي</t>
+                    <t t-elif="o.journal_id.type == 'cash'">نقدية</t>
+                </h3>
+
+                <table class="receipt-table" style="width:300px; margin: 0 auto 10px auto;">
+                    <tr>
+                        <td class="label-cell" style="text-align:center; width:40%;">رقم</td>
+                        <td class="value-cell" style="text-align:center; width:60%;">
+                            <span t-field="o.realestate_related_seq"/>
+                        </td>
+                    </tr>
+                </table>
+
+                <table class="receipt-table" style="width:100%; margin-bottom: 0;">
+                    <tr>
+                        <td class="label-cell" style="width:30%;">كود الوحدة</td>
+                        <td class="value-cell" style="width:70%;">
+                            <span t-field="o.unit_id.system_code"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label-cell">التاريخ</td>
+                        <td class="value-cell">
+                            <span t-field="o.date"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label-cell">استلمنا نحن</td>
+                        <td class="value-cell">
+                            <span>شركة ذا ارك للبنية التحتية</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label-cell">عن مشروع</td>
+                        <td class="value-cell">
+                            <span>ارك ويست - السادس من اكتوبر</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label-cell">اسم العميل</td>
+                        <td class="value-cell">
+                           <t t-if="o.partner_id.ref">
+                                <span t-field="o.partner_id.ref"/>
+                            </t>
+                            <t t-else="">
+                                <span t-field="o.partner_id.name"/>
+                            </t>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label-cell">
+                            <t t-if="o.partner_id.national_id">رقم بطاقة الرقم القومي للعميل</t>
+                            <t t-elif="o.partner_id.passport_number">رقم جواز السفر للعميل</t>
+                            <t t-else="">رقم بطاقة الرقم القومي للعميل</t>
+                        </td>
+                        <td class="value-cell">
+                            <t t-if="o.partner_id.national_id"><span t-field="o.partner_id.national_id"/></t>
+                            <t t-elif="o.partner_id.passport_number"><span t-field="o.partner_id.passport_number"/></t>
+                        </td>
+                    </tr>
+                </table>
+
+                <table class="receipt-table" style="width:100%; margin-top: 15px;">
+                    <thead>
+                        <tr style="text-align: center">
+                            <th style="width:20%;">تاريخ الدفعه</th>
+                            <th style="width:30%;">البيان</th>
+                            <th style="width:20%;">المبلغ</th>
+                            <th style="width:30%;">طريقة الدفع</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="o.allocation_ids" t-as="line">
+                            <td style="text-align:center;"><span t-field="line.line_date"/></td>
+                            <td style="text-align:center;">
+                                <span t-field="line.label"/>
+                            </td>
+                            <td style="text-align:center;"><span t-field="line.allocated_amount"/></td>
+                            <t t-call="arkzayed_18_realestate_development.report_payment_receipt_method_cell"/>
+                        </tr>
+                        <!-- Payments without allocations (e.g. EOI payments): use the payment itself -->
+                        <tr t-if="not o.allocation_ids">
+                            <td style="text-align:center;"><span t-field="o.date"/></td>
+                            <td style="text-align:center;"><span t-field="o.memo"/></td>
+                            <td style="text-align:center;"><span t-field="o.amount"/></td>
+                            <t t-call="arkzayed_18_realestate_development.report_payment_receipt_method_cell"/>
+                        </tr>
+
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="2" style="text-align:center; font-weight:bold;">الإجمالي</td>
+                            <td style="text-align:center; font-weight:bold;">
+                                <span t-field="o.amount"/>
+                            </td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+                <table class="receipt-table" style="width:100%; margin-top: 0;">
+                    <tr>
+                        <td class="value-cell" style="width:80%; text-align:right; text-align:center; font-weight:bold;">
+                           <span t-field="o.amount_in_words"/>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+        </t>
+    </template>
+
+    <!-- Payment method cell (shared by allocation rows and the no-allocation row) -->
+    <template id="report_payment_receipt_method_cell">
+        <td>
+            <t t-if="o.is_credit_card">
+                 <div class="details-block">
+                    <div class="details-title">Credit Card</div>
+                    <div class="details-row">
+                        <span class="details-label">رقم البطاقة المحول منها: </span>
+                        <span class="details-value"><span t-field="o.card_number"/></span>
+                    </div>
+                    <div class="details-row">
+                        <span class="details-label">البنك المحول منه: </span>
+                        <t t-if="o.credit_bank_id">
+                             <span class="details-value"><span t-field="o.credit_bank_id.name"/></span>
+                        </t>
+                    </div>
+                    <div class="details-row">
+                        <span class="details-label">تاريخ الاستحقاق: </span>
+                        <span class="details-value"><span t-field="o.date"/></span>
+                    </div>
+                </div>
+            </t>
+            <t t-elif="o.journal_id.type == 'bank'">
+                <div style="text-align:center;">
+                    تحويل بنكي
+                </div>
+            </t>
+            <t t-elif="o.journal_id.type == 'cash'">
+                <div style="text-align:center;">
+                    نقدي
+                </div>
+            </t>
+        </td>
+    </template>
+
+</odoo>

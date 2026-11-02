@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="cancel_contract_report" model="ir.actions.report">
+            <field name="name">عدم تجديد العقد</field>
+            <field name="model">hr.contract</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">isky_hr_egypt_allowances_application_contract.cancel_contract_template</field>
+            <field name="report_file">isky_hr_egypt_allowances_application_contract.cancel_contract_template</field>
+            <field name="print_report_name">'عدم تجديد العقد'</field>
+            <field name="binding_model_id" ref="hr_contract.model_hr_contract"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <template id="cancel_contract_template">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <t t-foreach="docs" t-as="o">
+                        <div class="page">
+                            <p style="text-align: right; font-size: 18px" dir="rtl">
+                                <span>التاریخ :
+                                    <span dir="ltr" style="text-decoration: underline"
+                                          t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d')"/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <t t-if="o.employee_id.gender == 'male'">
+                                        <strong style="font-weight: bold; font-size: 18px">السيد :
+                                            <span t-field="o.employee_id.employee_arabic_name"/>
+                                            المحترم
+                                        </strong>
+                                    </t>
+                                    <t t-if="o.employee_id.gender == 'female'">
+                                        <strong style="font-weight: bold; font-size: 18px">السيدة :
+                                            <span t-field="o.employee_id.employee_arabic_name"/>الحترمة
+                                        </strong>
+                                    </t>
+                                </span>
+                            </p>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <p style="text-align: center;">
+                                <span style="text-decoration: underline; font-size: 20px;">
+                                    <strong>الموضوع: عدم تجديد عقد عمل</strong>
+                                </span>
+                            </p>
+                            <br/>
+                            <br/>
+                            <p style="text-align: center;">
+                                <br/>
+                            </p>
+                            <div style="text-align: right; font-size: 18px">السلام عليكم ورحمه الله وبركاتة‫‪،‬‬</div>
+                            <div style="text-align: right; font-size: 18px">بالاشاره الي عقد العمل المبرم معكم بتاريخ
+                                <span
+                                        t-field="o.employee_id.first_hiring_date"/>‫‪،‬‬
+                                يؤسفنا ابلاغكم بعدم رغبة الشركة في تجديد عقدكم المنتهي في تاريخ
+                                <span t-field="o.date_end"/>
+                                ‫‪،‬‬ وعليه نأمل
+                                تسليم المهام الموكلة لكم بطريقة التسليم والتسلم ‫آملین‬ مراجعة ادارة الموارد
+                                البشرية لتصفية مستحقاتكم
+                            </div>
+                            <div style="text-align: right; font-size: 18px">‬شاكرین ‫لكم جھودكم ‬التي ‬بذلتموھا‬ في‬
+                                سبیل‬
+                                خدمة ‬الشركة‬،متمنین‬ لكم‬ التوفيق في حياتكم العملية
+                            </div>
+                            <div style="text-align: right; font-size: 18px">وتقبلوا ‬‫‪‬‬صادق‬ تحیاتنا‬ ‫‪،،،،،،،‬
+                            </div>
+                            <div style="text-align: right;"></div>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <div style="text-align: left; font-size: 18px;"><strong>المدير التنفيذى</strong>‬
+                                <br/>
+                                <strong>
+                                    <span t-field="o.employee_id.company_id.executive_committee_employee_id.employee_arabic_name"/>
+                                </strong>
+                            </div>
+                            <div style="text-align: left; padding-left:20px">
+                            </div>
+                            <div style="text-align: left;"></div>
+                            <div style="text-align: right; font-size: 18px;">
+
+                                <strong>
+                                    <span t-field="o.employee_id.company_id.executive_committee_employee_id.name"/>
+                                    :الاسم
+                                </strong>
+                            </div>
+                            <div style="text-align: right; font-size: 18px;">
+                                <strong>.................................................:التوقيع</strong>
+                            </div>
+                            <div style="text-align: right; font-size: 18px;">
+                                <strong>..................................................:التاريخ</strong>
+                            </div>
+                            <br/>
+                            <br/>
+                            <t t-if="o.notes">
+                                <div style="text-align: right; font-size: 18px;" dir="rtl">
+                                    <strong>ملاحظات:</strong>
+                                    <span t-field="o.notes"/>
+                                </div>
+                            </t>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

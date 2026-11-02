@@ -1,0 +1,19 @@
+<odoo>
+    <data>
+        <!-- Server Action to Update Gross with Ceil -->
+        <record id="action_update_unit_price" model="ir.actions.server">
+            <field name="name">Recalculate Unit Price</field>
+            <field name="model_id" ref="model_real_estate_unit"/>
+            <field name="binding_model_id" ref="model_real_estate_unit"/>
+            <field name="binding_view_types">list,form</field>
+            <field name="state">code</field>
+            <field name="code"><![CDATA[
+for rec in records:
+    if rec.initial_price_unit == False and rec.unit_type in ['retail','office',
+                                                                   'medical', 'residential']:
+        rec.write({'initial_price_unit': rec.total_price_unit})
+        rec._compute_price_for_years()
+            ]]></field>
+        </record>
+    </data>
+</odoo>

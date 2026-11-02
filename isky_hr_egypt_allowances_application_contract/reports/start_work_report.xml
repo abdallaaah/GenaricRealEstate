@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+         <record id="isky_start_work_report" model="ir.actions.report">
+            <field name="name">مباشرة عمل</field>
+            <field name="model">hr.contract</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">isky_hr_egypt_allowances_application_contract.isky_start_work_report_template</field>
+            <field name="report_file">isky_hr_egypt_allowances_application_contract.isky_start_work_report_template</field>
+            <field name="print_report_name">'مباشرة عمل'</field>
+            <field name="binding_model_id" ref="hr_contract.model_hr_contract"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <template id="isky_start_work_report_template">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <t t-foreach="docs" t-as="o">
+                            <p></p>
+                            <table style="width: 100%; float: right;">
+                                <tbody>
+                                    <tr>
+                                        <th style="background-color: #d4d4d6; height: 50px; text-align: center; border: 3px solid black;padding:5px"
+                                            colspan="5">
+                                            <h2>
+                                                <strong>مباشرة عمل</strong>
+                                            </h2>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5">
+                                            <br/>
+                                        </td>
+                                    </tr>
+                                    <tr style="background-color: #d4d4d6; height: 30px; text-align: center;">
+                                        <td style="text-align: center; border-bottom: 1px solid black; border-right: 1px solid black;border-top: 3px solid black; border-left: 3px solid black;">
+                                            <h4>
+                                                <strong>‫موقع‬ ‫العمل‬</strong>
+                                            </h4>
+                                        </td>
+                                        <td style="text-align: center; border-bottom: 1px solid black; border-right: 1px solid black;border-top: 3px solid black; border-left: 1px solid black;">
+                                            <h4>
+                                                <strong>
+                                                    المسمي الوظيفى
+                                                </strong>
+                                            </h4>
+                                        </td>
+                                        <td style="text-align: center; border-bottom: 1px solid black; border-right: 1px solid black;border-top: 3px solid black; border-left: 1px solid black;">
+                                            <h4>
+                                                <strong>‫الجنسیة‬</strong>
+                                            </h4>
+                                        </td>
+                                        <td style="text-align: center; border-bottom: 1px solid black; border-right: 1px solid black;border-top: 3px solid black; border-left: 1px solid black;">
+                                            <h4>
+                                                <strong>‫إسم الموظف / العامل‬</strong>
+                                            </h4>
+                                        </td>
+                                        <td style="text-align: center; border-bottom: 1px solid black; border-right: 3px solid black;border-top: 3px solid black; border-left: 1px solid black;">
+                                            <h4>
+                                                <strong>الرقم الوظيفي</strong>
+                                            </h4>
+                                        </td>
+                                    </tr>
+                                    <tr style="height: 30px; text-align: center;">
+
+                                        <td style="text-align: center; border-bottom: 3px solid black; border-right: 1px solid black; border-left: 3px solid black;">
+                                            <strong>
+                                                <span t-field="o.employee_id.work_location_id.name"/>
+                                            </strong>
+                                        </td>
+                                        <td style="text-align: center; border-bottom: 3px solid black; border-right: 1px solid black;border-left: 1px solid black;">
+                                            <strong>
+                                                <span t-field="o.employee_id.job_id"/>
+                                            </strong>
+                                        </td>
+                                        <td style="text-align: center; border-bottom: 3px solid black; border-right: 1px solid black;border-left: 1px solid black;">
+                                            <strong>
+                                                <span t-field="o.employee_id.country_id.nationality"/>
+                                            </strong>
+                                        </td>
+                                        <td style="text-align: center; border-bottom: 3px solid black; border-right: 1px solid black; border-left: 1px solid black;">
+                                            <strong>
+                                                <span t-field="o.employee_id.employee_arabic_name"/>
+                                            </strong>
+                                        </td>
+                                        <td style="text-align: center; border-bottom: 3px solid black; border-right: 3px solid black; border-left: 1px solid black;">
+                                            <strong>
+                                                <span t-field="o.employee_id.emp_no"/>
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5">
+                                            <br/>
+                                        </td>
+                                    </tr>
+                                    <tr style="height: 40px; text-align: center; border: 1px solid black;">
+                                        <td style="border-left: 3px solid black;border-top: 3px solid black;border-bottom: 3px solid black; text-align: right; padding: 5px;"
+                                            colspan="3">
+                                            <strong>
+                                                <span t-field="o.date_start"/>
+                                            </strong>
+                                        </td>
+                                        <td style="border-right: 3px solid black;border-top: 3px solid black; border-bottom: 3px solid black; text-align: right; padding: 5px;"
+                                        >
+                                            <strong>
+                                                :مباشرة موظف جديد ‫بتاريخ
+                                            </strong>
+                                        </td>
+                                        <td style="border: 3px solid black;">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5">
+                                            <br/>
+                                        </td>
+                                    </tr>
+                                    <tr style="background-color: #d4d4d6; height: 30px; text-align: center;">
+                                        <td style="text-align: center; border-bottom: 1px solid black; border-right: 1px solid black; border-top: 3px solid black; border-left: 3px solid black;"
+                                            colspan="2">
+                                            <h4>
+                                                <strong>رئيس اللجنة التنفيذية</strong>
+                                            </h4>
+                                        </td>
+                                        <td style="text-align: center; border-bottom: 1px solid black; border-right: 1px solid black; border-top: 3px solid black; border-left: 1px solid black;">
+                                            <h4>
+                                                <strong>‫‫ ‫إدارة الموارد البشرية</strong>
+                                            </h4>
+                                        </td>
+                                        <td style="text-align: center; border-bottom: 1px solid black; border-right: 1px solid black; border-top: 3px solid black; border-left: 1px solid black;">
+                                            <h4>
+                                                <strong>مدير التجزئة</strong>
+                                            </h4>
+                                        </td>
+                                        <td style="background-color: #d4d4d6; text-align: center; border-bottom: 1px solid black;border-top: 3px solid black; border-right: 3px solid black; border-left: 1px solid black;">
+                                            <h4>
+                                                <strong></strong>
+                                            </h4>
+                                        </td>
+                                    </tr>
+                                    <tr style="height: 30px; text-align: center;">
+                                        <td style="text-align: center; border-bottom: 1px solid black; border-right: 1px solid black; border-left: 3px solid black;"
+                                            colspan="2">
+                                            <span t-field="o.employee_id.company_id.executive_committee_employee_id.name"/>
+                                        </td>
+                                        <td style="text-align: center; border-bottom: 1px solid black; border-right: 1px solid black; border-left: 1px solid black;">
+                                        </td>
+                                        <td style="text-align: center; border-bottom: 1px solid black; border-right: 1px solid black; border-left: 1px solid black;">
+                                        </td>
+                                        <td style="background-color: #d4d4d6; text-align: center; border-bottom: 1px solid black;border-top: 1px solid black; border-right: 3px solid black; border-left: 1px solid black;">
+                                            <h4>
+                                                <strong>‫الإسم‬</strong>
+                                            </h4>
+                                        </td>
+
+                                    </tr>
+                                    <tr style="height: 30px; text-align: center;">
+                                        <td style="text-align: center; border-bottom: 1px solid black; border-right: 1px solid black; border-left: 3px solid black;"
+                                            colspan="2">
+
+                                        </td>
+                                        <td style="text-align: center; border-bottom: 1px solid black; border-right: 1px solid black; border-left: 1px solid black;">
+
+                                        </td>
+                                        <td style="text-align: center; border-bottom: 1px solid black; border-right: 1px solid black; border-left: 1px solid black;">
+
+                                        </td>
+                                        <td style="background-color: #d4d4d6; text-align: center; border-bottom: 1px solid black; border-right: 3px solid black; border-left: 1px solid black;">
+                                            <h4>
+                                                <strong>التوقیع‬</strong>
+                                            </h4>
+                                        </td>
+                                    </tr>
+                                    <tr style="height: 30px; text-align: center;">
+                                        <td style="text-align: center; border-bottom: 3px solid black; border-right: 1px solid black; border-left: 3px solid black;"
+                                            colspan="2">
+
+                                        </td>
+                                        <td style="text-align: center; border-bottom: 3px solid black; border-right: 1px solid black; border-left: 1px solid black;">
+
+                                        </td>
+                                        <td style="text-align: center; border-bottom: 3px solid black; border-right: 1px solid black; border-left: 1px solid black;">
+
+                                        </td>
+                                        <td style=" background-color: #d4d4d6; text-align: center; border-bottom: 3px solid black; border-right: 3px solid black; border-left: 1px solid black;">
+                                            <h4>
+                                                <strong>التاريخ</strong>
+                                            </h4>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5">
+                                            <br/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div>
+                                <br/>
+                                <br/>
+                                <p style="text-align: right; font-size: 18px;">
+                                    <span>الأصل : ملف الموظف *</span>
+                                </p>
+                                <p style="text-align: right; font-size: 18px;">
+                                    <span>صورة : الرواتب *</span>
+                                </p>
+                                <p style="text-align: right; font-size: 18px;">
+                                    <span>صورة : ملف المباشرات ‬*</span>
+                                </p>
+                                <h4 style="text-align: right; font-size: 18px;">
+                                    <span>
+                                        <strong style="text-decoration: underline;">.ملاحظة:</strong>
+                                        يلزم تعبئة نموزج
+                                        المباشرة بعد مباشرة الموظف لعمله سواء تعيين جديد او عودة من ‫إ‬جازة
+                                    </span>
+                                </h4>
+                                <br/>
+                                <br/>
+                                <t t-if="o.notes">
+                                    <h4 style="text-align: right; font-size: 18px;" dir="rtl">
+                                        <strong>ملاحظات:</strong>
+                                        <span t-field="o.notes"/>
+                                    </h4>
+                                </t>
+                            </div>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="paperformat_broker_statement" model="report.paperformat">
+        <field name="name">Broker Statement - A4 Landscape</field>
+        <field name="default" eval="False"/>
+        <field name="format">A4</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">12</field>
+        <field name="margin_bottom">12</field>
+        <field name="margin_left">10</field>
+        <field name="margin_right">10</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">0</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="action_report_broker_statement" model="ir.actions.report">
+        <field name="name">Broker / Ambassador Commission Statement</field>
+        <field name="model">broker.claim.statement.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">arkzayed_18_realestate_development.broker_statement</field>
+        <field name="report_file">arkzayed_18_realestate_development.broker_statement</field>
+        <field name="print_report_name">'Commission Statement'</field>
+        <field name="paperformat_id" ref="paperformat_broker_statement"/>
+    </record>
+
+    <!-- one small table of unit lines, reused for every recipient -->
+    <template id="broker_statement_rows">
+        <table style="width:100%; border-collapse:collapse; font-size:8.5pt; margin-bottom:6px;">
+            <thead>
+                <tr style="background:#eef2f7;">
+                    <th style="padding:3px 5px; text-align:left;">Unit</th>
+                    <th style="padding:3px 5px; text-align:left;">Customer</th>
+                    <th style="padding:3px 5px; text-align:left;">Contract date</th>
+                    <th style="padding:3px 5px; text-align:right;">Unit price</th>
+                    <th style="padding:3px 5px; text-align:right;">%</th>
+                    <th style="padding:3px 5px; text-align:right;">Commission</th>
+                    <th style="padding:3px 5px; text-align:left;">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr t-foreach="rows" t-as="r" style="border-bottom:1px solid #e5e7eb;">
+                    <td style="padding:2px 5px;" t-out="r['unit']"/>
+                    <td style="padding:2px 5px;" t-out="r['customer']"/>
+                    <td style="padding:2px 5px;" t-out="r['date']" t-options="{'widget': 'date'}"/>
+                    <td style="padding:2px 5px; text-align:right;" t-out="fmt(r['price'])"/>
+                    <td style="padding:2px 5px; text-align:right;" t-out="'%.2f' % r['pct']"/>
+                    <td t-att-style="'padding:2px 5px; text-align:right; font-weight:bold; color:%s; background:%s;' % (('#15803d', '#e3f6ea') if r['status'] in ('paid', 'paid_out') else ('#b91c1c', '#fde8e8'))" t-out="fmt(r['amount'])"/>
+                    <td t-att-style="'padding:2px 5px; font-weight:bold; color:%s;' % ('#15803d' if r['status'] in ('paid', 'paid_out') else '#b91c1c')">
+                        <span t-out="r['status_label']"/>
+                        <div t-if="r['note']" style="font-size:7pt; color:#6b7280;" t-out="r['note']"/>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </template>
+
+    <template id="broker_statement_totals">
+        <table style="width:100%; border-collapse:separate; border-spacing:6px 0; margin:4px -6px 8px -6px;">
+            <tr>
+                <td style="background:#e3f6ea; padding:8px 12px; border-left:4px solid #16a34a;">
+                    <div style="font-size:8pt; color:#6b7280;">Paid</div>
+                    <div style="font-size:14pt; font-weight:bold; color:#15803d;" t-out="fmt(t['paid_total'])"/>
+                    <div t-if="t['paid_out']" style="font-size:7.5pt; color:#6b7280;">of which paid outside the system: <span t-out="fmt(t['paid_out'])"/></div>
+                </td>
+                <td style="background:#fde8e8; padding:8px 12px; border-left:4px solid #dc2626;">
+                    <div style="font-size:8pt; color:#6b7280;">Not paid yet</div>
+                    <div style="font-size:14pt; font-weight:bold; color:#b91c1c;" t-out="fmt(t['due'])"/>
+                    <div style="font-size:7.5pt; color:#6b7280;" t-if="d['include_pending'] and t['pending']">
+                        <span t-out="fmt(t['unpaid'])"/> claimed + <span t-out="fmt(t['pending'])"/> not claimed yet
+                    </div>
+                </td>
+                <td style="background:#0f2a4a; padding:8px 12px; color:#fff;">
+                    <div style="font-size:8pt; color:#cbd5e1;">Total (<span t-out="t['units']"/> units)</div>
+                    <div style="font-size:14pt; font-weight:bold;" t-out="fmt(t['total'])"/>
+                </td>
+            </tr>
+        </table>
+    </template>
+
+    <template id="broker_statement">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <div class="page" style="font-family: 'DejaVu Sans', Arial, sans-serif; font-size:9pt; color:#1f2937;">
+                    <div style="font-size:16pt; font-weight:bold; color:#0f2a4a;">Broker / Ambassador Commission Statement</div>
+                    <table style="width:100%; margin:4px 0 8px 0; font-size:9.5pt;">
+                        <tr>
+                            <td><b>Statement for:</b> <span t-out="d['scope']"/></td>
+                            <td style="text-align:right;"><b>Printed:</b> <span t-out="d['printed_on']"/></td>
+                        </tr>
+                        <tr>
+                            <td><span t-if="d['period']"><b>Contract date:</b> <span t-out="d['period']"/></span></td>
+                            <td style="text-align:right;"><span t-out="d['company']"/></td>
+                        </tr>
+                    </table>
+
+                    <t t-set="t" t-value="d['grand']"/>
+                    <t t-call="arkzayed_18_realestate_development.broker_statement_totals"/>
+
+                    <!-- ============ ONE broker / ambassador picked ============ -->
+                    <t t-if="d['single']">
+                        <t t-foreach="d['groups']" t-as="g">
+                            <t t-foreach="g['recipients']" t-as="rec">
+                                <div style="font-size:10.5pt; font-weight:bold; color:#0f2a4a; margin-top:8px;">
+                                    <span t-out="rec['name']"/> <span style="font-weight:normal; color:#6b7280;">- <span t-out="g['label']"/></span>
+                                </div>
+                                <t t-foreach="[('Paid', ('paid', 'paid_out')), ('Not paid yet', ('confirmed', 'draft', 'pending'))]" t-as="sec">
+                                    <t t-set="rows" t-value="[r for r in rec['rows'] if r['status'] in sec[1]]"/>
+                                    <t t-if="rows">
+                                        <div t-att-style="'font-weight:bold; margin:6px 0 2px 0; padding:3px 6px; color:%s; background:%s;' % (('#15803d', '#e3f6ea') if sec[0] == 'Paid' else ('#b91c1c', '#fde8e8'))">
+                                            <span t-out="sec[0]"/> - <span t-out="len(rows)"/> unit(s) -
+                                            <span t-out="fmt(sum(r['amount'] for r in rows))"/>
+                                        </div>
+                                        <t t-call="arkzayed_18_realestate_development.broker_statement_rows"/>
+                                    </t>
+                                </t>
+                            </t>
+                        </t>
+                    </t>
+
+                    <!-- ============ everyone, grouped by type ============ -->
+                    <t t-else="">
+                        <t t-foreach="d['groups']" t-as="g">
+                            <div style="font-size:12pt; font-weight:bold; color:#fff; background:#0f2a4a; padding:4px 8px; margin-top:10px;">
+                                <span t-out="g['label']"/>s
+                            </div>
+                            <table style="width:100%; border-collapse:collapse; font-size:8.5pt; margin:4px 0 6px 0;">
+                                <thead>
+                                    <tr style="background:#eef2f7;">
+                                        <th style="padding:3px 5px; text-align:left;">Recipient</th>
+                                        <th style="padding:3px 5px; text-align:right;">Units</th>
+                                        <th style="padding:3px 5px; text-align:left; width:34%;">Unit</th>
+                                        <th style="padding:3px 5px; text-align:right;">Paid</th>
+                                        <th style="padding:3px 5px; text-align:right;">Not paid yet</th>
+                                        <th style="padding:3px 5px; text-align:right;">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="g['recipients']" t-as="rec" style="border-bottom:1px solid #e5e7eb;">
+                                        <td style="padding:2px 5px;" t-out="rec['name']"/>
+                                        <td style="padding:2px 5px; text-align:right;" t-out="rec['totals']['units']"/>
+                                        <td style="padding:2px 5px; font-size:7.5pt; color:#374151;" t-out="rec['unit_codes']"/>
+                                        <td t-att-style="'padding:2px 5px; text-align:right; color:#15803d; font-weight:bold; background:#e3f6ea;' if rec['totals']['paid_total'] else 'padding:2px 5px; text-align:right; color:#9ca3af;'" t-out="fmt(rec['totals']['paid_total'])"/>
+                                        <td t-att-style="'padding:2px 5px; text-align:right; color:#b91c1c; font-weight:bold; background:#fde8e8;' if rec['totals']['due'] else 'padding:2px 5px; text-align:right; color:#9ca3af;'" t-out="fmt(rec['totals']['due'])"/>
+                                        <td style="padding:2px 5px; text-align:right; font-weight:bold;" t-out="fmt(rec['totals']['total'])"/>
+                                    </tr>
+                                    <tr style="font-weight:bold; border-top:2px solid #0f2a4a; background:#f9fafb;">
+                                        <td style="padding:3px 5px;">Total <span t-out="g['label']"/>s</td>
+                                        <td style="padding:3px 5px; text-align:right;" t-out="g['totals']['units']"/>
+                                        <td/>
+                                        <td style="padding:3px 5px; text-align:right; color:#15803d; background:#e3f6ea;" t-out="fmt(g['totals']['paid_total'])"/>
+                                        <td style="padding:3px 5px; text-align:right; color:#b91c1c; background:#fde8e8;" t-out="fmt(g['totals']['due'])"/>
+                                        <td style="padding:3px 5px; text-align:right;" t-out="fmt(g['totals']['total'])"/>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </t>
+
+                        <t t-if="d['show_details']">
+                            <div style="page-break-before:always;"/>
+                            <div style="font-size:13pt; font-weight:bold; color:#0f2a4a; margin-bottom:4px;">Unit details</div>
+                            <t t-foreach="d['groups']" t-as="g">
+                                <t t-foreach="g['recipients']" t-as="rec">
+                                    <div style="font-weight:bold; margin-top:8px; background:#f3f4f6; padding:3px 6px; page-break-inside:avoid;">
+                                        <span t-out="rec['name']"/> <span style="font-weight:normal; color:#6b7280;">(<span t-out="g['label']"/>)</span> -
+                                        <span t-out="rec['totals']['units']"/> unit(s) - total <span t-out="fmt(rec['totals']['total'])"/>,
+                                        paid <span t-out="fmt(rec['totals']['paid_total'])"/>,
+                                        not paid yet <span t-out="fmt(rec['totals']['due'])"/>
+                                    </div>
+                                    <t t-set="rows" t-value="rec['rows']"/>
+                                    <t t-call="arkzayed_18_realestate_development.broker_statement_rows"/>
+                                </t>
+                            </t>
+                        </t>
+                    </t>
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

@@ -1,0 +1,1051 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="view_sale_proposal_tree" model="ir.ui.view">
+            <field name="name">view.sale.proposal.tree</field>
+            <field name="model">sale.proposal</field>
+            <field name="arch" type="xml">
+                <list decoration-bf="is_vip" decoration-info="is_vip">
+                    <field name="is_vip" column_invisible="1"/>
+                    <field name="name"/>
+                    <field name="customer_id"/>
+                    <field name="unit_id"/>
+                    <field name="building_id"/>
+                    <field name="total_unit_selling_price" sum="Total"/>
+                    <field name="maintenance_price"/>
+                    <field name="total_unit_price_incl_maintenance"/>
+                    <field name="company_id" column_invisible="1"/>
+                    <field name="paid_installments_amount"/>
+                    <field name="paid_installments_percentage"/>
+                    <field name="paid_maintenance_amount"/>
+                    <field name="paid_maintenance_percentage"/>
+                    <field name="contracted_build_up_area" sum="Total" optional="hide"/>
+                    <field name="contracted_total_area" sum="Total" optional="hide"/>
+                    <field name="state" widget="badge"
+                           decoration-info="state == 'draft'"
+                           decoration-primary="state == 'draft_contract'"
+                           decoration-warning="state in ['pending_approvals']"
+                           decoration-success="state in ['approved', 'signed_client', 'operation_review', 'finance_review', 'top_management', 'signed_ceo','ready_to_deliver_contract','sent_to_client', 'delivered_contract' ,'ready_to_deliver']"
+                           decoration-muted="state == 'delivered'"
+                           decoration-danger="state == 'cancelled'"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_sale_proposal_form" model="ir.ui.view">
+            <field name="name">view.sale.proposal.form</field>
+            <field name="model">sale.proposal</field>
+            <field name="arch" type="xml">
+                <form string="Sale">
+                    <header>
+                        <field name="state" widget="statusbar" invisible="contract_type == 'overseas'"
+                               statusbar_visible="draft,pending_approvals,approved,signed_client, 'operation_review', 'finance_review', 'top_management', signed_ceo,ready_to_deliver_contract,delivered_contract,ready_to_deliver,delivered"/>
+                        <field name="state" widget="statusbar" invisible="contract_type != 'overseas'"
+                               statusbar_visible="draft,pending_approvals,sent_to_client,approved,signed_client, 'operation_review', 'finance_review', 'top_management', signed_ceo,ready_to_deliver_contract,delivered_contract,ready_to_deliver,delivered"/>
+                        <field name="signed_by_client" invisible="1"/>
+                        <field name="signed_by_ceo" invisible="1"/>
+
+                        <!-- Draft Proposal Stage -->
+                        <button name="action_create_draft_contract" type="object" string="Create Draft Contract"
+                                class="oe_highlight"
+                                invisible="state != 'draft'"/>
+
+                        <button name="action_sent_to_client" type="object" string="Sent To Client"
+                                class="oe_highlight"
+                                invisible="state != 'ready_to_deliver_contract' or contract_type != 'overseas'"/>
+
+                        <!-- Draft Contract Stage -->
+                        <button name="action_calculate" type="object" string="Calculate Installments"
+                                class="btn-info"
+                                invisible="not show_create_installments"/>
+
+                        <button name="action_calculate_maintenance" type="object" string="Calculate Maintenance"
+                                class="btn-info"
+                                invisible="not show_create_maintenance"/>
+
+                        <button name="action_calculate_parking_installment" type="object"
+                                invisible="separate_parking_price != True or state not in ['draft', 'draft_contract']"
+                                string="Calculate Parking Installment"
+                                class="btn-info"/>
+
+                        <button name="action_create_cheques" type="object" string="Create Cheques"
+                                class="btn-info"  context="{'from_contract': True}"
+                                invisible="payment_methods != 'cheque' or contract_type == 'overseas'"/>
+
+                        <button name="action_open_combined_cheque_wizard" type="object" string="Combined Cheque"
+                                class="btn-warning"  context="{'from_contract': True}"
+                                invisible="payment_methods != 'cheque' or contract_type == 'overseas'"/>
+
+                        <button name="action_operation_manager_approve" type="object" string="Operation Manager Approve"
+                                class="btn-success"
+                                groups="arkzayed_18_realestate_development.group_operation_manager_approval"
+                                invisible="state not in ['pending_approvals'] or not finance_user_approve or not finance_approve or not manager_approve"/>
+
+                        <button name="action_sign_by_client" type="object" string="Sign by Client"
+                                class="btn-success"
+                                invisible="state != 'approved'"/>
+
+                        <button name="action_review_by_operation" type="object" string="Review By Operations"
+                                class="btn-success"
+                                invisible="state != 'signed_client'"/>
+
+                        <button name="action_review_by_finance" type="object" string="Review By Finance"
+                                class="btn-success"
+                                invisible="state != 'operation_review'"/>
+
+                        <button name="action_top_management" type="object" string="Top Management"
+                                class="btn-success"
+                                invisible="state != 'finance_review'"/>
+
+                        <!-- Signed by Client Stage -->
+                        <button name="action_sign_by_ceo" type="object" string="Sign by CEO"
+                                class="btn-success"
+                                invisible="state != 'top_management'"/>
+
+                        <button name="action_ready_to_deliver_contract" type="object" string="Ready to Deliver Contract"
+                                class="btn-success"
+                                invisible="state != 'signed_ceo'"/>
+
+                        <button name="action_deliver_contract" type="object" string="Deliver Contract"
+                                class="btn-success"
+                                invisible="state not in ['ready_to_deliver_contract', 'sent_to_client']"/>
+
+                        <!-- Signed by CEO Stage -->
+                        <button name="action_ready_to_deliver" type="object" string="Ready to Deliver Unit"
+                                class="btn-success"
+                                invisible="state != 'delivered_contract'"/>
+
+                        <!-- Ready to Deliver Stage -->
+                        <button name="action_deliver" type="object" string="Deliver Unit"
+                                class="btn-success"
+                                invisible="state != 'ready_to_deliver'"/>
+
+                        <!-- Cancel Button (Available in all stages except cancelled and delivered) -->
+                        <button name="action_cancel_contract" type="object" string="Cancel Contract"
+                                class="btn-danger"
+                                invisible="state in ['signed_client', 'signed_ceo', 'ready_to_deliver', 'cancelled','ready_to_deliver_contract','delivered_contract', 'delivered', 'terminated']"/>
+
+                        <button name="action_generate_commissions" type="object" string="Generate Commissions"
+                                class="btn-secondary"
+                                help="Create missing sales commissions and broker/ambassador claims based on the collection, and log the reasons for anything skipped in the chatter"
+                                invisible="state in ['draft', 'draft_contract', 'pending_approvals', 'approved', 'cancelled', 'terminated']"/>
+
+                        <button name="action_terminate_contract" type="object" string="Terminate Contract"
+                                class="btn-danger"
+                                invisible="state in ['draft', 'draft_contract', 'pending_approvals', 'approved', 'terminated', 'cancelled']"/>
+
+                        <button name="action_change_ownership" type="object" string="Change Ownership"
+                                class="btn-warning"
+                                invisible="not signed_by_client and state not in ['signed_client','operation_review','finance_review','top_management','signed_ceo','ready_to_deliver_contract','delivered_contract','ready_to_deliver','delivered']"/>
+                                
+                        <button name="action_reallocate_unit" type="object" string="Re-allocate Unit"
+                                class="btn-warning"
+                                invisible="state not in ['draft_contract', 'pending_approvals', 'approved', 'signed_client', 'signed_ceo', 'ready_to_deliver']"/>
+
+                        <!-- Reset to Draft (Only in canceled stage) -->
+                        <button name="action_reset_to_draft" type="object" string="Reset to Draft"
+                                class="btn-warning"
+                                invisible="state != 'cancelled'"/>
+
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_view_sale_reservation"
+                                    type="object"
+                                    class="oe_stat_button"
+                                    icon="fa-file-text-o"
+                                    invisible="sale_reservation_count == 0">
+                                <field name="sale_reservation_count" widget="statinfo"
+                                       string="Reservation"/>
+                            </button>
+                            <button name="action_view_cheques"
+                                    type="object" class="oe_stat_button" icon="fa-credit-card"
+                                    invisible="cheque_count == 0">
+                                <field name="cheque_count" widget="statinfo" string="Cheques"/>
+                            </button>
+                            <button name="action_view_payments"
+                                    type="object" class="oe_stat_button" icon="fa-money"
+                                    invisible="payment_count == 0">
+                                <field name="payment_count" widget="statinfo" string="Payments"/>
+                            </button>
+                            <button name="action_view_journal_entries"
+                                    type="object" class="oe_stat_button" icon="fa-book"
+                                    invisible="journal_entry_count == 0">
+                                <field name="journal_entry_count" widget="statinfo" string="Journal Entry"/>
+                            </button>
+                            <button name="action_view_ownership_change_journal"
+                                    type="object" class="oe_stat_button" icon="fa-book"
+                                    invisible="ownership_change_journal_count == 0">
+                                <field name="ownership_change_journal_count" widget="statinfo"
+                                       string="Ownership Change Journal"/>
+                            </button>
+                            <button name="action_view_invoices"
+                                    type="object" class="oe_stat_button" icon="fa-money" invisible="invoice_count == 0">
+                                <field name="invoice_count" widget="statinfo" string="Invoice"/>
+                            </button>
+                            <button name="action_view_broker_claim"
+                                    type="object" class="oe_stat_button" icon="fa-handshake-o"
+                                    invisible="referred_by != 'broker'">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_text">Broker</span>
+                                    <span class="o_stat_text">Claim</span>
+                                </div>
+                            </button>
+                            <button name="action_view_ambassador_claim"
+                                    type="object"
+                                    class="oe_stat_button"
+                                    icon="fa-handshake-o"
+                                    invisible="ambassador_claim_id == False">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_text">Ambassador</span>
+                                    <span class="o_stat_text">Claim</span>
+                                </div>
+                            </button>
+                            <button name="action_view_commission_achievements"
+                                    type="object" class="oe_stat_button" icon="fa-calculator"
+                                    invisible="commission_achievement_count == 0">
+                                <field name="commission_achievement_count" widget="statinfo"
+                                       string="Commission Claims"/>
+                            </button>
+                            <button name="action_view_non_sales_claims"
+                                    type="object" class="oe_stat_button" icon="fa-users"
+                                    invisible="non_sales_claim_count == 0">
+                                <field name="non_sales_claim_count" widget="statinfo"
+                                       string="Non Sales Claims"/>
+                            </button>
+                            <button name="action_view_client_sign_collection_entry"
+                                    type="object"
+                                    class="oe_stat_button"
+                                    icon="fa-book"
+                                    invisible="client_sign_collection_count == 0">
+                                <field name="client_sign_collection_count" widget="statinfo"
+                                       string="Collection Entry"/>
+                            </button>
+                        </div>
+                        <group>
+                             <group>
+                                <div class="oe_title">
+                                    <label for="name" string="Reference"/>
+                                    <h1>
+                                        <field name="name"/>
+                                    </h1>
+                                </div>
+                            </group>
+                            <group class="text-end">
+                                <field name="ownership_changed" invisible="1"/>
+                                <h1>
+                                    <span invisible="not ownership_changed" class="text-info" title="Ownership has changed">
+                                        <i class="fa fa-exchange" role="img" aria-label="Ownership changed"/>
+                                    </span>
+                                </h1>
+                            </group>
+                        </group>
+
+                        <!-- Signature Info Banner -->
+                        <div class="alert alert-info" role="status"
+                             invisible="state not in ['signed_client', 'signed_ceo','ready_to_deliver_contract', 'delivered_contract', 'ready_to_deliver', 'delivered']">
+                            <strong>Signature Information:</strong>
+                            <ul>
+                                <li invisible="signed_by_client != True">
+                                    Client signed on:
+                                    <field name="client_signature_date" readonly="1"/>
+                                </li>
+                                <li invisible="signed_by_ceo != True">
+                                    CEO signed on:
+                                    <field name="ceo_signature_date" readonly="1"/>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Cancellation Info Banner -->
+                        <div class="alert alert-danger" role="alert" invisible="state != 'cancelled'">
+                            <strong>Contract Cancelled</strong>
+                            <ul>
+                                <li>Cancelled on:
+                                    <field name="cancelled_date" readonly="1"/>
+                                </li>
+                                <li>Cancelled by:
+                                    <field name="cancelled_by" readonly="1"/>
+                                </li>
+                                <li>Reason:
+                                    <field name="cancellation_reason" readonly="1"/>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <group>
+                            <group string="Customer Information">
+                                <field name="company_id" invisible="1"/>
+                                <field name="contract_type"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                <field name="ownership"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                <field name="customer_ownership_ids" widget="many2many_tags"
+                                       invisible="1"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                <field name="ownership_changed" invisible="1"/>
+                                <field name="customer_id" domain="[('is_customer', '=', True)]" invisible="ownership_changed"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']" context="{'default_is_customer': True,'default_from_realestate': True}"/>
+                                <field name="customer_id"  invisible="not ownership_changed" string="Current Customer"
+                                       readonly="1"/>
+                                <field name="old_customer_id" invisible="not ownership_changed"
+                                       readonly="1"/>
+                                <field name="brand_name" string="Arabic Name"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                <field name="customer_code"/>
+                                <field name="national_id"/>
+                                <field name="mobile"/>
+                                <field name="email"/>
+                                <field name="address"/>
+                                <field name="referred_by"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                <field name="referred_by_partner_id" string="Customer"
+                                       invisible="referred_by != 'customer'"
+                                       domain="[('is_customer', '=', True)]"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                <field name="referred_by_partner_id" string="Broker" invisible="referred_by != 'broker'"
+                                       domain="[('is_broker', '=', True)]"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                <field name="has_contract" invisible="not is_broker_partner" groups="arkzayed_18_realestate_development.group_operation_manager_approval"/>
+                                <field name="referred_by_partner_id" string="Ambassador"
+                                       invisible="referred_by != 'ambassador'" domain="[('is_ambassador', '=', True)]"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                <field name="split_commission_with_agents"
+                                       invisible="referred_by not in ('broker', 'ambassador')"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                <field name="agent_commission_ids" string="Agents" widget="many2many_tags"
+                                       invisible="not split_commission_with_agents or referred_by not in ('broker', 'ambassador')"
+                                       domain="[('broker_team_id.broker_id', '=', referred_by_partner_id)]"
+                                       options="{'no_create': True}"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                <field name="referred_by_employee_id" string="Employee"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"
+                                       invisible="referred_by != 'employee'"/>
+                                <field name="other" invisible="referred_by != 'other'"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                <field name="is_vip" widget="boolean_toggle"/>
+                                <field name="is_old_contract"/>
+                            </group>
+                            <group string="Maintenance">
+                                <field name="maintenance"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                <field name="maintenance_template_id" invisible="maintenance != True"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                <field name="maintenance_price_method" invisible="maintenance != True"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                <field name="maintenance_percentage"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"
+                                       invisible="maintenance != True or maintenance_price_method == 'fixed_amount'"/>
+                                <field name="maintenance_price" invisible="maintenance != True"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                <field name="maintenance_monthly_amount" invisible="1"/>
+                                <field name="maintenance_quarterly_amount" invisible="1"/>
+                                <field name="maintenance_semi_annual_amount" invisible="1"/>
+                                <field name="maintenance_annually_amount" invisible="1"/>
+                                <field name="monthly_maintenance_start_date"
+                                       invisible="maintenance_monthly_amount == 0 "
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                <field name="quarterly_maintenance_start_date"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"
+                                       invisible="maintenance_quarterly_amount == 0 "/>
+                                <field name="semi_annual_maintenance_start_date"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"
+                                       invisible="maintenance_semi_annual_amount == 0 "/>
+                                <field name="annual_maintenance_start_date"
+                                       invisible="maintenance_annually_amount == 0"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Unit Information">
+                                <field name="unit_id" groups="!arkzayed_18_realestate_development.can_reserve_available_units"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals'] or sale_contract_reservation_id"
+                                       domain="[('unit_status', '=', 'available_for_sale'), ('unit_purpose', '=', 'to_sale')]"/>
+                                <field name="unit_id" groups="arkzayed_18_realestate_development.can_reserve_available_units"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals'] or sale_contract_reservation_id"
+                                       domain="[('unit_status', 'in', ['available_for_sale', 'available']), ('unit_purpose', '=', 'to_sale')]"/>
+                                <field name="unit_project_phase_id" string="Phase" readonly="1"/>
+                                <field name="analytic_account_id" invisible="1"/>
+                                <field name="unit_area" readonly="1"/>
+                                <field name="net_area" readonly="1" groups="!arkzayed_18_realestate_development.group_restrict_net_area_visibility"/>
+                                <field name="delivery_date" readonly="1"/>
+                                <field name="unit_vat_id"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                <field name="outdoor_unit_price_per_meter" invisible="charge_price != 'separate'"/>
+                                <field name="unit_price" readonly="1"/>
+                                <field name="contract_issue_date"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                <field name="contract_delivery_period"/>
+                                <field name="allowance_period"/>
+                                <field name="extra_period"/>
+                                <field name="company_id" invisible="1"/>
+                                <field name="archive_place_id" options="{'no_create': True}"/>
+                                <field name="unit_type" invisible="1"/>
+                                <field name="unit_plan"/>
+                                <field name="floor_plan" invisible="unit_type != 'residential'"/>
+                                <field name="retail_type" invisible="unit_type != 'retail'"/>
+                            </group>
+                            <group string="Discount Details">
+                                <field name="contracted_selling_price" readonly="state == 'signed_client'" string="Price Before Discount"/>
+                                <field name="discount_percentage" readonly="sale_contract_reservation_id"/>
+                                <field name="price_after_discount" readonly="sale_contract_reservation_id" string="Value"/>
+                                <field name="discount_approved_by" readonly="sale_contract_reservation_id"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Payments">
+                                <field name="unit_type" invisible="1"/>
+                                <field name="down_payment_id"
+                                       invisible="1"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"
+                                       domain="[('unit_type', '=', unit_type)]"/>
+                                <field name="unit_has_discount" invisible="not unit_has_discount"/>
+                                <field name="year_no" invisible="not down_payment_id" readonly="unit_has_discount"/>
+                                <field name="down_payment_remaining" readonly="1"/>
+                                <field name="apply_discount_on_down_payment"/>
+                                <label for="down_payment" string="Down Payment"/>
+                                <div class="o_row">
+                                    <field name="down_payment" readonly="1"/>
+                                    <field name="down_payment_date"
+                                           readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                </div>
+                                <label for="eoi_amount" string="EOI Payment"/>
+                                <div class="o_row">
+                                    <field name="eoi_amount"
+                                           readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                    <field name="eoi_date"
+                                           readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                </div>
+                                <label for="reservation_payment" string="Reservation Payment"/>
+                                <div class="o_row">
+                                    <field name="reservation_payment"
+                                           readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                    <field name="reservation_payment_date"
+                                           readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                </div>
+                                <field name="booking_amount"/>
+                                <field name="apply_discount_on_post_contract"/>
+                                <label for="post_contract_price" string="Down Payment 2"/>
+                                <div class="o_row">
+                                    <field name="post_contract_price" readonly="1"/>
+                                    <field name="post_contract_date"
+                                           readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                </div>
+                                <field name="expected_after_allowance"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                <field name="extra_period_date"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                <field name="contract_amount" readonly="1"/>
+                                <field name="currency_id"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                <field name="payment_methods"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                <field name="total_collected_amount" invisible="1"/>
+                                <field name="collection_percentage" invisible="1"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Cheque Information">
+                                <field name="cheque_is_serial"/>
+                                <field name="number_of_banks"/>
+
+                                <separator string="Bank 1"/>
+                                <field name="bank_id"/>
+                                <field name="cheque_starting_number"
+                                       invisible="cheque_is_serial == 'not_serial'"/>
+                                <field name="bank_1_installments_count"
+                                       invisible="number_of_banks == '1'"/>
+
+                                <separator string="Bank 2"
+                                           invisible="number_of_banks == '1'"/>
+                                <field name="bank_id_2"
+                                       invisible="number_of_banks == '1'"/>
+                                <field name="cheque_starting_number_2"
+                                       invisible="number_of_banks == '1' or cheque_is_serial == 'not_serial'"/>
+                                <field name="bank_2_installments_count"
+                                       invisible="number_of_banks == '1'"/>
+
+                                <separator string="Bank 3"
+                                           invisible="number_of_banks != '3'"/>
+                                <field name="bank_id_3"
+                                       invisible="number_of_banks != '3'"/>
+                                <field name="cheque_starting_number_3"
+                                       invisible="number_of_banks != '3' or cheque_is_serial == 'not_serial'"/>
+                                <field name="bank_3_installments_count"
+                                       invisible="number_of_banks != '3'"/>
+                            </group>
+                            <group string="Installments">
+                                <field name="installment_template_id" required="1"/>
+                                <field name="installment_monthly_amount" invisible="1"/>
+                                <field name="installment_quarterly_amount" invisible="1"/>
+                                <field name="installment_semi_annual_amount" invisible="1"/>
+                                <field name="installment_annually_amount" invisible="1"/>
+                                <field name="monthly_installment_start_date"
+                                       invisible="installment_monthly_amount == 0"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                <field name="quarterly_installment_start_date"
+                                       invisible="installment_quarterly_amount == 0"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                <field name="semi_annual_installment_start_date"
+                                       invisible="installment_semi_annual_amount == 0"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                <field name="annual_installment_start_date"
+                                       invisible="installment_annually_amount == 0"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+
+                                <field name="installment_template_2_id"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                <field name="installment_2_monthly_amount" invisible="1"/>
+                                <field name="installment_2_quarterly_amount" invisible="1"/>
+                                <field name="installment_2_semi_annual_amount" invisible="1"/>
+                                <field name="installment_2_annually_amount" invisible="1"/>
+                                <field name="monthly_installment_2_start_date"
+                                       invisible="installment_2_monthly_amount == 0"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                <field name="quarterly_installment_2_start_date"
+                                       invisible="installment_2_quarterly_amount == 0"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                <field name="semi_annual_installment_2_start_date"
+                                       invisible="installment_2_semi_annual_amount == 0"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                <field name="annual_installment_2_start_date"
+                                       invisible="installment_2_annually_amount == 0"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Parking">
+                                <field name="include_free_parking"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                <field name="separate_parking_price"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                <field name="charging_slots" invisible="separate_parking_price != True"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                <field name="slots" invisible="include_free_parking != True"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                <field name="number_of_slots" invisible="slots != 'number of slots'"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                <field name="number_of_slots_for_report" invisible="1"/>
+                                <field name="parking_price" invisible="separate_parking_price != True"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                <field name="parking_installment_template_id"
+                                       invisible="separate_parking_price != True"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                <field name="monthly_parking_duration" invisible="1"/>
+                                <field name="quarter_parking_duration" invisible="1"/>
+                                <field name="semi_parking_annual_duration" invisible="1"/>
+                                <field name="annual_parking_duration" invisible="1"/>
+                                <field name="monthly_parking_installment_start_date"
+                                       invisible="monthly_parking_duration == 0 or separate_parking_price != True"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                <field name="quarterly_parking_installment_start_date"
+                                       invisible="quarter_parking_duration == 0 or separate_parking_price != True"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                <field name="semi_annual_parking_installment_start_date"
+                                       invisible="semi_parking_annual_duration == 0 or separate_parking_price != True"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                <field name="annual_parking_installment_start_date"
+                                       invisible="annual_parking_duration == 0 or separate_parking_price != True"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                            </group>
+                            <group string="Financial">
+                                <field name="construction_deposit"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                <field name="lg_required"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Commission">
+                                <field name="user_id"
+                                       options="{'no_create': True}"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                <field name="split_deal" widget="boolean_toggle"/>
+                                <field name="sales_ids" widget="many2many_tags" invisible="not split_deal"
+                                               readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                            </group>
+                            <group string="General Info">
+                                <field name="eoi_id" readonly="1"/>
+                                <field name="sale_contract_reservation_id" readonly="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="installments" string="Installments">
+                                <field name="installment_ids">
+                                    <list default_order="date" string="Installments" editable="bottom">
+                                        <field name="serial" readonly="1" string="#"/>
+                                        <field name="date" required="1"/>
+                                        <field name="name" required="1"/>
+                                        <field name="amount" required="1" sum="Total Amount"/>
+                                        <field name="amount_residual" column_invisible="1"/>
+                                        <field name="tax_ids" widget="many2many_tags" column_invisible="1"/>
+                                        <field name="vat_id"/>
+                                        <field name="total_amount" sum="Total with VAT"/>
+                                        <field name="paid_amount" sum="Total Paid"/>
+                                        <field name="remaining_amount" sum="Total Remaining"/>
+                                        <!-- Ticking Paid by hand counts the whole installment as collected,
+                                             so it is reserved to one group; a part-paid installment can only
+                                             be settled through the button, which logs it in the chatter. -->
+                                        <field name="paid" widget="boolean_toggle"
+                                               groups="arkzayed_18_realestate_development.group_manual_paid_installment"
+                                               readonly="not paid and paid_amount &gt; 0"/>
+                                        <button name="action_mark_fully_paid" type="object" string="Mark fully paid"
+                                                icon="fa-check-circle"
+                                                invisible="paid or paid_amount &lt;= 0"
+                                                groups="arkzayed_18_realestate_development.group_manual_paid_installment"
+                                                confirm="This installment already has a payment. Mark it as fully paid (the rest is counted as settled outside the system)?"/>
+                                        <field name="paid" widget="boolean_toggle" readonly="1"
+                                               groups="!arkzayed_18_realestate_development.group_manual_paid_installment"/>
+                                        <field name="payment_method_used" readonly="1" column_invisible="1"/>
+                                        <!-- Allocated M2M Tag Widgets -->
+                                        <field name="allocated_payment_ids" widget="many2many_tags" readonly="1" string="Payments"/>
+                                        <field name="allocated_cheque_ids" widget="many2many_tags" readonly="1" string="Cheques"/>
+
+                                        <field name="payment_state" widget="badge"
+                                               decoration-warning="payment_state == 'draft'"
+                                               decoration-success="payment_state == 'paid'"
+                                               invisible="not payment_state"/>
+                                        <field name="cheque_state" widget="badge"
+                                               string="Cheque State"
+                                               decoration-warning="cheque_state == 'draft'"
+                                               decoration-info="cheque_state == 'collect'"
+                                               decoration-success="cheque_state == 'done'"
+                                               invisible="not cheque_state"/>
+
+                                        <!-- For DOMESTIC contracts -->
+                                        <button string="Make Payment" name="make_payment" type="object" icon="fa-money"
+                                                context="{'payment_methods': parent.payment_methods, 'from_contract': True}"
+                                                invisible="remaining_amount &lt;= 0 or parent.state in ['cancelled'] or parent.payment_methods == 'cheque' or parent.contract_type == 'overseas'"/>
+
+                                        <!-- For OVERSEAS contracts -->
+                                        <button string="Create Payment" name="make_payment" type="object"
+                                                icon="fa-money" context="{'from_contract': True}"
+                                                invisible="remaining_amount &lt;= 0 or parent.state in ['cancelled'] "/>
+                                        <button string="Create Cheque" name="make_cheque_payment" type="object"
+                                                icon="fa-file-text" context="{'from_contract': True}"
+                                                invisible="remaining_amount &lt;= 0 or parent.state in ['cancelled'] or parent.contract_type == 'domestic'"/>
+
+                                        <!-- View buttons -->
+                                        <button string="View Payment" name="view_payment" type="object"
+                                                style="background-color:rgba(0, 160, 74, 0.5);color: #333;"
+                                                invisible="not payment_state"/>
+                                        <button string="View Cheque" name="view_cheque" type="object"
+                                                style="background-color:rgba(0, 160, 74, 0.5);color: #333;"
+                                                invisible="not cheque_state"/>
+                                    </list>
+                                </field>
+                            </page>
+                            <page name="maintenance_installments" string="Maintenance Installments"
+                                  invisible="maintenance!=True">
+                                <field name="maintenance_installment_ids">
+                                    <list default_order="invoice_id,date" string="Installments" editable="bottom">
+                                        <field name="serial" readonly="1" string="#"/>
+                                        <field name="date" required="1"/>
+                                        <field name="name" required="1"/>
+                                        <field name="vat_id"/>
+                                        <field name="amount" required="1"/>
+                                        <field name="total_amount"/>
+                                        <field name="paid_amount" sum="Total Paid"/>
+                                        <field name="remaining_amount" sum="Total Remaining"/>
+                                        <field name="paid" widget="boolean_toggle"/>
+                                        <field name="amount_residual" column_invisible="1"/>
+                                        <field name="payment_method_used" readonly="1" column_invisible="1"/>
+                                        <field name="invoice_id" readonly="1" column_invisible="1"/>
+
+                                        <!-- Allocated M2M Tag Widgets -->
+                                        <field name="allocated_payment_ids" widget="many2many_tags" readonly="1" string="Payments"/>
+                                        <field name="allocated_cheque_ids" widget="many2many_tags" readonly="1" string="Cheques"/>
+
+
+                                        <field name="invoice_state" widget="badge" optional="show"
+                                               decoration-success="invoice_state == 'posted'"
+                                               decoration-info="invoice_state == 'draft'"
+                                               column_invisible="1"/>
+                                        <field name="payment_state" widget="badge"
+                                               decoration-danger="payment_state == 'not_paid'"
+                                               decoration-warning="payment_state in ('partial', 'in_payment')"
+                                               decoration-success="payment_state in ('paid', 'reversed')"
+                                               invisible="not payment_state"/>
+
+                                        <!-- For OVERSEAS contracts -->
+                                         <button string="Create Payment" name="action_create_payment" type="object"
+                                                 icon="fa-money" context="{'from_contract': True}"
+                                                 invisible="remaining_amount &lt;= 0 or parent.state in ['cancelled'] or parent.contract_type == 'domestic'"/>
+                                         <button string="Create Cheque" name="action_create_cheque" type="object"
+                                                 icon="fa-file-text" context="{'from_contract': True}"
+                                                 invisible="remaining_amount &lt;= 0 or parent.state in ['cancelled'] or parent.contract_type == 'domestic'"/>
+
+                                         <!-- For DOMESTIC contracts (legacy) -->
+                                         <button string="Make Cheque" name="action_create_cheque" type="object"
+                                                 icon="fa-money"
+                                                 context="{'installment_invoice': 1, 'from_contract': True}"
+                                                 invisible="remaining_amount &lt;= 0 or parent.state in ['cancelled'] or parent.contract_type == 'overseas'"/>
+
+                                        <!-- View buttons -->
+                                        <button string="View Payment" name="action_view_payment" type="object"
+                                                style="background-color:rgba(0, 160, 74, 0.5);color: #333;"
+                                                invisible="not allocated_payment_ids"/>
+                                        <button string="View Cheque" name="action_view_cheque" type="object"
+                                                style="background-color:rgba(0, 160, 74, 0.5);color: #333;"
+                                                invisible="not allocated_cheque_ids"/>
+                                    </list>
+                                </field>
+                            </page>
+                            <page name="customer_ownership" string="Customer Ownership" invisible="ownership != 'multiple'">
+                                <field name="customer_new_ownership_ids" readonly="state not in ['draft', 'draft_contract', 'pending_approvals']" context="{'default_contract_id': id}">
+                                    <list editable="bottom">
+                                        <field name="customer_id" context="{'default_is_customer':True}"/>
+                                        <field name="percentage"/>
+                                    </list>
+                                </field>
+                            </page>
+                            <page name="penalties" string="Penalties">
+                                <group>
+                                    <group>
+                                        <field name="delay_payment" widget="percentage"
+                                               readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page name="lg_requirements" string="LG Requirements" invisible="lg_required != True">
+                                <group>
+                                    <group>
+                                        <field name="lg_number"
+                                               readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                        <field name="bank_name"
+                                               readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                        <field name="lg_amount"
+                                               readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                        <field name="lg_expiry_date"
+                                               readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page name="parking_slots" string="Parking Slots" invisible="slots != 'specific slots'">
+                                <group>
+                                    <field name="parking_lines_ids"
+                                           domain="[('unit_type','=','parking'),('unit_status', '=', 'available'), ('unit_purpose', '=', 'to_sale')]"
+                                           widget="many2many_tags" string='Units'
+                                           readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                </group>
+                            </page>
+                            <page name="parking_installment" string="Parking Installment"
+                                  invisible="separate_parking_price != True">
+                            </page>
+                            <page name="conditions" string="Conditions">
+                                <group>
+                                    <group>
+                                        <field name="delivery_conditions"
+                                               readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                        <field name="delivery_terms"
+                                               readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                    </group>
+                                    <group>
+                                        <field name="refund_policy"
+                                               readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                        <field name="cancellation_policy"
+                                               readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page name="charging_parking_slots" string="Charging Parking Slots"
+                                  invisible="charging_slots != 'specific slots'">
+                                <group>
+                                    <field name="charging_parking_lines_ids"
+                                           domain="[('unit_type','=','parking'),('unit_status', '=', 'available'), ('unit_purpose', '=', 'to_sale')]"
+                                           widget="many2many_tags" string='Charging Slots'
+                                           readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                </group>
+                            </page>
+                            <page name="approvals" string="Approvals">
+                                <field name="is_finance_approver" invisible="1"/>
+                                <field name="is_finance_two_approver" invisible="1"/>
+                                <field name="is_manager_approver" invisible="1"/>
+                                <group>
+                                    <group>
+                                        <field name="finance_user_approve" widget="boolean_toggle"
+                                               readonly="not is_finance_approver"/>
+                                        <field name="finance_approve" string="Second Finance Approval" widget="boolean_toggle"
+                                               readonly="not is_finance_two_approver"/>
+                                    </group>
+                                    <group>
+                                        <field name="manager_approve" widget="boolean_toggle"
+                                               readonly="not is_manager_approver"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page name="commission" string="Commission">
+                                <field name="commission_ids"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']">
+                                    <list editable="bottom">
+                                        <field name="employee_id" force_save="1" required="1"/>
+                                        <field name="jop_position" force_save="1"/>
+                                        <field name="commission" force_save="1"/>
+                                    </list>
+                                </field>
+                            </page>
+
+                            <!-- Add Split With tab -->
+                            <page name="split_with" string="Split With" invisible="split_deal == False">
+                                <group>
+                                    <field name="split_with" invisible="1"/>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="partner_ids" widget="many2many_tags"
+                                               readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                        <field name="employee_ids" widget="many2many_tags"
+                                               readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                        <field name="broker_ids" widget="many2many_tags"
+                                               readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                    </group>
+                                    <group>
+                                         <field name="ambassador_ids" widget="many2many_tags"
+                                               readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                        <field name="non_sales_ids" widget="many2many_tags"
+                                               readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                        <field name="other"
+                                               readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Summary">
+                                <group>
+                                    <field name="total_unit_selling_price" readonly="1"/>
+                                    <field name="maintenance_price"
+                                           readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                    <label for="maintenance_1st_year_advance_percentage"
+                                           string="Maintenance 1st Year Advance Payment %"/>
+                                    <div class="o_row">
+                                        <field name="maintenance_1st_year_advance_percentage"
+                                               readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                        <field name="maintenance_1st_year_advance"
+                                               readonly="1"/>
+                                    </div>
+                                    <label for="maintenance_vat" string="Maintenance Vat"/>
+                                    <div class="o_row">
+                                        <field name="maintenance_vat_id"
+                                               readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                        <field name="maintenance_vat" readonly="1"/>
+                                    </div>
+                                    <label for="unit_vat" string="Unit Vat"/>
+                                    <div class="o_row">
+                                        <field name="unit_vat_id"
+                                               readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                        <field name="unit_vat" readonly="1"/>
+                                    </div>
+                                    <field name="total_unit_price_incl_maintenance" readonly="1"/>
+                                </group>
+                            </page>
+                            <page name="extra_info" string="Extra Info">
+                                <group>
+                                    <group string="Contracted Areas">
+                                        <field name="contracted_build_up_area" readonly="state == 'signed_client'"/>
+                                        <field name="contracted_terrace_area" readonly="state == 'signed_client'"/>
+                                        <field name="contracted_outdoor_area" readonly="state == 'signed_client'"/>
+                                        <field name="contracted_total_area" readonly="state == 'signed_client'"/>
+                                        <field name="new_total_gross_area" readonly="1"/>
+                                    </group>
+                                    <group string="Other Information">
+                                        <field name="unit_location" readonly="1"/>
+                                        <field name="delivery_payment"
+                                               readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                        <field name="delivery_payment_date"
+                                               readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Note">
+                                <field name="note"
+                                       readonly="state not in ['draft', 'draft_contract', 'pending_approvals']"/>
+                            </page>
+                            <page string="Broker Commission" invisible="referred_by not in ('broker', 'ambassador')">
+                                <group>
+                                    <group>
+                                        <field name="broker_contract_id"/>
+                                        <field name="broker_claim_created"/>
+                                        <field name="broker_claim_id"/>
+                                        <field name="ambassador_claim_id" invisible="1"/>
+                                        <field name="ambassador_claim_created" invisible="1"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page name="commission_summary" string="Commission Summary">
+                                <separator string="Sales Team Commissions"/>
+                                <field name="commission_achievement_ids" nolabel="1">
+                                    <list>
+                                        <field name="user_id"/>
+                                        <field name="job_position_id"/>
+                                        <field name="commission_percentage"/>
+                                        <field name="total_commission_amount" sum="Total"/>
+                                        <field name="state" widget="badge"
+                                               decoration-info="state == 'draft'"
+                                               decoration-success="state == 'confirmed'"
+                                               decoration-primary="state == 'paid'"
+                                               decoration-muted="state == 'cancelled'"/>
+                                        <field name="payment_date"/>
+                                    </list>
+                                </field>
+                                <separator string="Broker / Ambassador / Agent / Non-Sales Employee Claims"/>
+                                <field name="all_commission_claim_ids" nolabel="1">
+                                    <list>
+                                        <field name="claim_type"/>
+                                        <field name="broker_company" invisible="claim_type == 'employee'"/>
+                                        <field name="employee_id" invisible="claim_type != 'employee'"/>
+                                        <field name="commission"/>
+                                        <field name="commission_amount" sum="Total"/>
+                                        <field name="paid_commission" sum="Total Paid"/>
+                                        <field name="state" widget="badge"
+                                               decoration-info="state == 'draft'"
+                                               decoration-success="state == 'confirmed'"
+                                               decoration-primary="state == 'paid'"
+                                               decoration-muted="state == 'cancelled'"/>
+                                        <field name="payment_date"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_sale_proposal_search" model="ir.ui.view">
+            <field name="name">sale.proposal.search</field>
+            <field name="model">sale.proposal</field>
+            <field name="arch" type="xml">
+                <search string="Sale Proposals">
+                    <!-- Search Fields -->
+                    <field name="name" string="Reference" filter_domain="[('name', 'ilike', self)]"/>
+                    <field name="customer_id" string="Customer"/>
+                    <field name="unit_id" string="Unit"/>
+                    <field name="user_id" string="Salesperson"/>
+                    <field name="referred_by_partner_id" string="Referred By"/>
+                    <field name="brand_name" string="Arabic Name"/>
+
+                    <separator/>
+
+                    <!-- Status Filters -->
+                    <filter string="Draft" name="draft" domain="[('state', '=', 'draft')]"/>
+                    <filter string="Draft Contract" name="draft_contract" domain="[('state', '=', 'draft_contract')]"/>
+                    <filter string="Pending Approvals" name="pending_approvals"
+                            domain="[('state', '=', 'pending_approvals')]"/>
+                    <filter string="Sent To Client" name="sent_to_client" domain="[('state', '=', 'sent_to_client')]"/>
+                    <filter string="Approved" name="approved" domain="[('state', '=', 'approved')]"/>
+                    <filter string="Signed by Client" name="signed_client" domain="[('state', '=', 'signed_client')]"/>
+                    <filter string="Signed by CEO" name="signed_ceo" domain="[('state', '=', 'signed_ceo')]"/>
+                    <filter string="Ready to Deliver Contract" name="ready_to_deliver_contract" domain="[('state', '=', 'ready_to_deliver_contract')]"/>
+                    <filter string="Delivered Contract" name="delivered_contract" domain="[('state', '=', 'delivered_contract')]"/>
+                    <filter string="Ready to Deliver" name="ready_to_deliver"
+                            domain="[('state', '=', 'ready_to_deliver')]"/>
+                    <filter string="Delivered" name="delivered" domain="[('state', '=', 'delivered')]"/>
+                    <filter string="Cancelled" name="cancelled" domain="[('state', '=', 'cancelled')]"/>
+                    <filter string="Terminated" name="terminated" domain="[('state', '=', 'terminated')]"/>
+
+                    <separator/>
+
+                    <!-- Quick Filters -->
+                    <filter string="VIP Customers" name="vip" domain="[('is_vip', '=', True)]"/>
+                    <filter string="With Maintenance" name="with_maintenance" domain="[('maintenance', '=', True)]"/>
+                    <filter string="Split Deals" name="split_deals" domain="[('split_deal', '=', True)]"/>
+                    <filter string="Old Contracts" name="old_contracts" domain="[('is_old_contract', '=', True)]"/>
+                    <filter string="With Parking" name="with_parking" domain="[('include_free_parking', '=', True)]"/>
+                    <filter string="Separate Parking Price" name="separate_parking"
+                            domain="[('separate_parking_price', '=', True)]"/>
+                    <filter string="LG Required" name="lg_required" domain="[('lg_required', '=', True)]"/>
+
+                    <separator/>
+
+                    <!-- Contract Type Filters -->
+                    <filter string="Domestic" name="domestic" domain="[('contract_type', '=', 'domestic')]"/>
+                    <filter string="Overseas" name="overseas" domain="[('contract_type', '=', 'overseas')]"/>
+
+                    <separator/>
+
+                    <!-- Payment Method Filters -->
+                    <filter string="Cheque Payment" name="cheque_payment"
+                            domain="[('payment_methods', '=', 'cheque')]"/>
+                    <filter string="Bank Transfer" name="bank_transfer"
+                            domain="[('payment_methods', '=', 'bank_transfer')]"/>
+                    <filter string="Cash Payment" name="cash_payment" domain="[('payment_methods', '=', 'cash')]"/>
+
+                    <separator/>
+
+                    <!-- Referral Filters -->
+                    <filter string="Referred by Customer" name="ref_customer"
+                            domain="[('referred_by', '=', 'customer')]"/>
+                    <filter string="Referred by Broker" name="ref_broker" domain="[('referred_by', '=', 'broker')]"/>
+                    <filter string="Referred by Ambassador" name="ref_ambassador"
+                            domain="[('referred_by', '=', 'ambassador')]"/>
+                    <filter string="Referred by Employee" name="ref_employee"
+                            domain="[('referred_by', '=', 'employee')]"/>
+
+                    <separator/>
+
+                    <!-- Approval Filters -->
+                    <filter string="Finance Approved" name="finance_approved"
+                            domain="[('finance_user_approve', '=', True)]"/>
+                    <filter string="Finance Two Approved" name="finance_two_approved"
+                            domain="[('finance_approve', '=', True)]"/>
+                    <filter string="Manager Approved" name="manager_approved"
+                            domain="[('manager_approve', '=', True)]"/>
+                    <filter string="Pending Finance Approval" name="pending_finance"
+                            domain="[('finance_user_approve', '=', False), ('state', 'in', ['pending_approvals' ,'approved'])]"/>
+                    <filter string="Pending Finance Two Approval" name="pending_finance_two"
+                            domain="[('finance_approve', '=', False), ('state', 'in', ['pending_approvals','approved'])]"/>
+                    <filter string="Pending Manager Approval" name="pending_manager"
+                            domain="[('manager_approve', '=', False), ('state', 'in', ['pending_approvals','approved'])]"/>
+
+                    <separator/>
+
+                    <!-- Date Filters -->
+                    <filter string="Contract Issue Date" name="filter_contract_issue_date" date="contract_issue_date"/>
+                    <filter string="Expected Delivery Date" name="filter_expected_delivery_date"
+                            date="expected_delivery_date"/>
+                    <filter string="Client Signature Date" name="filter_client_signature_date"
+                            date="client_signature_date"/>
+                    <filter string="CEO Signature Date" name="filter_ceo_signature_date" date="ceo_signature_date"/>
+                    <filter string="Cancelled Date" name="filter_cancelled_date" date="cancelled_date"/>
+
+                    <separator/>
+
+                    <!-- Group By -->
+                    <group expand="0" string="Group By">
+                        <filter string="State" name="group_state" context="{'group_by': 'state'}"/>
+                        <filter string="Customer" name="group_customer" context="{'group_by': 'customer_id'}"/>
+                        <filter string="Salesperson" name="group_salesperson" context="{'group_by': 'user_id'}"/>
+                        <filter string="Unit" name="group_unit" context="{'group_by': 'unit_id'}"/>
+                        <filter string="Unit Type" name="group_unit_type" context="{'group_by': 'unit_type'}"/>
+                        <filter string="Contract Type" name="group_contract_type"
+                                context="{'group_by': 'contract_type'}"/>
+                        <filter string="Payment Method" name="group_payment_method"
+                                context="{'group_by': 'payment_methods'}"/>
+                        <filter string="Ownership" name="group_ownership" context="{'group_by': 'ownership'}"/>
+                        <filter string="Referred By" name="group_referred_by" context="{'group_by': 'referred_by'}"/>
+                        <filter string="Installment Template" name="group_installment_template"
+                                context="{'group_by': 'installment_template_id'}"/>
+                        <filter string="Down Payment Plan" name="group_down_payment"
+                                context="{'group_by': 'down_payment_id'}"/>
+                        <filter string="Company" name="group_company" context="{'group_by': 'company_id'}"/>
+                        <separator/>
+                        <filter string="Contract Issue Date" name="group_contract_issue_date"
+                                context="{'group_by': 'contract_issue_date'}"/>
+                        <filter string="Expected Delivery Date" name="group_expected_delivery_date"
+                                context="{'group_by': 'expected_delivery_date'}"/>
+                        <filter string="Contract Issue Month" name="group_contract_issue_month"
+                                context="{'group_by': 'contract_issue_date:month'}"/>
+                        <filter string="Expected Delivery Month" name="group_expected_delivery_month"
+                                context="{'group_by': 'expected_delivery_date:month'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_sale_proposal" model="ir.actions.act_window">
+            <field name="name">Sale Proposal</field>
+            <field name="res_model">sale.proposal</field>
+            <field name="view_mode">list,form</field>
+        </record>
+    </data>
+</odoo>

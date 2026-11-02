@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_fixed_bonus,access_fixed_bonus,model_fixed_bonus,,1,1,1,1
+access_fixed_bonus_type,access_fixed_bonus_type,model_fixed_bonus_type,,1,1,1,1
+access_hr_payslip_run_input_user,hr.payslip.run.input.user,model_hr_payslip_run_input,hr_payroll.group_hr_payroll_user,1,1,1,1
+access_hr_payslip_run_input_manager,hr.payslip.run.input.manager,model_hr_payslip_run_input,hr_payroll.group_hr_payroll_manager,1,1,1,1

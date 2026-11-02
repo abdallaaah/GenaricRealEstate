@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Tree View -->
+        <record id="view_permission_request_tree" model="ir.ui.view">
+            <field name="name">permission.request.tree</field>
+            <field name="model">permission.request</field>
+            <field name="arch" type="xml">
+                <list string="Permission Requests">
+                    <field name="name"/>
+                    <field name="requester_id"/>
+                    <field name="request_type"/>
+                    <field name="client_name"/>
+                    <field name="create_date"/>
+                    <field name="approval_status" decoration-success="approval_status=='approved'" decoration-danger="approval_status=='rejected'" decoration-info="approval_status=='pending'"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Form View -->
+        <record id="view_permission_request_form" model="ir.ui.view">
+            <field name="name">permission.request.form</field>
+            <field name="model">permission.request</field>
+            <field name="arch" type="xml">
+                <form string="Permission Request">
+                    <header>
+                        <button name="action_approve" string="Approve" type="object"
+                                class="oe_highlight" invisible="approval_status != 'pending'"
+                                groups="arkzayed_18_realestate_broker.permission_request_approval_button"/>
+                        <button name="action_reject" string="Reject" type="object"
+                                class="oe_highlight" invisible="approval_status != 'pending'"
+                                groups="arkzayed_18_realestate_broker.permission_request_approval_button"/>
+                        <field name="approval_status" widget="statusbar" statusbar_visible="pending"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="requester_id"/>
+                                <field name="request_type"/>
+                            </group>
+                            <group>
+                                <field name="create_date"/>
+                                <field name="client_name"/>
+                                <field name="client_number"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Request Details">
+                                <group>
+                                    <field name="request_details"/>
+                                </group>
+                            </page>
+                            <page string="Operations Feedback">
+                                <group>
+                                    <field name="operations_feedback"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Search View -->
+        <record id="view_permission_request_search" model="ir.ui.view">
+            <field name="name">permission.request.search</field>
+            <field name="model">permission.request</field>
+            <field name="arch" type="xml">
+                <search string="Permission Requests">
+                    <field name="name"/>
+                    <field name="requester_id"/>
+                    <field name="client_name"/>
+                    <field name="client_number"/>
+                    <filter string="My Requests" name="my_requests" domain="[('requester_id','=',uid)]"/>
+                    <separator/>
+                    <filter string="Pending" name="pending" domain="[('approval_status','=','pending')]"/>
+                    <filter string="Approved" name="approved" domain="[('approval_status','=','approved')]"/>
+                    <filter string="Rejected" name="rejected" domain="[('approval_status','=','rejected')]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Requester" name="requester" context="{'group_by':'requester_id'}"/>
+                        <filter string="Request Type" name="request_type" context="{'group_by':'request_type'}"/>
+                        <filter string="Approval Status" name="approval_status" context="{'group_by':'approval_status'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Action window -->
+        <record id="action_permission_request" model="ir.actions.act_window">
+            <field name="name">Permission Requests</field>
+            <field name="res_model">permission.request</field>
+            <field name="view_mode">list,form</field>
+            <field name="context">{'search_default_my_requests': 1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your first permission request!
+                </p>
+            </field>
+        </record>
+
+        <!-- Menu items -->
+        <menuitem id="menu_permission_request"
+                  name="Permission Requests"
+                  parent="crm.crm_menu_root"
+                  action="action_permission_request"
+                  sequence="7"/>
+    </data>
+</odoo>

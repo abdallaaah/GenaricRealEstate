@@ -1,0 +1,43 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* arkzayed_18_realestate_development
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: ar\n"
+
+#. module: arkzayed_18_realestate_development
+#: model:ir.model.fields,field_description:arkzayed_18_realestate_development.field_sale_proposal__ownership_change_journal_id
+msgid "Ownership Change Journal Entry"
+msgstr "قيد تسوية العهدة"
+
+#. module: arkzayed_18_realestate_development
+#: model:ir.model.fields,field_description:arkzayed_18_realestate_development.field_sale_proposal__ownership_change_journal_count
+#: model_terms:ir.ui.view,arch_db:arkzayed_18_realestate_development.view_sale_proposal_form
+msgid "Ownership Change Journal"
+msgstr "قيد تسوية العهدة"
+
+#. module: arkzayed_18_realestate_development
+#: model:ir.model.fields,field_description:arkzayed_18_realestate_development.field_account_account__change_ownership_type
+msgid "Change Ownership Type"
+msgstr "نوع تسوية العهدة"
+
+#. module: arkzayed_18_realestate_development
+#: selection:account.account,change_ownership_type:0
+msgid "Deferred Revenue"
+msgstr "إيراد مؤجل"
+
+#. module: arkzayed_18_realestate_development
+#: selection:account.account,change_ownership_type:0
+msgid "Maintenance Fund"
+msgstr "صندوق الصيانة"
+
+#. module: arkzayed_18_realestate_development
+#: selection:account.account,change_ownership_type:0
+msgid "Account Receivables"
+msgstr "حسابات العملاء"

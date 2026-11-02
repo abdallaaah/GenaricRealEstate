@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="business_unit_type_retail" model="business.unit.type">
+            <field name="name">retail</field>
+            <field name="label">Retail</field>
+        </record>
+        <record id="business_unit_type_admin" model="business.unit.type">
+            <field name="name">admin</field>
+            <field name="label">Admin</field>
+        </record>
+        <record id="business_unit_type_medical" model="business.unit.type">
+            <field name="name">medical</field>
+            <field name="label">Medical</field>
+        </record>
+        <record id="business_unit_type_entertainment" model="business.unit.type">
+            <field name="name">entertainment</field>
+            <field name="label">Entertainment</field>
+        </record>
+        <record id="business_unit_type_industrial" model="business.unit.type">
+            <field name="name">industrial</field>
+            <field name="label">Industrial</field>
+        </record>
+        <record id="business_unit_type_parking" model="business.unit.type">
+            <field name="name">parking</field>
+            <field name="label">Parking</field>
+        </record>
+        <record id="business_unit_type_gate" model="business.unit.type">
+            <field name="name">gate</field>
+            <field name="label">Gate</field>
+        </record>
+        <record id="business_unit_type_storage" model="business.unit.type">
+            <field name="name">storage</field>
+            <field name="label">Storage</field>
+        </record>
+        <record id="business_unit_type_public_area" model="business.unit.type">
+            <field name="name">public_area</field>
+            <field name="label">Public Area</field>
+        </record>
+        <record id="business_unit_type_roof" model="business.unit.type">
+            <field name="name">roof</field>
+            <field name="label">Roof</field>
+        </record>
+    </data>
+</odoo>

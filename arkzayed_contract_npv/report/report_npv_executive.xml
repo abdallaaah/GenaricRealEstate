@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="paperformat_npv_landscape" model="report.paperformat">
+        <field name="name">NPV - A4 Landscape</field>
+        <field name="default" eval="False"/>
+        <field name="format">A4</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">32</field>
+        <field name="margin_bottom">18</field>
+        <field name="margin_left">12</field>
+        <field name="margin_right">12</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">28</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="action_report_npv_executive" model="ir.actions.report">
+        <field name="name">NPV Executive Report</field>
+        <field name="model">arkzayed.npv.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">arkzayed_contract_npv.report_npv_executive</field>
+        <field name="report_file">arkzayed_contract_npv.report_npv_executive</field>
+        <field name="print_report_name">'NPV Executive Report'</field>
+        <field name="paperformat_id" ref="paperformat_npv_landscape"/>
+    </record>
+
+    <template id="report_npv_executive">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page" style="font-size: 10pt; color: #1f2937;">
+
+                    <div style="font-size: 20pt; font-weight: bold; color: #0f2a4a;">NPV Executive Report</div>
+                    <div style="color: #6b7280; margin-bottom: 12px;">
+                        As of <span t-out="today" t-options="{'widget': 'date'}"/> &#160;|&#160; Prepared by <span t-out="user_name"/>
+                        &#160;|&#160; Discount rate: <t t-out="'{:,.1f}%'.format(discount_rate)"/> (company setting) &#160;|&#160; <t t-out="contract_count"/> contracts
+                        <t t-if="filters"> &#160;|&#160; Filter: <span t-out="filters"/></t>
+                    </div>
+
+                    <table style="width: 100%; border-collapse: separate; border-spacing: 8px 0; margin: 0 -8px 14px -8px;">
+                        <tr>
+                            <td style="width:20%; background:#0f2a4a; padding:10px 12px; border-radius:4px;">
+                                <div style="font-size:8pt; text-transform:uppercase; color:#fff;">Total Nominal Sales</div>
+                                <div style="font-size:14pt; font-weight:bold; color:#fff;" t-out="total_nominal" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                <div style="font-size:8pt; color:#fff;">value as usually quoted</div>
+                            </td>
+                            <td style="width:20%; background:#e8f7ee; padding:10px 12px; border-radius:4px;">
+                                <div style="font-size:8pt; text-transform:uppercase; color:#6b7280;">Total NPV at Signing</div>
+                                <div style="font-size:14pt; font-weight:bold; color:#047857;" t-out="total_npv" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                <div style="font-size:8pt; color:#6b7280;">real value, locked per contract</div>
+                            </td>
+                            <td style="width:20%; background:#fdecec; padding:10px 12px; border-radius:4px;">
+                                <div style="font-size:8pt; text-transform:uppercase; color:#6b7280;">Value Lost to Time</div>
+                                <div style="font-size:14pt; font-weight:bold; color:#b91c1c;" t-out="total_lost" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                <div style="font-size:8pt; color:#6b7280;"><t t-out="'{:,.1f}%'.format(total_pct_lost)"/> of nominal</div>
+                            </td>
+                            <td style="width:20%; background:#eef2f7; padding:10px 12px; border-radius:4px;">
+                                <div style="font-size:8pt; text-transform:uppercase; color:#6b7280;">Remaining, Nominal</div>
+                                <div style="font-size:14pt; font-weight:bold; color:#1f2937;" t-out="total_remaining_nominal" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                <div style="font-size:8pt; color:#6b7280;">still uncollected, face value</div>
+                            </td>
+                            <td style="width:20%; background:#fef6dc; padding:10px 12px; border-radius:4px;">
+                                <div style="font-size:8pt; text-transform:uppercase; color:#6b7280;">Remaining, NPV Today</div>
+                                <div style="font-size:14pt; font-weight:bold; color:#92400e;" t-out="total_remaining_npv" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                <div style="font-size:8pt; color:#6b7280;">what it's really worth today</div>
+                            </td>
+                        </tr>
+                    </table>
+                    <div t-if="missing_npv" style="font-size: 8pt; color: #6b7280; margin-bottom: 10px;">
+                        <t t-out="missing_npv"/> contract(s) excluded from all figures above (no installment schedule or no issue date yet).
+                    </div>
+
+                    <table style="width: 100%; border-collapse: separate; border-spacing: 12px 0; margin: 0 -12px 14px -12px;">
+                        <tr>
+                            <td style="width: 50%; vertical-align: top;">
+                                <div style="font-size: 12pt; font-weight: bold; color: #0f2a4a; margin-bottom: 6px;">By Year (Contract Issue Date)</div>
+                                <table style="width: 100%; border-collapse: collapse; font-size: 9pt;">
+                                    <thead><tr style="background: #0f2a4a; color: #fff;">
+                                        <th style="padding: 5px 8px; text-align: left;">Year</th>
+                                        <th style="padding: 5px 8px; text-align: right;">Contracts</th>
+                                        <th style="padding: 5px 8px; text-align: right;">Nominal</th>
+                                        <th style="padding: 5px 8px; text-align: right;">NPV</th>
+                                        <th style="padding: 5px 8px; text-align: right;">% Lost</th>
+                                    </tr></thead>
+                                    <tbody>
+                                        <t t-foreach="year_rows" t-as="y">
+                                            <tr t-att-style="'background: #f6f8fb;' if y_index % 2 else ''">
+                                                <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; font-weight: bold;" t-out="y['label']"/>
+                                                <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;" t-out="y['contracts']"/>
+                                                <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;" t-out="y['nominal']" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                                <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right; color: #047857;" t-out="y['npv']" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                                <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right; color: #b91c1c;"><t t-out="'{:,.1f}%'.format(y['pct_lost'])"/></td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                                <div style="font-size: 8pt; color: #6b7280; margin-top: 3px;">A rising "% Lost" over the years means newer contracts are giving away more value to longer payment terms.</div>
+                            </td>
+                            <td style="width: 50%; vertical-align: top;">
+                                <div style="font-size: 12pt; font-weight: bold; color: #0f2a4a; margin-bottom: 6px;">By Unit Type</div>
+                                <table style="width: 100%; border-collapse: collapse; font-size: 9pt;">
+                                    <thead><tr style="background: #0f2a4a; color: #fff;">
+                                        <th style="padding: 5px 8px; text-align: left;">Type</th>
+                                        <th style="padding: 5px 8px; text-align: right;">Contracts</th>
+                                        <th style="padding: 5px 8px; text-align: right;">Nominal</th>
+                                        <th style="padding: 5px 8px; text-align: right;">NPV</th>
+                                        <th style="padding: 5px 8px; text-align: right;">% Lost</th>
+                                    </tr></thead>
+                                    <tbody>
+                                        <t t-foreach="type_rows" t-as="r">
+                                            <tr t-att-style="'background: #f6f8fb;' if r_index % 2 else ''">
+                                                <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; font-weight: bold;" t-out="r['label']"/>
+                                                <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;" t-out="r['contracts']"/>
+                                                <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;" t-out="r['nominal']" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                                <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right; color: #047857;" t-out="r['npv']" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                                <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right; color: #b91c1c;"><t t-out="'{:,.1f}%'.format(r['pct_lost'])"/></td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                                <div style="font-size: 8pt; color: #6b7280; margin-top: 3px;">Shows which unit types are typically sold on the longest/most generous payment plans.</div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div style="page-break-inside: avoid;">
+                        <div style="font-size: 12pt; font-weight: bold; color: #0f2a4a; margin-bottom: 6px;">Top 10 Contracts by Value Lost to Time</div>
+                        <t t-if="top_rows">
+                            <table style="width: 100%; border-collapse: collapse; font-size: 9pt;">
+                                <thead><tr style="background: #0f2a4a; color: #fff;">
+                                    <th style="padding: 5px 8px; text-align: left;">Contract</th>
+                                    <th style="padding: 5px 8px; text-align: left;">Client</th>
+                                    <th style="padding: 5px 8px; text-align: left;">Unit</th>
+                                    <th style="padding: 5px 8px; text-align: right;">Issue Date</th>
+                                    <th style="padding: 5px 8px; text-align: right;">Nominal</th>
+                                    <th style="padding: 5px 8px; text-align: right;">NPV</th>
+                                    <th style="padding: 5px 8px; text-align: right;">Value Lost</th>
+                                    <th style="padding: 5px 8px; text-align: right;">% Lost</th>
+                                    <th style="padding: 5px 8px; text-align: right;">Rate Used</th>
+                                </tr></thead>
+                                <tbody>
+                                    <t t-foreach="top_rows" t-as="r">
+                                        <tr t-att-style="'background: #f6f8fb;' if r_index % 2 else ''">
+                                            <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; font-weight: bold;" t-out="r['contract']"/>
+                                            <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb;" t-out="r['client']"/>
+                                            <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb;" t-out="r['unit']"/>
+                                            <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;" t-out="r['issue_date']" t-options="{'widget': 'date'}"/>
+                                            <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;" t-out="r['nominal']" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                            <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right; color: #047857;" t-out="r['npv']" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                            <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right; color: #b91c1c; font-weight: bold;" t-out="r['lost']" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                            <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;"><t t-out="'{:,.1f}%'.format(r['pct_lost'])"/></td>
+                                            <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;"><t t-out="'{:,.1f}%'.format(r['rate'])"/></td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </t>
+                        <div t-else="" style="background: #eef2f7; color: #374151; border-radius: 4px; padding: 8px 12px; font-size: 9.5pt;">No contracts with a locked NPV yet.</div>
+                        <div style="font-size: 8pt; color: #6b7280; margin-top: 3px;">"Rate Used" is the discount rate locked for that specific contract at signing - it may differ from today's company rate if the rate changed since.</div>
+                    </div>
+
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

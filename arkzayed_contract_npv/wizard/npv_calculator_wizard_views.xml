@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_npv_calculator_wizard_form" model="ir.ui.view">
+        <field name="name">arkzayed.npv.calculator.wizard.form</field>
+        <field name="model">arkzayed.npv.calculator.wizard</field>
+        <field name="arch" type="xml">
+            <form string="NPV Calculator">
+                <p class="text-muted">
+                    A what-if calculator, not tied to any contract or unit. Explore how a payment plan
+                    affects value before a contract even exists. The discount rate is the company's
+                    official setting and cannot be changed here.
+                </p>
+                <field name="company_id" invisible="1"/>
+                <group>
+                    <group string="Price">
+                        <field name="price_source" widget="radio"/>
+                        <field name="unit_id" invisible="price_source != 'unit'"
+                               options="{'no_create': True}"/>
+                        <field name="total_price"/>
+                    </group>
+                    <group string="Payment Plan">
+                        <field name="down_payment_pct"/>
+                        <field name="years"/>
+                        <field name="frequency"/>
+                        <field name="start_date"/>
+                        <field name="discount_rate"/>
+                    </group>
+                    <group string="Schedule">
+                        <field name="down_payment_amount"/>
+                        <field name="installment_count"/>
+                        <field name="installment_amount"/>
+                        <field name="actual_duration_years"/>
+                        <field name="end_date"/>
+                    </group>
+                </group>
+                <group string="Result">
+                    <group>
+                        <field name="nominal_total"/>
+                        <field name="npv_total"/>
+                    </group>
+                    <group>
+                        <field name="value_lost_to_time"/>
+                        <field name="npv_pct_of_nominal"/>
+                    </group>
+                </group>
+                <footer>
+                    <button string="Close" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_npv_calculator_wizard" model="ir.actions.act_window">
+        <field name="name">NPV Calculator</field>
+        <field name="res_model">arkzayed.npv.calculator.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_npv_root" name="NPV" sequence="6"
+              parent="arkzayed_18_realestate_development.menu_real_estate_root" groups="group_npv_access"/>
+    <menuitem id="menu_npv_calculator" name="Calculator" sequence="1"
+              parent="menu_npv_root" action="action_npv_calculator_wizard"/>
+
+</odoo>

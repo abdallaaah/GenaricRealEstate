@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="paperformat_discount_report" model="report.paperformat">
+        <field name="name">Discount Review - A4</field>
+        <field name="default" eval="False"/>
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">11</field>
+        <field name="margin_bottom">10</field>
+        <field name="margin_left">14</field>
+        <field name="margin_right">14</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">0</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="action_report_discount" model="ir.actions.report">
+        <field name="name">Discount Review</field>
+        <field name="model">discount.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">arkzayed_18_realestate_development.report_discount</field>
+        <field name="report_file">arkzayed_18_realestate_development.report_discount</field>
+        <field name="print_report_name">'Discount Review'</field>
+        <field name="paperformat_id" ref="paperformat_discount_report"/>
+    </record>
+
+    <template id="discount_table">
+        <table style="width:100%; border-collapse:collapse; font-size:8.5pt; margin-bottom:4px;">
+            <thead>
+                <tr style="background:#0f2a4a; color:#fff;">
+                    <th t-foreach="heads" t-as="h" t-att-style="'padding:3px 6px; font-weight:bold; white-space:nowrap; text-align:%s;' % ('left' if h_index in left else 'right')" t-out="h"/>
+                </tr>
+            </thead>
+            <tbody>
+                <tr t-foreach="body" t-as="row" style="border-bottom:1px solid #e5e7eb;">
+                    <td t-foreach="row" t-as="v" t-att-style="'padding:2px 6px; text-align:%s;%s' % ('left' if v_index in left else 'right', '' if v_index in wrapcols else ' white-space:nowrap;')" t-out="v"/>
+                </tr>
+                <tr t-if="foot" style="background:#eef2f7; font-weight:bold; border-top:2px solid #0f2a4a;">
+                    <td t-foreach="foot" t-as="v" t-att-style="'padding:3px 6px; text-align:%s;' % ('left' if v_index in left else 'right')" t-out="v"/>
+                </tr>
+            </tbody>
+        </table>
+    </template>
+
+    <template id="report_discount">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <div class="page" style="font-family:'DejaVu Sans', Arial, sans-serif; font-size:9pt; color:#1f2937;">
+                    <div style="font-size:19pt; font-weight:bold; color:#0f2a4a;">Discount Review</div>
+                    <div style="font-size:9pt; color:#6b7280; margin-bottom:8px;">
+                        Contracts dated <span t-out="d['period']"/><span t-if="d['include_drafts']"> (draft contracts included)</span>.
+                        Printed <span t-out="d['printed_on']"/> - <span t-out="d['company']"/>.
+                    </div>
+
+                    <t t-if="not d['rows']">
+                        <p>No contract with a discount in this period.</p>
+                    </t>
+                    <t t-else="">
+                        <table style="width:100%; border-collapse:separate; border-spacing:4px 0; margin:0 -4px;">
+                            <tr>
+                                <td style="background:#eef2f7; padding:7px 9px; width:25%; vertical-align:top;">
+                                    <div style="font-size:7.5pt; color:#6b7280; text-transform:uppercase;">Contracts with a discount</div>
+                                    <div style="font-size:16pt; font-weight:bold; color:#0f2a4a;"><span t-out="len(d['rows'])"/> of <span t-out="d['sold_count']"/></div>
+                                    <div style="font-size:7.5pt; color:#6b7280;"><span t-out="'%.0f' % d['share_units']"/>% of contracts in the period</div>
+                                </td>
+                                <td style="background:#eef2f7; padding:7px 9px; width:25%; vertical-align:top;">
+                                    <div style="font-size:7.5pt; color:#6b7280; text-transform:uppercase;">Total discount given</div>
+                                    <div style="font-size:16pt; font-weight:bold; color:#0f2a4a;"><span t-out="mil(d['total_amount'])"/> EGP</div>
+                                    <div style="font-size:7.5pt; color:#6b7280;">on <span t-out="mil(d['total_before'])"/> list price</div>
+                                </td>
+                                <td style="background:#eef2f7; padding:7px 9px; width:25%; vertical-align:top;">
+                                    <div style="font-size:7.5pt; color:#6b7280; text-transform:uppercase;">Average discount</div>
+                                    <div style="font-size:16pt; font-weight:bold; color:#0f2a4a;"><span t-out="'%.2f' % d['avg_pct']"/>%</div>
+                                    <div style="font-size:7.5pt; color:#6b7280;">weighted by price</div>
+                                </td>
+                                <td style="background:#eef2f7; padding:7px 9px; width:25%; vertical-align:top;">
+                                    <div style="font-size:7.5pt; color:#6b7280; text-transform:uppercase;">Sales value with discount</div>
+                                    <div style="font-size:16pt; font-weight:bold; color:#0f2a4a;"><span t-out="mil(d['total_final'])"/> EGP</div>
+                                    <div style="font-size:7.5pt; color:#6b7280;"><span t-out="'%.0f' % d['share_value']"/>% of all sales value</div>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <div style="font-size:11pt; font-weight:bold; color:#0f2a4a; margin:9px 0 3px 0;">Key points</div>
+                        <div t-foreach="d['points']" t-as="p" style="margin-bottom:2px;">&#8226;&#160;&#160;<span t-out="p"/></div>
+                        <t t-if="d['attention']">
+                            <div style="font-size:11pt; font-weight:bold; color:#b91c1c; margin:9px 0 3px 0;">Needs attention</div>
+                            <div t-foreach="d['attention']" t-as="p" style="margin-bottom:2px;">&#8226;&#160;&#160;<span t-out="p"/></div>
+                        </t>
+
+                        <div style="font-size:11pt; font-weight:bold; color:#0f2a4a; margin:9px 0 3px 0;">Discount by month (EGP millions, contracts in brackets)</div>
+                        <table style="width:100%; border-collapse:collapse; table-layout:fixed; margin-bottom:2px;">
+                            <tr>
+                                <td t-foreach="d['months']" t-as="m" style="text-align:center; vertical-align:bottom; height:78px; padding:0 14px;">
+                                    <div style="font-size:8pt; font-weight:bold; color:#0f2a4a;" t-out="'%.1f' % (m['amount'] / 1000000.0)"/>
+                                    <div t-att-style="'background:#0f2a4a; height:%dpx; margin:0 auto; width:46px;' % max(4, m['bar'] * 0.6)"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td t-foreach="d['months']" t-as="m" style="text-align:center; font-size:8pt; border-top:1px solid #9ca3af; padding-top:2px;">
+                                    <span t-out="m['label']"/> (<span t-out="m['n']"/>)
+                                </td>
+                            </tr>
+                        </table>
+
+                        <div style="font-size:11pt; font-weight:bold; color:#0f2a4a; margin:9px 0 3px 0;">By unit type</div>
+                        <t t-call="arkzayed_18_realestate_development.discount_table">
+                            <t t-set="left" t-value="[0]"/>
+                            <t t-set="heads" t-value="['Type', 'Discounted / sold', 'List price', 'Discount', 'Avg %']"/>
+                            <t t-set="wrapcols" t-value="[]"/>
+                            <t t-set="body" t-value="d['type_rows']"/>
+                            <t t-set="foot" t-value="d['type_foot']"/>
+                        </t>
+
+                        <div style="font-size:11pt; font-weight:bold; color:#0f2a4a; margin:9px 0 3px 0;">By sales source</div>
+                        <t t-call="arkzayed_18_realestate_development.discount_table">
+                            <t t-set="left" t-value="[0]"/>
+                            <t t-set="heads" t-value="['Source', 'Contracts', 'List price', 'Discount', 'Avg %']"/>
+                            <t t-set="wrapcols" t-value="[]"/>
+                            <t t-set="body" t-value="d['source_rows']"/>
+                            <t t-set="foot" t-value="False"/>
+                        </t>
+
+                        <div style="font-size:11pt; font-weight:bold; color:#0f2a4a; margin:9px 0 3px 0;">Five largest discounts</div>
+                        <t t-call="arkzayed_18_realestate_development.discount_table">
+                            <t t-set="left" t-value="[0, 1]"/>
+                            <t t-set="heads" t-value="['Unit', 'Customer', 'Date', 'List price', 'Discount', '%']"/>
+                            <t t-set="wrapcols" t-value="[1]"/>
+                            <t t-set="body" t-value="d['top5_rows']"/>
+                            <t t-set="foot" t-value="False"/>
+                        </t>
+
+                        <t t-if="d['show_units']">
+                            <div style="page-break-before:always;"/>
+                            <div style="font-size:15pt; font-weight:bold; color:#0f2a4a;">Units sold with a discount</div>
+                            <div style="font-size:8.5pt; color:#6b7280; margin-bottom:6px;">
+                                <span t-out="len(d['rows'])"/> unit(s), contracts dated <span t-out="d['period']"/>
+                            </div>
+                            <t t-call="arkzayed_18_realestate_development.discount_table">
+                                <t t-set="left" t-value="[0, 1, 2, 7]"/>
+                                <t t-set="wrapcols" t-value="[1]"/>
+                                <t t-set="heads" t-value="['Unit', 'Customer', 'Date', 'List price', '%', 'Discount', 'Final price', 'Status']"/>
+                                <t t-set="body" t-value="d['unit_rows']"/>
+                                <t t-set="foot" t-value="d['unit_foot']"/>
+                            </t>
+                            <t t-if="d['premium_rows']">
+                                <div style="font-size:10.5pt; font-weight:bold; color:#b91c1c; margin:10px 0 3px 0;">Priced above the list price (not in the totals)</div>
+                                <t t-call="arkzayed_18_realestate_development.discount_table">
+                                    <t t-set="left" t-value="[0, 1, 2, 7]"/>
+                                    <t t-set="wrapcols" t-value="[1]"/>
+                                    <t t-set="heads" t-value="['Unit', 'Customer', 'Date', 'List price', '%', 'Difference', 'Final price', 'Status']"/>
+                                    <t t-set="body" t-value="d['premium_rows']"/>
+                                    <t t-set="foot" t-value="False"/>
+                                </t>
+                            </t>
+                        </t>
+
+                        <div style="font-size:7.5pt; color:#6b7280; margin-top:8px;">
+                            Definitions: a contract counts when its contract date is inside the period and it is not draft, cancelled or terminated.
+                            Discount = price before discount minus the final contract price (the discount % recorded on the contract).
+                            Averages are weighted by price. Contract-level detail is in the Excel export.
+                        </div>
+                    </t>
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

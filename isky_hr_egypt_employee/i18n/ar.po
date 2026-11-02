@@ -1,0 +1,1333 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* isky_hr_egypt_employee
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-14 13:05+0000\n"
+"PO-Revision-Date: 2019-10-17 12:09+0200\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: en_US\n"
+"X-Generator: Poedit 1.8.7.1\n"
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.employee_data_template
+msgid "<strong>DOB</strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.employee_data_template
+msgid "<strong>Expiry</strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.employee_data_template
+msgid "<strong>First name</strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.employee_data_template
+msgid "<strong>ID Expiry</strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.employee_data_template
+msgid "<strong>Joining Date</strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.employee_data_template
+msgid "<strong>Mobile</strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.employee_data_template
+msgid "<strong>Nationality</strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.employee_data_template
+msgid "<strong>Notes</strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.employee_data_template
+msgid "<strong>Occupation</strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.employee_data_template
+msgid "<strong>Official ID</strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.employee_data_template
+msgid "<strong>Passport</strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.employee_data_template
+msgid "<strong>Ref</strong>"
+msgstr ""
+
+#. module: isky_hr_egypt_employee
+#: selection:hr.employee,blood_type:0
+msgid "AB+"
+msgstr ""
+
+#. module: isky_hr_egypt_employee
+#: selection:hr.employee,blood_type:0
+msgid "AB−"
+msgstr ""
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_applicant_dependants__age
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__age
+msgid "Age"
+msgstr "عمر"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_work_permit__amount
+msgid "Amount"
+msgstr "مبلغ"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_education_qualification__applicant_id
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_informants__applicant_id
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_practical_experiences__applicant_id
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_skills__applicant_id
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_training__applicant_id
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.view_exp_education_qualification_search
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.view_exp_practical_experience_search
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.view_exp_skills_search
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.view_exp_training_search
+msgid "Applicant"
+msgstr "طالب وظيفة"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__employee_dependant_ids
+msgid "Applicant Dependants"
+msgstr ""
+
+#. module: isky_hr_egypt_employee
+#: selection:hr.employee,contract_medical_select:0
+msgid "Approve"
+msgstr "موافقه"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__employee_arabic_name
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_work_location__arabic_name
+msgid "Arabic Name"
+msgstr "الاسم بالعربى"
+
+#. module: isky_hr_egypt_employee
+#: selection:exp.education.qualification,certificate_level:0
+msgid "Associate Degree"
+msgstr "شهادة جامعية"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model,name:isky_hr_egypt_employee.model_ir_attachment
+msgid "Attachment"
+msgstr "مرفق"
+
+#. module: isky_hr_egypt_employee
+#: selection:exp.education.qualification,certificate_level:0
+msgid "Bachelor's Degree"
+msgstr "درجة البكالريوس"
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.exp_inh_employee_inf_form
+msgid "Bank Account No."
+msgstr "رقم حساب البنك"
+
+#. module: isky_hr_egypt_employee
+#: selection:exp.skills,level:0
+msgid "Beginner"
+msgstr "مبتدأ"
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.employee_information_tree_view
+msgid "Birth Date"
+msgstr "تاريخ الميلاد"
+
+#. module: isky_hr_egypt_employee
+#: code:addons/isky_hr_egypt_employee/models/applicant_dependants.py:38
+#: code:addons/isky_hr_egypt_employee/models/hr_employee_inherit.py:249
+#, python-format
+msgid "Birth date can't be greater than or equal current date!"
+msgstr "تاريخ الميلاد لا يمكن أن يكون أكبر من أو يساوي التاريخ الحالي!"
+
+#. module: isky_hr_egypt_employee
+#: code:addons/isky_hr_egypt_employee/models/hr_employee_inherit.py:61
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__blood_type
+#, python-format
+msgid "Blood Type"
+msgstr "نوع فصيلة الدم"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_practical_experiences__business_sector
+msgid "Business Sector"
+msgstr "قطاع الأعمال"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__card_type_id
+msgid "Card Type"
+msgstr "نوع البطاقة"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_education_qualification__certificate_level
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.exp_inh_employee_inf_form
+msgid "Certificate Level"
+msgstr "مستوى الشهادة"
+
+#. module: isky_hr_egypt_employee
+#: selection:applicant.dependants,relation:0
+msgid "Child"
+msgstr "طفل"
+
+#. module: isky_hr_egypt_employee
+#: selection:hr.employee,religion:0
+msgid "Christian"
+msgstr "مسيحى"
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.actions.act_window,help:isky_hr_egypt_employee.exp_education_qualification_action
+msgid "Click to create a new Partner Education Qualification."
+msgstr "انقر لإنشاء مؤهل تعليمي جديد للشريك"
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.actions.act_window,help:isky_hr_egypt_employee.exp_informants_action
+msgid "Click to create a new Partner Informants."
+msgstr "انقر لإنشاء معلومات جديده للشريك."
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.actions.act_window,help:isky_hr_egypt_employee.exp_practical_experience_action
+msgid "Click to create a new Partner Practical Experience."
+msgstr "انقر لإنشاء تجربة عملية جديدة للشريك."
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.actions.act_window,help:isky_hr_egypt_employee.exp_skills_action
+msgid "Click to create a new Partner Skills."
+msgstr "انقر لإنشاء مهارات شريك جديدة."
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.actions.act_window,help:isky_hr_egypt_employee.exp_training_action
+msgid "Click to create a new Partner Training."
+msgstr "انقر لإنشاء تدريب  جديد للشريك."
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.actions.act_window,help:isky_hr_egypt_employee.hr_qualification_action
+msgid "Click to create a new Qualification."
+msgstr "انقر لإنشاء مؤهل جديد."
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_informants__company
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_practical_experiences__name
+msgid "Company"
+msgstr "شركة"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__contract_medical_date
+msgid "Contract Medical Date"
+msgstr "تاريخ العقد الطبي"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__contract_medical_select
+msgid "Contract Medical State"
+msgstr "حالة العقد الطبي"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_training__name
+msgid "Course"
+msgstr "دورة"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_applicant_dependants__create_uid
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_card_type__create_uid
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_employee_department_history__create_uid
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_employee_job_history__create_uid
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_employee_status__create_uid
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_education_qualification__create_uid
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_hr_qualification__create_uid
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_informants__create_uid
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_practical_experiences__create_uid
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_skills__create_uid
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_training__create_uid
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_licence_degree__create_uid
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_visa_type__create_uid
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_work_permit__create_uid
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_work_location__create_uid
+msgid "Created by"
+msgstr "تم انشاؤه بواسة"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_applicant_dependants__create_date
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_card_type__create_date
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_employee_department_history__create_date
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_employee_job_history__create_date
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_employee_status__create_date
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_education_qualification__create_date
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_hr_qualification__create_date
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_informants__create_date
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_practical_experiences__create_date
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_skills__create_date
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_training__create_date
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_licence_degree__create_date
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_visa_type__create_date
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_work_permit__create_date
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_work_location__create_date
+msgid "Created on"
+msgstr "تم إنشاؤه على"
+
+#. module: isky_hr_egypt_employee
+#: selection:hr.employee,employment_type:0
+msgid "Daily Worker"
+msgstr "عامل يومي"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_applicant_dependants__date
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_employee_department_history__date
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_employee_job_history__date
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_training__course_date
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.employee_department_history_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.employee_job_history_template
+msgid "Date"
+msgstr "التاريخ"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_applicant_dependants__birth_date
+msgid "Date Of Birth"
+msgstr "تاريخ الميلاد"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__degree_id
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.view_exp_education_qualification_search
+msgid "Degree"
+msgstr "درجة"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_education_qualification__degree_date
+msgid "Degree Date"
+msgstr "تاريخ الدرجه"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_education_qualification__degree_rate
+msgid "Degree Rate"
+msgstr "معدل الدرجة"
+
+#. module: isky_hr_egypt_employee
+#: code:addons/isky_hr_egypt_employee/models/education_qualification.py:26
+#, python-format
+msgid "Degree rate must be less than full rate"
+msgstr "يجب أن يكون معدل الدرجة أقل من المعدل الكامل"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_employee_department_history__department_id
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_employee_department_history__to_department_id
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__department_id
+msgid "Department"
+msgstr "اداره"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__department_history_ids
+msgid "Department History"
+msgstr "تاريخ الاداره"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.actions.report,name:isky_hr_egypt_employee.employee_department_history_report
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.employee_department_history_template
+msgid "Department Report"
+msgstr "تقرير الادارة"
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.exp_inh_employee_inf_form
+msgid "Dependents"
+msgstr ""
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_applicant_dependants__display_name
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_card_type__display_name
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_employee_department_history__display_name
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_employee_job_history__display_name
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_employee_status__display_name
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_education_qualification__display_name
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_hr_qualification__display_name
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_informants__display_name
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_practical_experiences__display_name
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_skills__display_name
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_training__display_name
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_licence_degree__display_name
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_visa_type__display_name
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_work_permit__display_name
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_work_location__display_name
+msgid "Display Name"
+msgstr "اسم العرض"
+
+#. module: isky_hr_egypt_employee
+#: selection:exp.education.qualification,certificate_level:0
+msgid "Doctoral Degree"
+msgstr "درجة الدكتوراه"
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.exp_inh_employee_inf_form
+msgid "Driver Licence No"
+msgstr "رقم رخصة السائق"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_training__duration
+msgid "Duration"
+msgstr "مدة"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.actions.act_window,name:isky_hr_egypt_employee.exp_education_qualification_action
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__education_ids
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.exp_inh_employee_inf_form
+msgid "Education Qualification"
+msgstr "المؤهلات العلمية"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.ui.menu,name:isky_hr_egypt_employee.exp_education_qualification_menu
+msgid "Education Qualifications"
+msgstr "المؤهلات العلمية"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_education_qualification__name
+msgid "Educational Institution"
+msgstr "مؤسسة تعليمية"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_informants__email
+msgid "Email"
+msgstr "بريد الكترونى"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model,name:isky_hr_egypt_employee.model_hr_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_applicant_dependants__emp_id
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_employee_department_history__employee_id
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_employee_job_history__employee_id
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_education_qualification__employee_id
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_informants__employee_id
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_practical_experiences__employee_id
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_skills__employee_id
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_training__employee_id
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_ir_attachment__employee_id
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_work_permit__employee_id
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.employee_department_history_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.employee_job_history_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.view_exp_education_qualification_search
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.view_exp_practical_experience_search
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.view_exp_skills_search
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.view_exp_training_search
+msgid "Employee"
+msgstr "الموظف"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__emp_no
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.employee_department_history_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.employee_job_history_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.exp_inh_employee_inf_form
+msgid "Employee Code"
+msgstr "كود الموظف"
+
+#. module: isky_hr_egypt_employee
+#: sql_constraint:hr.employee:0
+msgid "Employee Code Must Be Unique"
+msgstr "يجب أن يكون كود الموظف فريدًا (غير مكرر)"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__passport_delivered
+msgid "Employee Deliver Passport"
+msgstr "موظف تسليم جواز السفر"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.ui.menu,name:isky_hr_egypt_employee.exp_practical_experience_menu
+msgid "Employee Experiences"
+msgstr "خبرة الموظف"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__employee_status_id
+msgid "Employee Status"
+msgstr "حالة الموظف"
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.exp_inh_employee_inf_form
+msgid "Employee's Arabic Name"
+msgstr "اسم الموظف بالعربى"
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.exp_inh_hr_employee_search
+msgid "Employees"
+msgstr "الموظفين"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.actions.act_window,name:isky_hr_egypt_employee.employees_information_action
+msgid "Employees Information"
+msgstr "معلومات الموظف"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__employment_type
+msgid "Employment Type"
+msgstr "نوع التوظيف"
+
+#. module: isky_hr_egypt_employee
+#: selection:hr.employee,identification_state:0
+#: selection:hr.employee,licence_state:0
+msgid "Expired"
+msgstr "منتهى"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_work_permit__expiry_date
+msgid "Expiry Date"
+msgstr "تاريخ انتهاء الصلاحية"
+
+#. module: isky_hr_egypt_employee
+#: code:addons/isky_hr_egypt_employee/models/work_permit.py:22
+#, python-format
+msgid "Expiry date must be larger than issued date in work permit."
+msgstr "يجب أن يكون تاريخ انتهاء الصلاحية أكبر من تاريخ إصدار تصريح العمل."
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_applicant_dependants__fees
+msgid "Fees"
+msgstr "مصاريف"
+
+#. module: isky_hr_egypt_employee
+#: selection:applicant.dependants,gender:0
+msgid "Female"
+msgstr "انثى"
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.exp_inh_employee_inf_form
+msgid "Field of Study"
+msgstr "مجال الدراسة"
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.employee_information_tree_view
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.exp_inh_employee_inf_form
+msgid "First Name"
+msgstr "الاسم الاول"
+
+#. module: isky_hr_egypt_employee
+#: selection:hr.employee,medical_result:0
+msgid "Fit"
+msgstr "مناسب"
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.employee_department_history_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.employee_job_history_template
+msgid "From"
+msgstr "من"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__full_name
+msgid "Full Name"
+msgstr "الاسم الكامل"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_education_qualification__full_rate
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.view_exp_education_qualification_search
+msgid "Full Rate"
+msgstr "معدل كامل"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_applicant_dependants__gender
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.exp_inh_hr_employee_search
+msgid "Gender"
+msgstr "جنس"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,help:isky_hr_egypt_employee.field_exp_hr_qualification__sequence
+msgid "Gives the sequence order when displaying a list of degrees."
+msgstr ""
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__grade
+msgid "Grade"
+msgstr "درجة"
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.view_exp_education_qualification_search
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.view_exp_informants_search
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.view_exp_practical_experience_search
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.view_exp_skills_search
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.view_exp_training_search
+msgid "Group By"
+msgstr "تجميع ب"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.actions.report,name:isky_hr_egypt_employee.employee_data_report
+msgid "HR Dept Data"
+msgstr "بيانات قسم الموارد البشرية"
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.exp_inh_hr_employee_search
+msgid "Has Children?"
+msgstr "لدية اطفال ؟"
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.exp_inh_hr_employee_search
+msgid "Has Company Vehicle ?"
+msgstr "لديه سيارة الشركة؟"
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.exp_inh_hr_employee_search
+msgid "Has ID/Iqama?"
+msgstr "لدية اقامة ؟"
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.exp_inh_hr_employee_search
+msgid "Has User ?"
+msgstr " لدية مستخدم ؟"
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.exp_inh_hr_employee_search
+msgid "Has not Children?"
+msgstr "ليس لديه اطفال ؟"
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.exp_inh_hr_employee_search
+msgid "Has not Company Vehicle ?"
+msgstr "ليس لديه سيارة الشركة؟"
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.exp_inh_hr_employee_search
+msgid "Has not ID/Iqama?"
+msgstr "ليس لدية اقامة ؟"
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.exp_inh_hr_employee_search
+msgid "Has not User ?"
+msgstr " ليس لدية مستخدم ؟"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__have_license
+msgid "Have License ?"
+msgstr "له رخصة ؟"
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.exp_inh_hr_employee_search
+msgid "Home Address"
+msgstr "عنوان المنزل"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__home_no
+msgid "Home Phone"
+msgstr "تليفون المنزل"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_applicant_dependants__id
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_card_type__id
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_employee_department_history__id
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_employee_job_history__id
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_employee_status__id
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_education_qualification__id
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_hr_qualification__id
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_informants__id
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_practical_experiences__id
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_skills__id
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_training__id
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_licence_degree__id
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_visa_type__id
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_work_permit__id
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_work_location__id
+msgid "ID"
+msgstr "هوية شخصية"
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.exp_inh_employee_inf_form
+msgid "Identification"
+msgstr "تعريف"
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.exp_inh_employee_inf_form
+msgid "Identification & Passport"
+msgstr "جواز السفر(الرقم التعريفى)"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__identification_expire_date
+msgid "Identification Expiry Date"
+msgstr "تاريخ انتهاء الصلاحية الرقم التعريفى (البطاقة)"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__identification_issuance_date
+msgid "Identification Issuing Date"
+msgstr "تاريخ اصدار الرقم التعريفى (البطاقة)"
+
+#. module: isky_hr_egypt_employee
+#: sql_constraint:hr.employee:0
+msgid "Identification No Must Be Unique"
+msgstr "جواز السفر او الرقم التعريفى يجب ان يكون فريد"
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.exp_inh_employee_inf_form
+msgid "Identification No."
+msgstr "الرقم التعريفى (البطاقة)"
+
+#. module: isky_hr_egypt_employee
+#: code:addons/isky_hr_egypt_employee/models/hr_employee_inherit.py:146
+#, python-format
+msgid "Identification Of %s has been expired.<br/>"
+msgstr ""
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__identification_source
+msgid "Identification Source"
+msgstr "مصدر الرقم التعريفى (البطاقة)"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.ui.menu,name:isky_hr_egypt_employee.exp_informants_menu
+msgid "Informants"
+msgstr "المبلغين"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_training__institute
+msgid "Institute/Organization"
+msgstr "معهد / منظمة"
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.exp_inh_hr_employee_search
+msgid "Is a Manager?"
+msgstr "مدير؟"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__licence_location_id
+msgid "Issuance Address"
+msgstr "عنوان الإصدار"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__issuance_date
+msgid "Issuance Date"
+msgstr "تاريخ الاصدار"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__issuance_city_id
+msgid "Issuance Location"
+msgstr "مكان الاصدار"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_work_permit__issued_date
+msgid "Issued Date"
+msgstr "تاريخ الاصدار"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_employee_job_history__job_id
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_employee_job_history__to_job_id
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_informants__job
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_practical_experiences__job
+msgid "Job"
+msgstr "وظيفه"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__job_history_ids
+msgid "Job History"
+msgstr "تاريخ الوظيفة"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__job_id
+msgid "Job Position"
+msgstr "وظيفه"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.actions.report,name:isky_hr_egypt_employee.employee_job_history_report
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.employee_job_history_template
+msgid "Job Position Report"
+msgstr "تقرير الوظيفة"
+
+#. module: isky_hr_egypt_employee
+#: selection:exp.skills,level:0
+msgid "Junior"
+msgstr "مبتدئ"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_applicant_dependants____last_update
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_card_type____last_update
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_employee_department_history____last_update
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_employee_job_history____last_update
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_employee_status____last_update
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_education_qualification____last_update
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_hr_qualification____last_update
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_informants____last_update
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_practical_experiences____last_update
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_skills____last_update
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_training____last_update
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_licence_degree____last_update
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_visa_type____last_update
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_work_permit____last_update
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_work_location____last_update
+msgid "Last Modified on"
+msgstr "اخر تعديل على "
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__last_name
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.employee_information_tree_view
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.exp_inh_employee_inf_form
+msgid "Last Name"
+msgstr "الاسم الاخير"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_applicant_dependants__write_uid
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_card_type__write_uid
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_employee_department_history__write_uid
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_employee_job_history__write_uid
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_employee_status__write_uid
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_education_qualification__write_uid
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_hr_qualification__write_uid
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_informants__write_uid
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_practical_experiences__write_uid
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_skills__write_uid
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_training__write_uid
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_licence_degree__write_uid
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_visa_type__write_uid
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_work_permit__write_uid
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_work_location__write_uid
+msgid "Last Updated by"
+msgstr "اخر تحديث بواسطة"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_applicant_dependants__write_date
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_card_type__write_date
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_employee_department_history__write_date
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_employee_job_history__write_date
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_employee_status__write_date
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_education_qualification__write_date
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_hr_qualification__write_date
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_informants__write_date
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_practical_experiences__write_date
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_skills__write_date
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_training__write_date
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_licence_degree__write_date
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_visa_type__write_date
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_work_permit__write_date
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_work_location__write_date
+msgid "Last Updated on"
+msgstr "اخر تحديث على "
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_skills__level
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.view_exp_skills_search
+msgid "Level"
+msgstr "مستوى"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__licence_degree_id
+msgid "Licence Degree"
+msgstr "درجة الترخيص"
+
+#. module: isky_hr_egypt_employee
+#: code:addons/isky_hr_egypt_employee/models/hr_employee_inherit.py:129
+#, python-format
+msgid "Licence Of %s has been expired.<br/>"
+msgstr ""
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.exp_inh_employee_inf_form
+msgid "License Data"
+msgstr "بيانات الترخيص"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__license_expiry_date
+msgid "License Expiry Date"
+msgstr "تاريخ انتهاء الترخيص"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__license_no
+msgid "License No."
+msgstr "رقم الترخيص"
+
+#. module: isky_hr_egypt_employee
+#: selection:applicant.dependants,gender:0
+msgid "Male"
+msgstr "ذكر"
+
+#. module: isky_hr_egypt_employee
+#: selection:hr.employee,employment_type:0
+msgid "Management"
+msgstr "إدارة"
+
+#. module: isky_hr_egypt_employee
+#: selection:exp.education.qualification,certificate_level:0
+msgid "Master's Degree"
+msgstr "ماجيستير"
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.exp_inh_employee_inf_form
+msgid "Medical"
+msgstr "طبى"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__medical_attachment_ids
+msgid "Medical Attachments"
+msgstr "مرفقات طبية"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__medical_end_date
+msgid "Medical End Date"
+msgstr "تاريخ انتهاء التامين الطبى"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__medical_result
+msgid "Medical Exam Result"
+msgstr "نتيجة الفحص الطبي"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__medical_no
+msgid "Medical NO."
+msgstr "الرقم الطبي"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__medical_start_date
+msgid "Medical Start Date"
+msgstr "تاريخ بدء الفحص الطبى"
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.employee_information_tree_view
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.exp_inh_employee_inf_form
+msgid "Middle Name"
+msgstr "الاسم الاوسط"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_informants__mobile
+msgid "Mobile"
+msgstr "موبيل"
+
+#. module: isky_hr_egypt_employee
+#: selection:hr.employee,religion:0
+msgid "Muslim"
+msgstr "مسلم"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_applicant_dependants__name
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_card_type__name
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_informants__name
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_licence_degree__name
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_work_location__name
+msgid "Name"
+msgstr "الاسم"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_applicant_dependants__country_id
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.employee_information_tree_view
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.exp_inh_hr_employee_search
+msgid "Nationality"
+msgstr "الجنسية"
+
+#. module: isky_hr_egypt_employee
+#: selection:hr.employee,have_license:0
+msgid "No"
+msgstr "عدد"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_practical_experiences__years
+msgid "No. Of Years"
+msgstr "عدد السنيين"
+
+#. module: isky_hr_egypt_employee
+#: selection:hr.employee,contract_medical_select:0
+msgid "Not Approve"
+msgstr "لم يتم الموافقه عليه"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.actions.server,name:isky_hr_egypt_employee.expiration_notification_ir_actions_server
+#: model:ir.cron,cron_name:isky_hr_egypt_employee.expiration_notification
+#: model:ir.cron,name:isky_hr_egypt_employee.expiration_notification
+msgid "Notification of employee expiration"
+msgstr "إشعار بانتهاء صلاحية الموظف"
+
+#. module: isky_hr_egypt_employee
+#: selection:hr.employee,religion:0
+msgid "Other"
+msgstr "اخرى"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.actions.act_window,name:isky_hr_egypt_employee.exp_informants_action
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.view_exp_informants_form
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.view_exp_informants_tree
+msgid "Partner Informants"
+msgstr "معلومات الشريك"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.actions.act_window,name:isky_hr_egypt_employee.exp_practical_experience_action
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.view_exp_practical_experience_form
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.view_exp_practical_experience_search
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.view_exp_practical_experience_tree
+msgid "Partner Practical Experience"
+msgstr "خبرة الشريك العملية"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.actions.act_window,name:isky_hr_egypt_employee.exp_skills_action
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.view_exp_skills_form
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.view_exp_skills_search
+msgid "Partner Skills"
+msgstr "مهارات العميل"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model,name:isky_hr_egypt_employee.model_exp_training
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.view_exp_training_form
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.view_exp_training_search
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.view_exp_training_tree
+msgid "Partner Training"
+msgstr "تدريب الشريك"
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.exp_inh_employee_inf_form
+msgid "Passport"
+msgstr "جواز السفر"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_applicant_dependants__passport_expiry_date
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__passport_expire_date
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__passport_expiry_date
+msgid "Passport Expiry Date"
+msgstr "تاريخ انتهاء جواز السفر"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__passport_issue_place
+msgid "Passport Issuing Country"
+msgstr "بلد إصدار جواز السفر"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_applicant_dependants__passport_issue_date
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__passport_issue_date
+msgid "Passport Issuing Date"
+msgstr "تاريخ إصدار جواز السفر"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_applicant_dependants__passport_no
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.exp_inh_employee_inf_form
+msgid "Passport No."
+msgstr "رقم جواز السفر"
+
+#. module: isky_hr_egypt_employee
+#: code:addons/isky_hr_egypt_employee/models/applicant_dependants.py:30
+#, python-format
+msgid "Passport expiry date must be larger than passport Issuing date"
+msgstr "يجب أن يكون تاريخ انتهاء صلاحية جواز السفر أكبر من تاريخ إصدار جواز السفر"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_work_permit__payment_no
+msgid "Payment No."
+msgstr "رقم الدفع"
+
+#. module: isky_hr_egypt_employee
+#: code:addons/isky_hr_egypt_employee/models/informants.py:24
+#, python-format
+msgid "Please enter a valid email address in referred by"
+msgstr "يرجى إدخال عنوان بريد إلكتروني صالح "
+
+#. module: isky_hr_egypt_employee
+#: code:addons/isky_hr_egypt_employee/models/hr_employee_inherit.py:241
+#, python-format
+msgid "Please enter a valid email address on work email."
+msgstr "يرجى إدخال عنوان بريد إلكتروني صالح على البريد الإلكتروني للعمل."
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__experience_ids
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.exp_inh_employee_inf_form
+msgid "Practical Experience"
+msgstr "خبرة عملية"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.actions.act_window,name:isky_hr_egypt_employee.hr_qualification_action
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_education_qualification__qualification
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__qualification_id
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.view_hr_qualification_form
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.view_hr_qualification_search
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.view_hr_qualification_tree
+msgid "Qualification"
+msgstr "مؤهلات"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_hr_qualification__name
+msgid "Qualification Title"
+msgstr "عنوان المؤهل"
+
+#. module: isky_hr_egypt_employee
+#: sql_constraint:exp.hr.qualification:0
+msgid "Qualification must be unique!"
+msgstr "يجب أن تكون المؤهل فريدةمن نوعه!"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__informant_ids
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.exp_inh_employee_inf_form
+msgid "Referred By"
+msgstr "مشار اليها بواسطة"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__first_hiring_date
+msgid "Register Date"
+msgstr "تاريخ التسجيل"
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.exp_inh_hr_employee_search
+msgid "Related User"
+msgstr "المستخدم الموصول بالموظف"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_applicant_dependants__relation
+msgid "Relation"
+msgstr "علاقة"
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.exp_inh_employee_inf_form
+msgid "Relatives"
+msgstr "اقارب"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__religion
+msgid "Religion"
+msgstr "ديانة"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_applicant_dependants__remarks
+msgid "Remarks"
+msgstr "ملاحظات"
+
+#. module: isky_hr_egypt_employee
+#: selection:hr.employee,identification_state:0
+#: selection:hr.employee,licence_state:0
+msgid "Running"
+msgstr "سارى"
+
+#. module: isky_hr_egypt_employee
+#: model:res.groups,name:isky_hr_egypt_employee.ssg_manager_group
+msgid "SSG Manager"
+msgstr ""
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__second_name
+msgid "Second Name"
+msgstr "الاسم الثانى"
+
+#. module: isky_hr_egypt_employee
+#: selection:exp.skills,level:0
+msgid "Senior"
+msgstr "اول"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_hr_qualification__sequence
+msgid "Sequence"
+msgstr "سلسة"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__serviced_duration
+msgid "Serviced Duration"
+msgstr "مدة الخدمة"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_exp_skills__name
+msgid "Skill"
+msgstr "مهاره"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__skill_ids
+#: model:ir.ui.menu,name:isky_hr_egypt_employee.exp_skills_menu
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.exp_inh_employee_inf_form
+msgid "Skills"
+msgstr "مهارات"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__identification_state
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__licence_state
+msgid "State"
+msgstr "مرحله"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_employee_status__name
+msgid "Status"
+msgstr "حاله"
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.exp_inh_employee_inf_form
+msgid "Supervisor"
+msgstr "مشرف"
+
+#. module: isky_hr_egypt_employee
+#: selection:exp.skills,level:0
+msgid "Team Leader"
+msgstr "قائد فريق"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_applicant_dependants__tickets_allowed
+msgid "Tickets allowed?"
+msgstr "التذاكر المسموح بها؟"
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.employee_department_history_template
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.employee_job_history_template
+msgid "To"
+msgstr "الى"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.actions.act_window,name:isky_hr_egypt_employee.exp_training_action
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__training_ids
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.exp_inh_employee_inf_form
+msgid "Training"
+msgstr "تدريب"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.ui.menu,name:isky_hr_egypt_employee.exp_training_menu
+msgid "Trainings"
+msgstr "تدريبات"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_visa_type__name
+msgid "Type"
+msgstr "نوع"
+
+#. module: isky_hr_egypt_employee
+#: selection:hr.employee,medical_result:0
+msgid "UnFit"
+msgstr "غيرمناسب"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__visa_medical_date
+msgid "Visa Medical Date"
+msgstr "تاريخ التأشيرة الطبية"
+
+#. module: isky_hr_egypt_employee
+#: selection:applicant.dependants,relation:0
+msgid "Spouse"
+msgstr "زوجه"
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.exp_inh_employee_inf_form
+msgid "Work Mobile No."
+msgstr "رقم موبايل العمل"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__work_permit_ids
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.exp_inh_employee_inf_form
+msgid "Work Permit"
+msgstr "تصريح العمل"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_work_permit__name
+msgid "Work Permit No."
+msgstr "رقم تصريح العمل"
+
+#. module: isky_hr_egypt_employee
+#: selection:hr.employee,employment_type:0
+msgid "Worker"
+msgstr "عامل"
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.exp_inh_hr_employee_search
+msgid "Working Address"
+msgstr "عنوان العمل"
+
+#. module: isky_hr_egypt_employee
+#: selection:hr.employee,have_license:0
+msgid "Yes"
+msgstr "نعم"
+
+#. module: isky_hr_egypt_employee
+#: code:addons/isky_hr_egypt_employee/models/hr_employee_inherit.py:297
+#, python-format
+msgid "You add lines in education qualifications page with same data"
+msgstr "يمكنك إضافة خطوط في صفحة المؤهلات التعليمية مع نفس البيانات"
+
+#. module: isky_hr_egypt_employee
+#: code:addons/isky_hr_egypt_employee/models/hr_employee_inherit.py:311
+#, python-format
+msgid "You add lines in practical experience page with same data"
+msgstr "يمكنك إضافة خطوط في صفحة الخبرة العملية مع نفس البيانات"
+
+#. module: isky_hr_egypt_employee
+#: code:addons/isky_hr_egypt_employee/models/hr_employee_inherit.py:352
+#, python-format
+msgid "You add lines in referred page with same data"
+msgstr "يمكنك إضافة خطوط في الصفحة المشار إليها مع نفس البيانات"
+
+#. module: isky_hr_egypt_employee
+#: code:addons/isky_hr_egypt_employee/models/hr_employee_inherit.py:338
+#, python-format
+msgid "You add lines in skills page with same data"
+msgstr "يمكنك إضافة خطوط في صفحة المهارات مع نفس البيانات"
+
+#. module: isky_hr_egypt_employee
+#: code:addons/isky_hr_egypt_employee/models/hr_employee_inherit.py:325
+#, python-format
+msgid "You add lines in training page with same data"
+msgstr "يمكنك إضافة خطوط في صفحة التدريب مع نفس البيانات"
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model,name:isky_hr_egypt_employee.model_applicant_dependants
+msgid "applicant.dependants"
+msgstr ""
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model,name:isky_hr_egypt_employee.model_card_type
+msgid "card.type"
+msgstr ""
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model,name:isky_hr_egypt_employee.model_employee_department_history
+msgid "employee.department.history"
+msgstr ""
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model,name:isky_hr_egypt_employee.model_employee_job_history
+msgid "employee.job.history"
+msgstr ""
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model,name:isky_hr_egypt_employee.model_employee_status
+msgid "employee.status"
+msgstr ""
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model,name:isky_hr_egypt_employee.model_exp_education_qualification
+msgid "exp.education.qualification"
+msgstr ""
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model,name:isky_hr_egypt_employee.model_exp_hr_qualification
+msgid "exp.hr.qualification"
+msgstr ""
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model,name:isky_hr_egypt_employee.model_exp_informants
+msgid "exp.informants"
+msgstr ""
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model,name:isky_hr_egypt_employee.model_exp_practical_experiences
+msgid "exp.practical.experiences"
+msgstr ""
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model,name:isky_hr_egypt_employee.model_exp_skills
+msgid "exp.skills"
+msgstr ""
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model,name:isky_hr_egypt_employee.model_licence_degree
+msgid "licence.degree"
+msgstr ""
+
+#. module: isky_hr_egypt_employee
+#: model_terms:ir.ui.view,arch_db:isky_hr_egypt_employee.view_exp_informants_search
+msgid "name"
+msgstr ""
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model,name:isky_hr_egypt_employee.model_visa_type
+msgid "visa.type"
+msgstr ""
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model,name:isky_hr_egypt_employee.model_work_permit
+msgid "work.permit"
+msgstr ""
+
+#. module: isky_hr_egypt_employee
+#: model:ir.model.fields,field_description:isky_hr_egypt_employee.field_hr_employee__work_location_id
+msgid "Work Location"
+msgstr "مكان العمل"

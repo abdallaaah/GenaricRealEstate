@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="custom" model="report.paperformat">
+        <field name="name">European A4</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">10</field>
+        <field name="margin_bottom">10</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">43</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="cheque_voucher_payment" model="ir.actions.report">
+        <field name="name">Voucher Payment</field>
+        <field name="model">cheque.manage</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">arkzayed_18_gt_cheque_management.cheque_voucher_payment_report</field>
+        <field name="report_file">arkzayed_18_gt_cheque_management.voucher_payment_report</field>
+        <field name="print_report_name">'Voucher Payment'</field>
+        <field name="binding_model_id" ref="model_cheque_manage"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="arkzayed_18_gt_cheque_management.custom"/>
+    </record>
+
+    <template id="cheque_voucher_payment_report">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                    <t t-call="web.basic_layout">
+                        <style>
+                            header {
+                            border-bottom: 2px solid #333;
+                            width: 100%;
+                            padding: 2px ;
+                            }
+
+                            .payment-voucher {
+                            width: 900px;
+                            margin: 0 auto;
+                            padding: 5px 20px;
+                            }
+
+                            .voucher-header {
+                            display: block;
+                            margin: 0 auto;
+                            margin-top: 5px;
+                            width: 280px;
+                            text-align: center;
+                            color: #000;
+                            font-size: 30px;
+                            background-color: #f0f0f0;
+                            padding: 0px 10px;
+                            font-weight:700;
+                            }
+
+                            .colon-table {
+                            width: 100%;
+                            <!--                                border-collapse: collapse;-->
+                            border:0px solid #fff;
+                            margin-top: 20px;
+                            }
+
+                            .colon-table tr {
+                            border: none;
+                            }
+
+                            .colon-table td {
+                            border: none;
+                            padding: 5px 5px;
+                            vertical-align: top;
+                            }
+
+                            .colon-table .label {
+                            display: inline-block;
+                            width: 230px;
+                            text-align: right;
+                            padding-right: 0.7em;
+                            position: relative;
+                            font-weight: bold;
+                            }
+
+                            .colon-table .label::after {
+                            content: ": ";
+                            position: absolute;
+                            right: 0;
+                            }
+
+                            .colon-table .value {
+                            margin-left: 0.7em;
+                            display: inline-block;
+                            max-width: 200px;
+                            vertical-align: top;
+                            }
+
+                        </style>
+
+                        <div class="page" style="zoom:90%">
+                            <header>
+
+
+                                <!-- Fixed image alignment -->
+                                <div style="display: table; width: 100%;">
+                                    <div style="display: table-row;">
+                                        <div style="display: table-cell; width: 33%;">
+                                            <img t-att-src="'/arkzayed_18_gt_cheque_management/static/src/newCairo_logo.jpg'"
+                                                 alt="Company Branch"
+                                                 style="width: 150px; display: block;"/>
+                                        </div>
+                                        <div style="display: table-cell; width: 33%; text-align: center; vertical-align: middle;">
+                                            <h5 style="text-decoration: underline; color: red; margin: 0;">
+                                                شركة ابراج للتطوير العمرانى
+                                            </h5>
+                                        </div>
+
+                                        <div style="display: table-cell; width: 33%; text-align: right;">
+                                            <img t-att-src="'/arkzayed_18_gt_cheque_management/static/src/abraj_logo.jpg'"
+                                                 alt="Company Logo"
+                                                 style="width: 150px; display: block; margin-left: auto;"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </header>
+                            <div class="container">
+                                <div class="payment-voucher">
+                                    <div class="voucher-header">Payment Voucher</div>
+
+                                    <table class="colon-table">
+                                        <tr>
+                                            <td>
+                                                <span class="label">Bank Name</span>
+                                                <span class="value" t-esc="o.bank_id.name"/>
+                                            </td>
+                                            <td>
+                                                <span class="label">Document Number</span>
+                                                <span class="value" t-esc="o.cheque_no"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="label">Bank Account Name</span>
+                                                <span class='value'
+                                                      t-esc="o.bank_id.bank_account_name"/>
+                                            </td>
+                                            <td>
+                                                <span class="label">Currency</span>
+                                                <span class="value" t-esc="o.company_currency_id.name"/>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="label">Payment Method</span>
+                                                <span class="value" t-out="'Cheque'"/>
+                                            </td>
+                                            <td>
+                                                <span class="label">Voucher Number</span>
+                                                <span class="value" t-esc="o.seq_no.split('/')[-1]"/>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="label">Partner Number</span>
+                                                <span class="value" t-esc="o.payer.ref"/>
+                                            </td>
+
+                                            <td>
+                                                <t t-if="o.return_date">
+                                                    <span class="label">Void Date</span>
+                                                    <span class="value" t-esc="o.return_date"/>
+                                                </t>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="label">Payment Amount</span>
+                                                <span class="value" t-esc="o.amount"/>
+                                            </td>
+
+                                            <td>
+                                                <span class="label">Partner Name</span>
+                                                <span class="value" t-esc="o.payer.name"/>
+                                            </td>
+
+                                        </tr>
+
+                                    </table>
+                                </div>
+
+
+                                <table class="table table-bordered my-5">
+                                    <thead style="font-weight:bold;background-color:#d1d1d1;">
+                                        <tr>
+                                            <th>Invoice Num</th>
+                                            <th>Description</th>
+                                            <th>Payment Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="o.reconciled_bill_ids" t-as="move_id">
+                                            <tr>
+                                                <td>
+                                                    <span t-esc="move_id.name.split('/')[-1]"/>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="o.description"/>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="move_id.amount_total"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+
+                                <table class="table table-bordered my-5">
+                                    <thead style="font-weight:bold;background-color:#d1d1d1;">
+                                        <tr>
+                                            <th>Account Code</th>
+                                            <th>Account Name</th>
+                                            <th>Description</th>
+                                            <th>DR</th>
+                                            <th>CR</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr t-foreach="o.move_line_ids[2:4].filtered(lambda l: l.debit)" t-as="line">
+                                            <td>
+                                                <span t-esc="line.account_id.code"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="line.account_id.name"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="' '.join(line.account_id.account_type.upper().split('_'))"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="line.debit"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="line.credit"/>
+                                            </td>
+                                        </tr>
+                                        <tr t-foreach="o.move_line_ids[:2].filtered(lambda l: l.credit)" t-as="line">
+                                            <td>
+                                                <span t-esc="line.account_id.code"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="line.account_id.name"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="' '.join(line.account_id.account_type.upper().split('_'))"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="line.debit"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="line.credit"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3" style="text-align:right;font-weight:bold">Total</td>
+                                            <td>
+                                                <span t-esc="o.move_line_ids[0].move_id.amount_total"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="o.move_line_ids[0].move_id.amount_total"/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <footer style="float:bottom;width:100%;position:relative; bottom:0;">
+                                    <hr style="border:1px solid black;"/>
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <span>Approved By:</span>
+                                            <br/>
+                                            <span>_________________________</span>
+                                        </div>
+                                        <div class="col-3">
+                                            <span>Prepared By:</span>
+                                            <br/>
+                                            <span>Attached Documents</span>
+                                            <br/>
+                                            <span>PO</span>
+                                            <br/>
+                                            <span>Signatures</span>
+                                            <br/>
+                                            <span>Approval Mail</span>
+                                        </div>
+                                        <div class="col-2">
+                                            <br/>
+                                            <br/>
+                                            <input type="checkbox" class="my-1"/>
+                                            <br/>
+                                            <input type="checkbox" class="my-1"/>
+                                            <br/>
+                                            <input type="checkbox" class="my-1"/>
+                                            <br/>
+                                            <input type="checkbox"/>
+                                        </div>
+                                        <div class="col-2">
+                                            <span>_________________________</span>
+                                        </div>
+                                        <div class="col-2">
+                                            <span>الاداره الماليه</span>
+                                        </div>
+                                    </div>
+                                </footer>
+                            </div>
+                        </div>
+                    </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

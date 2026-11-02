@@ -1,0 +1,615 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!--        edit paper format-->
+        <record id="report_reservation_paperformat" model="report.paperformat">
+            <field name="name">Sale Reservation Format</field>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+            <field name="header_line">False</field>
+            <field name="header_spacing">20</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="reservation_report_with_broker" model="ir.actions.report">
+            <field name="name">Reservation Report With Broker</field>
+            <field name="model">real.estate.sale.reservation</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">arkzayed_18_realestate_development.reservation_with_broker</field>
+            <field name="report_file">arkzayed_18_realestate_development.reservation_with_broker</field>
+            <field name="print_report_name">"Reservation Report For %s" % (object.customer_id.name)</field>
+            <field name="binding_model_id" ref="arkzayed_18_realestate_development.model_real_estate_sale_reservation"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="arkzayed_18_realestate_development.report_reservation_paperformat"/>
+        </record>
+        <template id="reservation_with_broker">
+            <t t-set="with_broker" t-value="1"/>
+            <t t-call="arkzayed_18_realestate_development.reservation_form"/>
+        </template>
+
+        <record id="reservation_report_without_broker" model="ir.actions.report">
+            <field name="name">Reservation Report Without Broker</field>
+            <field name="model">real.estate.sale.reservation</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">arkzayed_18_realestate_development.reservation_without_broker</field>
+            <field name="report_file">arkzayed_18_realestate_development.reservation_without_broker</field>
+            <field name="print_report_name">"Reservation Report For %s" % (object.customer_id.name)</field>
+            <field name="binding_model_id" ref="arkzayed_18_realestate_development.model_real_estate_sale_reservation"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="arkzayed_18_realestate_development.report_reservation_paperformat"/>
+        </record>
+        <template id="reservation_without_broker">
+            <t t-set="with_broker" t-value="0"/>
+            <t t-call="arkzayed_18_realestate_development.reservation_form"/>
+        </template>
+
+        <template id="reservation_form">
+            <t t-call="web.html_container">
+                <meta charset="utf-8"/>
+                <style>
+                    @page {
+                    size: A4;
+                    margin: 8mm;
+                    }
+
+                    body {
+                    font-size: 9.5pt;
+                    line-height: 1.4;
+                    font-family: 'Cairo', 'Rajawali', 'Almar', sans-serif;
+                    color: #2b2b2b;
+                    }
+
+                    .page {
+                    direction: rtl;
+                    text-align: right;
+                    font-family: 'Cairo', 'Rajawali', 'Almar', sans-serif;
+                    padding: 5px 10px;
+                    }
+
+                    .title-main {
+                    font-size: 16pt;
+                    font-weight: 800;
+                    text-align: center;
+                    margin: 8px 0 12px 0;
+                    color: #1a2744;
+                    letter-spacing: 0.5px;
+                    }
+
+                    .section-title {
+                    font-size: 11pt;
+                    font-weight: bold;
+                    margin-top: 12px;
+                    margin-bottom: 6px;
+                    padding: 4px 8px;
+                    color: #1a2744;
+                    background-color: #f0f2f6;
+                    border-right: 4px solid #1a2744;
+                    border-radius: 2px;
+                    }
+
+                    .form-table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin-bottom: 8px;
+                    }
+
+                    .form-table td {
+                    border: 1px solid #d0d5dd;
+                    padding: 5px 8px;
+                    vertical-align: middle;
+                    font-size: 9.5pt;
+                    }
+
+                    .form-table .label-cell {
+                    font-weight: bold;
+                    color: #1a2744;
+                    background-color: #f5f6f8;
+                    white-space: nowrap;
+                    }
+
+                    .form-table .value-cell {
+                    color: #333;
+                    }
+
+                    .ltr {
+                    direction: ltr !important;
+                    unicode-bidi: embed;
+                    display: inline-block;
+                    }
+
+                    .owner-card {
+                    margin-bottom: 10px;
+                    border: 1px solid #d0d5dd;
+                    padding: 8px 10px;
+                    border-radius: 6px;
+                    page-break-inside: avoid;
+                    background-color: #fafbfc;
+                    }
+
+                    .owner-card h4 {
+                    margin: 0 0 6px 0;
+                    font-weight: bold;
+                    font-size: 10pt;
+                    color: #1a2744;
+                    border-bottom: 1px solid #d0d5dd;
+                    padding-bottom: 4px;
+                    }
+
+                    .conditions-list > div {
+                    margin-bottom: 15px;
+                    line-height: 1.6;
+                    text-align: justify;
+                    font-size: 12pt;
+                    }
+
+                    .conditions-list strong {
+                    color: #1a2744;
+                    margin-left: 3px;
+                    }
+
+                    .signature-table {
+                    width: 100%;
+                    border: 1px solid #c0c5cc;
+                    border-collapse: collapse;
+                    margin-top: 15px;
+                    }
+
+                    .signature-table th {
+                    background-color: #1a2744;
+                    color: #fff;
+                    font-weight: bold;
+                    font-size: 9pt;
+                    padding: 6px 4px;
+                    text-align: center;
+                    border: 1px solid #1a2744;
+                    }
+
+                    .signature-table td {
+                    border: 1px solid #c0c5cc !important;
+                    padding: 8px 6px !important;
+                    text-align: center;
+                    vertical-align: top;
+                    height: 70px;
+                    font-size: 8.5pt;
+                    color: #444;
+                    }
+
+                    .footer-info {
+                    text-align: center;
+                    margin-top: 20px;
+                    padding-top: 8px;
+                    border-top: 2px solid #1a2744;
+                    page-break-inside: avoid;
+                    font-size: 8.5pt;
+                    color: #2c2c2c;
+                    line-height: 1.5;
+                    }
+                </style>
+                <t t-foreach="docs" t-as="o">
+                    <div class="page">
+                        <!-- Header Logo -->
+                        <div style="width: 100%; margin-bottom: 25px; padding-bottom: 8px; border-bottom: 2px solid #1a2744; clear: both; overflow: hidden; direction: ltr !important;">
+                            <div style="float: left; width: 50%; text-align: left;">
+                                <img t-att-src="web_base_url + '/arkzayed_18_realestate_development/static/src/img/dw_logo.png'"
+                                     style="height: 60px; width: auto; display: inline-block; object-fit: contain; vertical-align: middle;"/>
+                            </div>
+
+                            <div style="float: right; width: 50%; text-align: right;">
+                                <img t-att-src="web_base_url + '/arkzayed_18_realestate_development/static/img/direction_white.jpeg'"
+                                     style="height: 90px; width: auto; display: inline-block; object-fit: contain; vertical-align: middle; margin-top: -15px;"/>
+                            </div>
+                        </div>
+
+                        <div class="title-main">إستمارة حجز وحدة</div>
+
+                        <!-- I. Customer Data -->
+                        <table class="form-table">
+                            <tbody>
+                                <tr>
+                                    <td class="label-cell" style="width: 15%;">التاريخ:</td>
+                                    <td class="value-cell" style="width: 85%;">
+                                        <span class="ltr">
+                                            <t t-esc="o.reservation_start_date.strftime('%d/%m/%Y') if o.reservation_start_date else '   /   /   '"/>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="section-title">أولاً/ بيانات العميل:</div>
+
+                        <!-- Single Ownership -->
+                        <t t-if="o.ownership != 'multiple'">
+                            <table class="form-table">
+                                <tbody>
+                                    <tr>
+                                        <td class="label-cell" style="width: 15%;">الاسم:</td>
+                                        <td class="value-cell" style="width: 85%;" colspan="3">
+                                            <t t-esc="o.customer_id.name or ' '"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label-cell" style="width: 15%;">العنوان:</td>
+                                        <td class="value-cell" style="width: 85%;" colspan="3">
+                                            <t t-esc="o.customer_id._display_address() or ' '"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label-cell" style="width: 15%;">تليفون العمل:</td>
+                                        <td class="value-cell" style="width: 85%;" colspan="3">
+                                            <span class="ltr">
+                                                <t t-esc="o.customer_id.phone or ' '"/>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label-cell" style="width: 15%;">الجنسية:</td>
+                                        <td class="value-cell" style="width: 35%;">
+                                            <t t-esc="o.customer_id.nationality or ' '"/>
+                                        </td>
+                                        <td class="label-cell" style="width: 15%; text-align: center;">الرقم القومي:
+                                        </td>
+                                        <td class="value-cell" style="width: 35%;">
+                                            <t t-esc="o.customer_national_id or o.customer_passport_number or o.customer_id.vat or ' '"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label-cell" style="width: 15%;">البريد الإلكتروني:</td>
+                                        <td class="value-cell" style="width: 85%;" colspan="3">
+                                            <span class="ltr">
+                                                <t t-esc="o.customer_email or o.customer_id.email or ' '"/>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </t>
+
+                        <!-- Multiple Ownership -->
+                        <t t-if="o.ownership == 'multiple'">
+                            <t t-foreach="o.customer_new_ownership_ids" t-as="owner">
+                                <div class="owner-card">
+                                    <h4>
+                                        <span>المالك الشريك:</span>
+                                        <t t-esc="owner.customer_id.name"/>
+                                    </h4>
+                                    <table class="form-table">
+                                        <tbody>
+                                            <tr>
+                                                <td class="label-cell" style="width: 15%;">الاسم:</td>
+                                                <td class="value-cell" style="width: 85%;" colspan="3">
+                                                    <t t-esc="owner.customer_id.name or ' '"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="label-cell" style="width: 15%;">العنوان:</td>
+                                                <td class="value-cell" style="width: 85%;" colspan="3">
+                                                    <t t-esc="owner.customer_id._display_address() or ' '"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="label-cell" style="width: 15%;">تليفون العمل:</td>
+                                                <td class="value-cell" style="width: 85%;" colspan="3">
+                                                    <span class="ltr">
+                                                        <t t-esc="owner.customer_id.phone or ' '"/>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="label-cell" style="width: 15%;">الجنسية:</td>
+                                                <td class="value-cell" style="width: 35%;">
+                                                    <t t-esc="owner.customer_id.nationality or ' '"/>
+                                                </td>
+                                                <td class="label-cell" style="width: 15%; text-align: center;">الرقم
+                                                    القومي:
+                                                </td>
+                                                <td class="value-cell" style="width: 35%;">
+                                                    <t t-esc="owner.customer_id.national_id or owner.customer_id.passport_number or owner.customer_id.vat or ' '"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="label-cell" style="width: 15%;">البريد الإلكتروني:</td>
+                                                <td class="value-cell" style="width: 85%;" colspan="3">
+                                                    <span class="ltr">
+                                                        <t t-esc="owner.customer_id.email or ' '"/>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </t>
+                        </t>
+
+                        <!-- II. Unit Details -->
+                        <div class="section-title">ثانياً/ بيانات الوحدة:</div>
+                        <table class="form-table">
+                            <tbody>
+                                <tr>
+                                    <td class="label-cell" style="width: 15%;">الوحدة رقم:</td>
+                                    <td class="value-cell" style="width: 25%; text-align: center;">
+                                        <t t-esc="o.unit_id.name or o.unit_id.system_code or ' '"/>
+                                    </td>
+                                    <td class="label-cell" style="width: 15%; text-align: center;">بمشروع:</td>
+                                    <td class="value-cell" style="width: 45%; text-align: center;">
+                                        <t t-if="o.project_id">
+                                            <t t-esc="o.project_id.name"/>
+                                            <t t-if="o.project_id.location and o.project_id.location != o.project_id.name">
+                                                الكائن في:
+                                                <t t-esc="o.project_id.location"/>
+                                            </t>
+                                        </t>
+                                        <t t-else="">
+                                            ديركشن وايت الكائن فى : الكيلو ١٩٢، الساحل الشمالي
+                                        </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="label-cell" style="width: 15%;">نوع الوحده:</td>
+                                    <td class="value-cell" style="width: 85%; text-align: right;" colspan="3">
+                                        <t t-if="o.unit_id">
+                                            <span style="direction: ltr !important; unicode-bidi: embed; display: inline-block;">
+                                                <t t-if="o.unit_id.unit_type == 'residential'">
+                                                    <t t-if="o.unit_id.residential_type == 'villa' and o.unit_id.villa_type_id">
+                                                        <t t-esc="o.unit_id.villa_type_id.display_name"/>
+                                                    </t>
+                                                    <t t-elif="o.unit_id.residential_type == 'apartment' and o.unit_id.apartment_type_id">
+                                                        <t t-esc="o.unit_id.apartment_type_id.display_name"/>
+                                                    </t>
+                                                    <t t-elif="o.unit_id.residential_type == 'loft' and o.unit_id.loft_type_id">
+                                                        <t t-esc="o.unit_id.loft_type_id.display_name"/>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <t t-esc="dict(o.unit_id._fields['unit_type'].selection).get(o.unit_id.unit_type) or o.unit_id.unit_type"/>
+                                                    </t>
+                                                </t>
+                                                <t t-elif="o.unit_id.unit_type == 'office' and o.unit_id.office_type_id">
+                                                    <t t-esc="o.unit_id.office_type_id.display_name"/>
+                                                </t>
+                                                <t t-elif="o.unit_id.unit_type == 'medical' and o.unit_id.medical_type_id">
+                                                    <t t-esc="o.unit_id.medical_type_id.display_name"/>
+                                                </t>
+                                                <t t-else="">
+                                                    <t t-if="o.unit_id.unit_type">
+                                                        <t t-esc="dict(o.unit_id._fields['unit_type'].selection).get(o.unit_id.unit_type) or o.unit_id.unit_type"/>
+                                                    </t>
+                                                </t>
+                                            </span>
+                                        </t>
+                                        <t t-else="">
+                                            &#160;
+                                        </t>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div style="margin-bottom: 5px; font-weight: bold;">والبالغ إجمالي مساحتها تحت العجز والزيادة
+                            كالتالي:
+                        </div>
+
+                        <table class="form-table">
+                            <tbody>
+                                <tr>
+                                    <td class="label-cell" style="width: 15%;">مساحة الوحدة:</td>
+                                    <td class="value-cell" style="width: 25%; text-align: center;">
+                                        <t t-esc="'{:,.2f}'.format(o.contracted_build_up_area or o.unit_id.indoor_gross_area or 0.0)"/>
+                                        متر مربع
+                                    </td>
+                                    <td class="label-cell" style="width: 20%; text-align: center;">مساحة
+                                        التراس/الحديقة:
+                                    </td>
+                                    <td class="value-cell" style="width: 40%; text-align: center;">
+                                        <t t-set="terrace_garden"
+                                           t-value="(o.contracted_outdoor_area or 0.0) + (o.contracted_terrace_area or 0.0) or (o.unit_id.outdoor_gross_area or 0.0) + (o.unit_id.terrace_gross_area or 0.0)"/>
+                                        <t t-esc="'{:,.2f}'.format(terrace_garden)"/>
+                                        متر مربع
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <table class="form-table">
+                            <tbody>
+                                <tr>
+                                    <td class="label-cell" style="width: 15%;">إجمالي قيمة الوحدة:</td>
+                                    <td class="value-cell" style="width: 25%; text-align: center;">
+                                        <t t-esc="'{:,.2f}'.format(o.contracted_selling_price)"/>
+                                        جنيه مصري
+                                    </td>
+                                    <td class="label-cell" style="width: 10%; text-align: center;">فقط:</td>
+                                    <td class="value-cell"
+                                        style="width: 50%; text-align: center; font-style: italic; font-weight: bold;">
+                                        <t t-esc="o.currency_id.amount_to_text_ar(o.contracted_selling_price)"/>
+                                        لا غير
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <table class="form-table">
+                            <tbody>
+                                <tr>
+                                    <td class="label-cell" style="width: 25%;">قيمة مصاريف الصيانة:</td>
+                                    <td class="value-cell" style="width: 75%;">
+                                        <t t-esc="'{:,.1f}'.format(o.maintenance_percentage * 100) if o.maintenance_percentage else '8'"/>
+                                        % من قيمة الوحدة.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- III. Payment System -->
+                        <div class="section-title">ثالثاً/ نظام السداد:</div>
+                        <table class="form-table">
+                            <tbody>
+                                <tr>
+                                    <td class="label-cell" style="width: 25%;">نظام الدفع:</td>
+                                    <td class="value-cell" style="width: 75%;">
+                                        <t t-if="o.installment_template_id and o.installment_template_id.reservation_percentage">
+                                            <t t-esc="'{:,.0f}'.format(o.installment_template_id.reservation_percentage)"/>
+                                            % دفعة تعاقد
+                                        </t>
+                                        <t t-else="">
+                                            دفعة تعاقد
+                                        </t>
+                                        <t t-if="o.installment_template_id and o.installment_template_id.contracting_percentage">
+                                            +
+                                            <t t-esc="'{:,.0f}'.format(o.installment_template_id.contracting_percentage)"/>
+                                            % دفعة إستلام.
+                                        </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="label-cell" style="width: 25%;">فترة الأقساط:</td>
+                                    <td class="value-cell" style="width: 75%;">
+                                        المبلغ المتبقي على أقساط متساوية لمدة
+                                        <strong>
+                                            <t t-esc="o.installment_template_id.number_of_years or ' '"/>
+                                        </strong>
+                                        سنوات.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- IV. Conditions -->
+                        <div class="section-title">رابعاً/ شروط الحجز:</div>
+                        <div class="conditions-list" style="margin-top: 15px;">
+                            <div>
+                                <strong>1.</strong>
+                                <span>في حالة سداد مبلغ دفعة الحجز بشيك وعدم صرفه حال تقديمه للبنك في تاريخ استحقاقه فإن
+                                    الحجز ينقضي من تلقاء نفسه ويصبح معدوم الأثر ولا يحق للعميل مطالبة الشركة باية
+                                    مطالبات أيا كانت في الحال أو في المستقبل مع التزام العميل بسداد ٥% من إجمالي قيمة
+                                    الوحدة كتعويض اتفاقي مقابل ما انفقته الشركة من مصاريف إدارية وفوات الفرصة البديلة
+                                    عليها.
+                                </span>
+                            </div>
+
+                            <div>
+                                <strong>2.</strong>
+                                <span>لا يحق للعميل المطالبة بأية تعويضات أو فوائد أو أية مطالبات أخرى بشأن دفعه الحجز
+                                    في حالة قيامه بإلغاء الحجز في أى وقت ويكون للشركة الحق في خصم ٥% من إجمالي قيمة
+                                    الوحدة كتعويض اتفاقي.
+                                </span>
+                            </div>
+
+                            <div>
+                                <strong>3.</strong>
+                                <span>لا يجوز للعميل التنازل عن استمارة الحجز لأي طرف آخر الا بموافقة كتابيه من الشركة
+                                    وذلك في ما عدا أقارب الدرجة الأولى، وفي حال موافقة الشركة يلتزم العميل بسداد
+                                    المصاريف الإدارية المحددة من قبل الشركة في وقت طلب التنازل.
+                                </span>
+                            </div>
+
+                            <div>
+                                <strong>4.</strong>
+                                <span>لا تعتبر هذه الاستمارة منتجة لاثارها ما لم تكن مختومة بخاتم الشركة ومصحوبة
+                                    بالإيصال الدال على سداد دفعة الحجز مختوما بخاتم الشركة.
+                                </span>
+                            </div>
+
+                            <div>
+                                <strong>5.</strong>
+                                <span>أن سداد دفعة الحجز والتوقيع على إستمارة الحجز يمثل ارتباط مبدئي على الحجز يطبق
+                                    بشأن الشروط التفصيلية الواردة باستمارة الحجز ولا يعتبر التعاقد قائما وتاماً مع
+                                    الشركة إلا بعد التوقيع على عقد البيع في الموعد المحدد.
+                                </span>
+                            </div>
+
+                            <div>
+                                <strong>6.</strong>
+                                <span>أقر أنا /</span>
+                                <span style="border-bottom: 1px solid #000; display: inline-block; min-width: 40%; text-align: center; font-weight: bold;">
+                                    <t t-esc="o.customer_id.name"/>
+                                </span>
+                                <span>بصحة جميع بياناتي المذكورة اعلاه وانه في حالة تخلفي عن توقيع العقد الابتدائي
+                                    وتسليم كامل الشيكات الخاصة بالعقد الابتدائي وعدم التزامي بالحضور وللتوقيع على العقد
+                                    يعد ذلك عدولاً نهائيا من جانبي عن هذا الحجز وموافقة مني بإلغائه دون تنبيه او إنذار
+                                    أو أعذار أو أي إجراء قضائي آخر ويحق للشركة خصم ٥% من إجمالي قيمة الوحدة كتعويض
+                                    اتفاقي مقابل ما انفقته الشركة من مصاريف إدارية وفوات الفرصة البديلة عليها وعدم
+                                    أحقيتي في مطالبة الشركة برد المبلغ المخصوم مع حق الشركة في التصرف في الوحدة المحجوزة
+                                    دون حقي في الاعتراض على ذلك في الحال أو في المستقبل كما اقر باتخاذ العنوان الموضح
+                                    قرين اسمي محلا مختارا لي وإن أي مراسلات أو اخطارات او خطابات ترسل على هذا العنوان
+                                    تعتبر صحيحة و منتجة لاثارها القانونية كما التزم باخطار الشركة بأي تغيير في عنواني
+                                    وإلا يعتبر إعلاني على عنواني الموضح قرين اسمي بهذه الاستمارة صحيحا.
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Signature block -->
+                        <table class="signature-table" style="page-break-inside: avoid;">
+                            <thead>
+                                <tr>
+                                    <th style="width: 25%;">العميل</th>
+                                    <th style="width: 25%;">مدير المبيعات</th>
+                                    <t t-if="with_broker">
+                                        <th style="width: 25%;">المسوق العقاري</th>
+                                    </t>
+                                    <th style="width: 25%;">مسؤول المبيعات</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        الاسم:
+                                        <t t-esc="o.customer_id.name or ' '"/>
+                                        <br/>
+                                        <br/>
+                                        التوقيع: __________________
+                                    </td>
+                                    <td>
+                                        الاسم:
+                                        <t t-esc="o.sales_manager_id.name or o.sales_manager_names or '__________________'"/>
+                                        <br/>
+                                        <br/>
+                                        التوقيع: __________________
+                                    </td>
+                                    <td t-if="with_broker">
+                                        <t t-if="o.referred_by == 'broker'">
+                                            <t t-if="o.referred_by_partner_id.is_broker">
+                                                <!--  here we are going to select the first child from  child_ids  -->
+                                                اسم الشركه:
+                                                <t t-esc="o.referred_by_partner_id.child_ids[0].name if o.referred_by_partner_id.child_ids else '__________________'"/>
+                                                <br/>
+                                                <br/>
+                                            </t>
+
+                                            اسم السيلز:
+                                            <t t-esc="o.referred_by_partner_id.name or '__________________'"/>
+                                            <br/>
+                                            <br/>
+                                        </t>
+                                        <t t-else="">
+                                        </t>
+                                        التوقيع: __________________
+                                    </td>
+                                    <td>
+                                        الاسم:
+                                        <t t-esc="o.user_id.name or '__________________'"/>
+                                        <br/>
+                                        <br/>
+                                        التوقيع: __________________
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="footer-info">
+                            <div style="font-family: 'Frutiger LT Arabic', Arial, sans-serif;">ارابيلا كانتري كلوب،
+                                التجمع الخامس، مدينة القاهرة الجديدة، القاهرة ت: ١٧١٧٨
+                            </div>
+                            <div style="font-weight: bold; font-family: 'Helvetica Neue', Arial, sans-serif; margin-top: 2px; letter-spacing: 0.5px;">
+                                ARKZAYED COUNTRY CLUB, 5TH SETTLEMENT, NEW CAIRO, CAIRO T:17178
+                            </div>
+                        </div>
+
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

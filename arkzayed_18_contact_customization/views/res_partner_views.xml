@@ -1,0 +1,119 @@
+<odoo>
+    <data>
+        <record id="view_partner_form_inherit" model="ir.ui.view">
+            <field name="name">view_partner_form_inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group//group" position="inside">
+                    <field name="address_1"/>
+                    <field name="address_2"/>
+                    <field name="customer_code"/>
+                </xpath>
+                <xpath expr="//field[@name='vat']" position="replace"/>
+                <xpath expr="//field[@name='function']" position="after">
+                    <field name="whats_up_phone"/>
+                </xpath>
+                <xpath expr="//page[@name='internal_notes']" position="after">
+                    <page name="customer_document" string="Customer Document" invisible="company_type != 'person'">
+                        <group>
+                            <group>
+                                <field name="national_id"/>
+                                <field name="national_id_attachment"/>
+                                <field name="national_id_expiry_date"/>
+                            </group>
+                            <group>
+                                <field name="passport_number"/>
+                                <field name="passport_attachment"/>
+                                <field name="passport_number_expiry_date"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//page[@name='internal_notes']" position="after">
+                    <page name="company_document" string="Company Document" invisible="company_type != 'company'">
+                        <group>
+                            <group>
+                                <field name="cr"/>
+                                <field name="cr_attachment"/>
+                                <field name="cr_expiry_date"/>
+                            </group>
+                            <group>
+                                <field name="TRN"/>
+                                <field name="TRN_attachment"/>
+                                <field name="TRN_expiry_date"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="vat"/>
+                                <field name="tax_attachment"/>
+                                <field name="tax_expiry_date"/>
+                            </group>
+                            <group>
+                                <field name="company_profile"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page name="extra_phones" string="Extra Phones">
+                        <group string="Extra Phones">
+                            <field name="phone1"/>
+                            <field name="phone2"/>
+                            <field name="phone3"/>
+                            <field name="phone4"/>
+                        </group>
+                    </page>
+                    <page name="portal_access_rights" string="Portal Access Rights">
+                        <group>
+                            <group>
+                                <field name="is_portal" invisible="1"/>
+                                <field name="sale_portal_user"/>
+                                <field name="purchase_portal_user"/>
+                            </group>
+                            <group>
+
+                                <field name="lease_contract"/>
+                                <field name="facility_contract"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//field[@name='child_ids']/form/sheet/group/group/field[@name='name']"
+                       position="attributes">
+                    <attribute name="invisible">type == 'representative'</attribute>
+                </xpath>
+                <xpath expr="//field[@name='child_ids']/form/sheet/group/group/field[@name='title']"
+                       position="attributes">
+                    <attribute name="invisible">type == 'invoice' or type == 'delivery' or type == 'other'</attribute>
+                </xpath>
+                <xpath expr="//field[@name='child_ids']/form/sheet/group/group/field[@name='function']"
+                       position="attributes">
+                    <attribute name="invisible">type == 'invoice' or type == 'delivery' or type == 'other'</attribute>
+                </xpath>
+                <xpath expr="//field[@name='child_ids']/form/sheet/group/group/field[@name='name']" position="after">
+                    <field name="name" string="Representative Name" invisible="type != 'representative'"/>
+                    <field name="representative_id" invisible="type != 'representative'"/>
+                    <field name="representative_expiry_date" invisible="type != 'representative'"/>
+                    <field name="representative_attachment" invisible="type != 'representative'"/>
+                </xpath>
+                <xpath expr="//field[@name='category_id']" position="after">
+                    <field name="is_resale_seller"/>
+                    <field name="is_resale_buyer"/>
+                    <field name="is_developer"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_partner_search_inherit" model="ir.ui.view">
+            <field name="name">view_partner_search_inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']">
+                    <field name="customer_code"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,312 @@
+<odoo>
+    <data>
+
+        <!-- Broker Claim Kanban View -->
+        <record id="view_broker_claim_kanban" model="ir.ui.view">
+            <field name="name">broker.claim.kanban</field>
+            <field name="model">broker.claim</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_mobile">
+                    <field name="name"/>
+                    <field name="broker_company"/>
+                    <field name="unit_id"/>
+                    <field name="commission_amount"/>
+                    <field name="state"/>
+                    <field name="currency_id"/>
+
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                                <div class="o_kanban_record_top mb16">
+                                    <div class="o_kanban_record_headings">
+                                        <strong class="o_kanban_record_title">
+                                            <field name="name"/>
+                                        </strong>
+                                    </div>
+                                    <span class="badge"
+                                          t-attf-class="badge-{{
+                                          state == 'draft' and 'info' or
+                                          state == 'confirmed' and 'warning' or
+                                          state == 'paid' and 'success' or
+                                          'secondary'
+                                      }}">
+                                        <field name="state"/>
+                                    </span>
+                                </div>
+                                <div class="o_kanban_record_body">
+                                    <field name="broker_company"/>
+                                    <br/>
+                                    <field name="unit_id"/>
+                                </div>
+                                <div class="o_kanban_record_bottom">
+                                    <div class="oe_kanban_bottom_left">
+                                        <strong>
+                                            <field name="commission_amount" widget="monetary"/>
+                                        </strong>
+                                    </div>
+                                    <div class="oe_kanban_bottom_right">
+                                        <field name="commission"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="view_broker_claim_tree" model="ir.ui.view">
+            <field name="name">broker.claim.tree</field>
+            <field name="model">broker.claim</field>
+            <field name="arch" type="xml">
+                <list string="Broker Claims" decoration-info="state=='draft'"
+                      decoration-success="state=='paid'" decoration-muted="state=='cancelled'">
+                    <field name="name"/>
+                    <field name="claim_type"/>
+                    <field name="broker_company" invisible="claim_type == 'employee'"/>
+                    <field name="employee_id" invisible="claim_type != 'employee'"/>
+                    <field name="parent_broker_id" string="Broker" optional="show" invisible="claim_type != 'agent'"/>
+                    <field name="unit_id"/>
+                    <field name="sale_proposal_id"/>
+                    <field name="unit_sold_price" sum="Total Sold Price"/>
+                    <field name="commission"/>
+                    <field name="commission_amount" sum="Total Commission"/>
+                    <field name="collection_percentage"/>
+                    <field name="state" widget="badge"
+                           decoration-info="state == 'draft'"
+                           decoration-success="state == 'confirmed'"
+                           decoration-primary="state == 'paid'"
+                           decoration-muted="state == 'cancelled'"/>
+                    <field name="payment_date"/>
+                    <field name="paid_outside_system" widget="boolean_toggle" optional="show"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Broker Claim Form View -->
+        <record id="view_broker_claim_form" model="ir.ui.view">
+            <field name="name">broker.claim.form</field>
+            <field name="model">broker.claim</field>
+            <field name="arch" type="xml">
+                <form string="Broker Claim">
+                    <header>
+                        <button name="action_confirm" string="Confirm" type="object"
+                                class="btn-success" invisible="state != 'draft'"/>
+                        <button name="action_cancel" string="Cancel" type="object" class="btn-danger"
+                                invisible="state not in ['draft', 'confirmed']"/>
+                        <button name="action_create_payment" string="Create Payment" type="object"
+                                class="btn-info" invisible="state != 'confirmed'"/>
+                        <button name="action_mark_paid_outside_system" string="Mark Paid Outside System" type="object"
+                                class="btn-secondary" invisible="state != 'confirmed'"
+                                confirm="This claim will be marked as Paid without creating a payment in the system. Use this only for old contracts whose commission was already paid before this system was in use. Continue?"/>
+                        <button name="action_reset_to_draft" string="Reset to Draft" type="object"
+                                invisible="state not in ['confirmed', 'cancelled']" class="btn-secondary"/>
+                        <button name="action_export_excel"
+                                string="Excel"
+                                type="object"
+                                class="btn-secondary"
+                                invisible="state == 'cancelled'"/>
+                        <button name="action_print_pdf"
+                                string="PDF"
+                                type="object"
+                                class="btn-secondary"
+                                invisible="state == 'cancelled'"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,paid"/>
+                    </header>
+
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_view_payment" type="object"
+                                    class="oe_stat_button" icon="fa-pencil-square-o">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">
+                                        <field name="payment_count"/>
+                                    </span>
+                                    <span class="o_stat_text">Payments</span>
+                                </div>
+                            </button>
+                            <button name="action_view_journal_entry" type="object"
+                                    class="oe_stat_button" icon="fa-book"
+                                    invisible="journal_entry_id == False">
+                                <field name="journal_entry_id" invisible="1"/>
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_text">Journal</span>
+                                    <span class="o_stat_text">Entry</span>
+                                </div>
+                            </button>
+                            <button name="action_view_agent_claims" type="object"
+                                    class="oe_stat_button" icon="fa-users"
+                                    invisible="not agent_claim_ids">
+                                <field name="agent_claim_ids" widget="statinfo" string="Agent Claims"/>
+                            </button>
+                        </div>
+
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+
+                        <group>
+                            <group name="broker_info" string="Broker Information">
+                                <field name="claim_type" readonly="state != 'draft'"/>
+                                <field name="employee_id"
+                                       readonly="state != 'draft'"
+                                       options="{'no_create': True}"
+                                       invisible="claim_type != 'employee'"/>
+                                <field name="broker_company" string="Broker Company"
+                                       readonly="state != 'draft'"
+                                       options="{'no_create': True, 'no_open': True}"
+                                       invisible="claim_type == 'employee'"/>
+                                <field name="sale_proposal_id"
+                                       readonly="state != 'draft'"
+                                       options="{'no_create': True}"/>
+                                <field name="parent_claim_id" readonly="1" invisible="not parent_claim_id"/>
+                                <field name="parent_broker_id" string="Broker" readonly="1" invisible="claim_type != 'agent'"/>
+                            </group>
+
+                            <group name="unit_info" string="Unit Information">
+                                <field name="available_unit_ids" invisible="1"/>
+                                <field name="unit_id"
+                                       readonly="state != 'draft'"
+                                       options="{'no_create': True}"
+                                       domain="[('id', 'in', available_unit_ids)] if claim_type in ('broker', 'ambassador') and broker_company else []"/>
+                                <field name="company_id"
+                                       groups="base.group_multi_company"
+                                       readonly="state != 'draft'"/>
+                                <field name="claim_date" required="1" readonly="state != 'draft'"/>
+                            </group>
+                        </group>
+
+                        <group>
+                            <group name="financial_info" string="Financial Information">
+                                <field name="unit_sold_price"
+                                       readonly="state != 'draft'"
+                                       widget="monetary"
+                                       options="{'currency_field': 'currency_id'}"/>
+                                <field name="commission"
+                                       readonly="state != 'draft'"/>
+                                <field name="commission_amount_with_vat"
+                                       readonly="1"
+                                       widget="monetary"
+                                       string="Commission Amount With Vat"
+                                       options="{'currency_field': 'currency_id'}"/>
+
+                                <field name="commission_amount_without_vat"
+                                       readonly="1"
+                                       widget="monetary"
+                                       string="Commission Amount Without VAT"
+                                       options="{'currency_field': 'currency_id'}"/>
+
+                                <field name="paid_commission"
+                                       readonly="1"
+                                       widget="monetary"
+                                       string="Paid Commission"
+                                       options="{'currency_field': 'currency_id'}"/>
+
+                                <field name="with_withholding_tax" widget="boolean_toggle" readonly="state != 'draft'"/>
+                                <field name="currency_id" invisible="1"/>
+                            </group>
+
+                            <group name="collection_info" string="Collection Information">
+                                <field name="collection_percentage"
+                                       readonly="1"
+                                       help="Percentage of unit price collected when claim was created"/>
+                                <field name="payment_date"
+                                       readonly="state != 'confirmed'"
+                                       invisible="state not in ['paid']"/>
+                                <field name="paid_outside_system" widget="boolean_toggle" readonly="1"
+                                       invisible="not paid_outside_system"/>
+                                <field name="paid_outside_system_note"
+                                       invisible="not paid_outside_system"/>
+                            </group>
+                        </group>
+
+                        <group name="notes_group" string="Notes">
+                            <field name="notes"
+                                   nolabel="1"
+                                   placeholder="Add any additional notes here..."
+                                   readonly="state == 'paid'"/>
+                        </group>
+
+                    </sheet>
+                     <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <!-- Broker Claim Search View -->
+        <record id="view_broker_claim_search" model="ir.ui.view">
+            <field name="name">broker.claim.search</field>
+            <field name="model">broker.claim</field>
+            <field name="arch" type="xml">
+                <search string="Broker Claims">
+                    <field name="name" string="Reference"/>
+                    <field name="broker_company"/>
+                    <field name="unit_id"/>
+                    <field name="sale_proposal_id"/>
+
+                    <filter string="Draft" name="draft" domain="[('state','=','draft')]"/>
+                    <filter string="Confirmed" name="confirmed" domain="[('state','=','confirmed')]"/>
+                    <filter string="Paid" name="paid" domain="[('state','=','paid')]"/>
+                    <filter string="Cancelled" name="cancelled" domain="[('state','=','cancelled')]"/>
+
+                    <separator/>
+                    <filter string="Paid Outside System" name="paid_outside_system"
+                            domain="[('paid_outside_system','=',True)]"/>
+
+                    <separator/>
+                    <filter string="This Month" name="this_month"
+                            domain="[('create_date','&gt;=', (context_today() - relativedelta(day=1)).strftime('%Y-%m-%d'))]"/>
+                    <filter string="This Year" name="this_year"
+                            domain="[('create_date','&gt;=', (context_today() - relativedelta(month=1, day=1)).strftime('%Y-%m-%d'))]"/>
+
+                    <group expand="0" string="Group By">
+                        <filter string="Claim Type" name="group_claim_type" context="{'group_by':'claim_type'}"/>
+                        <filter string="Broker Company" name="group_broker" context="{'group_by':'broker_company'}"/>
+                        <filter string="State" name="group_state" context="{'group_by':'state'}"/>
+                        <filter string="Unit" name="group_unit" context="{'group_by':'unit_id'}"/>
+                        <filter string="Sale Proposal" name="group_proposal" context="{'group_by':'sale_proposal_id'}"/>
+                        <filter string="Payment Date" name="group_payment_date" context="{'group_by':'payment_date'}"/>
+                        <filter string="Paid Outside System" name="group_paid_outside_system" context="{'group_by':'paid_outside_system'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="broker_claim_action">
+            <field name="name">Broker / Ambassador Claims</field>
+            <field name="res_model">broker.claim</field>
+            <field name="view_mode">list,kanban,form</field>
+            <field name="search_view_id" ref="view_broker_claim_search"/>
+            <field name="context">{'search_default_draft': 1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a Broker Claim
+                </p>
+                <p>
+                    Broker claims are automatically created when the collection threshold is reached.
+                </p>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="non_sales_claim_action">
+            <field name="name">Non Sales Claim</field>
+            <field name="res_model">broker.claim</field>
+            <field name="view_mode">list,kanban,form</field>
+            <field name="domain">[('claim_type', '=', 'employee')]</field>
+            <field name="context">{'search_default_draft': 1, 'default_claim_type': 'employee'}</field>
+            <field name="search_view_id" ref="view_broker_claim_search"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No non-sales commission claims yet
+                </p>
+                <p>
+                    Non-sales claims are automatically created for employees assigned to a
+                    commission category, once the collection threshold is reached.
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

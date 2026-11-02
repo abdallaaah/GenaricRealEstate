@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="paperformat_handover_report" model="report.paperformat">
+            <field name="name">Handover Report A4 Landscape</field>
+            <field name="default" eval="False"/>
+            <field name="format">A4</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">0</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="action_report_handover_pdf" model="ir.actions.report">
+            <field name="name">Handover Report PDF</field>
+            <field name="model">sale.proposal</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">arkzayed_18_realestate_development.handover_report_pdf_template</field>
+            <field name="report_file">arkzayed_18_realestate_development.handover_report_pdf_template</field>
+            <field name="print_report_name">'Handover Report'</field>
+            <field name="binding_model_id" ref="model_sale_proposal"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="paperformat_handover_report"/>
+        </record>
+
+        <template id="handover_report_pdf_template">
+            <t t-call="web.html_container">
+                <t t-call="web.basic_layout">
+                    <div class="page" style="font-family: 'DejaVu Sans', Arial, sans-serif;">
+                        <style>
+                            .handover-title {
+                                text-align: center;
+                                font-size: 16pt;
+                                font-weight: bold;
+                                background-color: #D9D9D9;
+                                padding: 8px;
+                                margin-bottom: 15px;
+                                border: 1px solid #000;
+                            }
+                            .handover-table {
+                                width: 100%;
+                                border-collapse: collapse;
+                                font-size: 8pt;
+                            }
+                            .handover-table th {
+                                background-color: #4472C4;
+                                color: white;
+                                border: 1px solid #000;
+                                padding: 6px 4px;
+                                text-align: center;
+                                font-weight: bold;
+                            }
+                            .handover-table td {
+                                border: 1px solid #000;
+                                padding: 4px;
+                                text-align: center;
+                            }
+                            .handover-table tr:nth-child(even) {
+                                background-color: #F2F2F2;
+                            }
+                            .badge-regular {
+                                background-color: #28a745;
+                                color: white;
+                                padding: 2px 6px;
+                                border-radius: 3px;
+                                font-size: 7pt;
+                            }
+                            .badge-installment-regular {
+                                background-color: #ffc107;
+                                color: black;
+                                padding: 2px 6px;
+                                border-radius: 3px;
+                                font-size: 7pt;
+                            }
+                            .badge-maintenance-regular {
+                                background-color: #ffc107;
+                                color: black;
+                                padding: 2px 6px;
+                                border-radius: 3px;
+                                font-size: 7pt;
+                            }
+                            .badge-irregular {
+                                background-color: #dc3545;
+                                color: white;
+                                padding: 2px 6px;
+                                border-radius: 3px;
+                                font-size: 7pt;
+                            }
+                        </style>
+
+                        <div class="handover-title">Handover Report</div>
+
+                        <table class="handover-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Unit Code</th>
+                                    <th>Building No</th>
+                                    <th>Unit Type</th>
+                                    <th>Contract Status</th>
+                                    <th>Contract Date</th>
+                                    <th>Expected Delivery Date</th>
+                                    <th>Expected After Allowance</th>
+                                    <th>Extra Period Date</th>
+                                    <th>Contracted Sold Price</th>
+                                    <th>Customer Name</th>
+                                    <th>Payment State</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="row_num" t-value="0"/>
+                                <t t-foreach="docs" t-as="o">
+                                    <t t-set="row_num" t-value="row_num + 1"/>
+                                    <tr t-att-class="'odd' if row_num % 2 == 0 else 'even'">
+                                        <td><t t-esc="row_num"/></td>
+                                        <td><t t-esc="o.unit_id.system_code if o.unit_id else ''"/></td>
+                                        <td><t t-esc="o.building_id.name if o.building_id else ''"/></td>
+                                        <td><t t-esc="dict(o.fields_get(allfields=['unit_type'])['unit_type']['selection']).get(o.unit_type, '')"/></td>
+                                        <td><t t-esc="dict(o.fields_get(allfields=['state'])['state']['selection']).get(o.state, '')"/></td>
+                                        <td><t t-esc="o.contract_issue_date.strftime('%d/%m/%Y') if o.contract_issue_date else ''"/></td>
+                                        <td><t t-esc="o.expected_delivery_date.strftime('%d/%m/%Y') if o.expected_delivery_date else ''"/></td>
+                                        <td><t t-esc="o.expected_after_allowance.strftime('%d/%m/%Y') if o.expected_after_allowance else ''"/></td>
+                                        <td><t t-esc="o.extra_period_date.strftime('%d/%m/%Y') if o.extra_period_date else ''"/></td>
+                                        <td><t t-esc="'{:,.2f}'.format(o.contracted_selling_price) if o.contracted_selling_price else '0.00'"/></td>
+                                        <td><t t-esc="o.customer_id.name if o.customer_id else ''"/></td>
+                                        <td>
+                                            <t t-if="o.payment_regularity_state == 'regular'">
+                                                <span class="badge-regular">Regular</span>
+                                            </t>
+                                            <t t-elif="o.payment_regularity_state == 'installment_regular'">
+                                                <span class="badge-installment-regular">Installment Regular</span>
+                                            </t>
+                                            <t t-elif="o.payment_regularity_state == 'maintenance_regular'">
+                                                <span class="badge-maintenance-regular">Maintenance Regular</span>
+                                            </t>
+                                            <t t-elif="o.payment_regularity_state == 'irregular'">
+                                                <span class="badge-irregular">Irregular</span>
+                                            </t>
+                                            <t t-else="">
+                                                <span>-</span>
+                                            </t>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+
+                        <div style="margin-top: 15px; font-size: 9pt;">
+                            <strong>Total Records: </strong><t t-esc="len(docs)"/>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Root Menu -->
+    <menuitem id="menu_real_estate_root" name="Real Estate"
+              web_icon="arkzayed_18_realestate_development,static/description/icon.png"/>
+
+    <!-- Dashboard -->
+    <menuitem id="menu_dashboard" name="Dashboard" sequence="1"
+              parent="menu_real_estate_root" action="action_unit_dashboard"/>
+
+    <!-- Property Master -->
+    <menuitem id="menu_property_master_root" name="Property Master" parent="menu_real_estate_root" sequence="2"/>
+    <menuitem id="menu_project" name="Project" parent="menu_property_master_root" action="action_main_project" sequence="1"/>
+    <menuitem id="zone_menu" name="Zone" parent="menu_property_master_root" action="zone_action" sequence="2"/>
+    <menuitem id="menu_building" name="Building" parent="menu_property_master_root" action="action_real_estate_building" sequence="3"/>
+    <menuitem id="floor_menu" name="Floor" parent="menu_property_master_root" action="floor_action" sequence="4"/>
+    <menuitem id="menu_unit" name="Unit" parent="menu_property_master_root" action="action_real_estate_unit" sequence="5"/>
+
+    <!-- Sales -->
+    <menuitem id="menu_sales_root" name="Sales" parent="menu_real_estate_root" sequence="4"/>
+    <menuitem id="menu_eoi" name="EOI" parent="menu_sales_root" action="action_real_estate_eoi" sequence="1"/>
+    <menuitem id="menu_sales_reservation" name="Sales Reservation" parent="menu_sales_root" action="action_real_estate_sale_reservation" sequence="2"/>
+    <menuitem id="menu_sales_contract" name="Sales Contract" parent="menu_sales_root" action="action_sale_contract" sequence="3"/>
+    <menuitem id="menu_discount_requests" name="Discount Requests" parent="menu_sales_root" action="action_discount_request" sequence="4"/>
+
+     <!-- Available for Sale -->
+    <menuitem id="menu_parent_unit" name="Units" parent="menu_real_estate_root"  sequence="3"/>
+    <menuitem id="menu_unit_all_units" name="All Units" parent="menu_parent_unit" action="action_real_estate_unit" sequence="1"/>
+    <menuitem id="menu_unit_available_for_sale" name="Available for Sale" parent="menu_parent_unit" action="action_real_estate_unit_available_for_sale" sequence="2"/>
+    <menuitem id="menu_unit_available" name="Available" parent="menu_parent_unit" action="action_real_estate_unit_available" sequence="3"/>
+    <menuitem id="menu_unit_reserved" name="Reserved" parent="menu_parent_unit" action="action_real_estate_unit_reserved" sequence="4"/>
+    <menuitem id="menu_unit_sold" name="Sold" parent="menu_parent_unit" action="action_real_estate_unit_sold" sequence="5"/>
+    <menuitem id="menu_unit_expired_reservation" name="Expired Reservation Units" parent="menu_parent_unit" action="action_real_estate_unit_expired_reservation" sequence="6"/>
+    <menuitem id="menu_unit_onhold_expired_reservation" name="On-hold Expired Reservation Units" parent="menu_parent_unit" action="action_real_estate_unit_onhold_expired_reservation" sequence="6"/>
+
+
+    <menuitem id="menu_crm_unit_available_for_sale" name="Available for Sale" parent="crm.crm_menu_root" action="action_real_estate_unit_available_for_sale" sequence="4"/>
+
+
+    <!-- Reports -->
+    <menuitem id="menu_reports_root" name="Reports" parent="menu_real_estate_root" sequence="6"/>
+
+    <!-- Broker -->
+    <menuitem id="menu_broker_root" name="Broker" parent="menu_real_estate_root" sequence="5"/>
+    <menuitem id="menu_broker_claim" name="Broker / Ambassador Claim" parent="menu_broker_root" action="broker_claim_action" sequence="1"/>
+    <menuitem id="menu_broker_contract" name="Broker / Ambassador Contract" parent="menu_broker_root" action="broker_contract_action" sequence="2"/>
+    <menuitem id="menu_broker_visit" name="Broker Visits" parent="menu_broker_root" action="action_broker_visit" sequence="3"/>
+
+    <!-- Configuration Root -->
+    <menuitem id="menu_real_estate_configuration" name="Configuration"
+              parent="menu_real_estate_root" sequence="100"/>
+
+    <!-- Vendor Commitments Menu-->
+    <menuitem id="menu_vendor_commitment"
+          name="Vendor Commitments"
+          parent="accountant.menu_accounting"
+          action="action_vendor_commitment"
+          groups="arkzayed_18_realestate_development.group_vendor_commitment_user"
+          sequence="7"/>
+
+    <!-- Configuration Categories -->
+
+    <!-- 1️⃣ Project Setup -->
+    <menuitem id="menu_project_config_root" name="Project Setup" parent="menu_real_estate_configuration" sequence="1"/>
+    <menuitem id="menu_project_type_config" name="Project Type" parent="menu_project_config_root" action="action_project_type" sequence="1"/>
+    <menuitem id="project_phase_config" name="Project Phases" parent="menu_project_config_root" action="project_phase_action" sequence="2"/>
+    <menuitem id="menu_real_estate_facility" name="Facilities" parent="menu_project_config_root" action="action_real_estate_facility" sequence="3"/>
+    <menuitem id="menu_real_estate_feature" name="Features" parent="menu_project_config_root" action="action_real_estate_feature" sequence="4"/>
+    <menuitem id="menu_real_estate_nearby_connectivity" name="Nearby Connectivities"
+              parent="menu_project_config_root" action="action_real_estate_nearby_connectivity" sequence="5"/>
+
+    <!-- 2️⃣ Unit & Design -->
+    <menuitem id="menu_unit_config_root" name="Unit &amp; Design" parent="menu_real_estate_configuration" sequence="2"/>
+    <menuitem id="menu_unit_design" name="Designs" parent="menu_unit_config_root" action="action_unit_design" sequence="1"/>
+    <menuitem id="menu_residential_apartment_type_configuration" name="Residential Apartment Type"
+              parent="menu_unit_config_root" action="action_residential_apartment_type" sequence="2"/>
+    <menuitem id="menu_residential_villa_type_configuration" name="Residential Villa Type"
+              parent="menu_unit_config_root" action="action_residential_villa_type" sequence="3"/>
+    <menuitem id="menu_residential_loft_type_configuration" name="Residential Loft Type"
+              parent="menu_unit_config_root" action="action_residential_loft_type" sequence="4"/>
+    <menuitem id="menu_office_type_configuration" name="Office Type"
+              parent="menu_unit_config_root" action="action_office_type" sequence="5"/>
+    <menuitem id="menu_medical_type_configuration" name="Medical Types"
+              parent="menu_unit_config_root" action="action_medical_type" sequence="6"/>
+    <menuitem id="menu_unit_block_reasons_configuration" name="Unit Block Reasons"
+              parent="menu_unit_config_root" action="action_unit_block_reason" sequence="7"/>
+    <menuitem id="menu_archive_place" name="Archive Places" parent="menu_unit_config_root"
+              action="action_archive_place" sequence="37"/>
+
+    <!-- 3️⃣ Sales & Pricing -->
+    <menuitem id="menu_sales_config_root" name="Sales &amp; Pricing" parent="menu_real_estate_configuration" sequence="3"/>
+    <menuitem id="menu_sale_team_configuration" name="Sales Team"
+              parent="menu_sales_config_root" action="sales_team.crm_team_action_config" sequence="1"/>
+    <menuitem id="menu_price_increase" name="Price Increase Plans"
+              parent="menu_sales_config_root" action="action_price_increase" sequence="2"/>
+    <menuitem id="premiums_menu" name="Premiums" parent="menu_sales_config_root" action="premiums_view_action" sequence="3"/>
+    <menuitem id="project_commission_config" name="Commissions"
+              parent="menu_sales_config_root" action="project_commission_action" sequence="5"/>
+    <menuitem id="menu_commission_category_config" name="Commission Categories"
+              parent="menu_sales_config_root" action="action_commission_category" sequence="6"/>
+     <menuitem id="unit_type_configuration" name="Gross Factors Pricing"
+              parent="menu_sales_config_root" action="action_unit_type_configuration" sequence="6"/>
+    <menuitem id="menu_discount_config" name="Discount Config"
+              parent="menu_sales_config_root" action="action_discount_config" sequence="7"/>
+
+    <!-- 4️⃣ Customer Management -->
+    <menuitem id="menu_customer_config_root" name="Customer Management" parent="menu_real_estate_configuration" sequence="4"/>
+    <menuitem id="customer_ownership_config" name="Customer Ownership" parent="menu_customer_config_root" action="customer_ownership_action" sequence="1"/>
+
+    <!-- 5️⃣ Templates -->
+    <menuitem id="menu_template_config_root" name="Templates" parent="menu_real_estate_configuration" sequence="5"/>
+    <menuitem id="menu_real_estate_installment_template" name="Installment Template"
+              parent="menu_template_config_root" action="action_installment_template_form_act_window" sequence="1"/>
+    <menuitem id="menu_real_estate_maintenance_template" name="Maintenance Template"
+              parent="menu_template_config_root" action="action_maintenance_template_form_act_window" sequence="2"/>
+    <menuitem id="menu_maintenance_config_settings" name="Maintenance Configuration" parent="menu_template_config_root" action="action_maintenance_config_server" sequence="4"/>
+    <menuitem id="menu_real_estate_parking_template" name="Parking Template"
+              parent="menu_template_config_root" action="action_parking_template_form_act_window" sequence="3"/>
+
+    <!-- 6️⃣ Finance -->
+    <menuitem id="menu_finance_config_root" name="Finance" parent="menu_real_estate_configuration" sequence="6"/>
+    <menuitem id="menu_real_estate_capex_cost" name="Capex Scope" parent="menu_finance_config_root" action="action_capex_type" sequence="1"/>
+
+    <!-- 7⃣ Broker -->
+    <menuitem id="menu_broker_config_root" name="Broker" parent="menu_real_estate_configuration" sequence="7"/>
+    <menuitem id="menu_broker_team" name="Broker Teams" parent="menu_broker_config_root" action="action_broker_team" sequence="1"/>
+
+</odoo>

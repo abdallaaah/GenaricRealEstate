@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="edit_project_inherit" model="ir.ui.view">
+            <field name="name">edit_project_inherit</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//page[@name='settings']" position="after">
+                    <page string="Assignees">
+                        <group>
+                            <field name="assignees_ids" widget="many2many_tags"/>
+                        </group>
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

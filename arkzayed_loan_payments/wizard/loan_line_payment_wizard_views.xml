@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_loan_line_payment_wizard_form" model="ir.ui.view">
+        <field name="name">account.loan.line.payment.wizard.form</field>
+        <field name="model">account.loan.line.payment.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Register Payment">
+                <field name="currency_id" invisible="1"/>
+                <field name="loan_line_id" invisible="1"/>
+                <group>
+                    <field name="loan_id" readonly="1"/>
+                    <field name="payment_type" readonly="1"/>
+                    <field name="journal_id"/>
+                    <field name="date"/>
+                    <field name="amount"/>
+                </group>
+                <footer>
+                    <button name="action_confirm" type="object" string="Register Payment" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_contract_reallocate_unit_wizard" model="ir.ui.view">
+        <field name="name">contract.reallocate.unit.wizard.form</field>
+        <field name="model">contract.reallocate.unit.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Relocate Unit">
+                <sheet>
+                    <div class="alert alert-warning" role="alert">
+                        <strong>Warning:</strong> When you confirm this re-allocation, the current unit will be automatically blocked with reason <strong>Blocked for Reallocation</strong>. Existing contract terms, installments, and cheques will remain intact and will be transferred to the new unit.
+                    </div>
+                    <group>
+                        <field name="contract_id"/>
+                        <field name="old_unit_id"/>
+                        <field name="new_unit_id"
+                               options="{'no_create': True, 'no_create_edit': True}"
+                               domain="[('id', '!=', old_unit_id), ('unit_status', 'in', ['available_for_sale']), ('unit_purpose', '=', 'to_sale')]"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_confirm_reallocate"
+                            type="object"
+                            string="Confirm Relocation"
+                            class="btn-primary"/>
+                    <button string="Cancel"
+                            class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

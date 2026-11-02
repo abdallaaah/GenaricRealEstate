@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Paper Format -->
+        <record id="paperformat_broker_claim_a4" model="report.paperformat">
+            <field name="name">Broker Claim A4</field>
+            <field name="default" eval="False"/>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">0</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <!-- Report Action -->
+        <record id="broker_claim_report_action" model="ir.actions.report">
+            <field name="name">Broker Claim Report</field>
+            <field name="model">broker.claim</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">arkzayed_18_realestate_development.broker_claim_report_template</field>
+            <field name="report_file">arkzayed_18_realestate_development.broker_claim_report_template</field>
+            <field name="print_report_name">'مطالبة عمولة - %s' % (object.name)</field>
+            <field name="binding_model_id" ref="model_broker_claim"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="paperformat_broker_claim_a4"/>
+        </record>
+
+        <!-- Report Template -->
+        <template id="broker_claim_report_template">
+            <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="o">
+                        <div class="page" style="direction: rtl; font-family: 'DejaVu Sans', Arial, sans-serif;">
+                            <style>
+                                body {
+                                    font-family: 'DejaVu Sans', Arial, sans-serif;
+                                    direction: rtl;
+                                }
+
+                                .logo-text {
+                                    text-align: left;
+                                    font-size: 25pt;
+                                    font-weight: bold;
+                                    color: #000;
+                                    margin-bottom: 10px;
+                                    direction: ltr;
+                                }
+
+                                .broker-claim-title {
+                                    text-align: center;
+                                    font-size: 14pt;
+                                    font-weight: bold;
+                                    background-color: #D9D9D9;
+                                    padding: 6px;
+                                    margin-bottom: 3px;
+                                    border: 1px solid #000;
+                                }
+
+                                .info-table {
+                                    width: 100%;
+                                    border-collapse: collapse;
+                                    margin-bottom: 5px;
+                                }
+
+                                .info-table td {
+                                    border: 1px solid #000;
+                                    padding: 4px 6px;
+                                    font-size: 8pt;
+                                }
+
+                                .info-label {
+                                    font-weight: bold;
+                                    text-align: right;
+                                    width: 35%;
+                                }
+
+                                .info-value {
+                                    text-align: center;
+                                }
+
+                                .data-table {
+                                    width: 100vw;
+                                    border-collapse: collapse;
+                                    margin: 5px 0;
+                                    table-layout: fixed;
+                                }
+
+                                .data-table th {
+                                    background-color: #D9E1F2;
+                                    border: 1px solid #000;
+                                    padding: 5px 2px;
+                                    font-size: 7pt;
+                                    font-weight: bold;
+                                    text-align: center;
+                                    vertical-align: middle;
+                                    line-height: 1.2;
+                                }
+
+                                .data-table td {
+                                    border: 1px solid #000;
+                                    padding: 4px 2px;
+                                    font-size: 7pt;
+                                    text-align: center;
+                                    vertical-align: middle;
+                                }
+
+                                .total-row {
+                                    background-color: #D9D9D9;
+                                    font-weight: bold;
+                                }
+
+                                .signature-table {
+                                    width: 100%;
+                                    border-collapse: collapse;
+                                    margin-top: 5px;
+                                }
+
+                                .signature-table td {
+                                    border: 1px solid #000;
+                                    padding: 15px 10px;
+                                    text-align: center;
+                                    width: 50%;
+                                    vertical-align: top;
+                                }
+
+                                .signature-title {
+                                    font-weight: bold;
+                                    font-size: 9pt;
+                                    margin-bottom: 8px;
+                                }
+
+                                .signature-line {
+                                    margin-top: 8px;
+                                    font-size: 8pt;
+                                }
+
+                                @page {
+                                    size: A4 portrait;
+                                    margin: 10mm 7mm;
+                                }
+                            </style>
+
+                            <!-- Logo  -->
+                            <div class="logo-text">
+                                The Arkzayed
+                            </div>
+
+                            <!-- Title -->
+                            <div class="broker-claim-title">
+                                مطالبة
+                            </div>
+
+                            <!-- Header Information Table -->
+                            <table class="info-table">
+                                <tr>
+                                    <td class="info-label">تحريراً في :</td>
+                                    <td class="info-value" colspan="8">
+                                        <t t-if="o.claim_date">
+                                            <t t-esc="o.claim_date.strftime('%d/%m/%Y')"/>
+                                        </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="info-label">السادة شركة : ذا ارك جروب للتطوير العقاري</td>
+                                    <td class="info-value" colspan="8"></td>
+                                </tr>
+                                <tr>
+                                    <td class="info-label">تحية طيبة وبعد،</td>
+                                    <td class="info-value" colspan="8"></td>
+                                </tr>
+                                <tr>
+                                    <td class="info-label">برجاء صرف العمولة الخاصة بشركة/</td>
+                                    <td class="info-value" colspan="8">
+                                        <t t-esc="o.broker_company.name"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="info-label">سجل تجاري رقم</td>
+                                    <td class="info-value" colspan="8">
+                                        <t t-esc="o.broker_company.cr"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="info-label">بطاقة ضريبية رقم</td>
+                                    <td class="info-value" colspan="8">
+                                        <t t-esc="o.broker_company.vat"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="info-label">عن الوحدات الآتي بيانها:</td>
+                                    <td class="info-value" colspan="8"></td>
+                                </tr>
+                            </table>
+
+                            <!-- Data Table -->
+                            <t t-set="unit_price" t-value="o.unit_sold_price or 0.0"/>
+                            <t t-set="commission_percent" t-value="o.commission or 0.0"/>
+                            <t t-set="commission_with_vat" t-value="unit_price * commission_percent / 100"/>
+                            <t t-set="commission_before_tax" t-value="commission_with_vat / 1.14"/>
+                            <t t-set="vat_amount" t-value="commission_with_vat - commission_before_tax"/>
+                            <t t-set="withholding_tax" t-value="commission_before_tax * 5 / 100"/>
+                            <t t-if="o.with_withholding_tax" t-set="net_commission" t-value="commission_with_vat - withholding_tax"/>
+                            <t t-elif="not o.with_withholding_tax" t-set="net_commission" t-value="commission_with_vat"/>
+
+
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 11%;">رقم الوحدة المباعة</th>
+                                        <th style="width: 11%;">اسم المشتري</th>
+                                        <th style="width: 10%;">مشروع</th>
+                                        <th style="width: 11%;">قيمة الوحدة المباعة</th>
+                                        <th style="width: 13%;">قيمة العمولة شامل ض.ق.م</th>
+                                        <th style="width: 8%;">ض.ق.م</th>
+                                        <th style="width: 13%;">قيمة العمولة بدون ض.ق.م</th>
+                                        <th t-if="o.with_withholding_tax" style="width: 11%;">ضرائب الخصم 5%</th>
+                                        <th t-if="o.with_withholding_tax" style="width: 12%;">صافي العمولة المستحقة</th>
+                                        <th t-elif="not o.with_withholding_tax" style="width: 23%;">صافي العمولة المستحقة</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Data Row -->
+                                    <tr>
+                                        <td><t t-esc="o.unit_id.display_name"/></td>
+                                        <td><t t-esc="o.sale_proposal_id.customer_id.name"/></td>
+                                        <td><t t-esc="o.unit_id.project_id.name"/></td>
+                                        <td><t t-esc="'{:,.2f}'.format(unit_price)"/></td>
+                                        <td><t t-esc="'{:,.2f}'.format(commission_with_vat)"/></td>
+                                        <td>14%</td>
+                                        <td><t t-esc="'{:,.2f}'.format(commission_before_tax)"/></td>
+                                        <td t-if="o.with_withholding_tax"><t t-esc="'{:,.2f}'.format(withholding_tax)"/></td>
+                                        <td><t t-esc="'{:,.2f}'.format(net_commission)"/></td>
+                                    </tr>
+
+                                    <!-- Empty Row -->
+                                    <tr>
+                                        <td colspan="9" style="height: 15px;"></td>
+                                    </tr>
+
+                                    <!-- Total Row -->
+                                    <tr class="total-row">
+                                        <td colspan="3">Total</td>
+                                        <td><t t-esc="'{:,.2f}'.format(unit_price)"/></td>
+                                        <td><t t-esc="'{:,.2f}'.format(commission_with_vat)"/></td>
+                                        <td></td>
+                                        <td><t t-esc="'{:,.2f}'.format(commission_before_tax)"/></td>
+                                        <td t-if="o.with_withholding_tax"><t t-esc="'{:,.2f}'.format(withholding_tax)"/></td>
+                                        <td><t t-esc="'{:,.2f}'.format(net_commission)"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <!-- Signature Section -->
+                            <table class="signature-table">
+                                <tr>
+                                    <td>
+                                        <div class="signature-title">المراجعة</div>
+                                        <div class="signature-line">............................</div>
+                                    </td>
+                                    <td>
+                                        <div class="signature-title">يعتمد</div>
+                                        <div class="signature-line">............................</div>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </div>
+                </t>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

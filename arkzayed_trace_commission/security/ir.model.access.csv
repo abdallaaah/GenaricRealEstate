@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_trace_commission,trace.commission,model_trace_commission,group_trace_commission,1,1,1,1
+access_trace_commission_line,trace.commission.line,model_trace_commission_line,group_trace_commission,1,1,1,1
+access_trace_commission_person,trace.commission.person,model_trace_commission_person,group_trace_commission,1,0,0,0
+access_trace_commission_role,trace.commission.role,model_trace_commission_role,group_trace_commission,1,0,0,0

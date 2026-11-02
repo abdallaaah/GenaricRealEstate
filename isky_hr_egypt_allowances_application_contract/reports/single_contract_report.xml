@@ -1,0 +1,1077 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+
+        <record id="single_contract_report" model="ir.actions.report">
+            <field name="name">عقد عمل</field>
+            <field name="model">hr.contract</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">isky_hr_egypt_allowances_application_contract.single_contract_template</field>
+            <field name="report_file">isky_hr_egypt_allowances_application_contract.single_contract_template</field>
+            <field name="print_report_name">'عقد عمل'</field>
+            <field name="binding_model_id" ref="hr_contract.model_hr_contract"/>
+            <field name="binding_type">report</field>
+        </record>
+        <template id="single_contract_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout">
+                        <div class="page" style="border: 1px solid black; ">
+                            <style>
+                                .td_class
+                                {
+                                width:40%;
+                                padding:7px;
+                                }
+                                table
+                                {
+                                table-layout: fixed;
+                                width: 80%;
+                                margin-left:10%;
+                                page-break-after: always;
+                                }
+                            </style>
+                            <div class="oe_structure"/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <h4 style="text-align: center;">
+                                <t t-if="o.is_egyptian">
+                                    <strong>عقد عمل</strong>
+                                </t>
+                                <t t-if="not o.is_egyptian">
+                                    <strong>عقد عمل أعزب</strong>
+                                </t>
+                            </h4>
+                            <h4 style="text-align: center;">
+                                <span style="text-decoration: underline;">
+                                    <strong>Employment Contract</strong>
+                                </span>
+                            </h4>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="td_class">On the day of Date of
+                                            <span t-field="o.start_date_higri"/>
+                                            <br/>
+                                            Cores' of
+                                            <span t-field="o.date_start" style="padding:2px"/>
+                                            in
+                                            <span t-field="o.company_id.state_id"/>
+                                        </td>
+                                        <td class="td_class" style=" text-align: right;">
+                                            <span t-field="o.start_date_higri"/>
+                                            أنه فى
+                                            <span/>
+                                            -
+                                            <br/>
+                                            <span t-field="o.company_id.state_id"/>
+                                            الموافق
+                                            <span t-field="o.date_start" style="padding:2px"/>
+                                            <span>بمدينة</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class">the following contract has been made
+                                            and entered into by &amp; between:
+                                        </td>
+                                        <td class="td_class" style="text-align: right;">
+                                            : تم بعون الله وتوفيقه الاتفاق بين كل من
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class">Ms/
+                                            <span t-field="o.company_id.name"/>
+                                        </td>
+                                        <td style="text-align: right" class="td_class">
+                                            السادة
+                                            <span t-field="o.company_id.name_ar"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class">Saudi Joint Stock Company</td>
+                                        <td class="td_class" style="text-align: right;">
+                                            شركة مساهمة سعودية
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class">CR Number is (
+                                            <span t-field="o.company_id.cr_number"/>
+                                            )
+                                        </td>
+                                        <td dir="rtl">
+                                            بموجب السجل التجاري رقم (<span t-field="o.company_id.cr_number"/>)
+                                        </td>
+                                    </tr>
+                                    <tr style="height: 40px;">
+                                        <td class="td_class">Address
+                                            (
+                                            <span t-field="o.company_id.street"/>
+                                            <span t-field="o.company_id.state_id"/>,
+                                            <span t-field="o.company_id.country_id"/>
+                                            )
+                                        </td>
+                                        <td class="td_class" style="text-align: right;" dir="rtl">
+                                            وعنوانه
+                                            (
+                                            <div style="display:inline-block" t-field="o.company_id.street"/>
+                                            <div style="display:inline-block" t-field="o.company_id.state_id"/>,
+                                            <div style="display:inline-block" t-field="o.company_id.country_id"/>
+                                            )
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class">
+                                            <p>P.O. Box (<span t-field="o.company_id.po_box"/>)
+                                                zip (<span t-field="o.company_id.zip"/>)
+                                            </p>
+                                        </td>
+                                        <td class="td_class" style="text-align: right;">
+                                            <p>
+                                                <span>ص.ب</span>
+                                                (<span t-field="o.company_id.po_box"/>)
+                                                <span dir="rtl">الرمز البريدى
+                                                    <span>(<span dir="ltr" t-field="o.company_id.zip"/>)
+                                                    </span>
+                                                </span>
+
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class">
+                                            <p>
+                                                Tel (<span t-field="o.company_id.phone"/>)
+                                            </p>
+                                            <p>
+                                                Fax (<span t-field="o.company_id.fax"></span> )
+                                            </p>
+                                        </td>
+                                        <td class="td_class" dir="rtl">
+                                            <p>
+                                                <span>تليفون</span>
+                                                (<span t-field="o.company_id.phone" dir="ltr"/>)
+                                            </p>
+                                            <p>فاكس (<span t-field="o.company_id.fax"></span> )
+                                            </p>
+
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class">
+                                            <p>Represented herein by the Director Manager
+                                                <span>..............................................</span>
+                                                or whom he authorizes, hereinafter referred to as The Company or
+                                                (the First Party)
+                                            </p>
+                                        </td>
+                                        <td class="td_class" style="direction:rtl;">
+                                            <p>ويمثلها وينوب عنها فى هذا العقد مدير عام الشركة
+                                                <span>..............................................</span>
+                                                أو من يفوضه ويشار اليها فى هذا العقد بالشركة (الطرف الاول)
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class" style="text-align: center;">And</td>
+                                        <td class="td_class" style="text-align: center;">و</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class">
+                                            <span>Name</span>
+                                            <span style="margin-left: 10%;">
+                                                <span t-field="o.employee_id.name"/>
+                                            </span>
+                                        </td>
+                                        <td style="text-align: right;" class="td_class">
+                                            الاسم
+                                            <span style="margin-right: 70px;">
+                                                <span t-field="o.employee_id.employee_arabic_name"/>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class">
+                                            <span>Nationality</span>
+                                            <span style="margin-left: 10%;">
+                                                <span t-field="o.employee_id.country_id"/>
+                                            </span>
+                                        </td>
+                                        <td dir="rtl" class="td_class">
+                                            الجنسية
+                                            <span style="padding-right: 72px;">
+                                                <span t-field="o.employee_id.country_id.nationality"/>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class">
+                                            <span>ID No</span>
+                                            <span style="margin-left: 10%;">
+                                                <span t-field="o.employee_id.identification_id"/>
+                                            </span>
+                                        </td>
+                                        <td dir="rtl" class="td_class">
+                                            <t t-if="not o.is_egyptian">
+                                                رقم الجواز
+                                                <span style="margin-right: 58px;">
+                                                    <span t-field="o.employee_id.passport_id"/>
+                                                </span>
+                                            </t>
+                                            <t t-if="o.is_egyptian ==True">
+                                                رقم الهوية
+                                                <span style="margin-right: 58px;">
+                                                    <span t-field="o.employee_id.identification_id"/>
+                                                </span>
+                                            </t>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class" style="text-align: center;">
+                                            <p>
+                                                <strong>Hereinafter referred to as the Employee or</strong>
+                                            </p>
+                                            <p>
+                                                <strong>(The Second Party)</strong>
+                                            </p>
+                                        </td>
+                                        <td class="td_class" style="text-align: center;">
+                                            <p>
+                                                <strong>ويشار اليه فى هذا العقد بالموظف</strong>
+                                            </p>
+                                            <p>
+                                                <strong>(الطرف ثانى)</strong>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class">
+                                            <p style="text-align: center;">
+                                                <strong>Preamble</strong>
+                                            </p>
+                                        </td>
+                                        <td class="td_class" style="text-align: center;">
+                                            <strong>تمھید</strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class">
+                                            <p>As the First Party is a (Joint Stock
+                                                Company) company working in different commercial areas;
+                                                and as the Second Party has expressed his intent to work for
+                                                the First Party in the position of
+                                                <span t-field="o.job_id"/>
+                                                the First Party having no objection thereof as per the terms and
+                                                provisions herein.
+                                                Therefore, the two parties have agreed in their full legal capacity on
+                                                the
+                                                following:
+                                            </p>
+                                        </td>
+                                        <td class="td_class" dir="rtl">
+                                            <strong>حيث ان الطرف الاول وهى شركة (مساهمة) تعمل فى عدة مجالات تجارية
+                                                وحيث ان الطرف الثانى ابدى رغبته فى العمل لدى الطرف الاول بوظيفة
+                                                <span t-field="o.job_id"/>
+                                                وقد وافق الطرف الاول على ذللك وفقا لشروط وبنود هذا العقد
+                                                لذا فقد اتفق الطرفان وهم بكامل الاهلية المعتبرة
+                                                شرعا وقانونا على مايلى :-
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class">1- The above preamble is considered as part and
+                                            parcel of this contract.
+                                        </td>
+                                        <td class="td_class" dir="rtl">
+                                            ١ .يعتبر التمهيد السابق جزءا لايتجزأ من هذا العقد .
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class">
+                                            2. The Second Party agrees to work for the First Party in the position of
+                                            <span t-field="o.job_id"/>
+                                            at its headquarters or any of its sites inside the Kingdom of Saudi Arabia,
+                                            in accordance with work requirements and the provisions of the
+                                            Company's regulations. The Second Party agrees to work as.
+                                            <span t-field="o.job_id"/>
+                                            in return for a basic salary of
+                                            (<span style="color: #333399;" t-field="o.wage"
+                                                   t-options='{"widget": "monetary"}'/>)
+                                            <span style="color: #333399;">S.R.</span>, payable to him at the end
+                                            of every Gregorian month.
+                                        </td>
+                                        <td class="td_class" dir="rtl">
+                                            ٢ .وافق الطرف الثانى أن يعمل الطرف الأول بوظيفة
+                                            <span t-field="o.job_id"/>لدى مركزه الرئيسى أو أى موقع أخر تابع
+                                            للطرف الأول داخل المملكة العربية السعودية
+                                            وفقا لاحتياجات العمل ووفقا للقوانين السارية واللوائح
+                                            والقواعد المطبقة فى اللائحة الداخلية للطرف الاول .
+                                            وقد وافق الطرف الثانى على تعيينه فى وظيفة
+                                            <span t-field="o.job_id"/>
+                                            ,براتب اساسى قدره
+                                            (
+                                            <span style="color: #333399;" t-field="o.wage"
+                                                  t-options='{"widget": "monetary"}'/>
+                                            )
+                                            ريال سعودى تدفع له فى نهاية كل شهر ميلادى
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class">
+                                            <p>
+                                                <strong>- Basic (<span t-field="o.wage"
+                                                                       t-options='{"widget": "monetary"}'/>SR)
+                                                </strong>
+                                            </p>
+                                            <p>
+                                                <strong>- Housing (<span t-field="o.housing_amount"/>)
+                                                </strong>
+                                            </p>
+                                            <p>
+                                                <strong>- Tran (<span t-field="o.transportation_amount"/>)SR
+                                                </strong>
+                                            </p>
+                                        </td>
+                                        <td class="td_class" dir="rtl">
+                                            <p>
+                                                <strong>
+                                                    أساسي
+                                                    (
+                                                    <span t-field="o.wage" t-options='{"widget": "monetary"}'/>
+                                                    )
+                                                    ریال
+                                                </strong>
+
+                                            </p>
+                                            <p>
+                                                <strong>
+                                                    بدل سكن
+                                                    (<span t-field="o.housing_amount"/>)
+                                                </strong>
+                                            </p>
+                                            <p>
+                                                <strong>
+                                                    بدل مواصلات
+                                                    (
+                                                    <span t-field="o.transportation_amount"/>
+                                                    )ريال
+                                                </strong>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class">3. a. The duration of this
+                                            contract
+                                            is
+                                            <span style="color: #333399;">
+                                                <span t-esc="o.get_contract_period_length(lang='en')"/>
+                                                Gregorian year
+                                            </span>
+                                            , starting
+                                            from the date of<span style="color: #333399;" t-field="o.date_start"/>,
+                                            provided
+                                            that the first three months shall be a probation period, during which
+                                            the
+                                            First Party shall have the right to terminate this contract without end
+                                            of
+                                            service award, compensation, or prior notice in case of failure of the
+                                            Second Party to perform his duties.
+                                        </td>
+                                        <td class="td_class" dir="rtl">
+                                            ٣ .أ- مدة ھذا العقد ھي
+                                            (
+                                            <span style="color: #333399;">
+                                                <span t-esc="o.get_contract_period_length(lang='ar')"/>
+                                                سنة میلادیتة كاملھ
+                                                )
+                                                تبدأ من تاریخ
+                                            </span>
+                                            <span t-field="o.date_start"/>
+                                            م، على أن تكون الثلاثة أشھر
+                                            الأولي فترة تجریبیة یجوز خلالھا للطرف الأول فسخ العقد دون مكافأة أو سبق
+                                            اعلام للطرف الثاني أو تعویضه، وذلك في حالة عدم صلاحیته للعمل.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class">
+                                            b. This contract shall expire by the end of its original term unless
+                                            it is renewed to a similar term or terms as per an
+                                            agreement with the Second Party. The Second Party shall abide by the
+                                            provisions of this contract in case of such renewals
+                                        </td>
+                                        <td class="td_class" dir="rtl">
+                                            ب- ینتھي ھذا العقد بانتھاء مدته الأصلیة
+                                            إلا إذا تم تجدیده لفترة أو لفترات أخرى متعاقبة بموافقة
+                                            الطرف الأول، وفي تلك الحالة یلتزم الطرف الثاني بكافة بنود وأحكام ھذا
+                                            العقد
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_Class">
+                                            c. Subject to the probation period and the
+                                            <br/>provisions of (a) and (b) above, the First Party<br/>shall have the
+                                            right to terminate this contract prior<br/>to the expiry of its original
+                                            or
+                                            renewed term by<br/>virtue of a minimum of (30) days prior written
+                                            <br/>
+                                            notice. The Second Party shall have the right to<br/>terminate this
+                                            contract
+                                            prior to the expiry of its<br/>original or renewed term by virtue of a
+                                            minimum<br/>of (60) days prior written notice.
+                                        </td>
+                                        <td class="td_Class" dir="rtl">
+                                            ج-مع مراعاة فترة التجربة ومانص علية فى الفترة (أ,ب)‬
+                                            من تللك المادة يكون للطرف الاول الحق فى انهاء العقد قبل انتهاء مدته الاصلية
+                                            او المجدده
+                                            وذللك باشعار خطى موجه للطرف الثانى قبل الانهاء او الانتهاء ب(30)يوم على
+                                            الاقل
+                                            ويكون للطرف الثانى الحق فى انهاء هذا العقد قبل انتهاء مدته الاصليه او
+                                            المجدده
+                                            وذللك باشعار خطى قبل الانهاء او الانتهاء ب (60)يوم عل الاقل وذللك لامكانية
+                                            توفير البديل.
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="td_class">
+                                            <center>
+                                                <span style="text-decoration: underline;">
+                                                    <strong>Obligations of the Second Party</strong>
+                                                </span>
+                                            </center>
+                                        </td>
+                                        <td class="td_class">
+                                            <center>
+                                                <span style="text-decoration: underline;">
+                                                    <strong>التزامات الطرف الثانى ‬</strong>
+                                                </span>
+                                            </center>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class">
+                                            4. The Second Party shall comply with the laws and regulations applied
+                                            by the First Party. He undertakes to abideby the instructions and
+                                            orders of higher officials and exert utmost
+                                            efforts to carry out his duties in the best required way.
+                                        </td>
+                                        <td class="td_class" dir="rtl">
+                                            ٤-يلتزم الطرف
+                                            الثانى بكافةاللوائح والانظمة والقواعد
+                                            المطبقة لدى الطرف الاول كما يلتزم باتباع تعليمات واوامر رؤسائه
+                                            وبذل قصارى جهده للقيام بواجباته بشكل متقن وبافضل مايكون
+                                            ‬
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class">
+                                            5. The Second Party shall observe good conduct and maintain cordial
+                                            relationship with others, whether inside or outside the Company.
+                                        </td>
+                                        <td class="td_class" dir="rtl">
+                                            ‫‫‬ ٥- يتعهد الطرف الثانى بان يتبع قواعد الاخلاق والامانه والشرف
+                                            فى عمله وفى علاقاته مع الغير سواء كان داخل الشركه او خارجها
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class">
+                                            6. The Second Party shall not import or use narcotics or drinks, engage in
+                                            any political activity, gatherings, demonstrations, strikes,or any work
+                                            deemed illegal by the laws applied in Saudi Arabia. The First Party shall
+                                            have the right, in case of such violations, to terminate this contract
+                                            without compensation, payment of any type, or prior notice.
+                                        </td>
+                                        <td class="td_class" dir="rtl">
+                                            ٦- يتعهد الطرف الثانى بعدم استيراد او تناول
+                                            المشروبات الكحوليةاو المخدرات او القيام باى نشاط
+                                            سياسى او التحريض على التجمعات او التظاهرات او الاضرابات
+                                            او باى عمل يتنافى مع الانظمة المرعية فى المملكة العربية السعودية
+                                            وفى حالة مخالفة ذللك يكون للطرف الاول الحق فى فسخ العقد
+                                            دون صرف اى حقوق او مستحقات ودون سابق انذار او تعويض
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class">
+                                            7. The Second Party acknowledges that any research or invention he makes
+                                            shall be the property of the First Party.
+                                        </td>
+                                        <td class="td_class" dir="rtl">
+                                            ٧-يتعهد الطرف الثانى بان اى ابحاث او ابتكارات يقوم بها
+                                            اثناء فترة عملة لدى الطرف الاول تكون ملكا للطرف الاول وحده‬
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class">
+                                            8. The Second Party shall keep confidential all secrets revealed
+                                            to him during his service with the First Party, including the secrets
+                                            of the First Party's subsidiary companies or any special
+                                            secrets related to the commercial transactions of the First Party with the
+                                            others. The Second Party must not disclose any of the above secrets
+                                            during the validity of this contract and within two years following its
+                                            expiry.
+                                        </td>
+                                        <td class="td_class" dir="rtl">
+                                            ٨-يتعهد الطرف الثانى بالمحافظة على كافة الاسرار التى يتطلع عليها اثناء عمله
+                                            لدى الطرف الاول
+                                            وكذللك كافة اسرار الشركات الفرعية التابعه له او اى اسرار خاصة بمعاملات
+                                            تجارية بين
+                                            الطرف الاول والغير وذللك اثناء فترة سريان هذا العقد ولدة عامين من تاريخ
+                                            انهائه او انتهائه.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class">
+                                            9. The Second Party shall not work for any other party during seasonal
+                                            leaves or annual vacations unless as per written notice of the First Party.
+                                        </td>
+                                        <td class="td_class" dir="rtl">
+                                            ٩- يتعهد الطرف الثانى اثناء سريان هذا العقد بعدم العمل
+                                            لدى الغير خلال فتره العطلات او الاجازات السنويه
+                                            او الموسمية الا اذا كانت هناك موافقه خطية من الطرف الاول
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="td_class">
+                                            10. The Second Party shall not reveal to the media or any other
+                                            third party any special information belonging to the First Party unless
+                                            as per written permission.
+                                        </td>
+                                        <td class="td_class" dir="rtl">
+                                            ١٠- يلتزم الطرف الثانى بعدم الكشف
+                                            لوسائل الاعلام او الى اى طرف ثالث عن امور خاصة بالطرف الاول
+                                            الا بعد الموافقه الخطيه من الطرف الاول بذللك .
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class">
+                                            11. The Second Party shall submit his qualification certifications and
+                                            other necessary documents in compliance with the provisions of the Company's
+                                            Internal Bylaw.
+                                        </td>
+                                        <td class="td_class" dir="rtl">
+                                            ١١- يلتزم الطرف الثانى بتقديم كافة شهادات التاهيل الخاصة
+                                            به وكافة الوثائق الضرورية وذللك وفقا للقوانين واللائحه المطبقه داخل الشركه.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class">
+                                            12. The Second Party shall comply with the instructions of the First Party
+                                            with regard to medical checkups. However, if a physician approved by the
+                                            Company states that the Second Party is not medically fit to carry out
+                                            his duties,this contract shall be deemed invalid according to the Saudi
+                                            Labour Law.
+                                        </td>
+                                        <td class="td_class" dir="rtl">
+                                            ١٢- يلتزم الطرف الثانى باتباع تعليمات الطرف الاول
+                                            فيما يتعلق باجراء الكشف الطبى وفقا لما هو محدد
+                                            بسياسةالشركة وفى حالة ان الطبيب المعتمد من قبل الشركة
+                                            اصدر بان الطرف الثانى غير لائق طبيا للقيام بعمله فان هذا
+                                            العقد يعتبر لاغيا وفقا لقانون العمل السعودى
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class">
+                                            13. The Second Party shall maintain timely attendance in accordance with
+                                            the work timetable set by the First Party, who will have the right,
+                                            in case of any violation thereof, to impose the penalties he deems suitable
+                                            in accordance with the Company's Internal Bylaw and the requirements
+                                            of the Saudi Labour Law.
+                                        </td>
+                                        <td class="td_class" dir="rtl">
+                                            ١٣- على الطرف الثانى ان يلتزم بمواعيد الحضور والانصراف
+                                            التى يحددها الطرف الاول وفى حاله المخالفة يحق للطرف الاول
+                                            ان يوقع على الطرف الثانى الجزاءات التى يراها مناسبه
+                                            حسب نظام الشركة والعمل والعمال
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="td_class">
+                                            14. In case of absence from work due to sickness the Second Party must
+                                            support the case by a certificate from a doctor approved by the company
+                                        </td>
+                                        <td class="td_class" dir="rtl">
+                                            ١٤-فى حالة الغياب عن العمل بسبب المرض يجب ان يدعم ذللك ويؤيد بشهادة من طبيب
+                                            معتمد من قبل الشركة
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class">
+                                            <p>15. The company shall have the right to promptly terminate this
+                                                contract as per a written notice and disciplinary actions might
+                                                be
+                                                taken in the following cases:
+                                            </p>
+                                            <p>a. The Second Party fails to carry out his ‫ duties under this
+                                                contract
+                                            </p>
+                                            <p>b. The Second Party fails to comply with the ‫ laws and
+                                                regulations
+                                                adopted by the Company, or commit an act of breach in
+                                                accordance
+                                                with Article (80) of the Saudi Labour Law
+                                            </p>
+                                            <p>c- the company discovers at any time a forgery in any of the
+                                                documents or certificates submitted by the Second Party.
+                                            </p>
+                                            <p></p>
+                                        </td>
+                                        <td class="td_class" dir="rtl">
+                                            <p>١٥- يجوز للشركة انهاء العقد فورا عبر
+                                                اشعار خطى ويمكن ان تتخد الاجراءات التاديبيه المناسبة
+                                            </p>:فى حالة
+                                            <p>أ- فشل الطرف الثانى القيام بواجباته الوارده تحت العقد الحالى</p>.
+                                            <p>ب-فشل الطرف الثانى الالتزام او التقيد بلوائح وقواعد الشركة او قام باى
+                                                عمل اى اخلاء بالماده رقم (80) من قانون العمل والعمال
+                                            </p>
+
+                                            <p>ج- اكتشاف الشركة فى اى وقت كان تزويرا فى اى من شهادات وثائق الطرف
+                                                الثانى التى يتم تقديمها للشركة
+                                            </p>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="td_class">
+                                            16. The laws and regulations adopted by the Company are part and parcel of
+                                            this contract.
+                                        </td>
+                                        <td class="td_class" dir="rtl">
+                                            ١٦-اللوائح والانظمة الاخرى المطبقة فى الشركة تشكل جزءا لايتجزأ من العقد
+                                            الحالى .
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class">
+                                            17. In case this contract is
+                                            terminated for any reason, the Second Party shall handover to the
+                                            First Party, or whom he authorizes, within oneweek as of the date of
+                                            expiry of the contract,all items in his custody, whether documents,
+                                            files, books, amounts of any kind, or any other assets kept in his
+                                            custody for work purpose.
+                                        </td>
+                                        <td class="td_class" dir="rtl">
+                                            ١٧-عند انهاء او انتهاء عقد عمل الطرف الثانى
+                                            لدى الطرف الاول لاى سبب كان يلتزم الطرف الثانى
+                                            بتسليم الطرف الاول او ما ينوب عنه كل مافى
+                                            عهدته من مستندات او ملفات او دفاتر او اموال
+                                            من اى نوع واى موجودات تتعلق بعمله لدى الطرف
+                                            الاول وذللك خلال اسبوع من تاريخ الانهاء او الانتهاء
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 321.597px; text-align: center;padding-top: 50px;">
+                                            <span style="text-decoration: underline;">
+                                                <strong>Entitlements of the Second Party</strong>
+                                            </span>
+                                        </td>
+                                        <td style="width: 321.597px; text-align: center;padding-top: 50px;">
+                                            <span style="text-decoration: underline;">
+                                                <strong>حقوق الطرف الثانى ‬</strong>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class">
+                                            18-a - The Second Party is entitled
+                                            to a yearly vacation of
+                                            <t t-if="o.is_egyptian">
+                                                <span style="color: #333399;">
+                                                    (30)
+                                                </span>
+                                            </t>
+                                            <t t-if="not o.is_egyptian">
+                                                <span style="color: #333399;">
+                                                    (21)
+                                                </span>
+                                            </t>
+                                            days upon completion of 11 working
+                                            months each year. The starting date of the vacation shall be determined
+                                            by the Company management in accordance with work requirements.
+                                            The vacation wage shall be paid in advance prior to leaving for an
+                                            entitled vacation.
+                                        </td>
+                                        <td class="td_class" dir="rtl">
+                                            ١٨- يستحق الطرف الثانى اجازة سنوية مدتها
+                                            <t t-if="o.is_egyptian">
+                                                <span style="color: #333399;">
+                                                    (30)
+                                                </span>
+                                            </t>
+                                            <t t-if="not o.is_egyptian">
+                                                <span style="color: #333399;">
+                                                    (21)
+                                                </span>
+                                            </t>
+                                            يوما تبدأ بعد مرور احد عشر
+                                            شهرا عمل ويحدد تاريخ التمتع بها وفق ماتقرره ادارة الشركة وحسب ظروف العمل على
+                                            ان يدفع اجر الاجازة مقدما عند استحقاقها .
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class">
+                                            19- The Second Party is entitled to medical care for him at the expense of
+                                            the First Party as provided for in the Company's Internal Bylaw.
+                                        </td>
+                                        <td class="td_class" dir="rtl">
+                                            ١٩- يستحق الطرف الثانى العناية الطبية على نفقة الطرف الاول وفق ماهو منصوص
+                                            عليه باللائحه الداخلية للشركة
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class">
+                                            20- The working contractual hours are
+                                            <t t-if="o.is_egyptian">
+                                                <span style="color: #333399;">
+                                                    (40)
+                                                </span>
+                                            </t>
+                                            <t t-if="not o.is_egyptian">
+                                                <span style="color: #333399;">
+                                                    (54)
+                                                </span>
+                                            </t>
+                                            hours in 6 days per week. Duty times shall be arranged
+                                            in accordance with work requirements, whereas overtime hours, weekend
+                                            leaves, sick leaves, and any other leave shall be determined as provided
+                                            for in the Company's Internal Bylaw.
+                                        </td>
+                                        <td class="td_class" dir="rtl">
+                                            ٢٠- ساعات العمل التعاقدية هى
+                                            <t t-if="o.is_egyptian">
+                                                <span style="color: #333399;">
+                                                    (40)
+                                                </span>
+                                            </t>
+                                            <t t-if="not o.is_egyptian">
+                                                <span style="color: #333399;">
+                                                    (54)
+                                                </span>
+                                            </t>
+                                            ساعه لمدة خمسه ايام فى الاسبوع ويتم يحديد
+                                            مواعيدها وفقا لظروف العمل وتكون ساعات العمل الاضافى
+                                            وعظلة نهاية الاسبوع والعطلات الاخرى والاجازات المرضية وفقا للائحة الداخلية
+                                            للشركة.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class">
+                                            21- The Second Party is entitled to a housing allowance of (
+                                            <span style="color: #333399;" t-field="o.housing_amount"/>) of the basic
+                                            salary,
+                                            which will be paid at the end of every month. The First Party may provide
+                                            suitable housing and in such case the Second Party shall not be entitled
+                                            to housing allowance.
+                                        </td>
+                                        <td class="td_class" dir="rtl">
+                                            ٢١-يستحق الطرف الثانى بدل سكن مقداره
+                                            (<span style="color: #333399;" t-field="o.housing_amount"/>)
+                                            من الراتب الاساسى يدفع شهريا الا اذا قام الطرف الاول بتوفير السكن المناسب
+                                            ففى هذا الحالة لايستحق الطرف الثانى بدل سكن .
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class">
+                                            22- Unless the First Party provides suitable transportation,
+                                            the Second Party is entitled to transportation allowance of
+                                            (<span style="color: #333399;" t-field="o.transportation_amount"/>),
+                                            which will be paid at the end of every month.
+                                        </td>
+                                        <td class="td_class" dir="rtl">
+                                            ٢٢-يستحق الطرف الثانى بدل مواصلات مقداره
+                                            (<span style="color: #333399;" t-field="o.transportation_amount"/>)
+                                            يدفع شهريا الا اذا قام الطرف الاول بتامين المواصلات المناسبة.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class">
+                                            23- The Second Party is entitled to an end of service award,
+                                            provided that he has accomplished two years of work with the Company as per
+                                            the terms of the Saudi Labour Law.
+                                        </td>
+                                        <td class="td_class" dir="rtl">
+                                            ٢٣-يستحق الطرف الثانى مكافاه نهاية خدمة
+                                            شريطة ان يكون قد اكمل عامين على الاقل من
+                                            العمل لدى الشركة حسب شروط قانون العمل والعمال.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class">
+                                            24- End of service will be paid as per current last basic salary,
+                                            housing allowance, transportation allowance and regular food allowance as
+                                            per Saudi Labor Law. End of service excludes bonuses, commissions
+                                            and all/any type of incentive.
+                                        </td>
+                                        <td class="td_class" dir="rtl">
+                                            ٢٤- لاتحتسب مبالغ العمولات والحوافز والنسب والمكافات
+                                            والهبات وكل مايمنح للموظف غير البدلات الاساسية فى استحقاق نهاية الخدمة.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class">
+                                            25- At the end of his service with the Company the Second Party shall
+                                            be given an experience certificate that includes his term of work with the
+                                            Company and complies with applied laws and regulations.
+                                        </td>
+                                        <td class="td_class" dir="rtl">
+                                            ٢٥-بنهاية الخدمة يتم منح الطرف الثانى شهادة خبرة
+                                            تحتوى على فترة عمله وتتفق مع القوانين والانظمة المطبقة.
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table style="page-break-after: avoid;">
+                                <tbody>
+                                    <tr>
+                                        <td class="td_class" style="text-align:center">
+                                            <strong>
+                                                <span style="text-decoration: underline;">Final Rules</span>
+                                            </strong>
+                                        </td>
+                                        <td class="td_class" style="text-align:center">
+                                            <strong>
+                                                <span style="text-decoration: underline;">احكام ختامية</span>
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class">
+                                            26- The Second Party acknowledges
+                                            that he has read the Company's Internal Bylaw. He undertakes to
+                                            comply with it and all other generalizations issued by the Company
+                                            management from time to time.
+                                        </td>
+                                        <td class="td_class" dir="rtl">
+                                            ٢٦-يقر الطرف الثانى بانه اطلع على اللائحه الداخلية
+                                            للشركة بتنظيم العمل ويتعهد بالتقيد بها وبكافة التعاميم
+                                            الادارية التى تصدرها ادارة الشركة بهذ الشان .
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class">
+                                            27- The Company'sInternal Bylaw and the Saudi Labour Law shall be
+                                            applicable for any case not provided for herein.
+                                        </td>
+                                        <td class="td_class" dir="rtl">
+                                            ٢٧-يسرى هذا العقد على كل من لم يرد ذكره
+                                            فى النظام الداخلى للطرف الاول وكذللك نظام
+                                            العمل والعمال السعودى.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class">
+                                            28- Any conflict arising on this contract or any of its articles shall be
+                                            solved amicably. Otherwise, reference shall be made to the Saudi Labour law
+                                        </td>
+                                        <td dir="rtl" class="td_class">
+                                            ٢٨-فى حالة نشوء نزاع حول هذا العقد او اى بند من بنوده يتم حله بطرق
+                                            ودية وفى حالة التعذر يتم اللجوء الى نظام العمل والعمال .
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class">
+                                            29- This contract has been issued in two copies, each party having a copy.
+                                        </td>
+                                        <td class="td_class" dir="rtl">
+                                            ٢٩-حرر هذا العقد نسختين بيد كل طرف نسخة للعمل بموجبها عند اللزوم.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class">
+                                            <strong>First Party: The Company</strong>
+                                        </td>
+                                        <td class="td_class" dir="rtl">
+                                            <strong>الطرف أول (الشركة)</strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class">
+                                            <strong>
+                                                <span t-field="o.company_id"/>
+                                            </strong>
+                                            <strong>Represented herein by:</strong>
+                                        </td>
+                                        <td dir="rtl">
+                                            <strong>
+                                                <span t-field="o.company_id.name_ar"/>
+                                            </strong>
+
+                                            <strong>ويمثلها وينوب عنها :</strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class">
+                                            <strong>General Manager</strong>
+                                        </td>
+                                        <td class="td_class" style="text-align:right;">
+                                            <strong>المدير العام</strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class" style="text-align:left;">
+                                            <p>..................................................................</p>
+                                        </td>
+                                        <td class="td_class" style="text-align:right; padding-right:30px;">
+                                            <p>..................................................................</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class" style="text-align:left;height:15%">
+                                            <strong>(Signature)</strong>
+                                            <br/>
+                                            <br/>
+                                        </td>
+                                        <td class="td_class" style="text-align:right; padding-right:30px;">
+                                            <strong>‫(التوقيع)</strong>
+                                            <br/>
+                                            <br/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class" style="text-align:left;height:15%">
+                                            <strong>(Stamp)</strong>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                        </td>
+                                        <td class="td_class" style="text-align:right; padding-right:30px;">
+                                            <strong>‫(الختم)</strong>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class" style="text-align:left">
+                                            <strong>(Second Party)</strong>
+                                        </td>
+                                        <td class="td_class" style="text-align:right; padding-right:30px;">
+                                            <strong>(‫الطرف‬ ‫الثاني‬)</strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class">
+                                            <strong>Name</strong>
+                                            <span style="margin-left: 10%;">
+                                                <span t-field="o.employee_id"/>
+                                            </span>
+                                        </td>
+                                        <td class="td_class" dir="rtl">
+                                            <strong>
+                                                <div style="display:inline-block;text-align:right; padding-right:30px;">
+                                                    ‫الاسم‬
+                                                </div>
+                                            </strong>
+                                            <div style="display:inline-block;margin-right: 10%;"
+                                                 t-field="o.employee_id.employee_arabic_name"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class">
+                                            <strong>Nationality</strong>
+                                            <span style="padding-left: 10%;">
+                                                <span t-field="o.employee_id.country_id"/>
+                                            </span>
+                                        </td>
+                                        <td class="td_class" dir="rtl">
+                                            <span>
+                                                <strong>
+                                                    <div style="display:inline-block;text-align:right; padding-right:30px;">
+                                                        ‫الجنسیة‬
+                                                    </div>
+                                                </strong>
+                                                <div style="display:inline-block;margin-right: 10%;"
+                                                     t-field="o.employee_id.country_id.nationality"/>
+
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class" style="text-align:left">
+                                            <strong>Signature</strong>
+                                        </td>
+                                        <td class="td_class" style="text-align:right;padding-right:30px;">
+                                            <strong>‫التوقيع‬</strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_class" style="text-align:left">
+                                            <p>.......................................................</p>
+                                        </td>
+                                        <td class="td_class" style="text-align:right; padding-right:30px;">
+                                            <p>.......................................................</p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <table style="page-break-after: avoid;">
+                                <tbody>
+                                    <tr>
+                                        <td class="td_class" style="width:20%;border: 1px solid black">
+                                            <strong>Special Note:</strong>
+                                        </td>
+                                        <td class="td_class" style="border: 1px solid black;width:80%" colspan="2">
+                                            Any addition or amendment in this contract will be followed by an
+                                            addendum and it will be part of this contract
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table style="page-break-after: avoid;">
+                                <tbody>
+                                    <tr>
+                                        <td class="td_class" dir="rtl" style="border: 1px solid black;width:80%">
+                                            اى اضافه او تعديل فى هذا العقد لابد ان يتبع بملحق ويعتبر جزء من هذا العقد
+                                        </td>
+                                        <td class="td_class" dir="rtl" style="border: 1px solid black;width:20%">
+                                            <strong>ملاحظة هامة</strong>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <br/>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <t t-if="o.notes"><strong>Notes :</strong>
+                                        </t>
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <span t-field="o.notes"/>
+                                    </td>
+                                    <td style="text-align: right;">
+                                        <t t-if="o.notes"><strong>:ملاحظات</strong>
+                                        </t>
+                                    </td>
+                                </tr>
+                            </table>
+                            <!--<p>-->
+                            <!--<t t-if="o.notes">-->
+                            <!--<p style="text-align: right; margin-right:85px" dir="rtl">-->
+                            <!--<strong> ملاحظات :</strong>-->
+                            <!--<span t-field="o.notes"/>-->
+                            <!--</p>-->
+                            <!--</t>-->
+                            <!--</p>-->
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</openerp>

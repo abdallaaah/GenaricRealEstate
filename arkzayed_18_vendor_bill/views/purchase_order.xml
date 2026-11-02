@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="purchase_order_inherit" model="ir.ui.view">
+            <field name="name">purchase_order_inherit</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+
+                <!-- Add Purchase Type field in header after partner_ref -->
+                <xpath expr="//field[@name='partner_ref']" position="after">
+                    <field name="purchase_type" widget="radio" options="{'horizontal': true}"/>
+                </xpath>
+
+                <xpath expr="//field[@name='order_line']//field[@name='product_id']" position="after">
+                    <field name="is_insurance_product" column_invisible="parent.purchase_type == 'original'"/>
+                    <field name="insurance_percentage" column_invisible="parent.purchase_type == 'original'"/>
+                </xpath>
+
+                <xpath expr="//field[@name='order_line']//field[@name='product_qty']" position="after">
+                    <field name="quantity_percentage" column_invisible="parent.purchase_type == 'original'"/>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

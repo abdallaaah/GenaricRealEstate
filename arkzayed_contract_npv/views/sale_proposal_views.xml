@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_sale_proposal_form_npv_inherit" model="ir.ui.view">
+        <field name="name">sale.proposal.form.npv.inherit</field>
+        <field name="model">sale.proposal</field>
+        <field name="inherit_id" ref="arkzayed_18_realestate_development.view_sale_proposal_form"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="NPV" groups="arkzayed_contract_npv.group_npv_access">
+                    <div class="alert alert-info" role="alert">
+                        Present value of this contract's installment schedule. "At Signing" is
+                        calculated once and locked; it will not change even if the discount rate or
+                        the schedule changes later. "Remaining Today" is always live.
+                    </div>
+                    <group>
+                        <group string="At Signing (locked)">
+                            <field name="npv_signing_date"/>
+                            <field name="npv_signing_rate"/>
+                            <field name="npv_nominal_total"/>
+                            <field name="npv_at_signing"/>
+                            <field name="npv_signing_discount"/>
+                        </group>
+                        <group string="Remaining, as of Today">
+                            <field name="npv_discount_rate" string="Current Discount Rate %"/>
+                            <field name="npv_remaining_nominal"/>
+                            <field name="npv_remaining_today"/>
+                            <field name="npv_remaining_discount"/>
+                        </group>
+                    </group>
+                    <button name="action_recalculate_npv_at_signing" type="object"
+                            string="Recalculate NPV at Signing" class="btn-secondary"
+                            confirm="This overwrites the locked NPV at Signing with a fresh value at today's discount rate and schedule. Use this only to correct a mistake, not routinely."/>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record model="job.level" id="job_level1">
+            <field name="name">Sales Person</field>
+            <field name="is_sales_person">1</field>
+        </record>
+
+<!--        <record model="job.level" id="job_level2">-->
+<!--            <field name="name">Team Leader</field>-->
+<!--            <field name="is_team_leader">1</field>-->
+<!--        </record>-->
+
+        <record model="job.level" id="job_level2">
+            <field name="name">Directory</field>
+            <field name="is_directory">1</field>
+        </record>
+
+        <record model="job.level" id="job_level3">
+            <field name="name">Sales Manager</field>
+            <field name="is_sales_manager">1</field>
+        </record>
+
+        <record model="job.level" id="job_level4">
+            <field name="name">Sales Sector Manager</field>
+            <field name="is_sales_sector_manager">1</field>
+        </record>
+
+<!--        <record model="job.level" id="job_level5">-->
+<!--            <field name="name">Operations</field>-->
+<!--            <field name="is_operations">1</field>-->
+<!--        </record>-->
+
+    </data>
+</odoo>

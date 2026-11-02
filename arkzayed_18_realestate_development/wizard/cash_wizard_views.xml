@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_cash_wizard_form" model="ir.ui.view">
+        <field name="name">arkzayed.cash.report.wizard.form</field>
+        <field name="model">arkzayed.cash.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Cash Report">
+                <p class="text-muted">
+                    Cash and bank balances, cheques by status and maturity, expected inflows against
+                    installments and supplier bills, for the next 12 months. Figures are as of the moment you print.
+                </p>
+                <group>
+                    <field name="include_draft"/>
+                </group>
+                <footer>
+                    <button name="action_print" type="object" string="Print Report" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_cash_wizard" model="ir.actions.act_window">
+        <field name="name">Cash Report</field>
+        <field name="res_model">arkzayed.cash.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_cash_report_root" name="Cash"
+              parent="arkzayed_18_realestate_development.menu_reports_root" sequence="30"/>
+    <menuitem id="menu_cash_report" name="Cash Report (CFO)" parent="menu_cash_report_root"
+              action="action_cash_wizard" sequence="10"/>
+
+</odoo>

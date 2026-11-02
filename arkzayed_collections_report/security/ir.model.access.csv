@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_arkzayed_collections_wizard,arkzayed.collections.report.wizard,model_arkzayed_collections_report_wizard,,1,1,1,1
+access_arkzayed_collections_period_wizard,arkzayed.collections.period.wizard,model_arkzayed_collections_period_wizard,,1,1,1,1

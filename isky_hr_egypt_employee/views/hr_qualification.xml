@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_hr_qualification_form" model="ir.ui.view">
+            <field name="name">view.hr_qualification.form</field>
+            <field name="model">exp.hr.qualification</field>
+            <field name="arch" type="xml">
+                <form string="Qualification">
+                    <sheet>
+                        <group name="main">
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_hr_qualification_tree" model="ir.ui.view">
+            <field name="name">view.hr_qualification.tree</field>
+            <field name="model">exp.hr.qualification</field>
+            <field name="arch" type="xml">
+                <list string="Qualification">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_hr_qualification_search" model="ir.ui.view">
+            <field name="name">view.hr_qualification.search</field>
+            <field name="model">exp.hr.qualification</field>
+            <field name="arch" type="xml">
+                <search string="Qualification">
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="hr_qualification_action" model="ir.actions.act_window">
+            <field name="name">Qualification</field>
+            <field name="res_model">exp.hr.qualification</field>
+            <field name="view_mode">list,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a new Qualification.
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

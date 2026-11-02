@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_medical_type" model="ir.actions.act_window">
+            <field name="name">Medical Types</field>
+            <field name="res_model">medical.type</field>
+            <field name="view_mode">list,form</field>
+        </record>
+    </data>
+</odoo>
+

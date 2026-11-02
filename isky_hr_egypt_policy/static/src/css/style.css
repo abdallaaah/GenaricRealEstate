@@ -1,0 +1,5 @@
+.o_list_view .o_list_table > thead > tr > th {
+white-space: pre-line !important;
+max-height: max-content !important;
+width: 90px !important;
+}

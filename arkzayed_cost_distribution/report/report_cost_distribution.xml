@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="paperformat_cost_distribution_landscape" model="report.paperformat">
+        <field name="name">Cost Distribution - A4 Landscape</field>
+        <field name="default" eval="False"/>
+        <field name="format">A4</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">32</field>
+        <field name="margin_bottom">18</field>
+        <field name="margin_left">12</field>
+        <field name="margin_right">12</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">28</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="action_report_cost_distribution" model="ir.actions.report">
+        <field name="name">Cost Distribution Report</field>
+        <field name="model">arkzayed.cost.distribution</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">arkzayed_cost_distribution.report_cost_distribution</field>
+        <field name="report_file">arkzayed_cost_distribution.report_cost_distribution</field>
+        <field name="print_report_name">'Cost Distribution Report'</field>
+        <field name="paperformat_id" ref="paperformat_cost_distribution_landscape"/>
+        <field name="binding_model_id" ref="model_arkzayed_cost_distribution"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_cost_distribution">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page" style="font-size: 10pt; color: #1f2937;">
+
+                    <table style="width: 100%; margin-bottom: 14px;">
+                        <tr>
+                            <td style="vertical-align: bottom;">
+                                <div style="font-size: 20pt; font-weight: bold; color: #0f2a4a;">Cost Distribution Report</div>
+                                <div style="color: #6b7280;">
+                                    <t t-if="date_from">
+                                        Period: <span t-out="date_from" t-options="{'widget': 'date'}"/>
+                                        <t t-if="date_to != date_from"> - <span t-out="date_to" t-options="{'widget': 'date'}"/></t>
+                                        &#160;|&#160;
+                                    </t>
+                                    Prepared on <span t-out="today" t-options="{'widget': 'date'}"/> by <span t-out="user_name"/>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table style="width: 100%; border-collapse: separate; border-spacing: 8px 0; margin: 0 -8px 16px -8px;">
+                        <tr>
+                            <td style="width: 24%; background: #0f2a4a; color: #fff; padding: 10px 14px; border-radius: 4px;">
+                                <div style="font-size: 8pt; text-transform: uppercase; opacity: .8;">Total Distributed</div>
+                                <div style="font-size: 15pt; font-weight: bold;" t-out="total_amount" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                            </td>
+                            <td style="width: 19%; background: #eef2f7; padding: 10px 14px; border-radius: 4px;">
+                                <div style="font-size: 8pt; text-transform: uppercase; color: #6b7280;">Direct Cost</div>
+                                <div style="font-size: 12pt; font-weight: bold;" t-out="direct_amount" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                            </td>
+                            <td style="width: 19%; background: #eef2f7; padding: 10px 14px; border-radius: 4px;">
+                                <div style="font-size: 8pt; text-transform: uppercase; color: #6b7280;">Indirect Cost</div>
+                                <div style="font-size: 12pt; font-weight: bold;" t-out="indirect_amount" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                            </td>
+                            <td style="width: 12%; background: #eef2f7; padding: 10px 14px; border-radius: 4px;">
+                                <div style="font-size: 8pt; text-transform: uppercase; color: #6b7280;">Distributions</div>
+                                <div style="font-size: 12pt; font-weight: bold;" t-out="distribution_count"/>
+                            </td>
+                            <td style="width: 13%; background: #eef2f7; padding: 10px 14px; border-radius: 4px;">
+                                <div style="font-size: 8pt; text-transform: uppercase; color: #6b7280;">Buildings</div>
+                                <div style="font-size: 12pt; font-weight: bold;" t-out="building_count"/>
+                            </td>
+                            <td style="width: 13%; background: #eef2f7; padding: 10px 14px; border-radius: 4px;">
+                                <div style="font-size: 8pt; text-transform: uppercase; color: #6b7280;">Units</div>
+                                <div style="font-size: 12pt; font-weight: bold;" t-out="unit_count"/>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div style="font-size: 12pt; font-weight: bold; color: #0f2a4a; margin-bottom: 6px;">Distributions</div>
+                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 18px; font-size: 9pt;">
+                        <thead>
+                            <tr style="background: #0f2a4a; color: #fff;">
+                                <th style="padding: 6px 8px; text-align: left;">Date</th>
+                                <th style="padding: 6px 8px; text-align: left;">Ref.</th>
+                                <th style="padding: 6px 8px; text-align: left;">Bill / Vendor</th>
+                                <th style="padding: 6px 8px; text-align: left;">Description</th>
+                                <th style="padding: 6px 8px; text-align: left;">Buildings</th>
+                                <th style="padding: 6px 8px; text-align: left;">Units</th>
+                                <th style="padding: 6px 8px; text-align: right;">Area (m²)</th>
+                                <th style="padding: 6px 8px; text-align: right;">Rate / m²</th>
+                                <th style="padding: 6px 8px; text-align: right;">Amount</th>
+                                <th style="padding: 6px 8px; text-align: center;">Type</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="docs" t-as="d">
+                                <tr t-att-style="'background: #f6f8fb;' if d_index % 2 else ''">
+                                    <td style="padding: 5px 8px; border-bottom: 1px solid #e5e7eb; white-space: nowrap;" t-out="d.create_date" t-options="{'widget': 'date'}"/>
+                                    <td style="padding: 5px 8px; border-bottom: 1px solid #e5e7eb; white-space: nowrap;" t-out="d.name"/>
+                                    <td style="padding: 5px 8px; border-bottom: 1px solid #e5e7eb;">
+                                        <div t-out="d.move_id.name"/>
+                                        <div style="color: #6b7280;" t-out="d.partner_id.name"/>
+                                    </td>
+                                    <td style="padding: 5px 8px; border-bottom: 1px solid #e5e7eb;" t-out="d.description"/>
+                                    <td style="padding: 5px 8px; border-bottom: 1px solid #e5e7eb;">
+                                        <t t-out="', '.join(d.building_ids.mapped('system_code'))"/>
+                                    </td>
+                                    <td style="padding: 5px 8px; border-bottom: 1px solid #e5e7eb;" t-out="d.units_summary"/>
+                                    <td style="padding: 5px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;" t-out="'{:,.2f}'.format(d.total_area)"/>
+                                    <td style="padding: 5px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;" t-out="'{:,.2f}'.format(d.rate_per_sqm)"/>
+                                    <td style="padding: 5px 8px; border-bottom: 1px solid #e5e7eb; text-align: right; font-weight: bold;" t-out="d.amount" t-options="{'widget': 'monetary', 'display_currency': d.currency_id}"/>
+                                    <td style="padding: 5px 8px; border-bottom: 1px solid #e5e7eb; text-align: center;" t-out="dict(d._fields['cost_type'].selection).get(d.cost_type)"/>
+                                </tr>
+                            </t>
+                            <tr style="font-weight: bold; background: #eef2f7;">
+                                <td colspan="8" style="padding: 6px 8px; text-align: right;">Total</td>
+                                <td style="padding: 6px 8px; text-align: right;" t-out="total_amount" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                <td/>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div style="page-break-inside: avoid;">
+                        <div style="font-size: 12pt; font-weight: bold; color: #0f2a4a; margin-bottom: 6px;">Summary by Building</div>
+                        <table style="width: 100%; border-collapse: collapse; margin-bottom: 18px; font-size: 9pt;">
+                            <thead>
+                                <tr style="background: #0f2a4a; color: #fff;">
+                                    <th style="padding: 6px 8px; text-align: left;">Building</th>
+                                    <th style="padding: 6px 8px; text-align: right;">Units</th>
+                                    <th style="padding: 6px 8px; text-align: right;">Gross Area (m²)</th>
+                                    <th style="padding: 6px 8px; text-align: right;">Allocated Cost</th>
+                                    <th style="padding: 6px 8px; text-align: right;">Share</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="building_rows" t-as="b">
+                                    <tr t-att-style="'background: #f6f8fb;' if b_index % 2 else ''">
+                                        <td style="padding: 5px 8px; border-bottom: 1px solid #e5e7eb;" t-out="b['name']"/>
+                                        <td style="padding: 5px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;" t-out="b['unit_count']"/>
+                                        <td style="padding: 5px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;" t-out="'{:,.2f}'.format(b['area'])"/>
+                                        <td style="padding: 5px 8px; border-bottom: 1px solid #e5e7eb; text-align: right; font-weight: bold;" t-out="b['amount']" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                        <td style="padding: 5px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;" t-out="'{:,.1f}%'.format(b['share'])"/>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <t t-if="show_appendix">
+                        <div style="page-break-before: always;"/>
+                        <div style="font-size: 12pt; font-weight: bold; color: #0f2a4a; margin-bottom: 6px;">Appendix - Unit Details</div>
+                        <table style="width: 100%; border-collapse: collapse; font-size: 8.5pt;">
+                            <thead>
+                                <tr style="background: #0f2a4a; color: #fff;">
+                                    <th style="padding: 5px 8px; text-align: left;">Ref.</th>
+                                    <th style="padding: 5px 8px; text-align: left;">Building</th>
+                                    <th style="padding: 5px 8px; text-align: left;">Unit</th>
+                                    <th style="padding: 5px 8px; text-align: right;">Area (m²)</th>
+                                    <th style="padding: 5px 8px; text-align: right;">Rate / m²</th>
+                                    <th style="padding: 5px 8px; text-align: right;">Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="allocations" t-as="a">
+                                    <tr t-att-style="'background: #f6f8fb;' if a_index % 2 else ''">
+                                        <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb;" t-out="a.distribution_id.name"/>
+                                        <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb;" t-out="a.building_id.system_code"/>
+                                        <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb;" t-out="a.unit_id.system_code"/>
+                                        <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;" t-out="'{:,.2f}'.format(a.unit_area)"/>
+                                        <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;" t-out="'{:,.2f}'.format(a.rate_per_sqm)"/>
+                                        <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;" t-out="a.amount" t-options="{'widget': 'monetary', 'display_currency': a.currency_id}"/>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </t>
+                    <t t-elif="allocations">
+                        <div style="color: #6b7280; font-size: 9pt;">
+                            Unit-level details are not printed (more than <t t-out="appendix_limit"/> lines); see the Details by Unit screen.
+                        </div>
+                    </t>
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

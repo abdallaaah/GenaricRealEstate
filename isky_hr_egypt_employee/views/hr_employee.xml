@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="exp_inh_employee_inf_kanban" model="ir.ui.view">
+            <field name="name">exp.inh.employee.inf.kanban</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.hr_kanban_view_employees"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="replace">
+                    <field name="full_name"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="exp_inh_employee_inf_list" model="ir.ui.view">
+            <field name="name">exp.inh.employee.inf.list</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="isky_hr_egypt_employee.employee_information_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='country_id']" position="after">
+                    <field name="hiring_date"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="exp_inh_employee_inf_form" model="ir.ui.view">
+            <field name="name">exp.inh.employee.inf.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='address_id']" position="before">
+                    <field name="address_home_id"/>
+                </xpath>
+                <xpath expr="//field[@name='birthday']" position="after">
+                    <field name="birthday_higri"/>
+                </xpath>
+                <field name="parent_id" position="after">
+                    <field name="sponsorship"/>
+                </field>
+
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                    <attribute name="required">0</attribute>
+                </xpath>
+                <xpath expr="//field[@name='job_id']" position="after">
+                    <field name="grade"/>
+                    <field name="emp_no"/>
+                    <field name="employee_status_id"/>
+                    <field name="is_manager"/>
+                </xpath>
+
+                <xpath expr="//field[@name='passport_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <field name="parent_id" position="after">
+                    <field name="has_debt"/>
+                </field>
+
+                <xpath expr="//h1" position="replace">
+                  
+                    <div name="full_name">
+                        <field name="name" placeholder="First Name" required="1" class="oe_inline" nolabel="1"
+                               style="padding:5px"/>
+                        <field name="second_name" placeholder="Middle Name" class="oe_inline" nolabel="1"
+                               style="padding:5px"/>
+                        <field name="last_name" placeholder="Last Name" class="oe_inline" nolabel="1"
+                               style="padding:5px"/>
+                    </div>
+                    
+                    <label for="employee_arabic_name" class="oe_edit_only"/>
+                    <h3>
+                        <field name="employee_arabic_name" placeholder="Employee's Arabic Name"/>
+                    </h3>
+                </xpath>
+                <xpath expr="//field[@name='department_id']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='birthday']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+
+                <field name="marital" position="after">
+                    <field name="military_state"/>
+                </field>
+
+                <xpath expr="//field[@name='job_id']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+
+                <field name="mobile_phone" position="attributes">
+                    <attribute name="string">Work Mobile No.</attribute>
+                </field>
+
+
+                <field name="address_home_id" position="after">
+                    <field name="home_no"/>
+                </field>
+
+                <field name="bank_account_id" position="attributes">
+                    <attribute name="string">Bank Account No.</attribute>
+                </field>
+
+                <field name="coach_id" position="replace">
+                    <field name="coach_id" string="Supervisor"/>
+                </field>
+
+                <field name="country_id" position="replace">
+                    <field name="country_id" options="{'create': false, 'create_edit': false}"/>
+                </field>
+
+
+                <xpath expr="//field[@name='gender']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+
+                <field name="identification_id" position="replace">
+                    <field name="religion"/>
+                </field>
+
+                <xpath expr="//field[@name='work_phone']" position="after">
+                    <field name="employment_type"/>
+                </xpath>
+                <!--                <xpath expr="//notebook/page[@name='personal_information']/group[1]/group[6]" position="attributes">-->
+                <!--                    <attribute name="invisible">1</attribute>-->
+                <!--                </xpath>-->
+                <field name="job_id" position="after">
+                    <field name="serviced_duration"/>
+                </field>
+                <xpath expr="//group[@name='departure']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Departure Information" name="departure" invisible="active">
+                        <group>
+                            <group>
+                                <field name="departure_reason_id" options="{'no_edit': True, 'no_create': True, 'no_open': True}"/>
+                                <field name="departure_description"/>
+                            </group>
+                            <group>
+                                <field name="resignation_date"/>
+                                <field name="departure_date"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Education Qualification" name="education">
+                        <field name="education_ids">
+                            <list editable="bottom">
+                                <field name="name"/>
+                                <field name="certificate_level"
+                                       required="1"
+                                       string="Certificate Level"/>
+                                <field name="qualification"
+                                       string="Field of Study	"/>
+                                <field name="degree_date"/>
+                                <field name="degree_year"/>
+                                <field name="degree_rate"/>
+                                <field name="full_rate"/>
+                            </list>
+                        </field>
+                    </page>
+                    <page string="Practical Experience" name="practical_experience">
+                        <field name="experience_ids">
+                            <list editable="bottom">
+                                <field name="name"/>
+                                <field name="business_sector"/>
+                                <field name="job"/>
+                                <field name="years"/>
+                            </list>
+                        </field>
+                    </page>
+                    <page string="Training" name="training">
+                        <field name="training_ids">
+                            <list editable="bottom">
+                                <field name="course_id"/>
+                                <field name="institute_id"/>
+                                <field name="duration"/>
+                                <field name="course_date"/>
+                            </list>
+                        </field>
+                    </page>
+                    <page string="Skills" name="skills">
+                        <field name="skill_ids">
+                            <list editable="bottom">
+                                <field name="name"/>
+                                <field name="level"/>
+                            </list>
+                        </field>
+                    </page>
+                    <page string="Referred By" name="referred_by">
+                        <field name="informant_ids">
+                            <list editable="bottom">
+                                <field name="name"/>
+                                <field name="company"/>
+                                <field name="job"/>
+                                <field name="mobile"/>
+                                <field name="email"/>
+                            </list>
+                        </field>
+                    </page>
+                    <page string="Identification &amp; Passport" name="identification_data">
+                        <group>
+                            <group string="Identification">
+                                <field name="identification_id"
+                                       string="Identification No."/>
+                                <field name="card_type_id"/>
+                                <!--                                <field name="visa_expiry_date"/>-->
+                                <field name="identification_issuance_date"/>
+                                <field name="issuance_location_id"
+                                       options="{'no_create': 1, 'no_create_edit': 1}"/>
+                                <field name="identification_source" invisible="1"/>
+                                <field name="identification_expire_date"/>
+                                <field name="identification_state"/>
+                            </group>
+                            <group string="Passport">
+                                <field name="passport_id" string="Passport No."/>
+                                <field name="passport_issue_place"/>
+                                <field name="passport_issue_date"/>
+                                <field name="passport_expire_date"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Medical" name="medical">
+                        <group>
+                            <group>
+                                <field name="medical_no"/>
+                                <field name="medical_result"/>
+                                <field name="blood_type"/>
+                            </group>
+                            <group>
+                                <field name="contract_medical_date"/>
+                                <field name="contract_medical_select"/>
+                                <field name="medical_start_date"/>
+                                <field name="medical_end_date"/>
+                            </group>
+                        </group>
+
+                        <field name="medical_attachment_ids">
+                            <list editable='bottom'>
+                                <field name="name"/>
+                                <field name="type"/>
+                                <field name="filename" invisible="1"/>
+                                <field name="datas" filename="filename" widget="binary"/>
+                            </list>
+                        </field>
+                    </page>
+                    <page string="Relatives" name="relatives"
+                    >
+                        <field name="employee_dependant_ids">
+                            <list string="Dependents">
+                                <field name="name"
+                                       required="1"/>
+                                <field name="english_name"/>
+                                <field name="gender"
+                                       required="1"/>
+                                <field name="relation"
+                                       required="1"/>
+                                <field name="military_state"/>
+                                <!--                                <field name="iqama_number"/>-->
+                                <field name="country_id"
+                                       required="1"/>
+                                <field name="passport_no"
+                                       invisible="1"/>
+                                <field name="passport_issue_date"
+                                       invisible="1"/>
+                                <field name="passport_expiry_date"
+                                       invisible="1"/>
+                                <field name="birth_date"
+                                       required="1"/>
+                                <field name="age"/>
+                                <field name="remarks"
+                                       invisible="1"/>
+                                <field name="tickets_allowed"
+                                       invisible="1"/>
+                                <field name="fees"
+                                       invisible="1"/>
+                                <field name="date"
+                                       invisible="1"/>
+                            </list>
+                        </field>
+                    </page>
+                    <page string="License Data" name="license_data">
+                        <group col="4">
+                            <field name="have_license"/>
+                            <field name="license_no" string="Driver Licence No" required="have_license == 'yes'" invisible="have_license == 'no'"/>
+                            <field name="issuance_date" required="have_license == 'yes'" invisible="have_license == 'no'"/>
+                            <field name="license_expiry_date" required="have_license == 'yes'" invisible="have_license == 'no'"/>
+                            <field name="licence_degree_id" required="have_license == 'yes'" invisible="have_license == 'no'"/>
+                            <field name="licence_location_id"
+                                   options='{"no_create": 1, "no_create_edit": 1}'
+                                   required="have_license == 'yes'" invisible="have_license == 'no'"/>
+                            <field name="licence_state" invisible="have_license == 'no'"/>
+
+                        </group>
+                    </page>
+                    <page string="Work Permit" name="work_permit" invisible="1">
+                        <field name="work_permit_ids" invisible="1">
+                            <list editable="bottom">
+                                <field name="name"/>
+                                <field name="payment_no"/>
+                                <field name="amount"/>
+                                <field name="issued_date"/>
+                                <field name="expiry_date"/>
+                            </list>
+                        </field>
+                    </page>
+                </xpath>
+
+                <xpath expr="//field[@name='bank_account_id']" position="attributes">
+                    <attribute name="domain">[]</attribute>
+                </xpath>
+                <xpath expr="//group[@name='active_group']//field[@name='user_id']" position="before">
+                    <field name="first_hiring_date"/>
+                </xpath>
+
+                <xpath expr="//notebook" position="inside">
+                    <page string="Authority License" invisible="1">
+                        <group>
+                            <field name="authority_license_ids" nolabel="1">
+                                <list editable="bottom">
+                                    <field name="include"/>
+                                    <field name="license_name" required="1"/>
+                                    <field name="expiry_date" required="1"/>
+                                </list>
+                            </field>
+                        </group>
+                    </page>
+                </xpath>
+
+                <xpath expr="//notebook//page[@name='personal_information']//group[1]//group[3]"
+                       position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='category_ids']" position="after">
+                    <field name="hiring_date"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="exp_inh_hr_employee_search" model="ir.ui.view">
+            <field name="name">exp.inh.hr.employee.search</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search/field[@name='name']" position="replace">
+                    <field name="name" string="Employees"
+                           filter_domain="['|','|','|','|','|',('work_email','ilike',self),('name','ilike',self),('last_name','ilike',self),('second_name','ilike',self),('employee_arabic_name','ilike',self),('emp_no','ilike',self)]"/>
+                </xpath>
+                <xpath expr="//group" position="before">
+                    <filter string="Has User ?" name="has_user" domain="[('user_id', '!=', False)]"/>
+                    <filter string="Has Work Location ?" name="has_work_location"
+                            domain="[('work_location_id', '!=', False)]"/>
+                    <filter string="Company Sponsorship" name="has_company_sponsorship"
+                            domain="[('sponsorship', '=', 'company')]"/>
+                    <filter string="Organization Sponsorship" name="has_organization_sponsorship"
+                            domain="[('sponsorship', '=', 'organization')]"/>
+                    <filter string="None Sponsorship" name="has_none_sponsorship"
+                            domain="[('sponsorship', '=', 'none')]"/>
+                    <filter string="Has Debt ?" name="has_debt" domain="[('has_debt', '=', True)]"/>
+                    <filter string="Has not User ?" name="has_not_user" domain="[('user_id', '=', False)]"/>
+                    <filter string="Has ID/Iqama?" name="has_iqama" domain="[('identification_id', '!=', False)]"/>
+                    <filter string="Has not ID/Iqama?" name="has_not_iqama"
+                            domain="[('identification_id', '=', False)]"/>
+                    <filter string="Has Children?" name="has_children" domain="[('children', '!=', 0)]"/>
+                    <filter string="Has not Children?" name="has_not_children" domain="[('children', '=', 0)]"/>
+
+                </xpath>
+
+                <xpath expr="//group" position="inside">
+                    <filter string="Work Location" name="work_location_id" context="{'group_by':'work_location_id'}"/>
+                    <filter string="Sponsorship" name="sponsorship" context="{'group_by':'sponsorship'}"/>
+                    <filter string="Has Debt" name="has_debt" context="{'group_by':'has_debt'}"/>
+                    <filter string="Working Address" name="work_address" context="{'group_by':'address_id'}"/>
+                    <filter string="Related User" name="related_user" context="{'group_by':'user_id'}"/>
+                    <!--                    <filter string="Nationality" name="country_id" context="{'group_by':'country_id'}"/>-->
+                    <filter string="Gender" name="gender" context="{'group_by':'gender'}"/>
+                    <filter string="Home Address" name="home_address" context="{'group_by':'address_id'}"/>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

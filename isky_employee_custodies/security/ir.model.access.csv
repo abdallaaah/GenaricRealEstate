@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_employee_product_expense,access_employee_product_expense,model_employee_product_expense,,1,1,1,1
+access_employee_custody_category,access_employee_custody_category,model_employee_custody_category,,1,1,1,1
+access_employee_custody,access_employee_custody,model_employee_custody,,1,1,1,0
+access_employee_custody_item,access_employee_custody_item,model_employee_custody_item,,1,1,1,1
+access_custody_transaction,access.custody.transaction,model_custody_transaction,,1,1,1,1
+access_custody_journal_entries,access.custody.journal.entries,model_custody_journal_entries,,1,1,1,1
+access_employee_custody_account_user,access_employee_custody_account_user,model_employee_custody,account.group_account_user,1,1,1,0
+access_employee_custody_account_manager,access_employee_custody_account_manager,model_employee_custody,account.group_account_user,1,1,1,1
+access_employee_custody_report,access_employee_custody_report,model_employee_custody_report,,1,1,1,1
+access_custody_xlsx_report_wizard,access_custody_xlsx_report_wizard,model_custody_xlsx_report_wizard,,1,1,1,1

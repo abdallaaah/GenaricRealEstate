@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="ipc_taxable_report">
+        <t t-call="web.basic_layout">
+            <t t-foreach="docs" t-as="doc">
+
+                <main t-attf-style="padding-top:0 !important; margin-top:0 !important;">
+
+                    <!-- Header with Logo and Title -->
+                    <table cellspacing="0" cellpadding="0" style="width:100%;margin-bottom:4px;border:0 !important;border-collapse:collapse;border-spacing:0;">
+                        <tr style="border:0 !important;">
+                            <td style="width:30%; vertical-align:top; border:0 !important;">
+                                <div style="font-size:28px; font-weight:bold;">The Ark</div>
+                            </td>
+                            <td style="width:40%; text-align:center; vertical-align:middle; border:0 !important;">
+                                <div style="font-size:10px; font-weight:bold;">Taxable Certificate For IPC No. 03</div>
+                            </td>
+                            <td style="width:30%; text-align:right; vertical-align:top; border:0 !important;">
+                            </td>
+                        </tr>
+                    </table>
+
+                    <!-- Company Info Table -->
+                    <table style="width:100%; border:1px solid black; border-collapse:collapse; font-size:13px; margin-bottom:4px;">
+                        <tr>
+                            <td style="border:1px solid black; padding:3px; width:18%; font-weight:bold;">Employer:</td>
+                            <td style="border:1px solid black; padding:3px; width:32%;">The Ark Development</td>
+                        </tr>
+                        <tr>
+                            <td style="border:1px solid black; padding:3px; width:18%; font-weight:bold;">Project Name:</td>
+                            <td style="border:1px solid black; padding:3px;"></td>
+                        </tr>
+
+                        <tr>
+                            <td style="border:1px solid black; padding:3px; font-weight:bold;">Project Manager:</td>
+                            <td style="border:1px solid black; padding:3px;">Hill International</td>
+                        </tr>
+                        <tr>
+                            <td style="border:1px solid black; padding:3px; font-weight:bold;">Consultant:</td>
+                            <td style="border:1px solid black; padding:3px;"></td>
+                        </tr>
+                        <tr>
+                            <td style="border:1px solid black; padding:3px; font-weight:bold;">Contractor:</td>
+                            <td colspan="3" style="border:1px solid black; padding:3px;"><t t-esc="doc.partner_id.name"/></td>
+                        </tr>
+                    </table>
+
+                    <!-- Contract Details Table -->
+                    <table style="width:100%; border:1px solid black; border-collapse:collapse; font-size:13px; margin-bottom:4px;">
+                        <colgroup>
+                            <col style="width:25%;"/>
+                            <col style="width:25%;"/>
+                            <col style="width:25%;"/>
+                            <col style="width:25%;"/>
+                        </colgroup>
+                        <tr style="height:35px;">
+                            <td colspan="2" style="border:1px solid black; padding:3px; font-weight:bold;">Interim Payment Application Invoice No.:</td>
+                            <td colspan="2" style="border:1px solid black; padding:10px; text-align:center; font-weight:bold;">Total Contract Amount in EGP:</td>
+                        </tr>
+                        <tr style="height:30px;">
+                            <td style="border:1px solid black; padding:3px; font-weight:bold;">Commencement Date:</td>
+                            <td style="border:1px solid black; padding:3px; text-align:right;">
+                                <t t-esc="doc.invoice_line_ids.mapped('purchase_line_id.order_id.requisition_id')[:1].date_start.strftime('%d-%b-%Y') if doc.invoice_line_ids.mapped('purchase_line_id.order_id.requisition_id')[:1].date_start else ''"/>
+                            </td>
+                            <td colspan="2" style="border:1px solid black; padding:10px; text-align:center;">
+                                <t t-esc="'{:,.2f}'.format(doc.invoice_line_ids.mapped('purchase_line_id.order_id.requisition_id')[:1].total_agreement or 0)"/> EGP
+                            </td>
+                        </tr>
+                        <tr style="height:30px;">
+                            <td style="border:1px solid black; padding:3px; font-weight:bold;">Time Extension:</td>
+                            <td style="border:1px solid black; padding:3px; text-align:right;">
+                                <t t-esc="doc.invoice_line_ids.mapped('purchase_line_id.order_id.requisition_id')[:1].date_end.strftime('%d-%b-%Y') if doc.invoice_line_ids.mapped('purchase_line_id.order_id.requisition_id')[:1].date_end else ''"/>
+                            </td>
+                            <td style="border:1px solid black; padding:9px; font-weight:bold;">Advance Payment:</td>
+                            <td style="border:1px solid black; padding:9px; text-align:right;">
+                                <t t-esc="'{:,.2f}'.format(doc.invoice_line_ids.mapped('purchase_line_id.order_id.requisition_id')[:1].down_payment_agreement or 0)"/> EGP
+                            </td>
+                        </tr>
+                        <tr style="height:35px;">
+                            <td style="border:1px solid black; padding:3px; font-weight:bold;">Time for Completion of the work<br/><span style="font-size:9px;">"Duration of project"</span></td>
+                            <td style="border:1px solid black; padding:3px; font-weight:bold;"></td>
+                            <td style="border:1px solid black; padding:8px; font-weight:bold;">Additional/Omission Amounts (V.O.'s):</td>
+                            <td style="border:1px solid black; padding:8px; text-align:right;">- EGP</td>
+                        </tr>
+                        <tr style="height:30px;">
+                            <td style="border:1px solid black; padding:3px; font-weight:bold;">Progress Cut-off Date:</td>
+                            <td style="border:1px solid black; padding:3px; text-align:right;">
+                                <t t-esc="doc.invoice_line_ids.mapped('purchase_line_id.order_id.requisition_id')[:1].progress_cutoff_date.strftime('%d-%b-%Y') if doc.invoice_line_ids.mapped('purchase_line_id.order_id.requisition_id')[:1].progress_cutoff_date else ''"/>
+                            </td>
+                            <td rowspan="3" style="border:1px solid black; padding:8px; font-weight:bold; vertical-align:top;">Total Contract Amount in EGP "Revised":</td>
+                            <td rowspan="3" style="border:1px solid black; padding:8px; text-align:right; vertical-align:top;">
+                                <t t-esc="'{:,.2f}'.format(doc.invoice_line_ids.mapped('purchase_line_id.order_id.requisition_id')[:1].total_agreement or 0)"/> EGP
+                            </td>
+                        </tr>
+                        <tr style="height:30px;">
+                            <td style="border:1px solid black; padding:3px; font-weight:bold;">Submission Date:</td>
+                            <td style="border:1px solid black; padding:3px; text-align:right;">
+                                <t t-esc="doc.invoice_line_ids.mapped('purchase_line_id.order_id.requisition_id')[:1].submission_date.strftime('%d-%b-%Y') if doc.invoice_line_ids.mapped('purchase_line_id.order_id.requisition_id')[:1].submission_date else ''"/>
+                            </td>
+                        </tr>
+                        <tr style="height:30px;">
+                            <td style="border:1px solid black; padding:3px; font-weight:bold;">Currency:</td>
+                            <td style="border:1px solid black; padding:3px; text-align:right;">Egyptian pound (EGP)</td>
+                        </tr>
+                    </table>
+
+                    <!-- Main IPC Summary Table -->
+                    <table style="width:100%; border:1px solid black; border-collapse:collapse; font-size:13px; margin-bottom:3px;">
+                        <thead>
+                            <tr style="background-color:#e8e8e8;">
+                                <th style="border:1px solid black; padding:3px; width:8%; text-align:center;"></th>
+                                <th style="border:1px solid black; padding:3px; width:37%; text-align:left;"></th>
+                                <th style="border:1px solid black; padding:3px; width:15%; text-align:center;">Previous</th>
+                                <th style="border:1px solid black; padding:3px; width:15%; text-align:center;">Current</th>
+                                <th style="border:1px solid black; padding:3px; width:18%; text-align:center;">Total</th>
+                                <th style="border:1px solid black; padding:3px; width:7%; text-align:center;">Curr</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Work Done & Materials -->
+                            <tr>
+                                <td style="border:1px solid black; padding:3px; text-align:center;">a</td>
+                                <td style="border:1px solid black; padding:3px;"><strong>Total Work Done:</strong></td>
+                                <td style="border:1px solid black; padding:3px; text-align:center;">
+                                    <t t-esc="'{:,.2f}'.format(doc.ipc_previous_work_done or 0)"/>
+                                </td>
+                                <td style="border:1px solid black; padding:3px; text-align:center;">
+                                    <t t-esc="'{:,.2f}'.format(doc.ipc_current_work_done or 0)"/>
+                                </td>
+                                <td style="border:1px solid black; padding:3px; text-align:center;">
+                                    <t t-esc="'{:,.2f}'.format(doc.ipc_total_work_done or 0)"/>
+                                </td>
+                                <td style="border:1px solid black; padding:3px; text-align:center;">EGP</td>
+                            </tr>
+                            <tr>
+                                <td style="border:1px solid black; padding:3px; text-align:center;">b</td>
+                                <td style="border:1px solid black; padding:3px;"><strong>Materials on Site:</strong></td>
+                                <td style="border:1px solid black; padding:3px; text-align:center;">
+                                    <t t-esc="'{:,.2f}'.format(doc.ipc_previous_materials or 0)"/>
+                                </td>
+                                <td style="border:1px solid black; padding:3px; text-align:center;">
+                                    <t t-esc="'{:,.2f}'.format(doc.ipc_current_materials or 0)"/>
+                                </td>
+                                <td style="border:1px solid black; padding:3px; text-align:center;">
+                                    <t t-esc="'{:,.2f}'.format(doc.ipc_materials_on_site or 0)"/>
+                                </td>
+                                <td style="border:1px solid black; padding:3px; text-align:center;">EGP</td>
+                            </tr>
+
+                            <!-- 1. Total Gross Value -->
+                            <tr style="font-weight:bold;">
+                                <td style="border:1px solid black; padding:3px; text-align:center;">1</td>
+                                <td style="border:1px solid black; padding:3px;">Total Gross Value of the Executed Works:</td>
+                                <td style="border:1px solid black; padding:3px; text-align:center;">
+                                    <t t-esc="'{:,.2f}'.format((doc.ipc_previous_work_done or 0) + (doc.ipc_previous_materials or 0))"/>
+                                </td>
+                                <td style="border:1px solid black; padding:3px; text-align:center;">
+                                    <t t-esc="'{:,.2f}'.format((doc.ipc_current_work_done or 0) + (doc.ipc_current_materials or 0))"/>
+                                </td>
+                                <td style="border:1px solid black; padding:3px; text-align:center;">
+                                    <t t-esc="'{:,.2f}'.format(doc.ipc_gross_value or 0)"/>
+                                </td>
+                                <td style="border:1px solid black; padding:3px; text-align:center;">EGP</td>
+                            </tr>
+
+                            <!-- 2. VAT 5% -->
+                            <tr>
+                                <td style="border:1px solid black; padding:3px; text-align:center;">2</td>
+                                <td style="border:1px solid black; padding:3px;">Value Added Tax 5%:</td>
+                                <td style="border:1px solid black; padding:3px; text-align:center;">
+                                    <t t-esc="'{:,.2f}'.format(((doc.ipc_previous_work_done or 0) + (doc.ipc_previous_materials or 0)) * 0.05)"/>
+                                </td>
+                                <td style="border:1px solid black; padding:3px; text-align:center;">
+                                    <t t-esc="'{:,.2f}'.format(((doc.ipc_current_work_done or 0) + (doc.ipc_current_materials or 0)) * 0.05)"/>
+                                </td>
+                                <td style="border:1px solid black; padding:3px; text-align:center;">
+                                    <t t-esc="'{:,.2f}'.format((doc.ipc_gross_value or 0) * 0.05)"/>
+                                </td>
+                                <td style="border:1px solid black; padding:3px; text-align:center;">EGP</td>
+                            </tr>
+
+                            <!-- A = Total Amount Due (Gross + VAT) -->
+                            <t t-set="previous_amount_due" t-value="((doc.ipc_previous_work_done or 0) + (doc.ipc_previous_materials or 0)) * 1.05"/>
+                            <t t-set="current_amount_due" t-value="((doc.ipc_current_work_done or 0) + (doc.ipc_current_materials or 0)) * 1.05"/>
+                            <t t-set="total_amount_due" t-value="(doc.ipc_gross_value or 0) * 1.05"/>
+
+                            <tr style="font-weight:bold;">
+                                <td style="border:1px solid black; padding:3px; text-align:center;">A</td>
+                                <td style="border:1px solid black; padding:3px;">Total Amount Due:</td>
+                                <td style="border:1px solid black; padding:3px; text-align:center;">
+                                    <t t-esc="'{:,.2f}'.format(previous_amount_due)"/>
+                                </td>
+                                <td style="border:1px solid black; padding:3px; text-align:center;">
+                                    <t t-esc="'{:,.2f}'.format(current_amount_due)"/>
+                                </td>
+                                <td style="border:1px solid black; padding:3px; text-align:center;">
+                                    <t t-esc="'{:,.2f}'.format(total_amount_due)"/>
+                                </td>
+                                <td style="border:1px solid black; padding:3px; text-align:center;">EGP</td>
+                            </tr>
+
+                            <!-- Deductions Header -->
+                            <tr style="background-color:#f5f5f5;">
+                                <td colspan="6" style="border:1px solid black; padding:3px; "><strong>Total Amount of Deductions:</strong></td>
+                            </tr>
+
+                            <!-- Dynamic Deduction Rows -->
+                            <t t-set="deduction_number" t-value="3"/>
+                            <t t-foreach="doc.history_report_line_ids.filtered(lambda l: l.product_id.ipc_type not in ['work_done', 'material'] and not l.product_id.is_social_insurance and not l.product_id.is_engineering_fee)" t-as="deduction_line">
+                                <tr>
+                                    <td style="border:1px solid black; padding:3px; text-align:center;"><t t-esc="deduction_number"/></td>
+                                    <td style="border:1px solid black; padding:3px;"><t t-esc="deduction_line.product_id.name"/>:</td>
+                                    <td style="border:1px solid black; padding:3px; text-align:center;">
+                                        <t t-esc="'{:,.2f}'.format(abs(deduction_line.previous_work or 0))"/>
+                                    </td>
+                                    <td style="border:1px solid black; padding:3px; text-align:center;">
+                                        <t t-esc="'{:,.2f}'.format(abs(deduction_line.current_work or 0))"/>
+                                    </td>
+                                    <td style="border:1px solid black; padding:3px; text-align:center;">
+                                        <t t-esc="'{:,.2f}'.format(abs(deduction_line.total_work or 0))"/>
+                                    </td>
+                                    <td style="border:1px solid black; padding:3px; text-align:center;">EGP</td>
+                                </tr>
+                                <t t-set="deduction_number" t-value="deduction_number + 1"/>
+                            </t>
+
+                            <!-- Withholding Tax -->
+                            <tr style="background-color:#e0e0e0;">
+                                <td style="border:1px solid black; padding:3px; text-align:center;"><t t-esc="deduction_number"/></td>
+                                <td style="border:1px solid black; padding:3px;">Withholding Tax 1%:</td>
+                                <td style="border:1px solid black; padding:3px; text-align:center;"></td>
+                                <td style="border:1px solid black; padding:3px; text-align:center;"></td>
+                                <td style="border:1px solid black; padding:3px; text-align:center;">
+                                    <t t-esc="'{:,.2f}'.format(doc.ipc_withholding_tax or 0)"/>
+                                </td>
+                                <td style="border:1px solid black; padding:3px; text-align:center;">EGP</td>
+                            </tr>
+                            <t t-set="deduction_number" t-value="deduction_number + 1"/>
+
+                            <!-- Social Insurance -->
+                            <tr style="background-color:#e0e0e0;">
+                                <td style="border:1px solid black; padding:3px; text-align:center;"><t t-esc="deduction_number"/></td>
+                                <td style="border:1px solid black; padding:3px;">Social Insurance 3.6%:</td>
+                                <td style="border:1px solid black; padding:3px; text-align:center;">
+                                    <t t-esc="'{:,.2f}'.format(doc.ipc_previous_social_insurance or 0)"/>
+                                </td>
+                                <td style="border:1px solid black; padding:3px; text-align:center;">
+                                    <t t-esc="'{:,.2f}'.format(doc.ipc_current_social_insurance or 0)"/>
+                                </td>
+                                <td style="border:1px solid black; padding:3px; text-align:center;">
+                                    <t t-esc="'{:,.2f}'.format(doc.ipc_total_social_insurance or 0)"/>
+                                </td>
+                                <td style="border:1px solid black; padding:3px; text-align:center;">EGP</td>
+                            </tr>
+                            <t t-set="deduction_number" t-value="deduction_number + 1"/>
+
+                            <!-- Engineering Fee -->
+                            <tr style="background-color:#e0e0e0;">
+                                <td style="border:1px solid black; padding:3px; text-align:center;"><t t-esc="deduction_number"/></td>
+                                <td style="border:1px solid black; padding:3px;">Engineering syndicate fee 0.15%:</td>
+                                <td style="border:1px solid black; padding:3px; text-align:center;">
+                                    <t t-esc="'{:,.2f}'.format(doc.ipc_previous_engineering_fee or 0)"/>
+                                </td>
+                                <td style="border:1px solid black; padding:3px; text-align:center;">
+                                    <t t-esc="'{:,.2f}'.format(doc.ipc_current_engineering_fee or 0)"/>
+                                </td>
+                                <td style="border:1px solid black; padding:3px; text-align:center;">
+                                    <t t-esc="'{:,.2f}'.format(doc.ipc_total_engineering_fee or 0)"/>
+                                </td>
+                                <td style="border:1px solid black; padding:3px; text-align:center;">EGP</td>
+                            </tr>
+
+                            <!-- Calculate Totals -->
+                            <t t-set="previous_deductions_sum" t-value="sum(doc.history_report_line_ids.filtered(lambda l: l.product_id.ipc_type not in ['work_done', 'material'] and not l.product_id.is_social_insurance and not l.product_id.is_engineering_fee).mapped('previous_work'))"/>
+                            <t t-set="current_deductions_sum" t-value="sum(doc.history_report_line_ids.filtered(lambda l: l.product_id.ipc_type not in ['work_done', 'material'] and not l.product_id.is_social_insurance and not l.product_id.is_engineering_fee).mapped('current_work'))"/>
+                            <t t-set="total_deductions_sum" t-value="sum(doc.history_report_line_ids.filtered(lambda l: l.product_id.ipc_type not in ['work_done', 'material'] and not l.product_id.is_social_insurance and not l.product_id.is_engineering_fee).mapped('total_work'))"/>
+
+                            <!-- Calculate Total Deductions (B) -->
+                            <t t-set="total_previous_deductions" t-value="abs(previous_deductions_sum) + (doc.ipc_previous_social_insurance or 0) + (doc.ipc_previous_engineering_fee or 0)"/>
+                            <t t-set="total_current_deductions" t-value="abs(current_deductions_sum) + (doc.ipc_current_social_insurance or 0) + (doc.ipc_current_engineering_fee or 0)"/>
+                            <t t-set="total_all_deductions" t-value="abs(total_deductions_sum) + (doc.ipc_withholding_tax or 0) + (doc.ipc_total_social_insurance or 0) + (doc.ipc_total_engineering_fee or 0)"/>
+
+                            <!-- B = Total Deductions -->
+                            <tr style="font-weight:bold;">
+                                <td style="border:1px solid black; padding:3px; text-align:center;">B</td>
+                                <td style="border:1px solid black; padding:3px;">Total Amount of Deductions:</td>
+                                <td style="border:1px solid black; padding:3px; text-align:center;">
+                                    <t t-esc="'{:,.2f}'.format(total_previous_deductions)"/>
+                                </td>
+                                <td style="border:1px solid black; padding:3px; text-align:center;">
+                                    <t t-esc="'{:,.2f}'.format(total_current_deductions)"/>
+                                </td>
+                                <td style="border:1px solid black; padding:3px; text-align:center;">
+                                    <t t-esc="'{:,.2f}'.format(total_all_deductions)"/>
+                                </td>
+                                <td style="border:1px solid black; padding:3px; text-align:center;">EGP</td>
+                            </tr>
+
+                            <!-- C = A - B (Cumulative Net Amount) -->
+                            <t t-set="previous_net_amount" t-value="previous_amount_due - total_previous_deductions"/>
+                            <t t-set="current_net_amount" t-value="current_amount_due - total_current_deductions"/>
+                            <t t-set="total_net_amount" t-value="total_amount_due - total_all_deductions"/>
+
+                            <tr style="font-weight:bold;">
+                                <td style="border:1px solid black; padding:3px; text-align:center;">C</td>
+                                <td style="border:1px solid black; padding:3px;">Cumulative Net Amount (EGP):</td>
+                                <td style="border:1px solid black; padding:3px; text-align:center;">
+                                    <t t-esc="'{:,.2f}'.format(previous_net_amount)"/>
+                                </td>
+                                <td style="border:1px solid black; padding:3px; text-align:center;">
+                                    <t t-esc="'{:,.2f}'.format(current_net_amount)"/>
+                                </td>
+                                <td style="border:1px solid black; padding:3px; text-align:center;">
+                                    <t t-esc="'{:,.2f}'.format(total_net_amount)"/>
+                                </td>
+                                <td style="border:1px solid black; padding:3px; text-align:center;">EGP</td>
+                            </tr>
+
+                            <!-- Additional Rows -->
+                            <tr style="background-color:#f5f5f5;">
+                                <td colspan="6" style="border:1px solid black; padding:3px;"><strong>Total Previous (Certified &amp; Approved):</strong></td>
+                            </tr>
+                            <tr>
+                                <td style="border:1px solid black; padding:3px; text-align:center;">D</td>
+                                <td style="border:1px solid black; padding:3px;"><strong>Total Previous by The Ark</strong></td>
+                                <td colspan="3" style="border:1px solid black; padding:3px; text-align:center;">
+                                    <t t-esc="'{:,.2f}'.format(previous_net_amount)"/>
+                                </td>
+                                <td style="border:1px solid black; padding:3px; text-align:center;">EGP</td>
+                            </tr>
+
+                            <!-- Retention Refund -->
+                            <tr style="background-color:#f5f5f5;">
+                                <td colspan="6" style="border:1px solid black; padding:3px;"><strong>Retention Refund</strong></td>
+                            </tr>
+                            <tr>
+                                <td style="border:1px solid black; padding:3px; text-align:center;">E</td>
+                                <td style="border:1px solid black; padding:3px;">Retention (2.5%) Refund: First Half</td>
+                                <td colspan="3" style="border:1px solid black; padding:3px; text-align:center;">0.00</td>
+                                <td style="border:1px solid black; padding:3px; text-align:center;">EGP</td>
+                            </tr>
+                            <tr>
+                                <td style="border:1px solid black; padding:3px; text-align:center;">F</td>
+                                <td style="border:1px solid black; padding:3px;">Retention (2.5%) Refund: Second Half</td>
+                                <td colspan="3" style="border:1px solid black; padding:3px; text-align:center;">0.00</td>
+                                <td style="border:1px solid black; padding:3px; text-align:center;">EGP</td>
+                            </tr>
+
+                            <!-- Net Due Amount in Payment Application -->
+                            <tr style="background-color:#f5f5f5;">
+                                <td colspan="6" style="border:1px solid black; padding:3px;"><strong>Net Due Amount in Payment Application:</strong></td>
+                            </tr>
+
+                            <!-- G = (C-D)+E+F -->
+                            <t t-set="retention_first_half" t-value="0.00"/>
+                            <t t-set="retention_second_half" t-value="0.00"/>
+                            <t t-set="final_net_amount" t-value="(total_net_amount - previous_net_amount) + retention_first_half + retention_second_half"/>
+
+                            <tr style="font-weight:bold;">
+                                <td style="border:1px solid black; padding:3px; text-align:center;">G</td>
+                                <td style="border:1px solid black; padding:3px;">Total Net Amount = (C-D)+E+F</td>
+                                <td colspan="3" style="border:1px solid black; padding:3px; text-align:center;">
+                                    <t t-esc="'{:,.2f}'.format(final_net_amount)"/>
+                                </td>
+                                <td style="border:1px solid black; padding:3px; text-align:center;">EGP</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- Amount in Words -->
+                    <div style="text-align:center; font-style:italic; font-size:12px; margin-top:3px; margin-bottom:4px;">
+                        <t t-esc="doc.currency_id.amount_to_text(final_net_amount)"/>
+                    </div>
+
+                    <!-- Signature Table -->
+                    <table style="width:100%; border:1px solid black; border-collapse:collapse; font-size:13px; margin-top:4px;">
+                        <tr>
+                            <td style="border:1px solid black; padding:6px; height:40px; width:22%; vertical-align:top;">
+                                <strong>Hill International</strong>
+                            </td>
+                            <td style="border:1px solid black; padding:6px; height:40px; width:22%; vertical-align:top;">
+                                <strong>Cost Specialist</strong>
+                            </td>
+                            <td style="border:1px solid black; padding:6px; height:40px; width:22%; vertical-align:top;">
+                                <strong>Project Manager</strong>
+                            </td>
+                            <td colspan="2" style="border:1px solid black; padding:6px; height:40px; width:34%; vertical-align:top; text-align:center;">
+                                <strong>Stamp</strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border:1px solid black; padding:6px; height:40px; vertical-align:top;">
+                                <strong>Employer's Representative</strong>
+                            </td>
+                            <td style="border:1px solid black; padding:6px; height:40px; vertical-align:top;">
+                                <strong>Senior QS Engineer</strong>
+                            </td>
+                            <td style="border:1px solid black; padding:6px; height:40px; vertical-align:top;">
+                                <strong>Project Manager</strong>
+                            </td>
+                            <td style="border:1px solid black; padding:6px; height:40px; width:17%; vertical-align:top;">
+                                <strong>CTO</strong>
+                            </td>
+                            <td style="border:1px solid black; padding:6px; height:40px; width:17%; vertical-align:top; text-align:center;">
+                                <strong>Stamp</strong>
+                            </td>
+                        </tr>
+                    </table>
+
+                </main>
+            </t>
+        </t>
+    </template>
+
+</odoo>

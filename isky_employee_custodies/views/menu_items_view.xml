@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <odoo>
+            <record id="account.menu_finance" model="ir.ui.menu">
+                <field name="name">Cheques</field>
+            </record>
+        </odoo>
+
+        <!-- Employee Custody -->
+        <menuitem name="Employee Custody"
+                  id="employee_custody_main_menu"
+                  sequence="10"
+                  action="action_employee_custody"
+                  web_icon="isky_employee_custodies,static/description/custody-place.png"
+                  groups="isky_employee_custodies.custody_group"/>
+
+        <!-- Employee Custody Transactions -->
+        <menuitem name="Employee Custody Transactions"
+                  parent="account.menu_finance_reports"
+                  id="employee_custody_transactions_menu"
+                  sequence="30"
+                  action="action_custody_transaction"
+                  groups="isky_employee_custodies.custody_group"/>
+
+        <!-- Employee Custody Journal Entries-->
+        <menuitem name="Employee Custody Journal Entries"
+                  parent="account.menu_finance_reports"
+                  id="employee_custody_journal_entries_menu"
+                  sequence="31"
+                  groups="isky_employee_custodies.custody_group"
+                  action="action_custody_journal_entries"/>
+
+        <!--Employee Custody Report-->
+        <menuitem id="employee_custody_menu_id"
+                  name="Employee Custody Report"
+                  parent="account.menu_finance_reports"
+                  sequence="32"
+                  groups="isky_employee_custodies.custody_group"
+                  action="employee_custody_action"/>
+
+        <!--Custody XLSX Report (wizard)-->
+        <menuitem id="custody_xlsx_report_menu_id"
+                  name="Custody Report"
+                  parent="employee_custody_main_menu"
+                  sequence="33"
+                  groups="isky_employee_custodies.custody_group"
+                  action="action_custody_xlsx_report_wizard"/>
+
+
+    </data>
+</odoo>

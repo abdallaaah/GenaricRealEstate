@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Paper Format -->
+        <record id="paperformat_annex1_a4" model="report.paperformat">
+            <field name="name">Annex 1 A4</field>
+            <field name="default" eval="False"/>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">5</field>
+            <field name="margin_bottom">5</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">0</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <!-- Report Action -->
+        <record id="annex1_report_action" model="ir.actions.report">
+            <field name="name">ANNEX 1</field>
+            <field name="model">sale.proposal</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">arkzayed_18_realestate_development.annex1_report_template</field>
+            <field name="report_file">arkzayed_18_realestate_development.annex1_report_template</field>
+            <field name="print_report_name">'ANNEX 1 - %s' % (object.name)</field>
+            <field name="binding_model_id" ref="model_sale_proposal"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="paperformat_annex1_a4"/>
+        </record>
+
+        <!-- Report Template -->
+        <template id="annex1_report_template">
+            <t t-call="web.html_container">
+                <t t-call="web.basic_layout">
+                    <t t-foreach="docs" t-as="o">
+                        <style>
+                            .annex-page {
+                                font-family: Arial, sans-serif;
+                                direction: rtl;
+                                text-align: right;
+                                page-break-after: always;
+                                position: relative;
+                                min-height: 1200px;
+                            }
+                            .annex-page:last-child {
+                                page-break-after: avoid;
+                            }
+                            .annex-image-container {
+                                width: 100%;
+                                text-align: center;
+                                padding-top: 120px;
+                                padding-bottom: 20px;
+                            }
+                            .annex-image-container img {
+                                max-width: 100%;
+                                max-height: 600px;
+                                object-fit: contain;
+                            }
+                            .annex-table-wrapper {
+                                position: absolute;
+                                bottom: 0;
+                                left: 0;
+                                right: 0;
+                            }
+                            .annex-data-table {
+                                width: 100%;
+                                border-collapse: collapse;
+                                border-top: 1px solid #000000;
+                                border-bottom: 1px solid #000000;
+                                border-left: none;
+                                border-right: none;
+                                direction: rtl;
+                            }
+                            .annex-data-table td {
+                                border-top: 1px solid #000000;
+                                border-bottom: 1px solid #000000;
+                                border-left: 1px solid #000000;
+                                border-right: 1px solid #000000;
+                                padding: 10px 12px;
+                                vertical-align: top;
+                                font-size: 11px;
+                                color: #000000;
+                                font-weight: normal;
+                                background-color: #999999;
+                            }
+                            .annex-data-table tr td:first-child {
+                                border-right: none;
+                            }
+                            .annex-data-table tr td:last-child {
+                                border-left: none;
+                            }
+                            .annex-data-table .col-content {
+                                width: 65%;
+                                text-align: right;
+                                line-height: 1.8;
+                            }
+                            .annex-data-table .col-title {
+                                width: 20%;
+                                text-align: center;
+                                vertical-align: middle;
+                                font-size: 12px;
+                            }
+                            .annex-data-table .col-annex {
+                                width: 15%;
+                                text-align: center;
+                                vertical-align: middle;
+                                font-size: 11px;
+                            }
+                            .annex-bullet {
+                                margin: 3px 0;
+                            }
+                        </style>
+
+                        <!-- ==================== PAGE 1 - Project Master Plan ==================== -->
+                        <div class="annex-page">
+                            <!-- Project Plan Image -->
+                            <div class="annex-image-container">
+                                <t t-if="o.unit_id and o.unit_id.project_id and o.unit_id.project_id.project_plan">
+                                    <img t-att-src="'data:image/png;base64,' + o.unit_id.project_id.project_plan.decode('utf-8')"/>
+                                </t>
+                                <t t-else="">
+                                    <div style="height:400px; border:1px dashed #ccc; display:flex; align-items:center; justify-content:center; color:#999;">
+                                        Project Plan Image Not Available
+                                    </div>
+                                </t>
+                            </div>
+
+                            <!-- Page 1 Table -->
+                            <div class="annex-table-wrapper">
+                                <table class="annex-data-table">
+                                    <tr>
+                                        <td class="col-content">
+                                            <div class="annex-bullet">
+                                                • الموقع العام الإجمالي للمشروع يعبر عن التصور الحالي لتخطيط المشروع ويحق للطرف الأول ادخال تعديلات عليه وفقا لمقتضيات استخدامات التخطيط النهائي واشتراطات جهات الاعتماد والترخيص
+                                            </div>
+                                            <div class="annex-bullet">
+                                                • اعمال تنسيق الموقع توضيحية وللطرف الأول إجراء تعديلات عليها بناء على مقتضيات الرسومات التنفيذية واشتراطات جهات الاعتماد والترخيص
+                                            </div>
+                                        </td>
+                                        <td class="col-title">
+                                            المخطط العام<br/>
+                                            لمشروع<br/>
+                                            <t t-esc="o.unit_id.project_id.name or 'N/A'"/>
+                                        </td>
+                                        <td class="col-annex">
+                                            ملحق : 1<br/>
+                                            صفحة : 1
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- ==================== PAGE 2 - Building Plan ==================== -->
+                        <div class="annex-page">
+                            <!-- Building Plan Image -->
+                            <div class="annex-image-container">
+                                <t t-if="o.building_id and o.building_id.building_plan">
+                                    <img t-att-src="'data:image/png;base64,' + o.building_id.building_plan.decode('utf-8')"/>
+                                </t>
+                                <t t-else="">
+                                    <div style="height:400px; border:1px dashed #ccc; display:flex; align-items:center; justify-content:center; color:#999;">
+                                        Building Plan Image Not Available
+                                    </div>
+                                </t>
+                            </div>
+
+                            <!-- Page 2 Table -->
+                            <div class="annex-table-wrapper">
+                                <table class="annex-data-table">
+                                    <tr>
+                                        <td class="col-content">
+                                            <div class="annex-bullet">
+                                                • خريطة الموقع العام لتوضيح المشروع
+                                            </div>
+                                            <div class="annex-bullet">
+                                                • اعمال تنسيق الموقع توضيحية وللطرف الأول اجراء تعديلات عليها بناء على مقتضيات الرسومات التنفيذية واشتراطات جهات الاعتماد والترخيص
+                                            </div>
+                                            <div class="annex-bullet">
+                                                • يتم تحديد اماكن محولات الكهرباء، البوابات الخاصة والطرق الرئيسية والفرعية بالمشروع وتغيير اماكنها بمعرفة الطرف الاول وفقا لمقتضيات استخدامات التخطيط النهائي واشتراطات جهات الاعتماد والترخيص
+                                            </div>
+                                        </td>
+                                        <td class="col-title">
+                                            المخطط العام<br/>
+                                            لمشروع<br/>
+                                            <t t-if="o.building_id and o.building_id.parent_source_id">
+                                                <t t-if="o.building_id.parent_source_id._name == 'zone'">
+                                                    <t t-esc="o.building_id.parent_source_id.name or ''"/>
+                                                </t>
+                                                <t t-else="">
+                                                    <t t-esc="o.unit_id.project_id.name or ''"/>
+                                                </t>
+                                            </t>
+                                            <t t-else="">
+                                                <t t-esc="o.unit_id.project_id.name or ''"/>
+                                            </t>
+                                            <br/>
+                                            <t t-esc="o.building_id.name or 'N/A'"/>
+                                        </td>
+                                        <td class="col-annex">
+                                            ملحق : 1<br/>
+                                            صفحة : 2
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                    </t>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

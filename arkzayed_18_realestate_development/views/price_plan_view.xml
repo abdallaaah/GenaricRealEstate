@@ -1,0 +1,33 @@
+<odoo>
+    <record id="view_price_plan_line_form" model="ir.ui.view">
+        <field name="name">price.plan.line.form</field>
+        <field name="model">price.plan.line</field>
+        <field name="arch" type="xml">
+            <form string="Price Plan Line">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="year_no"/>
+                            <field name="percentage_increase"/>
+                        </group>
+                        <group>
+                            <field name="down_payment" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+       <record id="view_price_plan_line_list" model="ir.ui.view">
+        <field name="name">price.plan.line.list</field>
+        <field name="model">price.plan.line</field>
+        <field name="arch" type="xml">
+            <list string="Price Plan Line">
+                <field name="year_no" />
+                <field name="percentage_increase" />
+                <field name="down_payment" />
+            </list>
+        </field>
+    </record>
+
+</odoo>

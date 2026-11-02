@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="paperformat_progress_landscape" model="report.paperformat">
+        <field name="name">Progress - A4 Landscape</field>
+        <field name="default" eval="False"/>
+        <field name="format">A4</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">32</field>
+        <field name="margin_bottom">18</field>
+        <field name="margin_left">12</field>
+        <field name="margin_right">12</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">28</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="action_report_progress" model="ir.actions.report">
+        <field name="name">Construction Progress Report</field>
+        <field name="model">arkzayed.progress.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">arkzayed_construction_progress.report_progress</field>
+        <field name="report_file">arkzayed_construction_progress.report_progress</field>
+        <field name="print_report_name">'Construction Progress Report'</field>
+        <field name="paperformat_id" ref="paperformat_progress_landscape"/>
+    </record>
+
+    <template id="report_progress">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page" style="font-size: 10pt; color: #1f2937;">
+
+                    <div style="font-size: 20pt; font-weight: bold; color: #0f2a4a;">Construction Progress Report</div>
+                    <div style="color: #6b7280; margin-bottom: 12px;">
+                        As of <span t-out="today" t-options="{'widget': 'date'}"/> &#160;|&#160; Prepared by <span t-out="user_name"/>
+                        &#160;|&#160; Progress is weighted by unit gross area; "stale" = started, not complete, and not updated for <t t-out="stale_days"/> days
+                        <t t-if="filters"> &#160;|&#160; Filter: <span t-out="filters"/></t>
+                    </div>
+
+                    <table style="width: 100%; border-collapse: separate; border-spacing: 8px 0; margin: 0 -8px 14px -8px;">
+                        <tr>
+                            <td style="width:20%; background:#0f2a4a; padding:10px 12px; border-radius:4px;">
+                                <div style="font-size:8pt; text-transform:uppercase; color:#fff;">Overall Progress</div>
+                                <div style="font-size:16pt; font-weight:bold; color:#fff;"><t t-out="'{:,.1f}%'.format(overall)"/></div>
+                                <div style="font-size:8pt; color:#fff;"><t t-out="unit_count"/> units &#183; <t t-out="'{:,.0f}'.format(total_area)"/> m&#178;</div>
+                            </td>
+                            <td style="width:16%; background:#e8f7ee; padding:10px 12px; border-radius:4px;">
+                                <div style="font-size:8pt; text-transform:uppercase; color:#6b7280;">Completed</div>
+                                <div style="font-size:16pt; font-weight:bold; color:#047857;" t-out="completed"/>
+                                <div style="font-size:8pt; color:#6b7280;">units at 100%</div>
+                            </td>
+                            <td style="width:16%; background:#fef6dc; padding:10px 12px; border-radius:4px;">
+                                <div style="font-size:8pt; text-transform:uppercase; color:#6b7280;">In Progress</div>
+                                <div style="font-size:16pt; font-weight:bold; color:#b45309;" t-out="in_progress"/>
+                                <div style="font-size:8pt; color:#6b7280;">between 1% and 99%</div>
+                            </td>
+                            <td style="width:16%; background:#f3f4f6; padding:10px 12px; border-radius:4px;">
+                                <div style="font-size:8pt; text-transform:uppercase; color:#6b7280;">Not Started</div>
+                                <div style="font-size:16pt; font-weight:bold; color:#6b7280;" t-out="not_started"/>
+                                <div style="font-size:8pt; color:#6b7280;"><t t-out="never_updated"/> never updated</div>
+                            </td>
+                            <td style="width:16%; background:#eef2f7; padding:10px 12px; border-radius:4px;">
+                                <div style="font-size:8pt; text-transform:uppercase; color:#6b7280;">Updated Recently</div>
+                                <div style="font-size:16pt; font-weight:bold; color:#1f2937;" t-out="updated_recent"/>
+                                <div style="font-size:8pt; color:#6b7280;">in the last <t t-out="stale_days"/> days</div>
+                            </td>
+                            <td style="width:16%; background:#fdecec; padding:10px 12px; border-radius:4px;">
+                                <div style="font-size:8pt; text-transform:uppercase; color:#6b7280;">Need Attention</div>
+                                <div style="font-size:16pt; font-weight:bold; color:#b91c1c;" t-out="stale_count"/>
+                                <div style="font-size:8pt; color:#6b7280;">stale units</div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div style="page-break-inside: avoid; margin-bottom: 14px;">
+                        <div style="font-size: 12pt; font-weight: bold; color: #0f2a4a; margin-bottom: 6px;">Where the Units Are</div>
+                        <table style="width: 100%; border-collapse: collapse; font-size: 9pt;">
+                            <t t-foreach="bands" t-as="b">
+                                <tr>
+                                    <td style="padding: 3px 8px; width: 12%; white-space: nowrap;" t-out="b['label']"/>
+                                    <td style="padding: 3px 8px; width: 62%;"><div t-att-style="'height: 12px; border-radius: 2px; background: {}; width: {:.1f}%; min-width: 2px;'.format(b['color'], b['share'])"/></td>
+                                    <td style="padding: 3px 8px; text-align: right; width: 8%; font-weight: bold;" t-out="b['count']"/>
+                                    <td style="padding: 3px 8px; text-align: right; width: 8%; color: #6b7280;"><t t-out="'{:,.1f}%'.format(b['share'])"/></td>
+                                    <td style="padding: 3px 8px; text-align: right; width: 10%; color: #6b7280;"><t t-out="'{:,.0f}'.format(b['area'])"/> m&#178;</td>
+                                </tr>
+                            </t>
+                        </table>
+                    </div>
+
+                    <div style="margin-bottom: 14px;">
+                        <div style="font-size: 12pt; font-weight: bold; color: #0f2a4a; margin-bottom: 6px;">Progress by Building (lowest first)</div>
+                        <table style="width: 100%; border-collapse: collapse; font-size: 9pt;">
+                            <thead>
+                                <tr style="background: #0f2a4a; color: #fff;">
+                                    <th style="padding: 5px 8px; text-align: left;">Building</th>
+                                    <th style="padding: 5px 8px; text-align: right;">Units</th>
+                                    <th style="padding: 5px 8px; text-align: right;">Completed</th>
+                                    <th style="padding: 5px 8px; text-align: left; width: 22%;">Units Average</th>
+                                    <th style="padding: 5px 8px; text-align: right;">Building Update</th>
+                                    <th style="padding: 5px 8px; text-align: right;">Stale Units</th>
+                                    <th style="padding: 5px 8px; text-align: right;">Last Update</th>
+                                    <th style="padding: 5px 8px; text-align: left;">Engineer</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="building_rows" t-as="r">
+                                    <tr t-att-style="'background: #f6f8fb;' if r_index % 2 else ''">
+                                        <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; font-weight: bold;" t-out="r['name']"/>
+                                        <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;" t-out="r['units']"/>
+                                        <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;" t-out="r['done']"/>
+                                        <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb;">
+                                            <table style="width: 100%; border-collapse: collapse;"><tr>
+                                                <td style="width: 60%;"><div style="background: #e5e7eb; height: 9px; border-radius: 2px;"><div t-att-style="'background: #0d9488; height: 9px; border-radius: 2px; width: {:.1f}%;'.format(r['avg'])"/></div></td>
+                                                <td style="text-align: right; font-weight: bold; padding-left: 6px;"><t t-out="'{:,.1f}%'.format(r['avg'])"/></td>
+                                            </tr></table>
+                                        </td>
+                                        <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;">
+                                            <t t-if="r['own'] is None">-</t>
+                                            <t t-else=""><span t-att-style="'color: #b91c1c; font-weight: bold;' if r['alert'] else ''"><t t-out="'{:,.1f}%'.format(r['own'])"/></span></t>
+                                        </td>
+                                        <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;"><span t-att-style="'color: #b91c1c; font-weight: bold;' if r['stale'] else 'color: #9ca3af;'" t-out="r['stale']"/></td>
+                                        <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;"><span t-if="r['last']" t-out="r['last']" t-options="{'widget': 'date'}"/><span t-else="" style="color:#9ca3af;">never</span></td>
+                                        <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb;" t-out="r['engineer']"/>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                        <div style="font-size: 8pt; color: #6b7280; margin-top: 3px;">
+                            Units Average = average of the building's units by area. Building Update = the figure the engineer entered for the whole building;
+                            shown in red when it differs from the units average by <t t-out="gap_alert"/> points or more (<t t-out="alert_count"/> building(s)).
+                        </div>
+                    </div>
+
+                    <table style="width: 100%; border-collapse: separate; border-spacing: 12px 0; margin: 0 -12px 14px -12px; page-break-inside: avoid;">
+                        <tr>
+                            <td style="width: 45%; vertical-align: top;">
+                                <div style="font-size: 12pt; font-weight: bold; color: #0f2a4a; margin-bottom: 6px;">By Responsible Engineer</div>
+                                <table style="width: 100%; border-collapse: collapse; font-size: 9pt;">
+                                    <thead><tr style="background: #0f2a4a; color: #fff;">
+                                        <th style="padding: 5px 8px; text-align: left;">Engineer</th>
+                                        <th style="padding: 5px 8px; text-align: right;">Units</th>
+                                        <th style="padding: 5px 8px; text-align: right;">Avg.</th>
+                                        <th style="padding: 5px 8px; text-align: right;">Stale</th>
+                                        <th style="padding: 5px 8px; text-align: right;">Last Update</th>
+                                    </tr></thead>
+                                    <tbody>
+                                        <t t-foreach="engineer_rows" t-as="e">
+                                            <tr t-att-style="'background: #f6f8fb;' if e_index % 2 else ''">
+                                                <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb;" t-out="e['name']"/>
+                                                <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;" t-out="e['units']"/>
+                                                <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;"><t t-out="'{:,.1f}%'.format(e['avg'])"/></td>
+                                                <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;"><span t-att-style="'color: #b91c1c; font-weight: bold;' if e['stale'] else 'color: #9ca3af;'" t-out="e['stale']"/></td>
+                                                <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;"><span t-if="e['last']" t-out="e['last']" t-options="{'widget': 'date'}"/><span t-else="" style="color:#9ca3af;">never</span></td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td style="width: 55%; vertical-align: top;">
+                                <div style="font-size: 12pt; font-weight: bold; color: #0f2a4a; margin-bottom: 6px;">Latest Updates</div>
+                                <t t-if="recent_rows">
+                                    <table style="width: 100%; border-collapse: collapse; font-size: 9pt;">
+                                        <thead><tr style="background: #0f2a4a; color: #fff;">
+                                            <th style="padding: 5px 8px; text-align: left;">Date</th>
+                                            <th style="padding: 5px 8px; text-align: left;">Unit / Building</th>
+                                            <th style="padding: 5px 8px; text-align: right;">Progress</th>
+                                            <th style="padding: 5px 8px; text-align: left;">Note</th>
+                                            <th style="padding: 5px 8px; text-align: left;">By</th>
+                                        </tr></thead>
+                                        <tbody>
+                                            <t t-foreach="recent_rows" t-as="u">
+                                                <tr t-att-style="'background: #f6f8fb;' if u_index % 2 else ''">
+                                                    <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb;" t-out="u['date']" t-options="{'widget': 'date'}"/>
+                                                    <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; font-weight: bold;" t-out="u['target']"/>
+                                                    <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;"><t t-out="'{:,.1f}%'.format(u['percent'])"/></td>
+                                                    <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb;" t-out="u['note']"/>
+                                                    <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb;" t-out="u['user']"/>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </t>
+                                <div t-else="" style="background: #fef6dc; color: #92400e; border-radius: 4px; padding: 8px 12px; font-size: 9.5pt;">
+                                    No progress has been recorded yet.
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div style="page-break-inside: avoid;">
+                        <div style="font-size: 12pt; font-weight: bold; color: #0f2a4a; margin-bottom: 6px;">Needs Attention: Started but Not Updated for <t t-out="stale_days"/> Days</div>
+                        <t t-if="stale_rows">
+                            <table style="width: 100%; border-collapse: collapse; font-size: 9pt;">
+                                <thead><tr style="background: #0f2a4a; color: #fff;">
+                                    <th style="padding: 5px 8px; text-align: left;">Unit</th>
+                                    <th style="padding: 5px 8px; text-align: left;">Building</th>
+                                    <th style="padding: 5px 8px; text-align: right;">Progress</th>
+                                    <th style="padding: 5px 8px; text-align: right;">Last Update</th>
+                                    <th style="padding: 5px 8px; text-align: right;">Days Ago</th>
+                                    <th style="padding: 5px 8px; text-align: left;">Engineer</th>
+                                </tr></thead>
+                                <tbody>
+                                    <t t-foreach="stale_rows" t-as="s">
+                                        <tr t-att-style="'background: #f6f8fb;' if s_index % 2 else ''">
+                                            <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; font-weight: bold;" t-out="s['unit']"/>
+                                            <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb;" t-out="s['building']"/>
+                                            <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;"><t t-out="'{:,.1f}%'.format(s['progress'])"/></td>
+                                            <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;" t-out="s['last']" t-options="{'widget': 'date'}"/>
+                                            <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right; color: #b91c1c; font-weight: bold;" t-out="s['days']"/>
+                                            <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb;" t-out="s['engineer']"/>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                            <div t-if="stale_hidden" style="font-size: 8pt; color: #6b7280; margin-top: 3px;">Oldest <t t-out="len(stale_rows)"/> shown; <t t-out="stale_hidden"/> more.</div>
+                        </t>
+                        <div t-else="" style="background: #e8f7ee; color: #047857; border-radius: 4px; padding: 8px 12px; font-size: 9.5pt;">
+                            No started unit is waiting for an update.
+                        </div>
+                        <div style="font-size: 8pt; color: #6b7280; margin-top: 3px;">
+                            <t t-out="never_updated"/> unit(s) have never received an update and are counted as Not Started, not as stale.
+                        </div>
+                    </div>
+
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

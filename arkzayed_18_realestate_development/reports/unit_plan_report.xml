@@ -1,0 +1,179 @@
+<odoo>
+    <record id="action_print_plan_in_reservation" model="ir.actions.report">
+        <field name="name">Unit Plan Report</field>
+        <field name="model">real.estate.sale.reservation</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">arkzayed_18_realestate_development.report_print_unit_plan_for_reservation</field>
+        <field name="report_file">arkzayed_18_realestate_development.report_print_unit_plan_for_reservation</field>
+        <field name="binding_model_id" ref="model_real_estate_sale_reservation"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="base.paperformat_euro"/>
+    </record>
+
+    <record id="action_print_plan_in_contract" model="ir.actions.report">
+        <field name="name">ANNEX 2</field>
+        <field name="model">sale.proposal</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">arkzayed_18_realestate_development.report_print_unit_plan_for_contract</field>
+        <field name="report_file">arkzayed_18_realestate_development.report_print_unit_plan_for_contract</field>
+        <field name="binding_model_id" ref="model_sale_proposal"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="base.paperformat_euro"/>
+    </record>
+
+    <template id="unit_plan_styles">
+        <style>
+            .image-container {
+                text-align: center;
+                margin-bottom: 30px;
+                padding-top: 20px;
+            }
+
+            .image-container img {
+                max-width: 100%;
+                height: 500px;
+                border: 2px solid #333;
+            }
+
+            .info-table-container {
+                width: 100%;
+                margin-top: 50px;
+            }
+
+            .info-table {
+                width: 100%;
+                border-collapse: collapse;
+                direction: rtl;
+                text-align: right;
+                font-family: 'Arial', sans-serif;
+                font-size: 11pt;
+                margin-top: 180px;
+            }
+
+            .info-table td {
+                border: 1px solid #000;
+                padding: 12px;
+                vertical-align: top;
+            }
+
+            .gray-cell {
+                background-color: #d3d3d3;
+                color: #000;
+            }
+
+            .bold-text {
+                font-weight: bold;
+            }
+
+        </style>
+    </template>
+
+    <template id="unit_plan_first_page">
+        <div class="page" style="direction: rtl;">
+            <div class="image-container">
+                <img t-if="unit.unit_plan and unit.unit_type != 'residential'"
+                     t-att-src="'data:image/png;base64,%s' % unit.unit_plan.decode('utf-8')"
+                     style="height: 500px;"/>
+                <img t-if="unit.floor_plan and unit.unit_type == 'residential'"
+                     t-att-src="'data:image/png;base64,%s' % unit.floor_plan.decode('utf-8')"
+                     style="height: 500px;" />
+            </div>
+
+            <div class="info-table-container">
+                <table class="info-table">
+                    <tr>
+                        <td class="gray-cell" style="width:65%; white-space: normal; word-wrap: break-word;">
+                            <div>- قد تم اجراء تعديلات على الرسومات المعمارية وفقا لمقتضيات التصميم النهائي والتنفيذ واشتراطات التراخيص وجهات الاعتماد</div>
+                            <div>- لا تشمل الوحدة المباعة الفرش الداخلي والخارجي والأشجار والمساحات الخضراء الموضحة</div>
+                            <div t-if="unit.unit_type != 'residential'">- المساحات المباعة تسلم كمساحات مفتوحة بدون اي تقسيمات داخلية في الفراغات</div>
+                        </td>
+                        <td class="gray-cell" style="width: 25%;">
+                            <div class="bold-text" style="text-align: center;">المسقط الأفقي</div>
+                            <div t-if="has_building">رقم المبنى : <span t-field="unit.building_id.abbreviation"/></div>
+                            <div t-if="has_floor">الدور : <span t-field="unit.floor_id.abbreviation"/></div>
+                            <div t-if="unit.unit_type == 'office'"> نوع الوحدة : وحدة ادارية</div>
+                            <div t-elif="unit.unit_type == 'retail'"> نوع الوحدة : وحدة تجارية</div>
+                            <div t-elif="unit.unit_type == 'medical'"> نوع الوحدة : وحدة طبية</div>
+                            <div t-elif="unit.unit_type == 'residential'"> نوع الوحدة : وحدة سكنية</div>
+                            <div t-if="unit.unit_type != 'residential'">رقم الوحدة : <span t-field="unit.system_code"/></div>
+                        </td>
+                        <td class="gray-cell bold-text" style="width: 10%; text-align: center;">
+                            <div>ملحق :</div>
+                            <div>2</div>
+                            <br/>
+                            <div>صفحة :</div>
+                            <div>1</div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </template>
+
+    <template id="unit_plan_second_page">
+        <div t-if="unit.unit_type == 'residential'" class="page" style="direction: rtl;">
+            <div class="image-container">
+                <img t-if="unit.unit_plan"
+                     t-att-src="'data:image/png;base64,%s' % unit.unit_plan.decode('utf-8')"
+                     style="height: 500px;"/>
+            </div>
+
+            <div class="info-table-container">
+                <table class="info-table">
+                    <tr>
+                        <td class="gray-cell" style="width:65%; white-space: normal; word-wrap: break-word;">
+                            <div>  - قد تم اجراء تعديلات على الرسومات المعمارية وفقا لمقتضيات التصميم النهائي والتنفيذ واشتراطات التراخيص وجهات الاعتماد</div>
+                            <div>- لا تشمل الوحدة المباعة الفرش الداخلي والخارجي والأشجار والمساحات الخضراء الموضحة</div>
+                        </td>
+                        <td class="gray-cell" style="width: 25%;">
+                            <div class="bold-text" style="text-align: center;">المسقط الأفقي</div>
+                            <div>رقم الوحدة : <span t-field="unit.system_code"/></div>
+                            <div>مساحة الوحدة : <span t-field="unit.unit_area"/>  م²  </div>
+                            <div> نوع الوحدة : وحدة سكنية</div>
+                        </td>
+                        <td class="gray-cell bold-text" style="width: 10%; text-align: center;">
+                            <div>ملحق :</div>
+                            <div>2</div>
+                            <br/>
+                            <div>صفحة :</div>
+                            <div>2</div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </template>
+    <template id="report_print_unit_plan_for_reservation">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <t t-call="arkzayed_18_realestate_development.unit_plan_styles"/>
+
+                    <t t-set="unit" t-value="o.unit_id"/>
+                    <t t-set="has_building" t-value="o.has_building"/>
+                    <t t-set="has_floor" t-value="o.has_floor"/>
+
+                    <t t-call="arkzayed_18_realestate_development.unit_plan_first_page"/>
+                    <t t-if="unit.unit_type == 'residential'" t-call="arkzayed_18_realestate_development.unit_plan_second_page"/>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_print_unit_plan_for_contract">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <t t-call="arkzayed_18_realestate_development.unit_plan_styles"/>
+
+                    <t t-set="unit" t-value="o.unit_id"/>
+                    <t t-set="has_building" t-value="o.has_building"/>
+                    <t t-set="has_floor" t-value="o.has_floor"/>
+
+                    <t t-call="arkzayed_18_realestate_development.unit_plan_first_page"/>
+                    <t t-if="unit.unit_type == 'residential'" t-call="arkzayed_18_realestate_development.unit_plan_second_page"/>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

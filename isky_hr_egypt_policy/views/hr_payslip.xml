@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_hr_payslip_form_policy" model="ir.ui.view">
+            <field name="name">view.payslip.form</field>
+            <field name="model">hr.payslip</field>
+            <field name="priority">100</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Calculated Att. Data" invisible="1" name="calculated_attrs">
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

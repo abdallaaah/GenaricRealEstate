@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="insurance_line_view_form" model="ir.ui.view">
+            <field name="name">insurance.line.view.form</field>
+            <field name="model">insurance.line</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="employee_id" required="1"/>
+                            <field name="si_position_id"/>
+                        </group>
+                        <group>
+                            <field name="insurance_date"/>
+                            <field name="si_number"/>
+                            <field name="state" invisible="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group colspan="4">
+                            <field name="fixed_amount"/>
+                            <field name="salary_rule_ids"
+                                   widget="many2many_tags"
+                                   invisible="fixed_amount == True"
+                                   required="fixed_amount == False"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="subscription"
+                                   invisible="fixed_amount == False"
+                                   required="fixed_amount == True"/>
+                            <field name="rules_amount"
+                                   invisible="fixed_amount == True"
+                                   required="fixed_amount == False"/>
+                            <field name="insurance_per_day"/>
+                        </group>
+                        <group>
+                            <field name="total_employee_insurance"/>
+                            <field name="total_company_insurance"/>
+                            <field name="total_insurance"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="insurance_line_tree_view" model="ir.ui.view">
+            <field name="name">insurance.line.tree.view</field>
+            <field name="model">insurance.line</field>
+            <field name="arch" type="xml">
+                <list string="Insurance Line" editable="bottom">
+                    <field name="employee_id" required="1"/>
+                    <field name="insurance_date"/>
+                    <field name="subscription"/>
+                    <field name="total_employee_insurance"/>
+                    <field name="total_company_insurance"/>
+                    <field name="total_insurance"/>
+                    <field name="insurance_per_day"/>
+                    <field name="state"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="action_hr_insurance_line_tony" model="ir.actions.act_window">
+            <field name="name">Insurance Lines</field>
+            <field name="res_model">insurance.line</field>
+            <field name="view_mode">list,form</field>
+            <field name="domain">[('insurance_id', '=', active_id)]</field>
+            <field name="context">
+                {
+                'search_default_insurance_id': active_id,
+                'default_insurance_id': active_id
+                }
+            </field>
+            <field name="view_id" ref="isky_hr_egypt_social_insurance.insurance_line_tree_view"/>
+        </record>
+    </data>
+</odoo>

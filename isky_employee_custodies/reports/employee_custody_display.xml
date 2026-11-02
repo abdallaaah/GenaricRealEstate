@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+<!--        <report id="employee_custody_xls"-->
+<!--                model="employee.custody"-->
+<!--                string="Employee Custody Report"-->
+<!--                report_type="xlsx"-->
+<!--                name="isky_employee_custodies.employee_custody_xls"-->
+<!--                file="Employee Custody Report"-->
+<!--                attachment_use="False"-->
+<!--                menu="False"/>-->
+
+<!--        <report id="all_employee_custody_report_id"-->
+<!--                model="employee.custody"-->
+<!--                string="Employee Custody"-->
+<!--                report_type="qweb-pdf"-->
+<!--                name="isky_employee_custodies.custody_template"-->
+<!--                file="isky_employee_custodies.custody_template"-->
+<!--                attachment_use="True"-->
+<!--                menu="False"/>-->
+        <record id="all_employee_custody_report_id" model="ir.actions.report">
+            <field name="name">Employee Custody</field>
+            <field name="model">employee.custody</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">isky_employee_custodies.custody_template</field>
+            <field name="report_file">isky_employee_custodies.custody_template</field>
+            <field name="binding_model_id" ref="isky_employee_custodies.model_employee_custody"/>
+            <field name="binding_type">report</field>
+            <field name="attachment_use">True</field>
+        </record>
+
+         <template id="custody_template">
+            <t t-call="web.html_container">
+                <t t-if="data">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <br/>
+                            <h3 style="text-align: center;">Employee Custody Report</h3>
+                            <br/>
+                             <table class="table table-condensed"
+                               style="width: 100%; margin-center: auto; margin-right: auto;">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: center;">Employee</th>
+                                    <th style="text-align: center;">Debit</th>
+                                    <th style="text-align: center;">Credit</th>
+                                    <th style="text-align: center;">Balance</th>
+                                    <th style="text-align: center;">Currency</th>
+                                </tr>
+                            </thead>
+                            <tbody class="custody">
+                                <t t-foreach="data" t-as="t">
+                                    <tr>
+                                        <td style="text-align:center">
+                                            <t t-esc="t['employee']"/>
+                                        </td>
+                                        <td style="text-align:center">
+                                            <t t-esc="t['debit']"/>
+
+                                        </td>
+                                        <td style="text-align:center">
+                                            <t t-esc="t['credit']"/>
+
+                                        </td>
+                                        <td style="text-align:center">
+                                            <t t-esc="t['balance']"/>
+                                        </td>
+                                        <td style="text-align:center">
+                                            <t t-esc="t['currency']"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                        </div>
+                    </t>
+                </t>
+
+            </t>
+
+        </template>
+
+    </data>
+</odoo>

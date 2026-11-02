@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <data>
+        <record id="crm_team_view_form_inherit" model="ir.ui.view">
+            <field name="name">crm.team.form.inherit</field>
+            <field name="model">crm.team</field>
+            <field name="inherit_id" ref="sales_team.crm_team_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='user_id']" position="attributes">
+<!--                    <attribute name="domain">[('job_level_id.is_team_leader', '=', True)]</attribute>-->
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+                <field name="user_id" position="before">
+                    <field name="director_id"/>
+                    <field name="operation_id"/>
+                    <field name="sales_manager_id"/>
+<!--                    <field name="operation_executive_id"/>-->
+                    <field name="is_current_team"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

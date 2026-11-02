@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="paperformat_trace_commission" model="report.paperformat">
+        <field name="name">Trace Commission - A4 Landscape</field>
+        <field name="default" eval="False"/>
+        <field name="format">A4</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">11</field>
+        <field name="margin_bottom">10</field>
+        <field name="margin_left">10</field>
+        <field name="margin_right">10</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">0</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="action_report_trace_commission" model="ir.actions.report">
+        <field name="name">Trace Commission</field>
+        <field name="model">trace.commission</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">arkzayed_trace_commission.tc_report</field>
+        <field name="report_file">arkzayed_trace_commission.tc_report</field>
+        <field name="print_report_name">'Trace Commission'</field>
+        <field name="paperformat_id" ref="paperformat_trace_commission"/>
+    </record>
+
+    <template id="tc_report">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <div class="page" style="font-family:'DejaVu Sans', Arial, sans-serif; font-size:9pt; color:#1f2937;">
+                    <div style="font-size:17pt; font-weight:bold; color:#0f2a4a;">Trace Commission</div>
+                    <div style="font-size:9pt; color:#6b7280; margin-bottom:6px;">
+                        Contract date: <span t-out="d['period']"/> - Showing: <span t-out="d['show']"/> -
+                        Printed <span t-out="d['printed_on']"/> - <span t-out="d['company']"/>
+                    </div>
+
+                    <t t-set="g0" t-value="d['grand']"/>
+                    <table style="width:100%; border-collapse:separate; border-spacing:4px 0; margin:0 -4px 8px -4px;">
+                        <tr>
+                            <td style="background:#eef2f7; padding:6px 10px;">
+                                <div style="font-size:7.5pt; color:#6b7280;">UNITS (BY SHARE)</div>
+                                <div style="font-size:14pt; font-weight:bold; color:#0f2a4a;"><span t-out="'%.1f' % g0['equiv']"/> <span style="font-size:8pt; font-weight:normal; color:#6b7280;">(<span t-out="g0['units']"/> units)</span></div>
+                            </td>
+                            <td style="background:#eef2f7; padding:6px 10px;">
+                                <div style="font-size:7.5pt; color:#6b7280;">TOTAL SOLD VALUE (THEIR SHARE)</div>
+                                <div style="font-size:14pt; font-weight:bold; color:#0f2a4a;" t-out="d['fmt'](g0['price'])"/>
+                            </td>
+                            <td style="background:#eef2f7; padding:6px 10px;">
+                                <div style="font-size:7.5pt; color:#6b7280;">TOTAL COMMISSION</div>
+                                <div style="font-size:14pt; font-weight:bold; color:#0f2a4a;" t-out="d['fmt'](g0['commission'])"/>
+                            </td>
+                            <td style="background:#e3f6ea; padding:6px 10px; border-left:4px solid #16a34a;">
+                                <div style="font-size:7.5pt; color:#6b7280;">PAID</div>
+                                <div style="font-size:14pt; font-weight:bold; color:#15803d;" t-out="d['fmt'](g0['paid'])"/>
+                            </td>
+                            <td style="background:#fde8e8; padding:6px 10px; border-left:4px solid #dc2626;">
+                                <div style="font-size:7.5pt; color:#6b7280;">NOT PAID</div>
+                                <div style="font-size:14pt; font-weight:bold; color:#b91c1c;" t-out="d['fmt'](g0['unpaid'])"/>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <t t-foreach="d['groups']" t-as="g">
+                        <div style="font-size:11pt; font-weight:bold; color:#fff; background:#0f2a4a; padding:3px 8px; margin-top:8px;">
+                            <span t-out="g['name']"/> <span style="font-weight:normal; font-size:9pt;">(<span t-out="g['role']"/>)</span>
+                        </div>
+                        <table style="width:100%; border-collapse:collapse; font-size:8.5pt; margin-bottom:2px;">
+                            <thead>
+                                <tr style="background:#eef2f7;">
+                                    <th style="padding:3px 5px; text-align:left;">Unit</th>
+                                    <th style="padding:3px 5px; text-align:left;">Contract</th>
+                                    <th style="padding:3px 5px; text-align:left;">Customer</th>
+                                    <th style="padding:3px 5px; text-align:left;">Contract date</th>
+                                    <th style="padding:3px 5px; text-align:right;">Unit price</th>
+                                    <th style="padding:3px 5px; text-align:right;">Share</th>
+                                    <th style="padding:3px 5px; text-align:right;">Sold value</th>
+                                    <th style="padding:3px 5px; text-align:right;">%</th>
+                                    <th style="padding:3px 5px; text-align:right;">Commission</th>
+                                    <th style="padding:3px 5px; text-align:left;">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="g['rows']" t-as="r" style="border-bottom:1px solid #e5e7eb;">
+                                    <td style="padding:2px 5px; white-space:nowrap;" t-out="r['unit']"/>
+                                    <td style="padding:2px 5px; white-space:nowrap;" t-out="r['contract']"/>
+                                    <td style="padding:2px 5px;" t-out="r['customer']"/>
+                                    <td style="padding:2px 5px; white-space:nowrap;" t-out="r['contract_date']" t-options="{'widget': 'date'}"/>
+                                    <td style="padding:2px 5px; text-align:right; white-space:nowrap; color:#6b7280;" t-out="d['fmt'](r['price'])"/>
+                                    <td t-att-style="'padding:2px 5px; text-align:right; white-space:nowrap;%s' % (' font-weight:bold; color:#b45309;' if r['share_pct'] &lt; 100 else '')" t-out="r['share_txt']"/>
+                                    <td style="padding:2px 5px; text-align:right; white-space:nowrap;" t-out="d['fmt'](r['sold_value'])"/>
+                                    <td style="padding:2px 5px; text-align:right; white-space:nowrap;" t-out="'%.2f' % r['commission_pct']"/>
+                                    <td t-att-style="'padding:2px 5px; text-align:right; font-weight:bold; white-space:nowrap; color:%s; background:%s;' % (('#15803d', '#e3f6ea') if r['is_paid'] else ('#b91c1c', '#fde8e8'))" t-out="d['fmt'](r['commission_amount'])"/>
+                                    <td t-att-style="'padding:2px 5px; font-weight:bold; color:%s;' % ('#15803d' if r['is_paid'] else '#b91c1c')">
+                                        <span t-out="r['status']"/>
+                                        <div t-if="r['note']" style="font-size:7pt; font-weight:normal; color:#6b7280;" t-out="r['note']"/>
+                                    </td>
+                                </tr>
+                                <tr t-if="not g['rows']"><td colspan="10" style="padding:6px; color:#9ca3af; text-align:center;">No units in this period.</td></tr>
+                                <tr style="background:#eef2f7; font-weight:bold; border-top:2px solid #0f2a4a;">
+                                    <td style="padding:3px 5px;" colspan="4">Total - <span t-out="g['totals']['units']"/> unit(s) (<span t-out="'%.1f' % g['totals']['equiv']"/> by share)</td>
+                                    <td/>
+                                    <td/>
+                                    <td style="padding:3px 5px; text-align:right;" t-out="d['fmt'](g['totals']['price'])"/>
+                                    <td/>
+                                    <td style="padding:3px 5px; text-align:right;" t-out="d['fmt'](g['totals']['commission'])"/>
+                                    <td style="padding:3px 5px; font-size:8pt;">
+                                        paid <span style="color:#15803d;" t-out="d['fmt'](g['totals']['paid'])"/> /
+                                        not paid <span style="color:#b91c1c;" t-out="d['fmt'](g['totals']['unpaid'])"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </t>
+                    <div style="font-size:7.5pt; color:#6b7280; margin-top:8px;">
+                        Commission is taken from the commission records of sales people, team leaders and managers, and from the broker /
+                        ambassador claims. "Not claimed yet" is an expected commission on a contract whose claim has not been raised.
+                        A sale is counted once per person even if the person has two claims on the same contract (it is marked Duplicate and both commissions are still added). Share is the part of the sale credited to the person: 100% unless the deal was split (for example 50% each between two sales people); Sold value and commission follow that share. Totals add every line.
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

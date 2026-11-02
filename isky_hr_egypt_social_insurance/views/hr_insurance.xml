@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="hr_insurance_form_view" model="ir.ui.view">
+            <field name="name">hr.insurance.form.view</field>
+            <field name="model">hr.insurance</field>
+            <field name="arch" type="xml">
+                <form string="arch">
+                    <header>
+                        <button name="action_submit"
+                                invisible="state not in 'draft'"
+                                class="oe_highlight"
+                                type="object"
+                                string="Submit"/>
+                        <button name="action_reset_to_draft"
+                                invisible="state not in 'submitted'"
+                                class="oe_highlight"
+                                type="object"
+                                string="Reset To Draft"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="insurance_sequence" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="insurance_date"
+                                       required="1"
+                                       readonly="state == 'submitted'"/>
+                                <field name="company_id"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Employee Data">
+                                <button class="oe_stat_button o_res_partner_tip_opp"
+                                        type="action"
+                                        name="%(isky_hr_egypt_social_insurance.action_hr_insurance_line_tony)d"
+                                        icon="fa-upload"
+                                        invisible="state == 'paid'"
+                                        context="{'search_default_insurance_id': context.get('active_id'),'default_annual_insurance_id': context.get('active_id')}">
+                                    <span class="o_stat_text">
+                                        Import Data
+                                    </span>
+                                </button>
+                                <field name="insurance_line_ids"
+                                       readonly="state == 'submitted'"
+                                       context="{'default_state':state,'default_insurance_date':insurance_date,'form_view_ref':'isky_hr_egypt_social_insurance.insurance_line_view_form'}">
+                                    <list>
+                                        <field name="employee_id"
+                                               required="1"/>
+                                        <field name="insurance_date"/>
+                                        <field name="subscription" sum="Total"/>
+                                        <field name="rules_amount"/>
+                                        <field name="total_employee_insurance" sum="Total"/>
+                                        <field name="total_company_insurance" sum="Total"/>
+                                        <field name="total_insurance" sum="Total"/>
+                                        <field name="insurance_per_day" sum="Total"/>
+                                        <field name="state" invisible="1"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_insurance_tree_view" model="ir.ui.view">
+            <field name="name">hr.insurance.tree.view</field>
+            <field name="model">hr.insurance</field>
+            <field name="arch" type="xml">
+                <list string="arch">
+                    <field name="insurance_sequence"/>
+                    <field name="insurance_date"/>
+                    <field name="state"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="action_hr_insurance_tony" model="ir.actions.act_window">
+            <field name="name">Insurance Form</field>
+            <field name="res_model">hr.insurance</field>
+            <field name="view_mode">list,form</field>
+        </record>
+    </data>
+</odoo>

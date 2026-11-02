@@ -1,0 +1,104 @@
+<odoo>
+    <record id="unit_payment_plan_report" model="ir.actions.report">
+            <field name="name">Payment Plan</field>
+            <field name="model">real.estate.unit</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">arkzayed_18_realestate_development.unit_pay_plan_tmpl</field>
+            <field name="report_file">arkzayed_18_realestate_development.unit_pay_plan_tmpl</field>
+            <field name="print_report_name">f"Payment Plan--{object.system_code}"</field>
+            <field name="paperformat_id" ref="arkzayed_18_realestate_development.report_payment_plan_paperformat"/>
+    </record>
+
+    <template id="unit_pay_plan_tmpl">
+        <t t-call="web.html_container">
+
+            <t t-foreach="custom_report_data" t-as="item">
+
+                <t t-set="o" t-value="item['doc']"/>
+                <t t-set="currency_name" t-value="item['currency_name']"/>
+
+                <t t-call="web.external_layout">
+                    <t t-call="arkzayed_18_realestate_development.payment_plan_styles"/>
+
+                    <div class="page">
+                        <h2 class="pp-title">Payment Plan</h2>
+
+                        <table class="pp-info-table">
+                            <tr>
+                                <td class="pp-info-cell" style="width: 33.33%;">
+                                    <div class="pp-label">Unit ID</div>
+                                    <div class="pp-value">
+                                        <t t-if="item['system_code']" t-esc="item['system_code']"/>
+                                        <t t-else="">—</t>
+                                    </div>
+                                </td>
+                                <td class="pp-info-cell" style="width: 33.33%;">
+                                    <div class="pp-label">Total Price</div>
+                                    <div class="pp-value">
+                                        <t t-esc="'{:,.2f}'.format(round(item['total_price'] or 0, 2))"/>
+                                        <t t-if="currency_name"> <t t-esc="currency_name"/></t>
+                                    </div>
+                                </td>
+                                <td class="pp-info-cell" style="width: 33.33%;">
+                                    <div class="pp-label">Maintenance Fees</div>
+                                    <div class="pp-value">
+                                        <t t-esc="'{:,.2f}'.format(round(item['maintenance_fees'] or 0, 2))"/>
+                                        <t t-if="currency_name"> <t t-esc="currency_name"/></t>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table class="pp-table">
+                            <tr style="background: #2c3e50; color: #ffffff;">
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Date</th>
+                                <th>Percentage</th>
+                                <th>Unit Installment</th>
+                                <th>Maintenance Installment</th>
+                            </tr>
+
+                            <t t-set="installments" t-value="item['installments']"/>
+                            <t t-foreach="installments" t-as="line">
+                                <tr>
+                                    <td><t t-esc="line['serial']"/></td>
+                                    <td><t t-esc="line['label']"/></td>
+                                    <td><t t-esc="line['date']"/></td>
+                                    <td>
+                                        <t t-if="line['unit_amount'] > 0">
+                                            <t t-esc="line['percentage']"/>%
+                                        </t>
+                                        <t t-else="">—</t>
+                                    </td>
+                                    <td>
+                                        <t t-if="line['unit_amount'] > 0">
+                                            <t t-esc="'{:,.2f}'.format(line['unit_amount'])"/>
+                                        </t>
+                                        <t t-else="">—</t>
+                                    </td>
+                                    <td>
+                                        <t t-if="line['maintenance_amount'] > 0">
+                                            <t t-esc="'{:,.2f}'.format(line['maintenance_amount'])"/>
+                                        </t>
+                                        <t t-else="">—</t>
+                                    </td>
+                                </tr>
+                            </t>
+                            <tr>
+                                <td colspan="2">Total</td>
+                                <td><t t-esc="round(sum(l['percentage'] for l in installments), 0)"/>%</td>
+                                <td><t t-esc="'{:,.2f}'.format(round(sum(l['unit_amount'] for l in installments), 2))"/></td>
+                                <td><t t-esc="'{:,.2f}'.format(round(sum(l['maintenance_amount'] for l in installments), 2))"/></td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+
+
+
+
+        </t>
+    </template>
+</odoo>

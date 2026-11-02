@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_report_cash_receipt" model="ir.actions.report">
+        <field name="name">إيصال استلام </field>
+        <field name="model">cheque.manage</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">arkzayed_18_realestate_development.cash_receipt_template</field>
+        <field name="report_file">arkzayed_18_realestate_development.cash_receipt_template</field>
+        <field name="print_report_name">'Cash Receipt - %s' % (object.seq_no or '')</field>
+        <field name="binding_model_id" ref="arkzayed_18_realestate_development.model_cheque_manage"/>
+        <field name="binding_type">report</field>
+        <field name="domain">[('cheq_type', '=', 'outgoing')]</field>
+        <field name="attachment"></field>
+        <field name="attachment_use" eval="False"/>
+    </record>
+
+    <template id="cash_receipt_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-if="o.cheq_type == 'incoming'">
+                    <t t-call="web.basic_layout">
+                        <div class="page" style="font-family: Arial, sans-serif; font-size: 14px;">
+
+                            <div style="width: 100%; overflow: hidden; padding-bottom: 15px;" dir="rtl">
+                                <!-- Company Name -->
+                                <div style="width: 70%; float: right; text-align: right;">
+                                    <h3 style="margin: 0; font-weight: bold; font-size: 24px; line-height: 100px;">
+                                        شركة مجموعة الرابح المتحدة للتجارة و الاستثمار
+                                    </h3>
+                                </div>
+                                <!-- Logo -->
+                                <div style="width: 30%; float: left; text-align: left;">
+                                    <img src="/arkzayed_18_gt_cheque_management/static/src/direction_white.jpeg"
+                                         style="max-height: 100px; max-width: 180px;"
+                                         alt="Company Logo"/>
+                                </div>
+                            </div>
+
+                            <hr/>
+
+                            <div class="row mb-4" dir="rtl">
+                                <div class="col-12 text-right">
+                                    <p class="mb-1">
+                                        <strong>التاريخ : </strong>
+                                        <span t-esc="datetime.datetime.now().strftime('%d/%m/%Y')"/>
+                                    </p>
+                                    <p class="mb-1">
+                                        <strong>استلمنا من : </strong>
+                                        <span t-field="o.payer.name"/>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="row mb-4" dir="ltr">
+                                <div class="col-6">
+                                    <table class="table table-sm table-borderless">
+                                        <tr>
+                                            <td style="width: 40%;"><strong>Unit code</strong></td>
+                                            <t t-if="o.sale_reservation_id and o.sale_reservation_id.unit_id">
+                                                <td style="border-bottom: 1px solid black;">
+                                                    <span t-field="o.sale_reservation_id.unit_id.system_code"/>
+                                                </td>
+                                            </t>
+                                            <t t-else="">
+                                                <td style="border-bottom: 1px solid black;"></td>
+                                            </t>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>BUA</strong></td>
+                                            <t t-if="o.sale_reservation_id and o.sale_reservation_id.unit_id">
+                                                <td style="border-bottom: 1px solid black;">
+                                                    <span t-field="o.sale_reservation_id.unit_id.indoor_gross_area"/>
+                                                </td>
+                                            </t>
+                                            <t t-else="">
+                                                <td style="border-bottom: 1px solid black;"></td>
+                                            </t>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Garden / Terrace</strong></td>
+                                            <t t-if="o.sale_reservation_id and o.sale_reservation_id.unit_id">
+                                                <td style="border-bottom: 1px solid black;">
+                                                    <span t-field="o.sale_reservation_id.unit_id.terrace_gross_area"/>
+                                                </td>
+                                            </t>
+                                            <t t-else="">
+                                                <td style="border-bottom: 1px solid black;"></td>
+                                            </t>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Land Area</strong></td>
+                                            <t t-if="o.sale_reservation_id and o.sale_reservation_id.unit_id">
+                                                <td style="border-bottom: 1px solid black;">
+                                                    <span t-field="o.sale_reservation_id.unit_id.landed_area"/>
+                                                </td>
+                                            </t>
+                                            <t t-else="">
+                                                <td style="border-bottom: 1px solid black;"></td>
+                                            </t>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Unit Price</strong></td>
+                                            <t t-if="o.sale_reservation_id and o.sale_reservation_id.unit_id">
+                                                <td style="border-bottom: 1px solid black;">
+                                                   <span t-field="o.sale_reservation_id.contracted_selling_price" />
+                                                </td>
+                                            </t>
+                                            <t t-else="">
+                                                <td style="border-bottom: 1px solid black;"></td>
+                                            </t>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="row mb-5" dir="ltr">
+                                <div class="col-12">
+                                    <table class="table table-bordered text-center align-middle">
+                                        <thead class="bg-light">
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Payment Details</th>
+                                                <th>Percentage</th>
+                                                <th>Amount</th>
+                                                <th>Payment Method</th>
+                                                <th>Check Number</th>
+                                                <th>Bank Name</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><span t-field="o.cheque_date"/></td>
+                                                <td>
+                                                    <span t-field="o.description"/>
+                                                </td>
+                                                <t t-if="o.sale_reservation_id and o.sale_reservation_id.installment_template_id">
+                                                    <td><span t-field="o.sale_reservation_id.installment_template_id.reservation_percentage"/></td>
+                                                </t>
+                                                <t t-else="">
+                                                    <td>-</td>
+                                                </t>
+                                                <td>
+                                                    <span t-field="o.amount"/>
+                                                </td>
+                                                <t t-if="o.sale_reservation_id">
+                                                    <td><span t-field="o.sale_reservation_id.payment_method"/></td>
+                                                </t>
+                                                <t t-else="">
+                                                    <td>-</td>
+                                                </t>
+                                                <td>
+                                                    <span t-field="o.cheque_no"/>
+                                                </td>
+
+                                                <t t-if="o.bank_id">
+                                                    <td><span t-field="o.bank_id.name"/></td>
+                                                </t>
+                                                <t t-else="">
+                                                    <td>-</td>
+                                                </t>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="row mt-5" dir="rtl">
+                                <div class="col-12 text-right">
+                                    <p>
+                                        <strong>اسم المستلم / </strong>
+                                        <span>....................................................................</span>
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </t>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>
+

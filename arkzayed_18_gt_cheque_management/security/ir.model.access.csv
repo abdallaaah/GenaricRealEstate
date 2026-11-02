@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_cheque_manage,cheque.manage,model_cheque_manage,base.group_user,1,1,1,1
+access_cheque_outgoing_wizard,cheque.outgoing.wizard,model_cheque_outgoing_wizard,base.group_user,1,1,1,1
+access_under_collection_wizard,access_under_collection_wizard,arkzayed_18_gt_cheque_management.model_under_collection_wizard,,1,1,1,1
+access_return_reason,access_return_reason,model_return_reason,,1,1,1,1
+access_cheque_portfolio,access.cheque.portfolio,model_cheque_portfolio,,1,1,1,1

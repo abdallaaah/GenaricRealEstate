@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_sale_proposal_cheque_wizard_form" model="ir.ui.view">
+        <field name="name">sale.proposal.cheque.wizard.form</field>
+        <field name="model">sale.proposal.cheque.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Select Starting Line">
+                <group>
+                    <field name="sale_proposal_id" invisible="True"/>
+                    <!-- One unified dropdown containing everything -->
+                    <field name="starting_line_id" required="1" options="{'no_create': True, 'no_open': True}"/>
+                </group>
+                <footer>
+                    <button name="action_confirm" string="Generate Cheques" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

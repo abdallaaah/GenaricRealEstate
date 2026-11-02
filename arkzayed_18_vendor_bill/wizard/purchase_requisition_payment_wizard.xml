@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_purchase_requisition_payment_wizard_form" model="ir.ui.view">
+        <field name="name">purchase.requisition.payment.wizard.form</field>
+        <field name="model">purchase.requisition.payment.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Create Down Payment">
+                <group>
+                    <group>
+                        <field name="requisition_id" readonly="1"/>
+                        <field name="payment_type" widget="radio"/>
+                        <field name="partner_id"/>
+                        <field name="amount"/>
+                        <field name="currency_id" invisible="1"/>
+                    </group>
+                    <group>
+                        <field name="payment_date"/>
+                        <field name="journal_id"/>
+                        <field name="memo"/>
+                    </group>
+                </group>
+
+                <!-- Payment specific fields -->
+                <group invisible="payment_type != 'payment'">
+                    <group>
+                        <field name="payment_method_line_id"/>
+                    </group>
+                </group>
+
+                <!-- Cheque specific fields -->
+                <group invisible="payment_type != 'cheque'">
+                    <group>
+                        <field name="cheque_no"/>
+                        <field name="cheque_date"/>
+                        <field name="bank_id"/>
+                    </group>
+                    <group>
+                        <field name="debit_account"/>
+                        <field name="credit_account"/>
+                    </group>
+                </group>
+
+                <footer>
+                    <button string="Create"
+                            name="action_confirm"
+                            type="object"
+                            class="oe_highlight"/>
+                    <button string="Cancel"
+                            class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="paperformat_collections_landscape" model="report.paperformat">
+        <field name="name">Collections - A4 Landscape</field>
+        <field name="default" eval="False"/>
+        <field name="format">A4</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">32</field>
+        <field name="margin_bottom">18</field>
+        <field name="margin_left">12</field>
+        <field name="margin_right">12</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">28</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="action_report_collections" model="ir.actions.report">
+        <field name="name">Collections Executive Report</field>
+        <field name="model">arkzayed.collections.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">arkzayed_collections_report.report_collections</field>
+        <field name="report_file">arkzayed_collections_report.report_collections</field>
+        <field name="print_report_name">'Collections Report'</field>
+        <field name="paperformat_id" ref="paperformat_collections_landscape"/>
+    </record>
+
+    <template id="report_collections">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page" style="font-size: 10pt; color: #1f2937;">
+
+                    <div style="font-size: 20pt; font-weight: bold; color: #0f2a4a;">Collections Report</div>
+                    <div style="color: #6b7280; margin-bottom: 12px;">
+                        As of <span t-out="today" t-options="{'widget': 'date'}"/>
+                        &#160;|&#160; Prepared by <span t-out="user_name"/>
+                        &#160;|&#160; <span t-out="installment_count"/> installments, <span t-out="client_count"/> clients
+                        <t t-if="filters"> &#160;|&#160; Filter: <span t-out="filters"/></t>
+                    </div>
+
+                    <!-- KPI cards -->
+                    <table style="width: 100%; border-collapse: separate; border-spacing: 8px 0; margin: 0 -8px 14px -8px;">
+                        <tr>
+                            <td style="width: 17%; background: #0f2a4a; color: #fff; padding: 10px 12px; border-radius: 4px;">
+                                <div style="font-size: 8pt; text-transform: uppercase; opacity: .8;">Contract Receivables</div>
+                                <div style="font-size: 13pt; font-weight: bold;" t-out="total" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                            </td>
+                            <td style="width: 17%; background: #eef2f7; padding: 10px 12px; border-radius: 4px;">
+                                <div style="font-size: 8pt; text-transform: uppercase; color: #6b7280;">Collected to Date</div>
+                                <div style="font-size: 13pt; font-weight: bold; color: #047857;" t-out="collected" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                <div style="font-size: 8pt; color: #6b7280;"><t t-out="'{:,.1f}%'.format(collected_pct)"/> of receivables</div>
+                            </td>
+                            <td style="width: 17%; background: #eef2f7; padding: 10px 12px; border-radius: 4px;">
+                                <div style="font-size: 8pt; text-transform: uppercase; color: #6b7280;">Due to Date</div>
+                                <div style="font-size: 13pt; font-weight: bold;" t-out="due_total" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                <div style="font-size: 8pt; color: #6b7280;">Collection rate <t t-out="'{:,.1f}%'.format(efficiency)"/></div>
+                            </td>
+                            <td style="width: 17%; background: #fdecec; padding: 10px 12px; border-radius: 4px;">
+                                <div style="font-size: 8pt; text-transform: uppercase; color: #991b1b;">Overdue</div>
+                                <div style="font-size: 13pt; font-weight: bold; color: #b91c1c;" t-out="overdue" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                <div style="font-size: 8pt; color: #991b1b;"><t t-out="'{:,.1f}%'.format(overdue_pct)"/> of due &#183; <t t-out="overdue_count"/> installments &#183; <t t-out="overdue_client_count"/> clients</div>
+                            </td>
+                            <td style="width: 16%; background: #eef2f7; padding: 10px 12px; border-radius: 4px;">
+                                <div style="font-size: 8pt; text-transform: uppercase; color: #6b7280;">Outstanding (all)</div>
+                                <div style="font-size: 13pt; font-weight: bold;" t-out="outstanding" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                            </td>
+                            <td style="width: 16%; background: #fff7e6; padding: 10px 12px; border-radius: 4px;">
+                                <div style="font-size: 8pt; text-transform: uppercase; color: #92400e;">Cheques in Hand</div>
+                                <div style="font-size: 13pt; font-weight: bold; color: #b45309;" t-out="hand_total" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                <div style="font-size: 8pt; color: #92400e;">Matured, not collected: <t t-out="matured_total" t-options="{'widget': 'monetary', 'display_currency': currency}"/></div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <!-- Ageing + collections by month -->
+                    <table style="width: 100%; border-collapse: separate; border-spacing: 12px 0; margin: 0 -12px 14px -12px;">
+                        <tr>
+                            <td style="width: 50%; vertical-align: top;">
+                                <div style="font-size: 12pt; font-weight: bold; color: #0f2a4a; margin-bottom: 6px;">Overdue Ageing</div>
+                                <table style="width: 100%; border-collapse: collapse; font-size: 9pt;">
+                                    <thead>
+                                        <tr style="background: #0f2a4a; color: #fff;">
+                                            <th style="padding: 5px 8px; text-align: left;">Age</th>
+                                            <th style="padding: 5px 8px; text-align: right;">Installments</th>
+                                            <th style="padding: 5px 8px; text-align: right;">Clients</th>
+                                            <th style="padding: 5px 8px; text-align: right;">Amount</th>
+                                            <th style="padding: 5px 8px; width: 24%;">Share</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="ageing" t-as="a">
+                                            <tr>
+                                                <td style="padding: 5px 8px; border-bottom: 1px solid #e5e7eb;" t-out="a['label']"/>
+                                                <td style="padding: 5px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;" t-out="a['count']"/>
+                                                <td style="padding: 5px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;" t-out="a['clients']"/>
+                                                <td style="padding: 5px 8px; border-bottom: 1px solid #e5e7eb; text-align: right; font-weight: bold;" t-out="a['amount']" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                                <td style="padding: 5px 8px; border-bottom: 1px solid #e5e7eb;">
+                                                    <div style="background: #fde2e2; height: 9px; border-radius: 2px;">
+                                                        <div t-att-style="'background: #dc2626; height: 9px; border-radius: 2px; width: {:.1f}%;'.format(a['share'])"/>
+                                                    </div>
+                                                    <div style="font-size: 7.5pt; color: #6b7280;" t-out="'{:,.1f}%'.format(a['share'])"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                        <tr style="font-weight: bold; background: #eef2f7;">
+                                            <td style="padding: 5px 8px;">Total overdue</td>
+                                            <td style="padding: 5px 8px; text-align: right;" t-out="overdue_count"/>
+                                            <td style="padding: 5px 8px; text-align: right;" t-out="overdue_client_count"/>
+                                            <td style="padding: 5px 8px; text-align: right;" t-out="overdue" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                            <td/>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td style="width: 50%; vertical-align: top;">
+                                <div style="font-size: 12pt; font-weight: bold; color: #0f2a4a; margin-bottom: 6px;">Collections by Month (last 12 months)</div>
+                                <table style="width: 100%; border-collapse: collapse; font-size: 9pt;">
+                                    <tbody>
+                                        <t t-foreach="months" t-as="m">
+                                            <tr>
+                                                <td style="padding: 2px 8px; width: 20%; white-space: nowrap;" t-out="m['label']"/>
+                                                <td style="padding: 2px 8px;">
+                                                    <div style="background: #e6f4ee; height: 9px; border-radius: 2px;">
+                                                        <div t-att-style="'background: #059669; height: 9px; border-radius: 2px; width: {:.1f}%;'.format(m['bar'])"/>
+                                                    </div>
+                                                </td>
+                                                <td style="padding: 2px 8px; text-align: right; width: 26%; white-space: nowrap;" t-out="m['amount']" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <!-- Upcoming + data-quality note -->
+                    <div style="font-size: 12pt; font-weight: bold; color: #0f2a4a; margin-bottom: 6px;">Upcoming Dues (still unpaid)</div>
+                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 6px; font-size: 9pt;">
+                        <thead>
+                            <tr style="background: #0f2a4a; color: #fff;">
+                                <t t-foreach="upcoming" t-as="u"><th style="padding: 5px 8px; text-align: right;" t-out="u['label']"/></t>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <t t-foreach="upcoming" t-as="u">
+                                    <td style="padding: 5px 8px; text-align: right; border-bottom: 1px solid #e5e7eb;">
+                                        <div style="font-weight: bold;" t-out="u['amount']" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                        <div style="color: #6b7280; font-size: 8pt;"><t t-out="u['count']"/> installments</div>
+                                    </td>
+                                </t>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <t t-if="check_date_count">
+                        <div style="font-size: 8.5pt; color: #92400e; background: #fff7e6; padding: 5px 10px; border-radius: 3px; margin-bottom: 14px;">
+                            Data check: <t t-out="check_date_count"/> unpaid installments (<span t-out="check_date_amount" t-options="{'widget': 'monetary', 'display_currency': currency}"/>) have due dates beyond 2060 and are excluded from the schedules above. Please verify their dates.
+                        </div>
+                    </t>
+
+                    <!-- Top overdue clients -->
+                    <div style="page-break-inside: avoid;">
+                        <div style="font-size: 12pt; font-weight: bold; color: #0f2a4a; margin: 10px 0 6px;">Top Overdue Clients</div>
+                        <table style="width: 100%; border-collapse: collapse; margin-bottom: 16px; font-size: 9pt;">
+                            <thead>
+                                <tr style="background: #0f2a4a; color: #fff;">
+                                    <th style="padding: 5px 8px; text-align: left;">#</th>
+                                    <th style="padding: 5px 8px; text-align: left;">Client</th>
+                                    <th style="padding: 5px 8px; text-align: right;">Units</th>
+                                    <th style="padding: 5px 8px; text-align: right;">Overdue Installments</th>
+                                    <th style="padding: 5px 8px; text-align: right;">Oldest (days)</th>
+                                    <th style="padding: 5px 8px; text-align: right;">Cheques in Hand</th>
+                                    <th style="padding: 5px 8px; text-align: right;">Overdue Amount</th>
+                                    <th style="padding: 5px 8px; text-align: right;">Share</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="top_clients" t-as="c">
+                                    <tr t-att-style="'background: #f6f8fb;' if c_index % 2 else ''">
+                                        <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb;" t-out="c_index + 1"/>
+                                        <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb;" t-out="c['name']"/>
+                                        <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;" t-out="c['unit_count']"/>
+                                        <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;" t-out="c['count']"/>
+                                        <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;" t-out="c['oldest']"/>
+                                        <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;" t-out="c['in_hand']" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                        <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right; font-weight: bold; color: #b91c1c;" t-out="c['amount']" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                        <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;" t-out="'{:,.1f}%'.format(c['share'])"/>
+                                    </tr>
+                                </t>
+                                <tr t-if="not top_clients"><td colspan="8" style="padding: 8px; color: #047857;">No overdue installments.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Performance by building -->
+                    <div style="page-break-inside: avoid;">
+                        <div style="font-size: 12pt; font-weight: bold; color: #0f2a4a; margin-bottom: 6px;">Performance by Building</div>
+                        <table style="width: 100%; border-collapse: collapse; margin-bottom: 16px; font-size: 9pt;">
+                            <thead>
+                                <tr style="background: #0f2a4a; color: #fff;">
+                                    <th style="padding: 5px 8px; text-align: left;">Building</th>
+                                    <th style="padding: 5px 8px; text-align: right;">Units</th>
+                                    <th style="padding: 5px 8px; text-align: right;">Receivables</th>
+                                    <th style="padding: 5px 8px; text-align: right;">Collected</th>
+                                    <th style="padding: 5px 8px; text-align: right;">Due to Date</th>
+                                    <th style="padding: 5px 8px; text-align: right;">Collection Rate (due)</th>
+                                    <th style="padding: 5px 8px; text-align: right;">Overdue</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="building_rows" t-as="b">
+                                    <tr t-att-style="'background: #f6f8fb;' if b_index % 2 else ''">
+                                        <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb;" t-out="b['name']"/>
+                                        <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;" t-out="b['unit_count']"/>
+                                        <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;" t-out="b['total']" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                        <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;" t-out="b['collected']" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                        <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;" t-out="b['due']" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                        <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;" t-out="'{:,.1f}%'.format(b['due_rate'])"/>
+                                        <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right; font-weight: bold; color: #b91c1c;" t-out="b['overdue']" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Appendix -->
+                    <t t-if="overdue_rows">
+                        <div style="page-break-before: always;"/>
+                        <div style="font-size: 12pt; font-weight: bold; color: #0f2a4a; margin-bottom: 6px;">Appendix - Overdue Installments (largest first)</div>
+                        <table style="width: 100%; border-collapse: collapse; font-size: 8.5pt;">
+                            <thead>
+                                <tr style="background: #0f2a4a; color: #fff;">
+                                    <th style="padding: 5px 8px; text-align: left;">Client</th>
+                                    <th style="padding: 5px 8px; text-align: left;">Unit</th>
+                                    <th style="padding: 5px 8px; text-align: left;">Installment</th>
+                                    <th style="padding: 5px 8px; text-align: left;">Due Date</th>
+                                    <th style="padding: 5px 8px; text-align: right;">Days</th>
+                                    <th style="padding: 5px 8px; text-align: right;">Amount</th>
+                                    <th style="padding: 5px 8px; text-align: right;">Paid</th>
+                                    <th style="padding: 5px 8px; text-align: right;">Cheque in Hand</th>
+                                    <th style="padding: 5px 8px; text-align: right;">Remaining</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="overdue_rows" t-as="r">
+                                    <tr t-att-style="'background: #f6f8fb;' if r_index % 2 else ''">
+                                        <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb;" t-out="r['client']"/>
+                                        <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; white-space: nowrap;" t-out="r['unit']"/>
+                                        <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb;">
+                                            <t t-out="r['name']"/><t t-if="r['is_down_payment']"> (Down payment)</t>
+                                        </td>
+                                        <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; white-space: nowrap;" t-out="r['date']" t-options="{'widget': 'date'}"/>
+                                        <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;" t-out="r['days']"/>
+                                        <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;" t-out="r['total']" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                        <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;" t-out="r['paid']" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                        <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;" t-out="r['in_hand']" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                        <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right; font-weight: bold;" t-out="r['remaining']" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                        <div t-if="overdue_hidden" style="color: #6b7280; font-size: 8.5pt; margin-top: 6px;">
+                            <t t-out="overdue_hidden"/> smaller overdue installments are not listed; see Collections > Overdue Installments.
+                        </div>
+                    </t>
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

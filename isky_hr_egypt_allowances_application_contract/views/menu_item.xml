@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <menuitem
+                name="Applications"
+                parent="hr_recruitment.menu_hr_recruitment_root"
+                id="hr_recruitment.menu_crm_case_categ0_act_job" sequence="2"/>
+
+
+        <menuitem
+                name="Fixed Bonus"
+                parent="hr.menu_human_resources_configuration"
+                id="fixed_bonus_menu"
+                action="fixed_bonus_action"
+                sequence="2"/>
+
+        <menuitem
+                name="Organization Chart Report"
+                parent="hr_recruitment.report_hr_recruitment"
+                id="organization_chart_menu"
+                action="organization_chart_action"
+                sequence="2"/>
+    </data>
+</odoo>

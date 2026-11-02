@@ -1,0 +1,13 @@
+<odoo>
+    <record id="view_account_journal_modi" model="ir.ui.view">
+        <field name="name">account_journal_form.inherit</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.view_account_journal_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook//page[@name='bank_account']//group//group//field[@name='currency_id']"
+                   position="after">
+                <field name="under_collection" invisible="type != 'bank'" domain="[('company_id', '=', company_id)]"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

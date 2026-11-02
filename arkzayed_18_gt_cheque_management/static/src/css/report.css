@@ -1,0 +1,34 @@
+@font-face {
+    font-family: 'Traditional Arabic';
+    src: url('/arkzayed_18_gt_cheque_management/static/src/fonts/calibri.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Times';
+    src: url('/arkzayed_18_gt_cheque_management/static/src/fonts/times.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+.cash-receipt-report,
+.cash-outgoing-report,
+.payment-receipt-report,
+.payment-outgoing-report {
+    font-family: 'Traditional Arabic', 'Times', Arial, sans-serif;
+}
+
+.cash-receipt-report .arabic-text,
+.cash-outgoing-report .arabic-text,
+.payment-receipt-report .arabic-text,
+.payment-outgoing-report .arabic-text {
+    font-family: 'Traditional Arabic', Arial, sans-serif;
+}
+
+.cash-receipt-report .english-text,
+.cash-outgoing-report .english-text,
+.payment-receipt-report .english-text,
+.payment-outgoing-report .english-text {
+    font-family: 'Times', 'Times New Roman', serif;
+}

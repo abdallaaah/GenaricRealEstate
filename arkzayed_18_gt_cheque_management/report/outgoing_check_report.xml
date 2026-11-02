@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="outgoing_check" model="ir.actions.report">
+        <field name="name">Outgoing Check</field>
+        <field name="model">cheque.manage</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">arkzayed_18_gt_cheque_management.outgoing_check_report</field>
+        <field name="report_file">arkzayed_18_gt_cheque_management.outgoing_check_report</field>
+        <field name="print_report_name">'Outgoing Check'</field>
+        <field name="binding_model_id" ref="arkzayed_18_gt_cheque_management.model_cheque_manage"/>
+        <field name="binding_type">report</field>
+        <field name="domain">[('cheq_type', '=', 'outgoing')]</field>
+        <!-- Erase fields to avoid double PDF posting -->
+        <field name="attachment"></field>
+        <field name="attachment_use" eval="False"/>
+    </record>
+
+    <template id="outgoing_check_report">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-if="o.cheq_type == 'outgoing'">
+                    <t t-call="web.basic_layout">
+
+                        <div class="page" style="border:2px solid #000000; padding-right:10px; zoom:90%" dir="rtl">
+
+                            <header>
+                                <div class="row">
+                                    <div class="col-4" style="padding-top:80px; padding-right:40px">
+                                        <img t-att-src="'/arkzayed_18_gt_cheque_management/static/src/lo.png'"
+                                             alt="Company Logo" style="max-height: 175px;"/>
+                                    </div>
+                                    <div class="col-4"
+                                         style="text-align:center; font-weight:bold; font-size:20px; padding-top:20px">
+                                        <u>شركة أبراج للتطوير العمرانى</u>
+                                    </div>
+                                    <div class="col-4" style="padding-left:40px">
+                                        <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)"
+                                             style="max-height: 150px; float:left;"
+                                             alt="Logo"/>
+                                    </div>
+                                </div>
+                            </header>
+
+                            <body>
+                                <br/>
+                                <br/>
+                                <div style="text-align:center; font-weight:bold; font-size:20px;">
+                                    <u>إيصال صرف خزينة - (نقدى/شيكات/فيزا)</u>
+                                </div>
+                                <br/>
+                                <div style="text-align:center">
+                                    <span style="padding-right:250px">رقم الايصال</span>
+                                    (<span style="font-weight:bold" t-esc="o.name"/>)
+                                    <span style="padding-right:20px">المبلغ</span>
+                                    <span style="padding-right:150px">العملة</span>
+                                    <br/>
+                                    <span style="padding-right:450px; font-weight:bold" t-esc="o.amount"/>
+                                    <span style="padding-right:130px; font-weight:bold">جنية مصرى</span>
+                                </div>
+                                <br/>
+                                <br/>
+                                <div style="margin-right:50px">
+                                    <span>وصلنى انا الموقع على هذا/</span>
+                                    <span style="font-weight:bold; padding-right:10px" t-esc="o.payer.name"/>
+                                    <br/>
+                                    <span style="padding-right:106px">مبلغ وقدره/</span>
+                                    <span style="font-weight:bold; padding-right:12px"
+                                          t-esc="o._get_arabic_amount(o.amount,'ar')"/>
+                                    <br/>
+                                    <span style="padding-right:96px">بيانات الصرف/</span>
+                                    <span style="font-weight:bold; padding-right:5px" t-esc="o.description"/>
+                                    <br/>
+                                    <span style="padding-right:115px">رقم الفاتورة/</span>
+                                </div>
+                                <br/>
+                                <span style="padding-right:500px">المستلم/</span>
+                                <br/>
+                                <span style="padding-right:500px">الإسم/</span>
+                                <br/>
+                                <span style="padding-right:500px">التوقيع/</span>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <span style="padding-right:90px">تحريرا فى/</span>
+                                <span style="font-weight:bold; padding-right:5px" t-esc="o.cheque_receive_date"/>
+                                <br/>
+                                <span style="padding-right:220px">هذا الايصال لا يعتد به الا اذا كان معتمدا بختم الشركة
+                                    و موقع عليه من الموظف المختص
+                                </span>
+                                <br/>
+                                <span style="padding-right:120px">طبع بواسطة/</span>
+                                <span style="font-weight:bold; padding-right:5px" t-esc="o.user_id.name"/>
+                                <br/>
+                                <hr style="border: 2px solid #000000; margin-right:20px; margin-left:20px;"/>
+                                <br/>
+                                <br/>
+                                <span style="padding-right:90px">توجيه المحاسبي/</span>
+                                <br/>
+                                <div style="margin-right:30px; margin-left:30px;">
+                                    <table class="table table-bordered" style="font-weight:bold;">
+                                        <tr style="text-align:center; background-color:#b3b3b3">
+                                            <td>مدين</td>
+                                            <td>دائن</td>
+                                            <td>البيان</td>
+                                            <td>اسم الحساب</td>
+                                            <td>رقم الحساب</td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr style="background-color:#b3b3b3; text-align:center;">
+                                            <td></td>
+                                            <td></td>
+                                            <td colspan="3">الإجمالى</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <br/>
+                                <div style="text-align:center">
+                                    <span>********************</span>
+                                    <br/>
+                                    <span>نهاية الإيصال</span>
+                                </div>
+                            </body>
+
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="action_unit_dashboard" model="ir.actions.client">
+        <field name="name">Unit Rental Management</field>
+        <field name="tag">unit_dashboard</field>
+    </record>
+</odoo>

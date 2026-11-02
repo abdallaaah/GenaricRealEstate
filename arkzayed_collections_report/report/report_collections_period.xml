@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_report_collections_period" model="ir.actions.report">
+        <field name="name">Monthly Report Collections</field>
+        <field name="model">arkzayed.collections.period.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">arkzayed_collections_report.report_collections_period</field>
+        <field name="report_file">arkzayed_collections_report.report_collections_period</field>
+        <field name="print_report_name">'Monthly Report Collections'</field>
+        <field name="paperformat_id" ref="arkzayed_collections_report.paperformat_collections_landscape"/>
+    </record>
+
+    <template id="report_collections_period">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page" style="font-size: 10pt; color: #1f2937;">
+
+                    <div style="font-size: 20pt; font-weight: bold; color: #0f2a4a;">Monthly Report Collections</div>
+                    <div style="color: #6b7280; margin-bottom: 12px;">
+                        <span t-out="date_from" t-options="{'widget': 'date'}"/> &#8594; <span t-out="date_to" t-options="{'widget': 'date'}"/>
+                        &#160;|&#160; Prepared by <span t-out="user_name"/> &#160;|&#160; Printed <span t-out="today" t-options="{'widget': 'date'}"/>
+                        <t t-if="filters"> &#160;|&#160; Filter: <span t-out="filters"/></t>
+                    </div>
+
+                    <table style="width: 100%; border-collapse: separate; border-spacing: 8px 0; margin: 0 -8px 14px -8px;">
+                        <tr>
+                            <td style="width:20%; background:#0f2a4a; padding:10px 12px; border-radius:4px;">
+                                <div style="font-size:8pt; text-transform:uppercase; color:#fff;">Collected in This Period</div>
+                                <div style="font-size:14pt; font-weight:bold; color:#fff;" t-out="collections_in_period" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                <div style="font-size:8pt; color:#fff;">actual money received, any installment</div>
+                            </td>
+                            <td style="width:20%; background:#eef2f7; padding:10px 12px; border-radius:4px;">
+                                <div style="font-size:8pt; text-transform:uppercase; color:#6b7280;">Due in This Period</div>
+                                <div style="font-size:14pt; font-weight:bold; color:#1f2937;" t-out="due_total" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                <div style="font-size:8pt; color:#6b7280;"><t t-out="fully_n + partial_n + none_n"/> installments</div>
+                            </td>
+                            <td style="width:20%; background:#e8f7ee; padding:10px 12px; border-radius:4px;">
+                                <div style="font-size:8pt; text-transform:uppercase; color:#6b7280;">Collected of What's Due</div>
+                                <div style="font-size:14pt; font-weight:bold; color:#047857;" t-out="due_collected" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                <div style="font-size:8pt; color:#6b7280;"><t t-out="'{:,.1f}%'.format(due_collected_pct)"/> of what was due</div>
+                            </td>
+                            <td style="width:20%; background:#fdecec; padding:10px 12px; border-radius:4px;">
+                                <div style="font-size:8pt; text-transform:uppercase; color:#6b7280;">Not Yet Collected</div>
+                                <div style="font-size:14pt; font-weight:bold; color:#b91c1c;" t-out="due_remaining" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                <div style="font-size:8pt; color:#6b7280;">still owed from this period's due amounts</div>
+                            </td>
+                            <td style="width:20%; background:#fef6dc; padding:10px 12px; border-radius:4px;">
+                                <div style="font-size:8pt; text-transform:uppercase; color:#6b7280;">Fully / Partially / Not Collected</div>
+                                <div style="font-size:12pt; font-weight:bold; color:#92400e;"><t t-out="fully_n"/> / <t t-out="partial_n"/> / <t t-out="none_n"/></div>
+                                <div style="font-size:8pt; color:#6b7280;">count of this period's installments</div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div style="font-size: 12pt; font-weight: bold; color: #0f2a4a; margin-bottom: 6px;">Money Actually Collected, Day by Day</div>
+                    <table t-if="timeline" style="width: 100%; border-collapse: collapse; font-size: 9pt; margin-bottom: 4px;">
+                        <t t-foreach="timeline" t-as="t">
+                            <tr>
+                                <td style="padding: 3px 8px; width: 14%; white-space: nowrap;" t-out="t['label']"/>
+                                <td style="padding: 3px 8px;"><div t-att-style="'height: 12px; border-radius: 2px; background: #0d9488; width: {:.1f}%; min-width: 2px;'.format(t['bar'])"/></td>
+                                <td style="padding: 3px 8px; text-align: right; width: 14%; white-space: nowrap;" t-out="t['amount']" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                            </tr>
+                        </t>
+                    </table>
+                    <div t-else="" style="background: #fef6dc; color: #92400e; border-radius: 4px; padding: 8px 12px; font-size: 9.5pt; margin-bottom: 14px;">
+                        No collection was recorded in this period.
+                    </div>
+                    <div style="font-size: 8pt; color: #6b7280; margin: 4px 0 14px;">
+                        Grouped <t t-out="'by month' if by_month else 'by day'"/> based on the length of the period. This is money actually
+                        received during the period (installment payments and cheque collections), whichever installment it belongs to.
+                    </div>
+
+                    <div style="font-size: 12pt; font-weight: bold; color: #0f2a4a; margin-bottom: 6px;">
+                        Installments Due in This Period &#8212; Collection Status
+                    </div>
+                    <t t-if="due_rows">
+                        <table style="width: 100%; border-collapse: collapse; font-size: 9pt;">
+                            <thead>
+                                <tr style="background: #0f2a4a; color: #fff;">
+                                    <th style="padding: 5px 8px; text-align: left;">Client</th>
+                                    <th style="padding: 5px 8px; text-align: left;">Unit</th>
+                                    <th style="padding: 5px 8px; text-align: left;">Installment</th>
+                                    <th style="padding: 5px 8px; text-align: right;">Due Date</th>
+                                    <th style="padding: 5px 8px; text-align: right;">Total Due</th>
+                                    <th style="padding: 5px 8px; text-align: right;">Collected</th>
+                                    <th style="padding: 5px 8px; text-align: right;">Remaining</th>
+                                    <th style="padding: 5px 8px; text-align: center;">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="due_rows" t-as="r">
+                                    <tr t-att-style="'background: #fff7ed;' if r['status'] == 'partial' else ('background: #fef2f2;' if r['status'] == 'none' else ('background: #f6f8fb;' if r_index % 2 else ''))">
+                                        <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb;" t-out="r['client']"/>
+                                        <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb;" t-out="r['unit']"/>
+                                        <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb;" t-out="r['name']"/>
+                                        <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;" t-out="r['due_date']" t-options="{'widget': 'date'}"/>
+                                        <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;" t-out="r['total']" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                        <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right; color: #047857;" t-out="r['collected']" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                        <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;" t-out="r['remaining']" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                        <td style="padding: 4px 8px; border-bottom: 1px solid #e5e7eb; text-align: center;">
+                                            <span t-if="r['status'] == 'fully'" style="color: #047857; font-weight: bold;">Fully Collected</span>
+                                            <span t-elif="r['status'] == 'partial'" style="color: #b45309; font-weight: bold;">Partially Collected</span>
+                                            <span t-else="" style="color: #b91c1c; font-weight: bold;">Not Collected</span>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                        <div t-if="due_hidden" style="font-size: 8pt; color: #6b7280; margin-top: 3px;">Showing the first <t t-out="len(due_rows)"/> rows; <t t-out="due_hidden"/> more not shown.</div>
+                    </t>
+                    <div t-else="" style="background: #eef2f7; color: #374151; border-radius: 4px; padding: 8px 12px; font-size: 9.5pt;">
+                        No installment was due in this period.
+                    </div>
+                    <div style="font-size: 8pt; color: #6b7280; margin-top: 6px;">
+                        "Collected" here is the amount collected against that specific installment as of today (not limited to this period) &#8212;
+                        an installment due in this period may have been paid before, during, or after it. Rows past 2060 are treated as a typing
+                        error and excluded. Fully collected = <t t-out="fully_n"/> installments (<t t-out="'{:,.0f}'.format(fully_amt)"/> LE) &#183;
+                        Partially collected = <t t-out="partial_n"/> installments (collected <t t-out="'{:,.0f}'.format(partial_collected_amt)"/> LE,
+                        still owed <t t-out="'{:,.0f}'.format(partial_remaining_amt)"/> LE) &#183; Not collected = <t t-out="none_n"/> installments
+                        (<t t-out="'{:,.0f}'.format(none_amt)"/> LE).
+                    </div>
+
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

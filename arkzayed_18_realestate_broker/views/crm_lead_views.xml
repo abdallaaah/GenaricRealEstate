@@ -1,0 +1,758 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="action_unlock_leads" model="ir.actions.server">
+            <field name="name">Unlock</field>
+            <field name="type">ir.actions.server</field>
+            <field name="state">code</field>
+            <field name="model_id" ref="crm.model_crm_lead"/>
+            <field name="binding_model_id" ref="crm.model_crm_lead"/>
+            <field name="groups_id" eval="[(4, ref('base.group_user'))]"/>
+            <field name="code">
+                records.action_unlock_lead()
+            </field>
+        </record>
+
+        <!--           <record id="action_lock_leads" model="ir.actions.server">-->
+        <!--            <field name="name">lock</field>-->
+        <!--            <field name="type">ir.actions.server</field>-->
+        <!--            <field name="state">code</field>-->
+        <!--            <field name="model_id" ref="crm.model_crm_lead"/>-->
+        <!--            <field name="binding_model_id" ref="crm.model_crm_lead"/>-->
+        <!--            <field name="groups_id" eval="[(4, ref('base.group_user'))]"/>-->
+        <!--            <field name="code">-->
+        <!--                records.action_lock_lead()-->
+        <!--            </field>-->
+        <!--        </record>-->
+
+        <record id="action_server_crm_lead_reassign" model="ir.actions.server">
+            <field name="name">Reassign</field>
+            <field name="model_id" ref="crm.model_crm_lead"/>
+            <field name="binding_model_id" ref="crm.model_crm_lead"/>
+            <field name="binding_view_types">list</field>
+            <field name="groups_id" eval="[(4, ref('sales_team.group_sale_salesman_all_leads'))]"/>
+            <field name="state">code</field>
+            <field name="code">action = env['ir.actions.act_window']._for_xml_id('arkzayed_18_realestate_broker.action_crm_lead_reassign')</field>
+        </record>
+
+        <!--        <record id="view_crm_lead_opportunity_geo_assign_form_inherit" model="ir.ui.view">-->
+        <!--            <field name="name">view_crm_lead_opportunity_geo_assign_form_inherit</field>-->
+        <!--            <field name="model">crm.lead</field>-->
+        <!--            <field name="inherit_id" ref="website_crm_partner_assign.view_crm_lead_opportunity_geo_assign_form"/>-->
+        <!--            <field name="arch" type="xml">-->
+        <!--                <xpath expr="//page[@name='assigned_partner']" position="attributes">-->
+        <!--                    <attribute name="invisible">1</attribute>-->
+        <!--                </xpath>-->
+        <!--            </field>-->
+        <!--        </record>-->
+
+        <record id="view_crm_case_opportunities_filter_inherit" model="ir.ui.view">
+            <field name="name">view_crm_case_opportunities_filter_inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.view_crm_case_opportunities_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='assigned_to_me']" position="before">
+                    <filter name="eoi_status_for_manager" string="EOI Status For Manager"
+                            context="{'group_by':'eoi_status_for_manager'}"/>
+                    <filter name="eoi_status_for_financial" string="EOI Status For Financial"
+                            context="{'group_by':'eoi_status_for_financial'}"/>
+                    <filter name="eoi_status_for_operations" string="EOI Status For Operations"
+                            context="{'group_by':'eoi_status_for_operations'}"/>
+                    <filter name="eoi_status_for_sales" string="EOI Status For Sales"
+                            context="{'group_by':'eoi_status_for_sales'}"/>
+
+                    <filter name="reservation_status_for_manager" string="Reservation Status For Manager"
+                            context="{'group_by':'reservation_status_for_manager'}"/>
+                    <filter name="reservation_status_for_financial" string="Reservation Status For Financial"
+                            context="{'group_by':'reservation_status_for_financial'}"/>
+                    <filter name="reservation_status_for_operations" string="Reservation Status For Operations"
+                            context="{'group_by':'reservation_status_for_operations'}"/>
+                    <filter name="reservation_status_for_sales" string="Reservation Status For Sales"
+                            context="{'group_by':'reservation_status_for_sales'}"/>
+
+                    <filter name="contract_status_for_manager" string="Contract Status For Manager"
+                            context="{'group_by':'contract_status_for_manager'}"/>
+                    <filter name="contract_status_for_financial" string="Contract Status For Financial"
+                            context="{'group_by':'contract_status_for_financial'}"/>
+                    <filter name="contract_status_for_operations" string="Contract Status For Operations"
+                            context="{'group_by':'contract_status_for_operations'}"/>
+                    <filter name="contract_status_for_sales" string="Contract Status For Sales"
+                            context="{'group_by':'contract_status_for_sales'}"/>
+
+                    <filter name="is_lead_cancelled" string="Leads Cancelled"
+                            context="{'group_by':'is_lead_cancelled'}"/>
+                    <filter name="is_conflict_unit" string="Conflict Opp"
+                            context="{'group_by':'is_conflict_unit'}"/>
+                    <filter name="conflict_opp_ids" string="Conflict Opportunities"
+                            context="{'group_by':'conflict_opp_ids'}"/>
+
+                </xpath>
+            </field>
+        </record>
+        <record id="crm_case_form_view_inherit" model="ir.ui.view">
+            <field name="name">crm.lead.inherited</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//h2" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='%(crm.action_crm_lead2opportunity_partner)d']" position="attributes">
+                    <attribute name="invisible">not is_qualified or type != 'lead'</attribute>
+                </xpath>
+                <xpath expr="//field[@name='phone']" position="attributes">
+                    <attribute name="required">0</attribute>
+                </xpath>
+                <xpath expr="//field[@name='phone']" position="after">
+                    <field name="lead_country"/>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="required">type == 'opportunity'</attribute>
+                </xpath>
+<!--                <xpath expr="//div[hasclass('align-items-baseline')]//field[@name='expected_revenue']" position="attributes">-->
+<!--                    <attribute name="invisible">1</attribute>-->
+<!--                </xpath>-->
+                <xpath expr="//div[hasclass('align-items-baseline')]//field[@name='recurring_plan']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                 <xpath expr="//div[hasclass('align-items-baseline')]//span[hasclass('oe_grey')]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='date_open']" position="attributes">
+                    <attribute name="string">Last Assignment Date</attribute>
+                </xpath>
+                <xpath expr="//field[@name='date_open']" position="before">
+                    <field name="first_assignment_date" force_save="1"/>
+                </xpath>
+                <xpath expr="//field[@name='date_open']" position="after">
+                    <field name="last_updated_date" readonly="1"/>
+                </xpath>
+                <xpath expr="//header" position="inside">
+                    <field name="lead_stage_id" widget="statusbar_duration"
+                           options="{'fold_field': 'fold'}"
+                           invisible="type == 'opportunity'"/>
+                    <button name="%(action_crm_lead_reassign)d" string="Reassign Lead" type="action"
+                            class="btn-primary"
+                            invisible="type != 'lead' or  lead_stage_id.qualified == True or locked == True"
+                            help="Reassign This Lead To Another Sale Person"
+                            groups="sales_team.group_sale_salesman_all_leads"/>
+                    <button name="action_call_later" type="object" string="Call Later" class="btn-primary"
+                            invisible="type != 'lead' or lead_stage_id.call_later == True or locked == True"/>
+                    <button name="action_no_answer" type="object" string="No Answer" class="btn-primary"
+                            invisible="type != 'lead' or lead_stage_id.no_answer == True or locked == True"/>
+                    <button name="action_qualified_lead" type="object" string="Qualified" class="btn-primary"
+                            invisible="type != 'lead' or lead_stage_id.qualified == True or locked == True"/>
+<!--                    <button name="action_qualified_limited_budget_lead" type="object" string="Qualified (Limited Budget)" class="btn-primary"-->
+<!--                            invisible="type != 'lead' or qualified_limited_budget == True or locked == True"/>-->
+                    <button name="action_follow_up_lead" type="object" string="Follow Up" class="btn-primary"
+                            invisible="type != 'lead' or follow_up == True or locked == True"/>
+                    <button name="action_unlock_lead" type="object" string="Un Lock" class="btn-primary"
+                            invisible="type != 'lead' or locked == False"
+                            groups="arkzayed_18_realestate_broker.director_manager_group"/>
+                    <button name="action_create_new_meeting" type="object" string="Create Meeting" class="btn-primary"
+                            invisible="type == 'lead'" />
+                    <button name="action_create_reservation" type="object" string="Create Reservation"
+                        class="btn-info" invisible="type == 'lead'"/>
+                    <button name="action_create_contract" type="object" string="Create Contract"
+                        class="btn-info" invisible="type == 'lead'"/>
+                    <button name="action_hold_unit"
+                        string="Hold Unit"
+                        type="object"
+                        class="oe_highlight"
+                        invisible="not unit_id or unit_hold_start_date or type == 'lead'"/>
+                </xpath>
+                <xpath expr="//div[hasclass('oe_title')]//h2" position="before">
+                    <h2 invisible="type != 'lead'"><field class="text-break" options="{'line_breaks': False}"
+                                                          widget="text" name="lead_sequence"/></h2>
+                    <h2 invisible="type == 'lead'"><field class="text-break" options="{'line_breaks': False}"
+                                                          widget="text" name="opportunity_sequence"/></h2>
+                </xpath>
+                <xpath expr="//div[hasclass('oe_title')]//h2" position="inside">
+                    <xpath expr="//div[hasclass('oe_title')]//h1" position="move"/>
+                </xpath>
+                <xpath expr="//div[hasclass('oe_title')]//h1" position="replace">
+                    <div class="col-auto" invisible="type == 'lead'">
+                        <label for="name" class="d-inline-block"/>
+                        <div id="name" class="d-flex align-items-baseline">
+                            <field class="text-break" options="{'line_breaks': False}" widget="text" name="name"
+                                   placeholder="e.g. Product Pricing"/>
+                        </div>
+                    </div>
+                </xpath>
+
+                <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+                    <!-- 1. Matching Button -->
+                    <button name="action_match_lead_specification_with_units"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-star">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_text">Matching</span>
+                        </div>
+                    </button>
+
+                    <!-- 2. Duplicate TCRs Button -->
+                    <button name="action_duplicate_tcr"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-list"
+                            invisible="type == 'lead'"
+                            groups="arkzayed_18_realestate_broker.lead_admin_group">
+                        <div class="o_stat_info">
+                            <field name="duplicate_tcr_number" class="o_stat_value"/>
+                            <span class="o_stat_text">Duplicate TCRs</span>
+                        </div>
+                    </button>
+
+                    <!-- 3. Conflict TCRs Button -->
+                    <button name="action_conflict_tcr"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-list"
+                            invisible="type == 'lead'"
+                            groups="arkzayed_18_realestate_broker.lead_admin_group">
+                        <div class="o_field_widget o_stat_info">
+                            <field name="conflict_tcr_number" class="o_stat_value"/>
+                            <span class="o_stat_text">Conflicts TCRs</span>
+                        </div>
+                    </button>
+
+                    <!-- 4. Reservations Button -->
+                    <button name="action_view_reservations"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-calendar-check-o"
+                            invisible="reservation_count == 0">
+                        <div class="o_field_widget o_stat_info">
+                            <field name="reservation_count" class="o_stat_value"/>
+                            <span class="o_stat_text">Reservations</span>
+                        </div>
+                    </button>
+
+                    <!-- Contracts Smart Button -->
+                    <button name="action_show_contract"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-book"
+                            invisible="contract_count == 0">
+                        <div class="o_field_widget o_stat_info">
+                            <field name="contract_count" class="o_stat_value"/>
+                            <span class="o_stat_text">Contracts</span>
+                        </div>
+                    </button>
+                </xpath>
+                <xpath expr="//group[@name='opportunity_partner']" position="inside">
+                    <field name="company_id" invisible="1"/>
+                    <field name="buying_type" required="1"/>
+                    <field name="interested_in" required="1"/>
+                    <field name="conflict_opp_ids" widget="many2many_tags" readonly="1"/>
+                    <field name="is_conflict_unit" readonly="1"/>
+                    <field name="ninja_count" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='partner_name']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='user_id']" position="before">
+                    <field name="lead_sequence"/>
+                </xpath>
+                <xpath expr="//field[@name='user_id']" position="after">
+                    <field name="split_deal"/>
+                </xpath>
+                <xpath expr="//field[@name='user_id']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='tag_ids']" position="before">
+<!--                    <label for="payment_plan"/>-->
+<!--                    <div>-->
+<!--                        <field name="payment_plan" class="oe_inline" nolabel="1"/>-->
+<!--                        <span class="o_form_label oe_inline">Year</span>-->
+<!--                    </div>-->
+                    <field name="is_reserved" invisible="1"/>
+                    <field name="is_contract" invisible="1"/>
+                    <field name="is_cancel" invisible="1"/>
+                    <field name="cancellation_date" invisible="is_cancel != True or type != 'opportunity'"/>
+                    <field name="first" invisible="1"/>
+                    <field name="call_later" invisible="1"/>
+                    <field name="no_answer" invisible="1"/>
+                    <field name="qualified" invisible="1"/>
+                    <field name="unqualified" invisible="1"/>
+                    <field name="locked" invisible="1"/>
+<!--                    <field name="delivery_date"/>-->
+                    <field name="reserved_date" invisible="type != 'opportunity'"/>
+                    <field name="reservation_price" invisible="type != 'opportunity'"/>
+                    <field name="contracted_date" invisible="type != 'opportunity'"/>
+                    <field name="contract_price" invisible="type != 'opportunity'"/>
+                    <field name="meeting_counter" invisible="type != 'opportunity'"/>
+                </xpath>
+                <xpath expr="//field[@name='tag_ids']" position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='tag_ids']" position="after">
+                    <field name="write_date"/>
+                    <field name="is_converted" widget="boolean_toggle" invisible="1"/>
+<!--                    <field name="round_number" groups="arkzayed_18_realestate_broker.operation_manager_group,arkzayed_18_realestate_broker.lead_admin_group"/>-->
+<!--                    <field name="round_date" groups="arkzayed_18_realestate_broker.operation_manager_group,arkzayed_18_realestate_broker.lead_admin_group"/>-->
+                    <field name="collected_date"/>
+                    <field name="confirmed_date"/>
+                    <field name="achievement_date"/>
+                </xpath>
+                <xpath expr="//field[@name='mobile']" position="attributes">
+                    <attribute name="string">Extra Phone</attribute>
+                </xpath>
+                <xpath expr="//notebook//page[last()]" position="after">
+                    <page name="specification" string="Client Request">
+                        <group>
+                            <group string="Customer Preferences">
+                                <field name="place_preferences"/>
+                                <field name="furniture_type"/>
+                                <field name="ready_to_move"/>
+                            </group>
+                            <group string="Property Details">
+                                <field name="number_of_bedrooms"/>
+                                <field name="number_of_bathrooms"/>
+                                <field name="building_area" required="qualified == True"/>
+                                <field name="garden_area" required="qualified == True"/>
+                                <field name="land_area" required="qualified == True"/>
+                            </group>
+                            <group string="Area &amp; Pricing">
+                                <label for="min_area" string="Area"/>
+                                <div name="area" class="o_row">
+                                    <field name="min_area" widget="float" string="Min Area"
+                                           required="qualified == True"/>
+                                    <i class="fa fa-long-arrow-right mx-2 oe_edit_only" aria-label="Arrow icon"
+                                       title="Arrow"/>
+                                    <i class="fa fa-long-arrow-right mx-2 oe_read_only" aria-label="Arrow icon"
+                                       title="Arrow"
+                                       invisible="min_area == False and max_area == False"/>
+                                    <field name="max_area" widget="float" string="Max Area"
+                                           required="qualified == True"/>
+                                </div>
+                                <label for="min_price" string="Budget"/>
+                                <div name="budget" class="o_row">
+                                    <field name="min_price" widget="monetary"
+                                           options="{'currency_field': 'currency_id'}"
+                                           required="call_later == True or qualified == True" string="Min Budget"/>
+                                    <i class="fa fa-long-arrow-right mx-2 oe_edit_only" aria-label="Arrow icon"
+                                       title="Arrow"/>
+                                    <i class="fa fa-long-arrow-right mx-2 oe_read_only" aria-label="Arrow icon"
+                                       title="Arrow"
+                                       invisible="min_price == False and max_price == False"/>
+                                    <field name="max_price" widget="monetary"
+                                           options="{'currency_field': 'currency_id'}"
+                                           required="call_later == True or qualified == True" string="Max Budget"/>
+                                </div>
+                            </group>
+                            <group string="Unit Details">
+                                <field name="unit_type" required="qualified == True or type == 'opportunity'" readonly="unit_type == 'residential'"/>
+                                <field name="residential_type" invisible="unit_type != 'residential'"/>
+                                <field name="apartment_type_id"
+                                       invisible="residential_type != 'apartment'"
+                                       options="{'no_create': True, 'no_create_edit': True}"/>
+                                <field name="villa_type_id"
+                                       invisible="residential_type != 'villa'"
+                                       options="{'no_create': True, 'no_create_edit': True}"/>
+                                <field name="loft_type_id"
+                                       invisible="residential_type != 'loft'"
+                                       options="{'no_create': True, 'no_create_edit': True}"/>
+                                <field name="unit_id" domain="[('unit_status', 'in', ['available', 'available_for_sale'])]"
+                                       required="qualified == True" invisible="type == 'lead'"/>
+
+                                <field name="unit_hold_start_date" invisible="1"/>
+
+                                <field name="unit_hold_expiry_date" invisible="not unit_hold_start_date"/>                                <field name="finish_type" />
+                            </group>
+                        </group>
+                    </page>
+                    <page name="reopen_reason" string="Reopen Reason">
+                        <group>
+                            <field name="reopen_reason"/>
+                        </group>
+                    </page>
+                    <page name="cancel_reason" string="Cancel Reason">
+                        <group>
+                            <field name="lost_reason_id"/>
+                            <field name="opp_cancellation_date"/>
+                        </group>
+                    </page>
+                    <page name="qualified_reason" string="Qualified Comment">
+                        <group>
+                            <field name="qualified_comment"/>
+                        </group>
+                    </page>
+                    <page name="previous_data" string="Previous Data">
+                        <group>
+                            <field name="previous_opp_stage_id" invisible="1"/>
+                            <field name="previous_stage_id" groups="arkzayed_18_realestate_broker.lead_admin_group,arkzayed_18_realestate_broker.operation_manager_group"/><!--,arkzayed_18_realestate_broker.operation_executive_group"-->
+                            <field name="previous_user_id" groups="arkzayed_18_realestate_broker.lead_admin_group,arkzayed_18_realestate_broker.operation_manager_group"/><!--,arkzayed_18_realestate_broker.operation_executive_group"-->
+                            <field name="previous_sales_manager_id" groups="arkzayed_18_realestate_broker.lead_admin_group,arkzayed_18_realestate_broker.operation_manager_group"/><!--,arkzayed_18_realestate_broker.operation_executive_group"-->
+                            <field name="previous_director_id" groups="arkzayed_18_realestate_broker.lead_admin_group,arkzayed_18_realestate_broker.operation_manager_group"/><!--,arkzayed_18_realestate_broker.operation_executive_group"-->
+                        </group>
+                    </page>
+                    <page name="attachments" string="Attachments" invisible="type == 'lead'">
+                        <group>
+                            <field name="eoi_attachment" widget="binary" filename="eoi_attachment_filename"/>
+                            <field name="eoi_attachment_filename" invisible="1"/>
+                            <field name="reservation_attachment" widget="binary" filename="reservation_attachment_filename"/>
+                            <field name="reservation_attachment_filename" invisible="1"/>
+                            <field name="contract_attachment" widget="binary" filename="contract_attachment_filename"/>
+                            <field name="contract_attachment_filename" invisible="1"/>
+                        </group>
+                    </page>
+                    <page name="commission" string="Commission" invisible="type == 'lead'">
+                        <field name="commission_ids">
+                            <list editable="bottom">
+                                <field name="employee_id" force_save="1"/>
+                                <field name="jop_position" force_save="1"/>
+                                <field name="job_level_id" force_save="1"/>
+                                <field name="commission" force_save="1" widget="percentage"/>
+                                <field name="is_tcr_sales_person" force_save="1"/>
+                            </list>
+                        </field>
+                    </page>
+                    <page name="split_with" string="Split With" invisible="type == 'lead' or split_deal == False">
+                        <group>
+                            <group>
+                                <field name="partner_ids" invisible="split_deal != True" widget="many2many_tags"/>
+                                <field name="employee_ids" invisible="split_deal != True" widget="many2many_tags"/>
+                                <field name="broker_ids" invisible="split_deal != True" widget="many2many_tags"/>
+                                <field name="ambassador_ids" invisible="split_deal != True" widget="many2many_tags"/>
+                            </group>
+                            <group>
+                                <field name="non_sales_ids" invisible="split_deal != True" widget="many2many_tags"/>
+                                <field name="sales_ids" invisible="split_deal != True" widget="many2many_tags"/>
+                                <field name="other" invisible="split_deal != True"/>
+                            </group>
+                        </group>
+                    </page>
+<!--                    <page name="seller_details" string="Seller Details" invisible="buying_type == 'primary'">-->
+<!--                        <group>-->
+<!--                            <group>-->
+<!--                                <field name="seller_sales_person"/>-->
+<!--                                <field name="seller_team_leader"/>-->
+<!--                                <field name="seller_sales_manager"/>-->
+<!--                                <field name="seller_sales_director"/>-->
+<!--                            </group>-->
+<!--                            <group>-->
+<!--                                <field name="seller_purpose_sale_price"/>-->
+<!--                                <field name="seller_purpose_rent_price"/>-->
+<!--&lt;!&ndash;                                <field name="seller_client_name"/>&ndash;&gt;-->
+<!--                                <field name="seller_client_phone"/>-->
+<!--                                <field name="seller_client_extra_phone"/>-->
+<!--                            </group>-->
+<!--                        </group>-->
+<!--                    </page>-->
+                    <page name="stage_history" string="Stage History" invisible="type == 'lead'">
+                        <group>
+                            <field name="previous_stage"  readonly="not can_edit_stage_history"/>
+                            <field name="stage_change_date"  readonly="not can_edit_stage_history"/>
+                        </group>
+
+                    </page>
+                </xpath>
+
+                <xpath expr="//page[@name='lead']" position="after" invisible="1">
+                    <page name="approvals" string="Approvals" invisible="1">
+                        <group>
+                            <field name="is_eoi" invisible="1"/>
+                            <field name="is_reserved" invisible="1"/>
+                            <field name="is_contract" invisible="1"/>
+                            <field name="cancellation_approver"/>
+                            <group string="EOI Status">
+                                <label for="eoi_status_for_manager">EOI Status For Manager</label>
+                                <div class="o_lead_opportunity_form_inline_fields">
+                                    <field name="eoi_status_for_manager" nolabel="1" class="oe_inline"/>
+                                    <field name="eoi_rejection_reason_for_manager" nolabel="1"
+                                           class="oe_inline align-top" placeholder="Reason"
+                                           invisible="eoi_status_for_manager != 'rejected'"/>
+                                </div>
+
+                                <label for="eoi_status_for_financial">EOI Status For Financial</label>
+                                <div class="o_lead_opportunity_form_inline_fields">
+                                    <field name="eoi_status_for_financial" nolabel="1" class="oe_inline"/>
+                                    <field name="eoi_rejection_reason_for_financial"
+                                           nolabel="1"
+                                           class="oe_inline align-top"
+                                           placeholder="Reason"
+                                           invisible="eoi_status_for_financial != 'rejected'"/>
+                                </div>
+
+                                <label for="eoi_status_for_operations">EOI Status For Operations</label>
+                                <div class="o_lead_opportunity_form_inline_fields">
+                                    <field name="eoi_status_for_operations" nolabel="1" class="oe_inline"/>
+                                    <field name="eoi_rejection_reason_for_operations"
+                                           nolabel="1"
+                                           class="oe_inline align-top"
+                                           placeholder="Reason"
+                                           invisible="eoi_status_for_operations != 'rejected'"/>
+                                </div>
+                            </group>
+                            <group string="Reservation Status" invisible="is_reserved == False">
+                                <label for="reservation_status_for_manager">Reservation Status For Manager</label>
+                                <div class="o_lead_opportunity_form_inline_fields">
+                                    <field name="reservation_status_for_manager" nolabel="1" class="oe_inline"/>
+                                    <field name="reservation_rejection_reason_for_manager"
+                                           nolabel="1"
+                                           class="oe_inline align-top"
+                                           placeholder="Reason"
+                                           invisible="reservation_status_for_manager != 'rejected'"/>
+                                </div>
+
+                                <label for="reservation_status_for_financial">Reservation Status For Financial</label>
+                                <div class="o_lead_opportunity_form_inline_fields">
+                                    <field name="reservation_status_for_financial" nolabel="1" class="oe_inline"/>
+                                    <field name="reservation_rejection_reason_for_financial"
+                                           nolabel="1"
+                                           class="oe_inline align-top"
+                                           placeholder="Reason"
+                                           invisible="reservation_status_for_financial != 'rejected'"/>
+                                </div>
+
+                                <label for="reservation_status_for_operations">Reservation Status For Operations</label>
+                                <div class="o_lead_opportunity_form_inline_fields">
+                                    <field name="reservation_status_for_operations" nolabel="1" class="oe_inline"/>
+                                    <field name="reservation_rejection_reason_for_operations"
+                                           nolabel="1"
+                                           class="oe_inline align-top"
+                                           placeholder="Reason"
+                                           invisible="reservation_status_for_operations != 'rejected'"/>
+                                </div>
+                            </group>
+                            <group string="Contract Status" invisible="is_contract == False">
+                                <label for="contract_status_for_manager">Contract Status For Manager</label>
+                                <div class="o_lead_opportunity_form_inline_fields">
+                                    <field name="contract_status_for_manager"
+                                           nolabel="1"
+                                           class="oe_inline"/>
+                                    <field name="contract_rejection_reason_for_manager"
+                                           nolabel="1"
+                                           class="oe_inline align-top"
+                                           placeholder="Reason"
+                                           invisible="contract_status_for_manager != 'rejected'"/>
+                                </div>
+
+                                <label for="contract_status_for_financial">Contract Status For Financial</label>
+                                <div class="o_lead_opportunity_form_inline_fields">
+                                    <field name="contract_status_for_financial" nolabel="1" class="oe_inline"/>
+                                    <field name="contract_rejection_reason_for_financial"
+                                           nolabel="1"
+                                           class="oe_inline align-top"
+                                           placeholder="Reason"
+                                           invisible="contract_status_for_financial != 'rejected'"/>
+                                </div>
+
+                                <label for="contract_status_for_operations">Contract Status For Operations</label>
+                                <div class="o_lead_opportunity_form_inline_fields">
+                                    <field name="contract_status_for_operations" nolabel="1" class="oe_inline"/>
+                                    <field name="contract_rejection_reason_for_operations"
+                                           nolabel="1"
+                                           class="oe_inline align-top"
+                                           placeholder="Reason"
+                                           invisible="contract_status_for_operations != 'rejected'"/>
+                                </div>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//page[@name='specification']" position="after">
+                    <page name="Customer_info" string="Customer Info">
+                        <group>
+                            <group string="Address">
+                                <label for="street" string="Address"/>
+                                <div class="o_address_format">
+                                    <field name="street" placeholder="Street..." class="o_address_street"/>
+                                    <field name="street2" placeholder="Street 2..." class="o_address_street"/>
+                                    <field name="city" placeholder="City" class="o_address_city"/>
+                                    <field name="state_id" class="o_address_state" placeholder="State"
+                                           options="{&quot;no_open&quot;: True}"/>
+                                    <field name="zip" placeholder="ZIP" class="o_address_zip"/>
+                                    <field name="country_id" placeholder="Country" class="o_address_country"
+                                           options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                                </div>
+                            </group>
+                            <group string="Extra Mobiles">
+                                <field name="phone1"/>
+                                <field name="phone2"/>
+                                <field name="phone3"/>
+                                <field name="phone4"/>
+                            </group>
+                            <group string="Customer Info">
+                                <field name="gender"/>
+                                <field name="marital_status"/>
+                                <field name="num_of_childrens"/>
+                                <field name="hoppies"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//field[@name='team_id']" position="after">
+                    <field name="team_leader"/>
+                    <field name="sales_manager"/>
+                    <field name="director"/>
+                    <field name="assigned_by_id"/>
+                    <field name="follow_up_date"/>
+                    <field name="locked" invisible="1"/>
+                    <field name="duplicate_number" invisible="1"/>
+                    <field name="no_answer_count" readonly="1"/>
+                    <field name="unqualified_count" readonly="1"/>
+                    <field name="is_fresh" readonly="1"/>
+
+                </xpath>
+                <xpath expr="//page[@name='lead']/group/group[3]/field[@name='source_id']" position="after">
+                    <xpath expr="//page[@name='lead']/group/group[3]/field[@name='medium_id']" position="move"/>
+                    <field name="channel"/>
+                </xpath>
+                <xpath expr="//group/group[@name='lead_priority']/field[@name='priority']" position="replace">
+                    <field name="priority" required="qualified == True" />
+                </xpath>
+                <xpath expr="//page[@name='extra']/group/group[2]/field[@name='source_id']" position="after">
+                    <field name="channel"/>
+                </xpath>
+                <xpath expr="//button[@name='%(crm.crm_lead_lost_action)d']" position="attributes">
+                    <attribute
+                            name="invisible">type == 'lead' or not active and probability &lt; 100 or has_auth_approval == False</attribute>
+                    <attribute name="string">UnQualified</attribute>
+                </xpath>
+                <xpath expr="//button[@name='%(crm.crm_lead_lost_action)d'][1]" position="attributes">
+                    <attribute name="string">UnQualified</attribute>
+                </xpath>
+                <xpath expr="//button[@name='%(crm.crm_lead_lost_action)d'][2]" position="attributes">
+                    <attribute name="type">object</attribute>
+                    <attribute name="name">state_to_unqualified_state</attribute>
+                    <attribute name="string">UnQualified</attribute>
+                    <attribute
+                            name="invisible">type != 'lead' or lead_stage_id.unqualified == True or locked == True</attribute>
+                </xpath>
+                <xpath expr="//page[@name='extra']/group/group[2]/field[@name='campaign_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//page[@name='extra']/group/group[2]/field[@name='medium_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//page[@name='extra']/group/group[2]/field[@name='source_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='street']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='street2']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='city']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='state_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='zip']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='country_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='website']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//label[@for='street']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="before">
+                    <xpath expr="//label[@for='contact_name']" position="move"/>
+                    <xpath expr="//group[@name='lead_info']//div[1]" position="move"/>
+                </xpath>
+                 <xpath expr="//field[@name='partner_id']" position="attributes">
+                     <attribute name="invisible">type == 'lead'</attribute>
+                </xpath>
+                <xpath expr="//field[@name='email_cc']" position="attributes">
+                     <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='function']" position="attributes">
+                     <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='contact_name']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//group[@name='lead_info']//field[@name='is_blacklisted']" position="before">
+                    <xpath expr="//field[@name='partner_id']" position="move"/>
+                </xpath>
+                <xpath expr="//field[@name='partner_name']" position="before">
+                    <field name="interested_in" required="1"/>
+                    <field name="buying_type" required="1"/>
+                </xpath>
+                <xpath expr="//group[@name='lead_info']" position="inside">
+                    <field name="follow_up_date" invisible="type != 'lead' or call_later != True"/>
+                    <field name="lead_country"/>
+                    <field name="campaign_id"/>
+                    <field name="source_id"/>
+                    <field name="medium_id"/>
+<!--                    <field name="round_number" groups="arkzayed_18_realestate_broker.operation_manager_group,arkzayed_18_realestate_broker.lead_admin_group"/>-->
+<!--                    <field name="round_date" groups="arkzayed_18_realestate_broker.operation_manager_group,arkzayed_18_realestate_broker.lead_admin_group"/>-->
+                    <field name="meeting_counter" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="crm_case_kanban_view_leads_inherit" model="ir.ui.view">
+            <field name="name">crm.lead.view.kanban.inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_kanban_view_leads"/>
+            <field name="arch" type="xml">
+                <xpath expr="." position="attributes">
+                    <attribute name="js_class">lead_counter_widget_kanban</attribute>
+                    <attribute name="create">0</attribute>
+                </xpath>
+                <xpath expr="//progressbar" position="attributes">
+                    <attribute name="sum_field">__count</attribute>
+                </xpath>
+            </field>
+        </record>
+        <record id="crm_lead_view_kanban_inherit" model="ir.ui.view">
+            <field name="name">crm.lead.view.kanban.inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_kanban_view_leads"/>
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <xpath expr="//kanban" position="attributes">
+                    <attribute name="default_group_by">lead_stage_id</attribute>
+                     <attribute name="create">0</attribute>
+                     <attribute name="group_create">false</attribute>
+                </xpath>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="crm.crm_lead_all_leads">
+            <field name="view_mode">list,kanban,graph,pivot,calendar,form,activity</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+             (0, 0, {'view_mode': 'list', 'view_id': ref('arkzayed_18_realestate_broker.view_lead_tree_view_inherit')}),
+            (0, 0, {'view_mode': 'kanban', 'view_id': ref('crm_lead_view_kanban_inherit')}),
+            (0, 0, {'view_mode': 'graph'}),
+            (0, 0, {'view_mode': 'pivot'}),
+            (0, 0, {'view_mode': 'calendar'}),
+            (0, 0, {'view_mode': 'form'}),
+            (0, 0, {'view_mode': 'activity'}),
+            ]"/>
+        </record>
+
+        <record id="view_crm_converted_opportunities_tree" model="ir.ui.view">
+            <field name="name">crm.converted.opportunities.tree</field>
+            <field name="model">crm.lead</field>
+            <field name="arch" type="xml">
+                <list create="false">
+                    <field name="lead_sequence"/>
+                    <field name="opportunity_sequence"/>
+                    <field name="contact_name"/>
+                    <field name="user_id"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Action for Converted Opportunities -->
+        <record id="action_converted_opportunities" model="ir.actions.act_window">
+            <field name="name">Converted Leads</field>
+            <field name="res_model">crm.lead</field>
+            <field name="view_mode">list</field>
+            <field name="view_id" ref="view_crm_converted_opportunities_tree"/>
+            <field name="domain">[('is_converted', '=', True)]</field>
+        </record>
+
+    </data>
+
+</odoo>

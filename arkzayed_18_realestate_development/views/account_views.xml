@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherit the account.account form view -->
+    <record id="view_account_form_inherit_add_withholding_field" model="ir.ui.view">
+        <field name="name">account.account.form.inherit.cheque.management</field>
+        <field name="model">account.account</field>
+        <field name="inherit_id" ref="account.view_account_form"/>
+        <field name="arch" type="xml">
+            <!-- Add the is_under_collection field to the form view -->
+            <xpath expr="//field[@name='tag_ids']" position="after">
+                <field name="for_withholding_tax"/>
+                <field name="change_ownership_type"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

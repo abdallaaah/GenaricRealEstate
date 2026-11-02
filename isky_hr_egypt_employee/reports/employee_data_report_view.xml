@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="employee_data_report" model="ir.actions.report">
+            <field name="name">HR Dept Data</field>
+            <field name="model">hr.employee</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">isky_hr_egypt_employee.employee_data_template</field>
+            <field name="report_file">isky_hr_egypt_employee.employee_data_template</field>
+            <field name="print_report_name">' Employee- %s' % (object.name)</field>
+            <field name="binding_model_id" ref="model_hr_employee"/>
+            <field name="binding_type">report</field>
+            <!-- Erase fields to avoid double PDF posting -->
+            <field name="attachment"></field>
+            <field name="attachment_use" eval="False"/>
+        </record>
+
+        <template id="employee_data_template">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <br/>
+                        <table style="border: 1px solid black; ">
+                            <tbody>
+                                <tr>
+                                    <td style="padding:12;border: 1px solid black;">
+                                        <strong>Ref</strong>
+                                    </td>
+                                    <td style="padding:12;border: 1px solid black;">
+                                        <strong>First name</strong>
+                                    </td>
+                                    <td style="padding:12;border: 1px solid black;">
+                                        <strong>Joining Date</strong>
+                                    </td>
+                                    <td style="padding:12;border: 1px solid black;">
+                                        <strong>Official ID</strong>
+                                    </td>
+                                    <td style="padding:12;border: 1px solid black;">
+                                        <strong>ID Expiry</strong>
+                                    </td>
+                                    <td style="padding:12;border: 1px solid black;">
+                                        <strong>Passport</strong>
+                                    </td>
+                                    <td style="padding:12;border: 1px solid black;">
+                                        <strong>Expiry</strong>
+                                    </td>
+                                    <td style="padding:12;border: 1px solid black;">
+                                        <strong>DOB</strong>
+                                    </td>
+                                    <td style="padding:12;border: 1px solid black;">
+                                        <strong>Occupation</strong>
+                                    </td>
+                                    <td style="padding:12;border: 1px solid black;">
+                                        <strong>Nationality</strong>
+                                    </td>
+                                    <td style="padding:12;border: 1px solid black;">
+                                        <strong>Mobile</strong>
+                                    </td>
+                                    <td style="padding:12;border: 1px solid black;">
+                                        <strong>Notes</strong>
+                                    </td>
+                                </tr>
+                                <t t-foreach="docs" t-as="o">
+                                    <tr>
+                                        <td style="padding:12;border: 1px solid black;">
+
+                                        </td>
+                                        <td style="padding:12;border: 1px solid black;">
+                                            <span t-esc="o.display_name"/>
+                                        </td>
+                                        <td style="padding:12;border: 1px solid black;">
+                                            <span t-esc="o.first_hiring_date"/>
+                                        </td>
+                                        <td style="padding:12;border: 1px solid black;">
+                                            <span t-esc="o.identification_id"/>
+                                        </td>
+                                        <td style="padding:12;border: 1px solid black;">
+                                            <span t-esc="o.identification_expire_date"/>
+                                        </td>
+                                        <td style="padding:12;border: 1px solid black;">
+                                            <span t-esc="o.passport_id"/>
+                                        </td>
+                                        <td style="padding:12;border: 1px solid black;">
+                                            <span t-esc="o.passport_expire_date"/>
+                                        </td>
+                                        <td style="padding:12;border: 1px solid black;">
+                                            <span t-esc="o.birthday"/>
+                                        </td>
+                                        <td style="padding:12;border: 1px solid black;">
+                                            <span t-esc="o.job_id.display_name"/>
+                                        </td>
+                                        <td style="padding:12;border: 1px solid black;">
+                                            <span t-esc="o.country_id.display_name"/>
+                                        </td>
+                                        <td style="padding:12;border: 1px solid black;">
+                                            <span t-esc="o.mobile_phone"/>
+                                        </td>
+                                        <td style="padding:12;border: 1px solid black;">
+                                            <span t-esc="o.notes"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

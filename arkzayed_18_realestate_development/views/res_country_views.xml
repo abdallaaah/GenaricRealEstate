@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <!-- inherit the res.country view -->
+        <record id="view_country_form_inherit" model="ir.ui.view">
+            <field name="name">res.country.form.inherit</field>
+            <field name="model">res.country</field>
+            <field name="inherit_id" ref="base.view_country_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="nationality"/>
+                    <field name="nationality_en"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

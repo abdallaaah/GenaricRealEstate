@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="paperformat_commission_summary" model="report.paperformat">
+        <field name="name">Commission Summary A4 Portrait</field>
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">40</field>
+        <field name="margin_bottom">25</field>
+        <field name="margin_left">8</field>
+        <field name="margin_right">8</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">35</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="action_report_commission_summary" model="ir.actions.report">
+        <field name="name">Commission Summary Report</field>
+        <field name="model">commission.summary.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">arkzayed_18_realestate_development.commission_summary</field>
+        <field name="report_file">arkzayed_18_realestate_development.commission_summary</field>
+        <field name="print_report_name">'Commission Summary %s' % (object.sale_proposal_id.name if object.sale_proposal_id else '%s - %s' % (object.date_from, object.date_to))</field>
+        <field name="paperformat_id" ref="paperformat_commission_summary"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="commission_summary">
+        <t t-call="web.html_container">
+            <t t-set="d" t-value="report_data"/>
+            <t t-set="period" t-value="d['period']"/>
+
+            <t t-foreach="docs[:1]" t-as="o">
+                <t t-call="web.external_layout">
+                <div class="page" style="color: #262626;">
+                    <style>
+                        .page, .page * { font-family: Arial, Helvetica, sans-serif !important; }
+                        .cs-kpis { width: 100%; border-collapse: separate; border-spacing: 8px 0; margin: 0 -8px 16px; }
+                        .cs-kpi { background: #F3F3F2; padding: 9px 10px; text-align: center; border: 0 !important; border-top: 3px solid #2B2B29 !important; }
+                        .cs-kpi .lbl { font-size: 10px; text-transform: uppercase; letter-spacing: .5px; color: #6b6b6b; }
+                        .cs-kpi .val { font-size: 19px; font-weight: bold; color: #2B2B29; margin-top: 2px; }
+                        .cs-section { font-size: 14px; font-weight: bold; color: #2B2B29; text-transform: uppercase;
+                                      letter-spacing: .6px; border-bottom: 2px solid #2B2B29; padding-bottom: 3px; margin: 4px 0 8px; }
+                        .cs-table { width: 100%; border-collapse: collapse; font-size: 10.5px; margin-bottom: 14px; page-break-inside: auto; }
+                        .cs-table tr { page-break-inside: avoid; }
+                        .cs-table thead { display: table-header-group; }
+                        .cs-table th { background: #2B2B29; color: #fff; font-weight: bold; text-align: center;
+                                       padding: 5px 6px; border: 1px solid #fff; vertical-align: middle; }
+                        .cs-table td { padding: 4px 6px; border: 0; border-bottom: 1px solid #E3E3E3; }
+                        .cs-table tbody tr:nth-child(even) td { background: #F8F8F7; }
+                        .cs-table td.num { text-align: right; white-space: nowrap; }
+                        .cs-table td.ctr { text-align: center; }
+                        .cs-table td.muted { color: #8a8a8a; }
+                        .cs-table tr.total td { background: #E7E6E6 !important; color: #2B2B29; font-weight: bold;
+                                                border-top: 2px solid #2B2B29; border-bottom: 2px solid #2B2B29; }
+                    </style>
+
+                    <div style="text-align: center; margin-bottom: 12px;">
+                        <div style="font-size: 22px; font-weight: bold; letter-spacing: 1px; color: #2B2B29;">COMMISSION SUMMARY REPORT</div>
+                        <div style="font-size: 12px; color: #6b6b6b;">
+                            <t t-esc="'Contract:' if o.sale_proposal_id else 'Period:'"/> <span t-esc="period"/>
+                            <span style="margin: 0 6px;">|</span>
+                            Printed by <span t-esc="o.create_uid.name"/> on <span t-esc="printed_on.strftime('%d/%m/%Y %H:%M')"/>
+                        </div>
+                    </div>
+
+                    <table class="cs-kpis o_ignore_layout_styling">
+                        <tr>
+                            <td class="cs-kpi" style="width: 25%;">
+                                <div class="lbl">Recipients</div>
+                                <div class="val" t-esc="d['kpis']['recipient_count']"/>
+                            </td>
+                            <td class="cs-kpi" style="width: 25%;">
+                                <div class="lbl">Total Commission</div>
+                                <div class="val" t-esc="fmt_money(d['kpis']['total'])"/>
+                            </td>
+                            <td class="cs-kpi" style="width: 25%;">
+                                <div class="lbl">Paid</div>
+                                <div class="val" t-esc="fmt_money(d['kpis']['paid'])"/>
+                            </td>
+                            <td class="cs-kpi" style="width: 25%;">
+                                <div class="lbl">Outstanding</div>
+                                <div class="val" t-esc="fmt_money(d['kpis']['outstanding'])"/>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div class="cs-section">By Recipient</div>
+                    <table class="cs-table o_ignore_layout_styling">
+                        <thead>
+                            <tr>
+                                <th style="width: 40%;">Recipient</th>
+                                <th style="width: 20%;">Total</th>
+                                <th style="width: 20%;">Paid</th>
+                                <th style="width: 20%;">Outstanding</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-if="not d['recipient_rows']">
+                                <td colspan="4" class="ctr muted">No commissions found for this period.</td>
+                            </tr>
+                            <tr t-foreach="d['recipient_rows']" t-as="line">
+                                <td style="font-weight: bold;" t-esc="line['name']"/>
+                                <td class="num" t-esc="fmt_money(line['total'])"/>
+                                <td class="num" t-esc="fmt_money(line['paid'])"/>
+                                <td class="num" t-esc="fmt_money(line['outstanding'])"/>
+                            </tr>
+                            <tr class="total">
+                                <td>Grand Total</td>
+                                <td class="num" t-esc="fmt_money(d['kpis']['total'])"/>
+                                <td class="num" t-esc="fmt_money(d['kpis']['paid'])"/>
+                                <td class="num" t-esc="fmt_money(d['kpis']['outstanding'])"/>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="cs-section">Detail</div>
+                    <table class="cs-table o_ignore_layout_styling">
+                        <thead>
+                            <tr>
+                                <th style="width: 25%;">Recipient</th>
+                                <th style="width: 20%;">Type</th>
+                                <th style="width: 15%;">Reference</th>
+                                <th style="width: 15%;">Amount</th>
+                                <th style="width: 12%;">State</th>
+                                <th style="width: 13%;">Payment Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-if="not d['detail_lines']">
+                                <td colspan="6" class="ctr muted">No commissions found for this period.</td>
+                            </tr>
+                            <tr t-foreach="d['detail_lines']" t-as="line">
+                                <td t-esc="line['recipient']"/>
+                                <td t-esc="line['type']"/>
+                                <td t-esc="line['reference']"/>
+                                <td class="num" t-esc="fmt_money(line['amount'])"/>
+                                <td class="ctr" t-esc="'Paid (Outside System)' if line['paid_outside_system'] else line['state']"/>
+                                <td class="ctr" t-esc="line['payment_date'] or '-'"/>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

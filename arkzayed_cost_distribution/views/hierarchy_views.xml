@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_real_estate_building_form_area_inherit" model="ir.ui.view">
+        <field name="name">real.estate.building.form.area.inherit</field>
+        <field name="model">real.estate.building</field>
+        <field name="inherit_id" ref="arkzayed_18_realestate_development.view_real_estate_building_form"/>
+        <field name="arch" type="xml">
+            <field name="bua" position="after">
+                <field name="units_gross_area"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_zone_form_area_inherit" model="ir.ui.view">
+        <field name="name">zone.form.area.inherit</field>
+        <field name="model">zone</field>
+        <field name="inherit_id" ref="arkzayed_18_realestate_development.zone_form"/>
+        <field name="arch" type="xml">
+            <field name="system_code" position="after">
+                <field name="bua"/>
+                <field name="units_gross_area"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

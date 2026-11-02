@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <data>
+        <record id="paperformat_sale_proposal_contract" model="report.paperformat">
+            <field name="name">Proposal Contract Paper Format</field>
+            <field name="default" eval="False"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <!-- Adjust these margins (in mm) if your table is still cut off -->
+            <field name="margin_top">35</field>
+            <field name="margin_bottom">20</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">5</field>
+            <field name="dpi">90</field>
+        </record>
+        <record id="sale_proposal_contract_report_action" model="ir.actions.report">
+            <field name="name">Proposal Report</field>
+            <field name="model">sale.proposal</field>
+            <field name="report_file">isky_contract_template.sale_proposal_dynamic_contract_template</field>
+            <field name="report_name">isky_contract_template.sale_proposal_dynamic_contract_template</field>
+            <field name="binding_model_id" ref="arkzayed_18_realestate_development.model_sale_proposal"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="paperformat_sale_proposal_contract"/>
+        </record>
+    </data>
+</odoo>

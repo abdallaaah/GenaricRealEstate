@@ -1,0 +1,157 @@
+<odoo>
+    <record id="check_deposit_wallet_report" model="ir.actions.report">
+        <field name="name">Check Deposit Wallet</field>
+        <field name="model">sale.proposal</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">arkzayed_18_realestate_development.check_deposit_wallet_tmpl</field>
+        <field name="report_file">arkzayed_18_realestate_development.check_deposit_wallet_tmpl</field>
+        <field name="print_report_name">f"Check Deposit Wallet--{object.name}"</field>
+        <field name="paperformat_id" ref="arkzayed_18_realestate_development.report_payment_plan_paperformat"/>
+    </record>
+
+    <template id="check_deposit_wallet_tmpl">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <style>
+                    .cdw-title {
+                        text-align: center;
+                        font-size: 30px;
+                        font-weight: bold;
+                        color: #000000;
+                        margin-bottom: 2px;
+                    }
+                    .cdw-subtitle {
+                        text-align: center;
+                        font-size: 15px;
+                        font-weight: bold;
+                        text-decoration: underline;
+                        color: #000000;
+                        margin-bottom: 14px;
+                    }
+                    .cdw-info-table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        margin-bottom: 14px;
+                        font-size: 11px;
+                    }
+                    .cdw-info-table td {
+                        border: 1px solid #000000;
+                        padding: 6px 8px;
+                        text-align: center;
+                        vertical-align: middle;
+                    }
+                    .cdw-info-label {
+                        font-weight: bold;
+                        width: 25%;
+                    }
+                    .cdw-info-value {
+                        width: 25%;
+                    }
+                    .cdw-table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        font-size: 10px;
+                    }
+                    .cdw-table th, .cdw-table td {
+                        border: 1px solid #000000;
+                        padding: 4px 6px;
+                        text-align: center;
+                        vertical-align: middle;
+                    }
+                    .cdw-table th {
+                        font-weight: bold;
+                    }
+                    .cdw-grey-row td {
+                        background: #d9d9d9;
+                    }
+                    .cdw-signature {
+                        margin-top: 40px;
+                        text-align: right;
+                        font-weight: bold;
+                        font-size: 11px;
+                    }
+                </style>
+                <t t-foreach="docs" t-as="o">
+                    <div class="page">
+                        <div class="cdw-title">Checks deposit wallet</div>
+
+                        <t t-set="lines" t-value="o._get_check_deposit_wallet_lines()"/>
+
+                        <table class="cdw-info-table">
+                            <tr>
+                                <td class="cdw-info-label">Client Name</td>
+                                <td class="cdw-info-value">
+                                    <t t-if="o.customer_id and o.customer_id.name" t-esc="o.customer_id.name"/>
+                                    <t t-else="">—</t>
+                                </td>
+                                <td class="cdw-info-label">Date</td>
+                                <td class="cdw-info-value">
+                                    <t t-esc="datetime.datetime.now().strftime('%d/%b/%y')"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="cdw-info-label">Client ID Number</td>
+                                <td class="cdw-info-value">
+                                    <t t-if="o.customer_id and o.customer_id.national_id" t-esc="o.customer_id.national_id"/>
+                                    <t t-else="">—</t>
+                                </td>
+                                <td class="cdw-info-label">Unit Code</td>
+                                <td class="cdw-info-value">
+                                    <t t-if="o.unit_id and o.unit_id.system_code" t-esc="o.unit_id.system_code"/>
+                                    <t t-else="">—</t>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="cdw-info-label">Sold Price</td>
+                                <td class="cdw-info-value">
+                                    <t t-esc="'{:,.2f}'.format(round(o.price_after_discount or 0, 2))"/>
+                                </td>
+                                <td class="cdw-info-label">Maintenance Fees</td>
+                                <td class="cdw-info-value">
+                                    <t t-esc="'{:,.2f}'.format(round(o.maintenance_price or 0, 2))"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="cdw-info-label">Total Cheque Amount Received</td>
+                                <td class="cdw-info-value">
+                                    <t t-esc="'{:,.2f}'.format(round(sum(l['amount'] for l in lines), 2))"/>
+                                </td>
+                                <td class="cdw-info-label">Total Installments</td>
+                                <td class="cdw-info-value">
+                                    <t t-esc="len(lines)"/>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table class="cdw-table">
+                            <tr>
+                                <th>#</th>
+                                <th>Payment/Installment Name</th>
+                                <th>CHK Number</th>
+                                <th>Installment %</th>
+                                <th>Unit Installment</th>
+                                <th>Bank Name</th>
+                                <th>Date of Installment</th>
+                            </tr>
+                            <t t-foreach="lines" t-as="line">
+                                <tr t-attf-class="#{'' if line['has_cheque'] else 'cdw-grey-row'}">
+                                    <td><t t-esc="line['serial']"/></td>
+                                    <td><t t-esc="line['name']"/></td>
+                                    <td><t t-esc="line['cheque_no'] or ''"/></td>
+                                    <td><t t-esc="'{:.2f}'.format(line['percentage'])"/>%</td>
+                                    <td><t t-esc="'{:,.2f}'.format(line['amount'])"/></td>
+                                    <td><t t-esc="line['bank_name'] or ''"/></td>
+                                    <td>
+                                        <t t-if="line['date']" t-esc="line['date'].strftime('%Y-%m-%d')"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </table>
+
+                        <div class="cdw-signature">Client Signature</div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

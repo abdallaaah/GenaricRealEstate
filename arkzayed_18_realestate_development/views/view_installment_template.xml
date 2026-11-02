@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+
+        <!-- installment Template -->
+        <record id="view_installments_template_tree" model="ir.ui.view">
+            <field name="name">installments.template.tree</field>
+            <field name="model">installment.template</field>
+            <field name="arch" type="xml">
+                <list string="installments Template">
+                    <field name="name"/>
+                    <field name="arabic_name"/>
+                    <field name="phase_id"/>
+                    <field name="company_id"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_installments_template_form" model="ir.ui.view">
+            <field name="name">installments.template.form</field>
+            <field name="model">installment.template</field>
+            <field name="arch" type="xml">
+                <form string="installments Template">
+                    <sheet>
+                        <h1>
+                            <field name="name" default_focus="1" placeholder="Name"/>
+                        </h1>
+                        <h1>
+                            <field name="arabic_name"  placeholder="Arabic Name"/>
+                        </h1>
+                        <br/>
+                        <group>
+                            <field name="project_ids" widget="many2many_tags"/>
+                            <field name="phase_id" options="{'no_create': True}"/>
+                            <field name="company_id"/>
+                            <field name="number_of_years"/>
+                            <field name="reservation_percentage"/>
+                            <field name="contracting_percentage"/>
+                        </group>
+                        <group>
+                            <group string="Monthly Installments">
+                                 <field name="monthly_installment_amount" widget="percentage"/>
+                                    Months
+                                <label for="monthly_installment_duration"/>
+                                <div class="o_row">
+                                    <field name="monthly_installment_duration" required="1"/>
+                                    <span class="mr-1">Months</span>
+                                </div>
+                            </group>
+                            <group string="Quarterly Installments">
+                                <field name="quarterly_installment_amount" widget="percentage"/>
+                                 <label for="quarterly_installment_duration"/>
+                                    <div class="o_row">
+                                        <field name="quarterly_installment_duration" required="1"/>
+                                        <span class="mr-1">Quarters</span>
+                                    </div>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Semi Annual Installments">
+                            <field name="semi_annual_installment_amount" widget="percentage"/>
+                            <label for="semi_annual_installment_duration"/>
+                                <div class="o_row">
+                                    <field name="semi_annual_installment_duration" required="1"/>
+                                    <span class="mr-1">Half Years</span>
+                                </div>
+                        </group>
+                        <group string="Annual Installments">
+                            <field name="annual_installment_amount" widget="percentage"/>
+                            <label for="annual_installment_duration"/>
+                                <div class="o_row">
+                                    <field name="annual_installment_duration" required="1"/>
+                                    <span class="mr-1">Annuals</span>
+                                </div>
+                        </group>
+                        </group>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_installment_template_form_act_window" model="ir.actions.act_window">
+            <field name="name">installment Template</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">installment.template</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add a new installment template
+                </p>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

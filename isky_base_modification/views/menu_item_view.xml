@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="contacts.menu_country_state_partner"
+              action="base.action_country_state"
+              parent="contacts.menu_localisation"
+              name="Governorates"
+              sequence="2"/>
+
+    <menuitem id="city_city_menu"
+              action="city_city_action"
+              parent="contacts.menu_localisation"
+              name="Cities"
+              sequence="3"/>
+
+    <menuitem id="neighborhood_neighborhood_menu"
+              action="neighborhood_neighborhood_action"
+              parent="contacts.menu_localisation"
+              name="Neighborhoods"
+              sequence="4"/>
+</odoo>

@@ -1,0 +1,721 @@
+.azed-dashboard {
+    background: #f6f8fb;
+    font-family: -apple-system, "Segoe UI", Arial, sans-serif;
+
+    .azed-scroll {
+        flex: 1 1 auto;
+        overflow-y: auto;
+        padding: 16px 28px 60px;
+        box-sizing: border-box;
+    }
+
+    .azed-header {
+        flex: 0 0 auto;
+        padding: 24px 28px 0;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 20px;
+
+        h2 {
+            margin: 0;
+            color: #0f2a4a;
+            font-weight: 700;
+        }
+        .azed-asof {
+            color: #6b7280;
+            font-size: 12px;
+            font-style: italic;
+        }
+        .azed-filter {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            label {
+                font-size: 13px;
+                color: #374151;
+                font-weight: 600;
+            }
+            select {
+                padding: 6px 10px;
+                border: 1px solid #d1d5db;
+                border-radius: 6px;
+                background: #fff;
+                min-width: 200px;
+            }
+        }
+    }
+
+    .azed-loading {
+        padding: 40px;
+        text-align: center;
+        color: #6b7280;
+    }
+
+    .azed-dq-banner {
+        background: #fff7d6;
+        border: 1px solid #f0d97a;
+        border-radius: 8px;
+        padding: 10px 14px;
+        margin-bottom: 16px;
+        font-size: 13px;
+        color: #7a5c00;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+
+        .azed-dq-icon {
+            font-size: 14px;
+        }
+        .azed-dq-sep {
+            color: #c9a94a;
+        }
+    }
+
+    .azed-section-title {
+        color: #0f2a4a;
+        font-weight: 700;
+        margin: 4px 0 14px;
+        padding-bottom: 8px;
+        border-bottom: 2px solid #e5e7eb;
+    }
+    .azed-section-title.azed-section-spaced {
+        margin-top: 32px;
+    }
+    .azed-section-title.azed-no-border {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    .azed-section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 32px;
+        margin-bottom: 14px;
+        padding-bottom: 8px;
+        border-bottom: 2px solid #e5e7eb;
+
+        .azed-section-title.azed-no-border {
+            margin-top: 0;
+        }
+    }
+
+    .azed-inline-loading {
+        font-size: 12px;
+        font-weight: 400;
+        color: #9ca3af;
+        font-style: italic;
+        margin-left: 8px;
+    }
+
+    .azed-period-filter {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-wrap: wrap;
+
+        input[type="date"] {
+            padding: 5px 8px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            background: #fff;
+            font-size: 12px;
+        }
+        .azed-period-sep {
+            color: #d1d5db;
+            margin: 0 4px;
+        }
+        .azed-period-arrow {
+            color: #9ca3af;
+            font-size: 12px;
+        }
+    }
+
+    .azed-period-btn {
+        padding: 5px 12px;
+        border: 1px solid #d1d5db;
+        border-radius: 6px;
+        background: #fff;
+        color: #374151;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+
+        &:hover {
+            background: #f3f4f6;
+        }
+    }
+    .azed-period-btn.azed-period-active {
+        background: #0f2a4a;
+        border-color: #0f2a4a;
+        color: #fff;
+    }
+
+    .azed-kpi-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 16px;
+        margin-bottom: 20px;
+    }
+
+    .azed-kpi {
+        background: #fff;
+        border-radius: 10px;
+        padding: 16px 18px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        border-top: 3px solid #e5e7eb;
+
+        .azed-kpi-label {
+            font-size: 12px;
+            color: #6b7280;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+        .azed-kpi-value {
+            font-size: 26px;
+            font-weight: 700;
+            color: #0f2a4a;
+        }
+        .azed-kpi-sub {
+            font-size: 12px;
+            color: #9ca3af;
+        }
+    }
+
+    .azed-kpi-hero {
+        border-top-color: #0f2a4a;
+        background: linear-gradient(135deg, #0f2a4a 0%, #1e3a5f 100%);
+        .azed-kpi-label, .azed-kpi-sub { color: #cbd5e1; }
+        .azed-kpi-value { color: #fff; font-size: 30px; }
+    }
+
+    .azed-chart-row {
+        display: grid;
+        grid-template-columns: 320px 1fr;
+        gap: 16px;
+    }
+
+    .azed-chart-card {
+        background: #fff;
+        border-radius: 10px;
+        padding: 16px 18px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+
+        h4 {
+            margin: 0 0 12px;
+            color: #374151;
+            font-size: 14px;
+            font-weight: 700;
+        }
+    }
+
+    .azed-canvas-wrap {
+        position: relative;
+        height: 280px;
+    }
+    .azed-canvas-small {
+        height: 240px;
+    }
+
+    .azed-table-card {
+        margin-top: 16px;
+    }
+
+    .azed-table-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 12px;
+
+        h4 {
+            margin: 0;
+        }
+    }
+
+    .azed-toggle {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        color: #374151;
+        cursor: pointer;
+        user-select: none;
+
+        input[type="checkbox"] {
+            cursor: pointer;
+        }
+    }
+
+    .azed-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+
+        th {
+            text-align: left;
+            padding: 8px 10px;
+            color: #6b7280;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            border-bottom: 2px solid #e5e7eb;
+        }
+        td {
+            padding: 9px 10px;
+            border-bottom: 1px solid #f0f1f3;
+            color: #1f2937;
+        }
+        .azed-num {
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+        }
+        .azed-total-row td {
+            font-weight: 700;
+            border-top: 2px solid #d1d5db;
+            border-bottom: none;
+            color: #0f2a4a;
+        }
+        .azed-dot {
+            display: inline-block;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .azed-currency-tag {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 700;
+            color: #6b7280;
+            background: #f0f1f3;
+            border-radius: 4px;
+            padding: 1px 5px;
+            margin-left: 4px;
+            vertical-align: middle;
+        }
+    }
+
+    // ---- Arabella-style sections (area tree, insights, tables) ----
+    .azed-insights-box {
+        background: #f9f9f9;
+        border-left: 4px solid #0f2a4a;
+        border-radius: 6px;
+        padding: 10px 16px;
+        margin-bottom: 18px;
+
+        ul {
+            margin: 6px 0 0;
+            padding-left: 18px;
+        }
+        li {
+            font-size: 13px;
+            line-height: 1.6;
+            color: #374151;
+        }
+        .azed-pos { color: #059669; }
+        .azed-neg { color: #dc2626; }
+        .azed-insight-note {
+            display: inline-block;
+            margin-top: 2px;
+            font-size: 11px;
+            color: #9ca3af;
+            font-style: italic;
+        }
+    }
+
+    .azed-area-breakdown-card {
+        margin-bottom: 20px;
+    }
+
+    .azed-tree {
+        padding: 8px 0 4px;
+    }
+
+    .azed-tree-root {
+        display: flex;
+        justify-content: center;
+        position: relative;
+        padding-bottom: 20px;
+    }
+
+    .azed-tree-root::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 2px;
+        height: 20px;
+        background: #d1d5db;
+        transform: translateX(-50%);
+    }
+
+    .azed-tree-box {
+        background: #f9fafb;
+        border: 1px solid #e5e7eb;
+        border-top: 3px solid #d1d5db;
+        border-radius: 8px;
+        padding: 10px 16px;
+        min-width: 130px;
+        text-align: center;
+    }
+
+    .azed-tree-root-box {
+        border-top-color: #0f2a4a;
+        background: #eef2f7;
+    }
+
+    .azed-tree-label {
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+        color: #6b7280;
+    }
+
+    .azed-tree-value {
+        font-size: 15px;
+        font-weight: 700;
+        color: #0f2a4a;
+        margin-top: 2px;
+    }
+
+    .azed-tree-pct {
+        font-size: 12px;
+        color: #9ca3af;
+        margin-top: 1px;
+    }
+
+    // Classic pure-CSS org-chart connector: each child contributes half the
+    // horizontal line on either side of its own vertical drop, trimmed at
+    // the first/last child so the line doesn't overhang past the row.
+    .azed-tree-children {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 0;
+    }
+
+    .azed-tree-child {
+        position: relative;
+        padding: 20px 14px 0;
+        flex: 0 1 150px;
+    }
+
+    // Wider column for a child that has its own second-level subtree, so its
+    // two (or more) sub-boxes have room to sit side by side instead of
+    // wrapping to a new line inside a column sized for a single box.
+    .azed-tree-child-wide {
+        flex: 0 1 280px;
+    }
+
+    .azed-tree-child::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 20px;
+        border-top: 2px solid #d1d5db;
+    }
+
+    .azed-tree-child::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 2px;
+        height: 20px;
+        background: #d1d5db;
+    }
+
+    .azed-tree-child:first-child::before {
+        left: 50%;
+    }
+
+    .azed-tree-child:last-child::before {
+        right: 50%;
+    }
+
+    // Second tree level, nested under one specific first-level child (e.g.
+    // "Available" split into Available For Sale / Non Available For Sale) —
+    // smaller boxes, same connector pattern, scoped to its own container so
+    // it doesn't interfere with the first level's connectors above it.
+    .azed-tree-subconnector {
+        width: 2px;
+        height: 16px;
+        background: #d1d5db;
+        margin: 0 auto;
+    }
+
+    .azed-tree-subchildren {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 0;
+    }
+
+    .azed-tree-subchild {
+        position: relative;
+        padding: 16px 8px 0;
+        flex: 0 1 110px;
+    }
+
+    .azed-tree-subchild::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 16px;
+        border-top: 2px solid #d1d5db;
+    }
+
+    .azed-tree-subchild::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 2px;
+        height: 16px;
+        background: #d1d5db;
+    }
+
+    .azed-tree-subchild:first-child::before {
+        left: 50%;
+    }
+
+    .azed-tree-subchild:last-child::before {
+        right: 50%;
+    }
+
+    .azed-tree-subbox {
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-top: 3px solid #d1d5db;
+        border-radius: 6px;
+        padding: 6px 10px;
+        min-width: 100px;
+        text-align: center;
+    }
+
+    .azed-tree-sublabel {
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #9ca3af;
+    }
+
+    .azed-tree-subvalue {
+        font-size: 12px;
+        font-weight: 700;
+        color: #374151;
+    }
+
+    .azed-tree-subpct {
+        font-size: 10px;
+        color: #9ca3af;
+    }
+
+    .azed-breakdown-footnote {
+        margin-top: 14px;
+        padding-top: 12px;
+        border-top: 1px solid #f0f1f3;
+        font-size: 12px;
+        color: #9ca3af;
+
+        strong {
+            color: #374151;
+        }
+    }
+
+    .azed-table-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 16px;
+    }
+
+    .azed-card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 12px;
+
+        h4 {
+            margin: 0;
+        }
+        .azed-period-filter {
+            gap: 4px;
+        }
+    }
+
+    .azed-chart-card {
+        background: #fff;
+        border-radius: 10px;
+        padding: 16px 18px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+
+        h4 {
+            margin: 0 0 12px;
+            color: #374151;
+            font-size: 14px;
+            font-weight: 700;
+        }
+    }
+
+    .azed-canvas-wrap {
+        position: relative;
+        height: 280px;
+    }
+    .azed-canvas-small {
+        height: 240px;
+    }
+
+    .azed-table-card {
+        margin-top: 0;
+    }
+
+    .azed-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+
+        th {
+            text-align: left;
+            padding: 8px 10px;
+            color: #6b7280;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            border-bottom: 2px solid #e5e7eb;
+        }
+        td {
+            padding: 9px 10px;
+            border-bottom: 1px solid #f0f1f3;
+            color: #1f2937;
+        }
+        // Higher specificity than the plain `th` rule above on purpose: a
+        // sibling report module (ark_18_executive_reports) shipped with
+        // `table th { text-align: left }` beating a plain `.num { text-align:
+        // right }` due to selector specificity, leaving numeric headers
+        // misaligned from their data — this combined selector avoids
+        // repeating that bug here.
+        th.azed-num, td.azed-num {
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+        }
+        .azed-total-row td {
+            font-weight: 700;
+            border-top: 2px solid #d1d5db;
+            border-bottom: none;
+            color: #0f2a4a;
+        }
+        .azed-subrow td {
+            color: #9ca3af;
+            font-size: 12px;
+            padding-top: 6px;
+            padding-bottom: 6px;
+        }
+        .azed-subrow td:first-child {
+            padding-left: 22px;
+        }
+    }
+
+    .azed-clickable {
+        cursor: pointer;
+    }
+    .azed-type-row .azed-caret {
+        display: inline-block;
+        width: 14px;
+        color: #6b7280;
+    }
+    .azed-subrow td {
+        font-size: 12px;
+        color: #4b5563;
+        background: #f9fafb;
+    }
+    .azed-subrow td:first-child {
+        padding-left: 28px;
+    }
+
+    // ---- clickable drill-down ----
+    .azed-kpi.azed-clickable,
+    .azed-tree-box.azed-clickable,
+    .azed-tree-subbox.azed-clickable {
+        transition: box-shadow .15s, transform .15s;
+        &:hover {
+            box-shadow: 0 4px 14px rgba(15, 42, 74, .18);
+            transform: translateY(-1px);
+        }
+    }
+    tr.azed-clickable:hover td {
+        background: #eef4fb;
+    }
+
+    .azed-pos { color: #059669; }
+    .azed-neg { color: #dc2626; }
+    .azed-table-note {
+        margin: 8px 0 0;
+        font-size: 11px;
+        line-height: 1.5;
+        color: #9ca3af;
+        font-style: italic;
+    }
+    .azed-hint {
+        font-size: 11px;
+        font-weight: 400;
+        color: #9ca3af;
+        margin-left: 6px;
+    }
+    .azed-tag {
+        display: inline-block;
+        margin-left: 6px;
+        padding: 0 6px;
+        border-radius: 8px;
+        background: #e5e7eb;
+        color: #4b5563;
+        font-size: 10px;
+        font-weight: 600;
+    }
+    .azed-empty {
+        color: #9ca3af;
+        text-align: center;
+        font-style: italic;
+    }
+    .azed-link {
+        font-size: 12px;
+        font-weight: 600;
+        color: #0f2a4a;
+    }
+    .azed-print-btn {
+        margin-right: 12px;
+    }
+}
+
+@media print {
+    .azed-dashboard .azed-print-btn,
+    .azed-dashboard .azed-period-filter,
+    .azed-dashboard .azed-toggle {
+        display: none !important;
+    }
+    .azed-dashboard .azed-scroll {
+        overflow: visible !important;
+    }
+    .azed-dashboard .azed-chart-card,
+    .azed-dashboard .azed-kpi {
+        break-inside: avoid;
+    }
+}

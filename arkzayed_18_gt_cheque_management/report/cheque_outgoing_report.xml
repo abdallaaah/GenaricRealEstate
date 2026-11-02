@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="customer_payment_outbound" model="ir.actions.report">
+        <field name="name">إيصال صرف </field>
+        <field name="model">cheque.manage</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">arkzayed_18_gt_cheque_management.cash_outgoing_report</field>
+        <field name="report_file">arkzayed_18_gt_cheque_management.cash_outgoing_report</field>
+        <field name="print_report_name">'Cash Outgoing - %s' % (object.seq_no or '')</field>
+        <field name="binding_model_id" ref="arkzayed_18_gt_cheque_management.model_cheque_manage"/>
+        <field name="binding_type">report</field>
+        <field name="domain">[('cheq_type', '=', 'outgoing')]</field>
+        <field name="attachment"></field>
+        <field name="attachment_use" eval="False"/>
+    </record>
+
+    <template id="cash_outgoing_report">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-if="o.cheq_type == 'outgoing'">
+                    <t t-call="web.basic_layout">
+                        <link rel="stylesheet" href="/arkzayed_18_gt_cheque_management/static/src/css/report.css"/>
+                        <div class="page cash-outgoing-report" style="border:2px solid #000000; padding:20px; zoom:90%" dir="rtl">
+
+                            <header class="mt-5">
+                                <div class="row" style="margin-bottom:20px;">
+                                    <div class="col-6" style="text-align:center;">
+                                        <h3 class="arabic-text" style="font-weight:bold; margin-top:30px;">
+                                            شركة ذا آرك جروب للتطوير العقاري
+                                        </h3>
+                                        <h4 class="arabic-text" style="font-weight:bold;">
+                                            الإدارة المالية
+                                        </h4>
+                                    </div>
+                                    <div class="col-6" style="text-align:center;">
+                                        <h3 class="english-text" style="font-weight:bold; margin-top:30px;">
+                                            The Arkzayed
+                                        </h3>
+                                    </div>
+                                </div>
+                            </header>
+                            <div class="d-flex flex-row justify-content-center"
+                                 style="text-align:center; margin-bottom:20px; height:100px;">
+                                <div class="col-4">
+                                    <table class="table table-borderless" style="font-size:14px;">
+                                        <tr>
+                                            <td style="font-weight:bold; width:150px;">رقم :</td>
+                                            <td style="border-bottom:1px dotted #000;">
+                                                <span t-esc="o.seq_no"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-4 align-self-end">
+                                    <table class="table table-borderless" style="font-size:14px; margin-bottom:0;">
+                                        <tr>
+                                            <td style="font-weight:bold; width:150px;">المبلغ :</td>
+                                            <td style="font-weight:bold; font-size:18px; color:#000; border: 1px solid #000; padding:10px; text-align:center;">
+                                                <span t-esc="o.amount"
+                                                      t-options='{"widget": "float", "precision": 2}'/>
+                                                <span style="margin-right:10px;">
+                                                    <t t-esc="o.company_currency_id.name"/>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div style="text-align:center; margin-bottom:30px;">
+                                <h2 style="font-weight:bold;display:inline-block; padding-bottom:5px;">
+                                    سند صرف شيك
+                                </h2>
+                            </div>
+
+                            <div class="row" style="margin-bottom:20px;">
+                                <div class="col-12">
+                                    <table class="table table-borderless" style="font-size:14px;">
+                                        <tr>
+                                            <td style="font-weight:bold; width:150px;">التاريخ:</td>
+                                            <td style="border-bottom:1px dotted #000;">
+                                                <span t-esc="o.cheque_receive_date" t-options='{"widget": "date"}'/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div style="margin-bottom:20px; padding:15px;">
+                                <table class="table table-borderless" style="font-size:14px; margin-bottom:0;">
+                                    <tr>
+                                        <td style="font-weight:bold; width:150px;">يصرف للسيد /</td>
+                                        <td style="border-bottom:1px dotted #000; font-weight:bold;">
+                                            <span t-esc="o.payer.name"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div style="margin-bottom:20px; padding:15px;">
+                                <table class="table table-borderless" style="font-size:14px; margin-bottom:0;">
+                                    <tr>
+                                        <td style="font-weight:bold; width:150px;">مبلغ و قدره ً:</td>
+                                        <td style="border-bottom:1px dotted #000; font-weight:bold;">
+                                            <span t-esc="o._get_arabic_amount(o.amount, 'ar')"/>
+                                            <span>فقط لا غير</span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <t t-if="o.bank_id or o.bank_account">
+                                <div style="margin-bottom:20px; padding:15px;">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <table class="table table-borderless"
+                                                   style="font-size:14px; margin-bottom:0;">
+                                                <tr>
+                                                    <td style="font-weight:bold; width:150px;">شيك رقم :</td>
+                                                    <td>
+                                                        <span t-esc="o.cheque_no or '-'"/>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="col-4">
+                                            <table class="table table-borderless"
+                                                   style="font-size:14px; margin-bottom:0;">
+                                                <tr>
+                                                    <td style="font-weight:bold; width:150px;">الصادر على بنك :</td>
+                                                    <td>
+                                                        <span t-esc="o.bank_id.name or '-'"/>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="col-4">
+                                            <table class="table table-borderless"
+                                                   style="font-size:14px; margin-bottom:0;">
+                                                <tr>
+                                                    <td style="font-weight:bold; width:150px;">بتاريخ :</td>
+                                                    <td>
+                                                        <span t-esc="o.cheque_date or '-'"/>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                            <div style="margin-bottom:20px; padding:15px;">
+                                <table class="table table-borderless" style="font-size:14px; margin-bottom:0;">
+                                    <tr>
+                                        <td style="font-weight:bold; width:150px;">قيمة :</td>
+                                        <td style="border-bottom:1px dotted #000; font-weight:bold;">
+                                            <span t-esc="o.description or o.name or '-'"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div style="margin-right:50px; margin-left:50px; margin-top:30px;">
+                                <div class="d-flex flex-row justify-content-between" style="text-align:center;">
+                                    <div class="col-3">
+                                        <table class="table table-borderless"
+                                               style="font-size:14px; margin-bottom:0;">
+                                            <tr>
+                                                <td style="font-weight:bold;">إعداد</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border-bottom:1px dotted #000; font-weight:bold;">
+                                                    <span></span>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="col-3">
+                                        <table class="table table-borderless"
+                                                   style="font-size:14px; margin-bottom:0;">
+                                                <tr>
+                                                    <td style="font-weight:bold;">مراجعة</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="border-bottom:1px dotted #000; font-weight:bold;">
+                                                        <span></span>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                    </div>
+                                    <div class="col-3">
+                                        <table class="table table-borderless"
+                                                   style="font-size:14px; margin-bottom:0;">
+                                                <tr>
+                                                    <td style="font-weight:bold;">اعتماد</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="border-bottom:1px dotted #000; font-weight:bold;">
+                                                        <span></span>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr/>
+                            <div style="margin-right:50px;margin-left:50px; padding:15px;">
+                                <p style="font-weight:bold">المستلم</p>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <span style="font-weight:bold;">الاسم / :</span>
+                                        <span style="border-bottom:1px dotted #000; display:inline-block; width:300px;">
+                                            &#160;
+                                        </span>
+                                    </div>
+                                     <div class="col-6">
+                                        <span style="font-weight:bold;">الرقم القومي / :</span>
+                                        <span style="border-bottom:1px dotted #000; display:inline-block; width:150px;">
+                                            &#160;
+                                        </span>
+                                    </div>
+                                </div>
+                                <br/>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <span style="font-weight:bold;">التوقيع / :</span>
+                                        <span style="border-bottom:1px dotted #000; display:inline-block; width:150px;">
+                                            &#160;
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>
+

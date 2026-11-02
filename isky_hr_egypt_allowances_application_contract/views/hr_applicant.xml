@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="hr_recruitment_stage_form_view_inherit" model="ir.ui.view">
+            <field name="name">hr.recruitment.stage.form.view</field>
+            <field name="model">hr.recruitment.stage</field>
+            <field name="inherit_id" ref="hr_recruitment.hr_recruitment_stage_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='sequence']" position="after">
+                    <field name="contract_proposal"/>
+                </xpath></field>
+        </record>
+        <record id="hr_applicant_form_view_inherit" model="ir.ui.view">
+            <field name="name">hr.applicant.form.view.inherit</field>
+            <field name="model">hr.applicant</field>
+            <field name="inherit_id" ref="hr_recruitment.hr_applicant_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='type_id']" position="after">
+                    <field name="nationality_id" required="1"/>
+                    <field name="gender" required="1"/>
+                    <field name="birthday" required="1"/>
+                </xpath>
+                <xpath expr="//field[@name='type_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='job_id']" position="after">
+                    <field invisible="1" name="app_contract_proposal"/>
+                    <field name="first_hiring_date" required="1"/>
+                    <field name="structure_id"/>
+                </xpath>
+                <xpath expr="//button[@name='archive_applicant']" position="after">
+                    <field invisible="1" name="contract_created"/>
+                    <button class="oe_highlight" invisible="emp_id == False or contract_created == True" name="create_contract_from_applicant" string="Create Contract" type="object"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="exp_inh_hr_applicant_search" model="ir.ui.view">
+            <field name="name">exp.inh.hr.applicant.search</field>
+            <field name="model">hr.applicant</field>
+            <field name="inherit_id" ref="hr_recruitment.hr_applicant_view_search_bis"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group" position="before">
+                    <filter domain="[('email_from','!=',False)]" name="has_email" string="Has Email?"/>
+                    <filter domain="[('email_from','=',False)]" name="has_not_email" string="Has not Email?"/>
+                </xpath>
+                <xpath expr="//group" position="inside">
+                    <filter context="{'group_by':'emp_id'}" name="employee" string="Employee"/>
+                    <filter context="{'group_by':'nationality_id'}" name="nationality" string="Nationality"/>
+                    <filter context="{'group_by':'company_id'}" name="company" string="Company"/>
+                    <filter context="{'group_by':'source_id'}" name="source" string="Source"/>
+                    <filter context="{'group_by':'partner_id'}" name="contact" string="Contact"/>
+                    <filter context="{'group_by':'partner_name'}" name="applicant_name" string="Applicant's Name"/>
+                </xpath></field>
+        </record>
+    </data>
+</odoo>

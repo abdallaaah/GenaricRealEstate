@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="res_config_settings_view_form_rs" model="ir.ui.view">
+        <field name="name">res.config.settings.form.inherit.rs</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="70"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <div class="app_settings_block" data-string="Real Estate" string="Real Estate"
+                     data-key="real_estate_bits">
+
+                    <h2>Ownership Contracts</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Contracts Income Account</span>
+                                <span class="fa fa-lg fa-building-o" title="Values set here are company-specific."
+                                      aria-label="Values set here are company-specific."
+                                      groups="base.group_multi_company" role="img"/>
+                                <div class="text-muted">
+                                    Set default Income Account for properties
+                                </div>
+                                <div class="content-group">
+                                    <div class="row mt16">
+                                        <label for="income_account" class="col-lg-3 o_light_label"/>
+                                        <field name="income_account" context="{'active_test': False}"
+                                               options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                    </div>
+                                    <div class="row mt16">
+                                        <label for="service_account_id" class="col-lg-3 o_light_label"/>
+                                        <field name="service_account_id" context="{'active_test': False}"
+                                               options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                    </div>
+                                    <div class="row mt16">
+                                        <label for="market_fees_account_id" class="col-lg-3 o_light_label"/>
+                                        <field name="market_fees_account_id" context="{'active_test': False}"
+                                               options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2>Payment Plan Settings</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Default Installment Years</span>
+                                <div class="text-muted">
+                                    Configure default installment years for residential units
+                                </div>
+                                <div class="content-group">
+                                    <div class="row mt16">
+                                        <label for="residential_default_years" string="Residential Units Default Years"
+                                               class="col-lg-4 o_light_label"/>
+                                        <field name="residential_default_years" class="oe_inline"/>
+                                    </div>
+                                    <div class="row mt16">
+                                        <label for="non_residential_default_years"
+                                               string="Retail / Office / Medical Default Years"
+                                               class="col-lg-4 o_light_label"/>
+                                        <field name="non_residential_default_years" class="oe_inline"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                           <div class="col-12 col-lg-6">
+                                <div class="o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="apply_cents_in_last_line"/>
+                                    </div>
+                                    <div class="o_setting_right_pane">
+                                        <label for="apply_cents_in_last_line"/>
+                                        <div class="text-muted">Move fractional amounts to last installment line</div>
+                                    </div>
+                                </div>
+                                <div class="o_setting_box mt16">
+                                    <div class="o_setting_left_pane">
+                                        <field name="apply_to_nearer_ten"/>
+                                    </div>
+                                    <div class="o_setting_right_pane">
+                                        <label for="apply_to_nearer_ten"/>
+                                        <div class="text-muted">Round each installment amount to the nearest ten</div>
+                                    </div>
+                                </div>
+                                <div class="o_setting_box mt16">
+                                    <div class="o_setting_right_pane">
+                                        <label for="installment_price_tolerance"/>
+                                        <div class="text-muted">
+                                            Max rounding difference auto-corrected on the last line before
+                                            generation is refused instead
+                                        </div>
+                                        <div class="content-group">
+                                            <field name="installment_price_tolerance" class="oe_inline"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+
+                    <!-- NEW RESERVATION SETTINGS BLOCK -->
+                    <h2>Reservation Settings</h2>
+                    <div class="row mt16 o_settings_container">
+
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <label for="onhold_reservation_expiration_hours"/>
+                                <div class="content-group">
+                                    <div class="mt8">
+                                        <field name="onhold_reservation_expiration_hours" class="o_light_label" style="width: 80px;"/>
+                                        <span class="text-muted"> Hours</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <label for="unpaid_reservation_expiration_hours"/>
+                                <div class="content-group">
+                                    <div class="mt8">
+                                        <field name="unpaid_reservation_expiration_hours" class="o_light_label" style="width: 80px;"/>
+                                        <span class="text-muted"> Hours</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="enable_reservation_expiry_cron"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="enable_reservation_expiry_cron"/>
+                                <div class="text-muted">
+                                    Enable automatic background task for checking and expiring sale reservations.
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </xpath>
+
+            <xpath expr="//field[@name='journal_id']/ancestor::div[contains(@class,'o_settings_container')]"
+                   position="after">
+                <h2>Penalties</h2>
+                <div class="row mt16 o_settings_container">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Installment Penalty</span>
+                            <div class="text-muted">
+                                Configure accounts and journal for installment delay penalty entries
+                            </div>
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label for="penalty_debit_account_id" class="col-lg-4 o_light_label"/>
+                                    <field name="penalty_debit_account_id" context="{'active_test': False}"
+                                           options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                </div>
+                                <div class="row mt16">
+                                    <label for="penalty_credit_account_id" class="col-lg-4 o_light_label"/>
+                                    <field name="penalty_credit_account_id" context="{'active_test': False}"
+                                           options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                </div>
+                                <div class="row mt16">
+                                    <label for="penalty_journal_id" class="col-lg-4 o_light_label"/>
+                                    <field name="penalty_journal_id" context="{'active_test': False}"
+                                           options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Cancellation Penalty -->
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Cancellation Penalty</span>
+                            <div class="text-muted">
+                                Configure account for reservation cancellation penalty
+                            </div>
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label for="cancellation_penalty_account_id" class="col-lg-4 o_light_label"/>
+                                    <field name="cancellation_penalty_account_id" context="{'active_test': False}"
+                                           options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"
+                                           string="Cancellation Penalty Debit Account"
+                                    />
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <span class="o_form_label mt-3">Cancellation Refund</span>
+                                <div class="text-muted">
+                                    Configure accounts for reservation cancellation refund entries
+                                </div>
+                                <div class="content-group">
+                                    <div class="row mt16">
+                                        <label for="cancellation_refund_debit_account_id"
+                                               class="col-lg-4 o_light_label"/>
+                                        <field name="cancellation_refund_debit_account_id"
+                                               context="{'active_test': False}"
+                                               options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                    </div>
+                                    <div class="row mt16">
+                                        <label for="cancellation_refund_credit_account_id"
+                                               class="col-lg-4 o_light_label"/>
+                                        <field name="cancellation_refund_credit_account_id"
+                                               context="{'active_test': False}"
+                                               options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                    </div>
+
+                                    <div class="row mt16">
+                                        <label for="cancellation_refund_journal_id" class="col-lg-4 o_light_label"/>
+                                        <field name="cancellation_refund_journal_id" context="{'active_test': False}"
+                                               options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2>Non-Sales Commission</h2>
+                <div class="row mt16 o_settings_container">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Non-Sales Commission Configuration</span>
+                            <div class="text-muted">
+                                Base commission rate shared among non-sales employees, and the
+                                collection threshold required before claims are generated
+                            </div>
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label for="non_sales_commission_percentage" class="col-lg-4 o_light_label"/>
+                                    <field name="non_sales_commission_percentage"/>
+                                </div>
+                                <div class="row mt16">
+                                    <label for="non_sales_commission_collection_percentage" class="col-lg-4 o_light_label"/>
+                                    <field name="non_sales_commission_collection_percentage"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2>Broker Claim</h2>
+                <div class="row mt16 o_settings_container">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Broker Claim Configuration</span>
+                            <div class="text-muted">
+                                Configure accounts and journal for Broker Claim journal entries
+                            </div>
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label for="broker_commission_debit_account_id" class="col-lg-4 o_light_label"/>
+                                    <field name="broker_commission_debit_account_id" context="{'active_test': False}"
+                                           options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                </div>
+                                <div class="row mt16">
+                                    <label for="broker_commission_credit_account_id" class="col-lg-4 o_light_label"/>
+                                    <field name="broker_commission_credit_account_id" context="{'active_test': False}"
+                                           options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                </div>
+                                <div class="row mt16">
+                                    <label for="broker_commission_journal_id" class="col-lg-4 o_light_label"/>
+                                    <field name="broker_commission_journal_id" context="{'active_test': False}"
+                                           options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2>Sale Commission</h2>
+                <div class="row mt16 o_settings_container">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Sale Commission Configuration</span>
+                            <div class="text-muted">
+                                Configure accounts and journal for Sale Commission journal entries
+                            </div>
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label for="sale_commission_debit_account_id" class="col-lg-4 o_light_label"/>
+                                    <field name="sale_commission_debit_account_id" context="{'active_test': False}"
+                                           options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                </div>
+                                <div class="row mt16">
+                                    <label for="sale_commission_credit_account_id" class="col-lg-4 o_light_label"/>
+                                    <field name="sale_commission_credit_account_id" context="{'active_test': False}"
+                                           options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                </div>
+                                <div class="row mt16">
+                                    <label for="sale_commission_journal_id" class="col-lg-4 o_light_label"/>
+                                    <field name="sale_commission_journal_id" context="{'active_test': False}"
+                                           options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2>Collection Entry Settings</h2>
+                <div class="row mt16 o_settings_container">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Collection Accounts Configuration</span>
+                            <div class="text-muted">
+                                Configure accounts and percentages for collection journal entries when creating cheques
+                            </div>
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label for="collection_debit_account_id" string="Debit Expense Account"
+                                           class="col-lg-4 o_light_label"/>
+                                    <field name="collection_debit_account_id" context="{'active_test': False}"
+                                           options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                </div>
+                                <div class="row mt16">
+                                    <label for="collection_journal_id" string="Collection Journal"
+                                           class="col-lg-4 o_light_label"/>
+                                    <field name="collection_journal_id" context="{'active_test': False}"
+                                           options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Credit Accounts Split</span>
+                            <div class="text-muted">
+                                Define credit accounts and their percentage split (must total 100%)
+                            </div>
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label for="collection_credit_gis_account_id" string="GIS Account"
+                                           class="col-lg-4 o_light_label"/>
+                                    <field name="collection_credit_gis_account_id" context="{'active_test': False}"
+                                           options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"
+                                           class="oe_inline" style="width: 60%;"/>
+                                    <field name="collection_gis_percentage" class="oe_inline" style="width: 25%;"
+                                           suffix="%"/>
+                                </div>
+                                <div class="row mt16">
+                                    <label for="collection_credit_oaya_account_id" string="OAYA Account"
+                                           class="col-lg-4 o_light_label"/>
+                                    <field name="collection_credit_oaya_account_id" context="{'active_test': False}"
+                                           options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"
+                                           class="oe_inline" style="width: 60%;"/>
+                                    <field name="collection_oaya_percentage" class="oe_inline" style="width: 25%;"
+                                           suffix="%"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </xpath>
+            <xpath expr="//setting[@id='post_bank_transactions_and_payments_setting']" position="inside">
+                <div class="content-group">
+                    <div class="row mt8">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <label for="maintenance_account_id" string="Maintenance Account"/>
+                            <div class="text-muted">
+                                Account used for maintenance revenue when delivering contracts
+                            </div>
+                            <field name="maintenance_account_id" class="oe_inline"/>
+                        </div>
+                    </div>
+                    <div class="row mt8">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <label for="overseas_installment_account" string="Overseas Installment Account"/>
+                            <div class="text-muted">
+                                Credit account for overseas installment payments
+                            </div>
+                            <field name="overseas_installment_account" class="oe_inline"/>
+                        </div>
+                    </div>
+                    <div class="row mt8">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <label for="overseas_maintenance_account" string="Overseas Maintenance Account"/>
+                            <div class="text-muted">
+                                Credit account for overseas maintenance payments
+                            </div>
+                            <field name="overseas_maintenance_account" class="oe_inline"/>
+                        </div>
+                    </div>
+                    <div class="row mt8">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <label for="deferred_revenue_overseas_account" string="Deferred Revenue for Overseas"/>
+                            <div class="text-muted">
+                                Account used for deferred revenue on overseas contracts when signed by client
+                            </div>
+                            <field name="deferred_revenue_overseas_account" class="oe_inline"/>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+    <record id="action_real_estate_config" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module': 'arkzayed_18_realestate_development'}</field>
+    </record>
+</odoo>

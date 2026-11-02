@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_npv_report_wizard_form" model="ir.ui.view">
+        <field name="name">arkzayed.npv.report.wizard.form</field>
+        <field name="model">arkzayed.npv.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="NPV Executive Report">
+                <p class="text-muted">
+                    Portfolio-wide present value: nominal sales vs. NPV at signing, by year and by
+                    unit type, the top contracts that gave away the most value to time, and the
+                    present value of what's still outstanding. Leave the filters empty for everything.
+                </p>
+                <group>
+                    <field name="project_id" options="{'no_create': True}"/>
+                    <field name="building_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                </group>
+                <footer>
+                    <button name="action_print" type="object" string="Print Report" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_npv_report_wizard" model="ir.actions.act_window">
+        <field name="name">NPV Executive Report</field>
+        <field name="res_model">arkzayed.npv.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_npv_executive_report" name="Executive Report" sequence="2"
+              parent="arkzayed_contract_npv.menu_npv_root" action="action_npv_report_wizard"/>
+
+</odoo>

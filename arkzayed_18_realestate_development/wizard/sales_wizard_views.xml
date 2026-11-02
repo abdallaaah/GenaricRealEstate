@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_sales_wizard_form" model="ir.ui.view">
+        <field name="name">arkzayed.sales.report.wizard.form</field>
+        <field name="model">arkzayed.sales.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Sales Report">
+                <p class="text-muted">
+                    Sales per issue year, split by Domestic and Overseas, for all contracts except
+                    Draft, Cancelled and Terminated. Leave the filters empty to include everything.
+                </p>
+                <group>
+                    <field name="project_id" options="{'no_create': True}"/>
+                    <field name="building_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                    <field name="contract_type"/>
+                </group>
+                <footer>
+                    <button name="action_print" type="object" string="Print Report" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_sales_wizard" model="ir.actions.act_window">
+        <field name="name">Sales Executive Report</field>
+        <field name="res_model">arkzayed.sales.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_sales_report"
+              name="Sales Executive Report"
+              parent="menu_reports_root"
+              action="action_sales_wizard"
+              sequence="54"/>
+    <menuitem id="menu_sales_contracts_analysis"
+              name="Contracts Analysis"
+              parent="menu_reports_root"
+              action="action_sales_contracts"
+              sequence="55"/>
+
+</odoo>
