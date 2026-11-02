@@ -115,7 +115,16 @@
         <field name="search_view_id" ref="view_cost_distribution_search"/>
     </record>
 
+    <menuitem id="menu_arkzayed_cost_root" name="Cost Distribution" sequence="60"/>
+
     <menuitem id="menu_cost_distribution_report" name="Distribution Report"
               parent="menu_arkzayed_cost_root" action="action_cost_distribution" sequence="20"/>
+
+    <!-- action_pending_cost_distribution and its view now live in
+         isky_18_realestate_developer_accounting (account.move.line fields it displays
+         were moved there); the menu entry stays here, next to its sibling menus. -->
+    <menuitem id="menu_pending_cost_distribution" name="Pending Cost Distribution"
+              parent="menu_arkzayed_cost_root"
+              action="isky_18_realestate_developer_accounting.action_pending_cost_distribution"/>
 
 </odoo>

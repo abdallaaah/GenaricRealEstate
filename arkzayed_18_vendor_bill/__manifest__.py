@@ -18,10 +18,8 @@
         'security/ir.model.access.csv',
         # views
         'views/product.xml',
-        'views/account_move.xml',
         'views/purchase_requisition.xml',
         'views/purchase_order.xml',
-        'views/account_tax_group.xml',
         'views/res_partner.xml',
         'views/wip_report_views.xml',
         # reports
@@ -30,7 +28,6 @@
         'reports/ipc_server_action.xml',
         # wizard
         'wizard/purchase_requisition_payment_wizard.xml',
-        "wizard/account_reconcile_wizard.xml",
     ],
     # only loaded in demonstration mode
     'demo': [],

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- from arkzayed_18_realestate_development/views/account_analytic_account_views.xml -->
+    <record id="account_analytic_account_view_form_inherit" model="ir.ui.view">
+        <field name="model">account.analytic.account</field>
+        <field name="name">account.analytic.account.form.inherit</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_account_form"/>
+        <field name="arch" type="xml">
+            <field name="code" position="after">
+                <field name="is_gis_account"/>
+                <field name="is_oaya_account"/>
+            </field>
+        </field>
+    </record>
+</odoo>

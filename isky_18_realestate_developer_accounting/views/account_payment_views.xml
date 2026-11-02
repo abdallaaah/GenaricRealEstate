@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- from arkzayed_18_realestate_development/views/account_payment_form_inherit.xml
+         (the "returned Cheques" group stayed behind in that module, next to the cheque
+         fields it displays) -->
+    <record id="account_payment_form_view_inherit" model="ir.ui.view">
+        <field name="name">account.payment.form.view.inherit</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='state']" position="attributes">
+                <attribute name="statusbar_visible">draft,to_check,cfo_approved,deputy_cfo_approved,in_process,paid</attribute>
+                <attribute name="invisible">payment_type != 'outbound'</attribute>
+            </xpath>
+            <xpath expr="//field[@name='state']" position="after">
+                <field name="state" widget="statusbar" statusbar_visible="draft,to_check,in_process,paid" invisible="payment_type != 'inbound'"/>
+            </xpath>
+            <xpath expr="//button[@name='action_post']" position="attributes">
+                <attribute name="invisible">state != 'to_check'</attribute>
+            </xpath>
+
+            <xpath expr="//header" position="inside">
+                <button name="action_to_check"
+                        type="object"
+                        string="To Check"
+                        class="btn-primary"
+                        invisible="state != 'draft'"/>
+                <button name="action_cfo_approval"
+                        type="object"
+                        string="CFO Approve"
+                        class="btn-primary"
+                        groups="arkzayed_18_realestate_development.payment_cfo_group"
+                        invisible="state != 'to_check' or payment_type != 'outbound'"/>
+                <button name="action_deputy_cfo_approval"
+                        type="object"
+                        string="Deputy CEO Approve"
+                        class="btn-primary"
+                        groups="arkzayed_18_realestate_development.payment_deputy_cfo_group"
+                        invisible="state != 'cfo_approved'"/>
+            </xpath>
+
+<!--                edit confirm button to appear after deputy cfo approve-->
+            <xpath expr="//header/button[@name='action_post']" position="attributes">
+                <attribute name="invisible">state != 'deputy_cfo_approved'</attribute>
+
+            </xpath>
+            <xpath expr="//button[@name='action_post']" position="after">
+                 <button name="action_post" string="Confirm" type="object" class="oe_highlight"
+                            invisible="state != 'to_check' or payment_type != 'inbound'" data-hotkey="q"/>
+            </xpath>
+
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button class="oe_stat_button" type="object" name="action_view_collection_entry"
+                        icon="fa-book" invisible="collection_entry_count == 0">
+                    <field name="collection_entry_count" widget="statinfo" string="Collection Entry"/>
+                </button>
+            </xpath>
+
+            <xpath expr="//div[@name='amount_div']" position="after">
+                <field name="company_currency_id" invisible="1"/>
+                <field name="custom_exchange_rate"
+                       readonly="state != 'draft'"
+                       invisible="currency_id == company_currency_id"/>
+                <field name="converted_amount"
+                       readonly="1"
+                       invisible="currency_id == company_currency_id"/>
+            </xpath>
+
+            <xpath expr="//field[@name='memo']" position="after">
+                <field name="realestate_related_seq" readonly="1" invisible="payment_type != 'inbound'"/>
+            </xpath>
+
+            <xpath expr="//field[@name='partner_bank_id']" position="after">
+                <field name="is_down_payment" readonly="state == 'posted'" invisible="payment_type == 'outbound'"/>
+                <field name="is_pre_payment" readonly="state == 'posted'" invisible="payment_type == 'inbound'"/>
+
+                <field name="from_eoi" readonly="id" invisible="payment_type != 'inbound'"/>
+                <field name="from_reservation" readonly="id" invisible="payment_type != 'inbound'"/>
+                <field name="from_contract" readonly="id" invisible="payment_type != 'inbound'"/>
+
+                <field name="eoi_id" readonly="state == 'posted'"/>
+                <field name="sale_proposal_id" readonly="state == 'posted'"/>
+                <field name="additional_proposal_ids" widget="many2many_tags"
+                       options="{'no_create': True}"
+                       readonly="state != 'draft'"
+                       invisible="payment_type != 'inbound' or not sale_proposal_id"
+                       domain="[('customer_id', '=', partner_id), ('id', '!=', sale_proposal_id), ('state', 'not in', ['cancelled', 'terminated'])]"/>
+                <field name="additional_unit_ids" widget="many2many_tags"
+                       options="{'no_create': True}"
+                       readonly="state != 'draft'"
+                       invisible="payment_type != 'inbound' or not sale_proposal_id"
+                       domain="[('sale_contract_id.customer_id', '=', partner_id), ('sale_contract_id', '!=', sale_proposal_id)]"/>
+                <field name="sale_reservation_id" readonly="state == 'posted'"/>
+                <field name="unit_id" readonly="state == 'posted'"
+                       domain="[('sale_contract_id.customer_id', '=', partner_id)] if partner_id else [('sale_contract_id', '!=', False)]"/>
+                <field name="installment_date" readonly="state == 'posted'"/>
+                <field name="is_refund" invisible="1"/>
+            </xpath>
+            <xpath expr="//group[@name='main_group']" position="after">
+                <group>
+                    <group string="Info">
+                        <field name="is_overseas" widget="boolean_toggle"/>
+                        <field name="contract_type"/>
+                    </group>
+                </group>
+            </xpath>
+
+            <!-- Installment Allocations Tab -->
+            <xpath expr="//sheet" position="inside">
+                <notebook>
+                    <page name="installment_allocations" string="Installment Allocations" invisible="not sale_proposal_id and not sale_reservation_id">
+                        <field name="available_installment_ids" invisible="1"/>
+                        <field name="available_maintenance_ids" invisible="1"/>
+                        <group>
+                            <field name="unallocated_amount" readonly="1"/>
+                        </group>
+                        <field name="allocation_ids" readonly="state != 'draft'">
+                            <list editable="bottom">
+                                <field name="installment_id" domain="[('id', 'in', parent.available_installment_ids)]"/>
+                                <field name="maintenance_id" domain="[('id', 'in', parent.available_maintenance_ids)]"/>
+                                <field name="source_doc" readonly="1"/>
+                                <field name="label"/>
+                                <field name="line_date" readonly="1"/>
+                                <field name="line_remaining_amount" readonly="1"/>
+                                <field name="allocated_amount" sum="Total Allocated"/>
+                            </list>
+                        </field>
+                    </page>
+                </notebook>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="account_payment_list_view_inherit" model="ir.ui.view">
+        <field name="name">account.payment.list.view.inherit</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//list/field[@name='state']" position="before">
+                <field name="sale_proposal_id" string="Contract"/>
+                <field name="sale_reservation_id" string="Reservation"/>
+                <field name="unit_id" string="Unit"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_account_payment_search_inherit" model="ir.ui.view">
+        <field name="name">account.payment.searh.view.inherit</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="realestate_related_seq" string="Realestate Related Sequence"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- from arkzayed_18_gt_cheque_management/views/account_payment.xml
+         (not actually cheque-specific - credit card fields, see account_payment.py) -->
+    <record id="account_payment_form_view_inherit_credit_card" model="ir.ui.view">
+        <field name="name">account.payment.form.view.inherit.credit.card</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='memo']" position="after">
+                <field name="is_credit_card" invisible="payment_type != 'inbound'"/>
+                <field name="card_number" invisible="not is_credit_card"/>
+                <field name="credit_bank_id" invisible="not is_credit_card"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <!-- from arkzayed_loan_payments/views/account_loan_views.xml -->
     <record id="view_account_loan_form_commission_inherit" model="ir.ui.view">
         <field name="name">account.loan.form.commission.inherit</field>
         <field name="model">account.loan</field>

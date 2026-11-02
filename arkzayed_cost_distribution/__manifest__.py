@@ -10,7 +10,6 @@
         'data/sequence.xml',
         'report/report_cost_distribution.xml',
         'wizard/distribution_wizard_views.xml',
-        'views/account_move_line_views.xml',
         'views/real_estate_unit_views.xml',
         'views/hierarchy_views.xml',
         'views/cost_allocation_views.xml',

@@ -8,7 +8,6 @@
     'data': [
         'security/ir.model.access.csv',
         'wizard/loan_line_payment_wizard_views.xml',
-        'views/account_loan_views.xml',
     ],
     'application': False,
 }

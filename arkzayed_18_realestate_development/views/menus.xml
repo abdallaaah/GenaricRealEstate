@@ -60,6 +60,10 @@
 
     <!-- Configuration Categories -->
 
+    <!-- Settings -->
+    <menuitem id="menu_real_estate_settings" name="Settings"
+              parent="menu_real_estate_configuration" action="action_real_estate_config" sequence="0"/>
+
     <!-- 1️⃣ Project Setup -->
     <menuitem id="menu_project_config_root" name="Project Setup" parent="menu_real_estate_configuration" sequence="1"/>
     <menuitem id="menu_project_type_config" name="Project Type" parent="menu_project_config_root" action="action_project_type" sequence="1"/>

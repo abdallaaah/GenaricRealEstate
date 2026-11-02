@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- from arkzayed_18_realestate_development/views/account_move_views.xml -->
+    <record id="view_invoice_form" model="ir.ui.view">
+        <field name="model">account.move</field>
+        <field name="name">account.move.edi.form</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_title')]//h1" position="after">
+                <h2>
+                    <field name="entry_sequence"/>
+                </h2>
+            </xpath>
+            <xpath expr="//field[@name='name']" position="attributes">
+                <attribute name="force_save">1</attribute>
+            </xpath>
+            <xpath expr="//label[@for='invoice_date']" position="before">
+                <field name="is_contract" widget="boolean_toggle"/>
+            </xpath>
+            <xpath expr="//form/header" position="inside">
+                <field name="penalty_id" invisible="1"/>
+                <button name="action_register_penalty_payment"
+                        string="Register Penalty Payment"
+                        type="object"
+                        class="btn-primary"
+                        invisible="not penalty_id or state != 'posted'"/>
+            </xpath>
+            <xpath expr="//field[@name='ref'][2]" position="after">
+                <field name="is_checked" invisible="1"/>
+                <field name="is_collection" readonly="1"/>
+                <field name="is_maintenance_collection" readonly="1"/>
+                <field name="is_gis_quia" readonly="1"/>
+                <field name="checked_bool" widget="boolean_toggle" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_account_move_filter_inherited" model="ir.ui.view">
+        <field name="name">view.account.move.filter</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_move_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="." position="inside">
+                <field name="entry_sequence" string="Entry Sequence"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="account_move_inherit_tree" model="ir.ui.view">
+       <field name="name">account_move_inherit_tree</field>
+       <field name="model">account.move</field>
+       <field name="inherit_id" ref="account.view_move_tree"/>
+       <field name="arch" type="xml">
+           <xpath expr="//field[@name='partner_id']" position="after">
+               <field name="entry_sequence"/>
+                <field name="is_checked" widget="badge" decoration-info="is_checked == 'checked'" decoration-warning="is_checked == 'not_checked'"/>
+           </xpath>
+       </field>
+   </record>
+
+    <!-- from arkzayed_18_vendor_bill/views/account_move.xml -->
+    <record id="view_move_form_inherit_history" model="ir.ui.view">
+        <field name="name">account.move.form.inherit.history</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='button_draft']" position="attributes">
+                <attribute name="groups">arkzayed_18_vendor_bill.group_reset_to_draft</attribute>
+            </xpath>
+            <!-- Add building_id and purchase_type fields -->
+            <xpath expr="//field[@name='ref']" position="after">
+                <field name="purchase_type" widget="radio" options="{'horizontal': true}" invisible="move_type != 'in_invoice'"/>
+                <field name="building_id" invisible="purchase_type == 'original'"/>
+                <field name="engineering_approved" readonly="1"
+                       invisible="move_type != 'in_invoice' or purchase_type != 'construction'"/>
+            </xpath>
+
+            <!-- Engineering Approval workflow for Construction vendor bills -->
+            <xpath expr="(//button[@name='action_post'])[2]" position="before">
+                <button name="action_engineering_approval" string="Engineering Approval"
+                        type="object" class="oe_highlight" data-hotkey="w"
+                        groups="arkzayed_18_vendor_bill.group_engineering_approval"
+                        invisible="move_type != 'in_invoice' or purchase_type != 'construction' or state != 'draft' or engineering_approved"/>
+            </xpath>
+            <xpath expr="(//button[@name='action_post'])[2]" position="attributes">
+                <attribute name="invisible">hide_post_button or move_type == 'entry' or display_inactive_currency_warning or (purchase_type == 'construction' and not engineering_approved)</attribute>
+            </xpath>
+
+            <!-- Add History page -->
+            <xpath expr="//notebook//page[last()]" position="after">
+                <page string="History" name="history" invisible="move_type != 'in_invoice' or purchase_type == 'original'">
+                    <field name="history_line_ids" readonly="1">
+                        <list create="0" delete="0" edit="0">
+                            <field name="product_id"/>
+                            <field name="previous_work" sum="Total Previous"/>
+                            <field name="current_work" sum="Total Current"/>
+                            <field name="total_work" sum="Total"/>
+                        </list>
+                    </field>
+                </page>
+                <page string="History Report" invisible="move_type != 'in_invoice' or purchase_type == 'original'">
+                    <button name="action_read_history_report_lines" type="object"
+                            string="Read from History" class="btn-secondary mb-2"/>
+                    <field name="history_report_line_ids">
+                        <list editable="bottom">
+                            <field name="product_id"/>
+                            <field name="previous_work" sum="Total Previous"/>
+                            <field name="current_work" sum="Total Current"/>
+                            <field name="total_work" sum="Total"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+
+            <!-- Add insurance fields with visibility based on purchase_type -->
+            <xpath expr="//page[@name='invoice_tab']/field/list/field[@name='product_id']" position="after">
+                <field name="is_insurance_product" column_invisible="parent.purchase_type == 'original'"/>
+                <field name="insurance_percentage" readonly="not is_insurance_product" column_invisible="parent.purchase_type == 'original'"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- from arkzayed_18_gt_cheque_management/views/account_move_views.xml
+         (this view was never listed in that module's manifest data, so it was dead code;
+         moving it here alongside its field/method - now in account_payment.py - makes it live) -->
+    <record id="view_account_move_modi" model="ir.ui.view">
+        <field name="name">account.move.form.inherit.cash_in_out</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <field name="journal_type" invisible="1"/>
+            </xpath>
+            <xpath expr="//header" position="inside">
+                <button name="action_cash_in_out_statement"
+                      type="object" string="cash in/out statement"
+                        invisible="journal_type != 'cash'"
+                      class="btn_primary" />
+            </xpath>
+        </field>
+    </record>
+
+    <!-- from arkzayed_cost_distribution/views/account_move_line_views.xml -->
+    <record id="view_pending_cost_distribution_list" model="ir.ui.view">
+        <field name="name">account.move.line.pending.distribution.list</field>
+        <field name="model">account.move.line</field>
+        <field name="arch" type="xml">
+            <list string="Pending Cost Distribution" create="0" edit="0">
+                <field name="move_id" string="Bill"/>
+                <field name="name" string="Description"/>
+                <field name="price_total" string="Amount (incl. taxes)"/>
+                <field name="distributed_amount"/>
+                <field name="remaining_amount"/>
+                <field name="distribution_state"/>
+                <button name="action_open_cost_distribution_wizard" type="object"
+                        string="Distribute" class="btn-link" icon="fa-share-alt"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_pending_cost_distribution" model="ir.actions.act_window">
+        <field name="name">Pending Cost Distribution</field>
+        <field name="res_model">account.move.line</field>
+        <field name="view_mode">list</field>
+        <field name="view_id" ref="view_pending_cost_distribution_list"/>
+        <field name="domain">[('move_id.move_type', 'in', ['in_invoice', 'in_refund']), ('display_type', '=', 'product'), ('distribution_state', 'in', ['pending', 'partial'])]</field>
+    </record>
+    <!-- the "Pending Cost Distribution" menu item stays in arkzayed_cost_distribution,
+         next to its sibling menus under menu_arkzayed_cost_root -->
+</odoo>

@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="res_config_settings_view_form_accounting" model="ir.ui.view">
+        <field name="name">res.config.settings.form.inherit.accounting</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="75"/>
+        <field name="inherit_id" ref="arkzayed_18_realestate_development.res_config_settings_view_form_rs"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@data-key='real_estate_bits']" position="inside">
+
+                <h2>Accounting Settings</h2>
+                <div class="row mt16 o_settings_container">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Property Accounts</span>
+                            <div class="text-muted">
+                                Default accounts used for property income, services and maintenance revenue
+                            </div>
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label for="income_account" string="Income Account" class="col-lg-4 o_light_label"/>
+                                    <field name="income_account" context="{'active_test': False}"
+                                           options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                </div>
+                                <div class="row mt16">
+                                    <label for="service_account_id" string="Service Account" class="col-lg-4 o_light_label"/>
+                                    <field name="service_account_id" context="{'active_test': False}"
+                                           options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                </div>
+                                <div class="row mt16">
+                                    <label for="market_fees_account_id" string="Market Fees Account" class="col-lg-4 o_light_label"/>
+                                    <field name="market_fees_account_id" context="{'active_test': False}"
+                                           options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                </div>
+                                <div class="row mt16">
+                                    <label for="maintenance_account_id" string="Maintenance Account" class="col-lg-4 o_light_label"/>
+                                    <field name="maintenance_account_id" context="{'active_test': False}"
+                                           options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Overseas Accounts</span>
+                            <div class="text-muted">
+                                Accounts used for overseas installment, maintenance and deferred revenue entries
+                            </div>
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label for="overseas_installment_account" string="Overseas Installment Account" class="col-lg-4 o_light_label"/>
+                                    <field name="overseas_installment_account" context="{'active_test': False}"
+                                           options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                </div>
+                                <div class="row mt16">
+                                    <label for="overseas_maintenance_account" string="Overseas Maintenance Account" class="col-lg-4 o_light_label"/>
+                                    <field name="overseas_maintenance_account" context="{'active_test': False}"
+                                           options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                </div>
+                                <div class="row mt16">
+                                    <label for="deferred_revenue_overseas_account" string="Deferred Revenue for Overseas" class="col-lg-4 o_light_label"/>
+                                    <field name="deferred_revenue_overseas_account" context="{'active_test': False}"
+                                           options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt16 o_settings_container">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Penalty Accounts</span>
+                            <div class="text-muted">
+                                Configure accounts and journal for installment delay penalty entries
+                            </div>
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label for="penalty_debit_account_id" class="col-lg-4 o_light_label"/>
+                                    <field name="penalty_debit_account_id" context="{'active_test': False}"
+                                           options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                </div>
+                                <div class="row mt16">
+                                    <label for="penalty_credit_account_id" class="col-lg-4 o_light_label"/>
+                                    <field name="penalty_credit_account_id" context="{'active_test': False}"
+                                           options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                </div>
+                                <div class="row mt16">
+                                    <label for="penalty_journal_id" class="col-lg-4 o_light_label"/>
+                                    <field name="penalty_journal_id" context="{'active_test': False}"
+                                           options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Cancellation Accounts</span>
+                            <div class="text-muted">
+                                Configure accounts and journal for reservation cancellation penalty and refund entries
+                            </div>
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label for="cancellation_penalty_account_id" class="col-lg-4 o_light_label"/>
+                                    <field name="cancellation_penalty_account_id" context="{'active_test': False}"
+                                           options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"
+                                           string="Cancellation Penalty Debit Account"/>
+                                </div>
+                                <div class="row mt16">
+                                    <label for="cancellation_refund_debit_account_id" class="col-lg-4 o_light_label"/>
+                                    <field name="cancellation_refund_debit_account_id" context="{'active_test': False}"
+                                           options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                </div>
+                                <div class="row mt16">
+                                    <label for="cancellation_refund_credit_account_id" class="col-lg-4 o_light_label"/>
+                                    <field name="cancellation_refund_credit_account_id" context="{'active_test': False}"
+                                           options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                </div>
+                                <div class="row mt16">
+                                    <label for="cancellation_refund_journal_id" class="col-lg-4 o_light_label"/>
+                                    <field name="cancellation_refund_journal_id" context="{'active_test': False}"
+                                           options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt16 o_settings_container">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Broker Commission Accounts</span>
+                            <div class="text-muted">
+                                Configure accounts and journal for Broker Claim journal entries
+                            </div>
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label for="broker_commission_debit_account_id" class="col-lg-4 o_light_label"/>
+                                    <field name="broker_commission_debit_account_id" context="{'active_test': False}"
+                                           options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                </div>
+                                <div class="row mt16">
+                                    <label for="broker_commission_credit_account_id" class="col-lg-4 o_light_label"/>
+                                    <field name="broker_commission_credit_account_id" context="{'active_test': False}"
+                                           options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                </div>
+                                <div class="row mt16">
+                                    <label for="broker_commission_journal_id" class="col-lg-4 o_light_label"/>
+                                    <field name="broker_commission_journal_id" context="{'active_test': False}"
+                                           options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Sale Commission Accounts</span>
+                            <div class="text-muted">
+                                Configure accounts and journal for Sale Commission journal entries
+                            </div>
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label for="sale_commission_debit_account_id" class="col-lg-4 o_light_label"/>
+                                    <field name="sale_commission_debit_account_id" context="{'active_test': False}"
+                                           options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                </div>
+                                <div class="row mt16">
+                                    <label for="sale_commission_credit_account_id" class="col-lg-4 o_light_label"/>
+                                    <field name="sale_commission_credit_account_id" context="{'active_test': False}"
+                                           options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                </div>
+                                <div class="row mt16">
+                                    <label for="sale_commission_journal_id" class="col-lg-4 o_light_label"/>
+                                    <field name="sale_commission_journal_id" context="{'active_test': False}"
+                                           options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </xpath>
+        </field>
+    </record>
+</odoo>
