@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Portal: Permission Request List -->
+    <template id="portal_my_home_permission_request" name="Show Requests" inherit_id="portal.portal_my_home"
+              customize_show="True">
+        <xpath expr="//div[hasclass('o_portal_docs')]/div[hasclass('o_portal_category')]" position="before">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="icon" t-value="'/arkzayed_18_realestate_developer_crm/static/src/img/request-quote-svgrepo-com.svg'"/>
+                <t t-set="title">Permission Requests</t>
+                <t t-set="url" t-value="'/my/permission_requests'"/>
+                <t t-set="text">Units</t>
+                <t t-set="config_card" t-value="True"/>
+                <t t-set="placeholder_count" t-value="'permission_request_count'"/>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="portal_my_permission_requests" name="My Permission Requests">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Permission Requests</t>
+            </t>
+            <t t-if="not permission_requests">
+                <div class="alert alert-info" role="status">
+                    There are currently no permission requests.
+                </div>
+            </t>
+            <t t-if="permission_requests" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th>Reference</th>
+                        <th class="text-center">Request Type</th>
+                        <th>Client Name</th>
+                        <th class="text-center">Date</th>
+                        <th class="text-center">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="permission_requests" t-as="permission_request">
+                        <tr>
+                            <td>
+                                <a t-attf-href="/my/permission_request/#{permission_request.id}"
+                                   t-att-title="permission_request.name">
+                                    <t t-esc="permission_request.name"/>
+                                </a>
+                            </td>
+                            <td class="text-center">
+                                <span t-field="permission_request.request_type"/>
+                            </td>
+                            <td>
+                                <span t-field="permission_request.client_name"/>
+                            </td>
+                            <td class="text-center">
+                                <span t-field="permission_request.create_date" t-options='{"widget": "date"}'/>
+                            </td>
+                            <td class="text-center">
+                                <t t-if="permission_request.approval_status == 'pending'">
+                                    <span class="badge badge-info">
+                                        <i class="fa fa-clock-o"/>
+                                        Pending
+                                    </span>
+                                </t>
+                                <t t-if="permission_request.approval_status == 'approved'">
+                                    <span class="badge badge-success">
+                                        <i class="fa fa-check"/>
+                                        Approved
+                                    </span>
+                                </t>
+                                <t t-if="permission_request.approval_status == 'rejected'">
+                                    <span class="badge badge-danger">
+                                        <i class="fa fa-times"/>
+                                        Rejected
+                                    </span>
+                                </t>
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </t>
+            <div class="text-center mt-3">
+                <a t-attf-href="/my/permission_request/create" class="btn btn-primary">
+                    <i class="fa fa-plus-circle"/>
+                    Create Permission Request
+                </a>
+            </div>
+        </t>
+    </template>
+
+    <template id="portal_my_permission_request" name="My Permission Request">
+        <t t-call="portal.portal_layout">
+            <div class="o_portal_permission_request">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row no-gutters">
+                            <div class="col-md">
+                                <h5 class="mb-1">
+                                    <small class="text-muted">Permission Request #</small>
+                                    <span t-field="permission_request.name"/>
+                                </h5>
+                            </div>
+                            <div class="col-md text-md-right">
+                                <small class="text-muted">Status:</small>
+                                <t t-if="permission_request.approval_status == 'pending'">
+                                    <span class="badge badge-info">
+                                        <i class="fa fa-clock-o"/>
+                                        Pending
+                                    </span>
+                                </t>
+                                <t t-if="permission_request.approval_status == 'approved'">
+                                    <span class="badge badge-success">
+                                        <i class="fa fa-check"/>
+                                        Approved
+                                    </span>
+                                </t>
+                                <t t-if="permission_request.approval_status == 'rejected'">
+                                    <span class="badge badge-danger">
+                                        <i class="fa fa-times"/>
+                                        Rejected
+                                    </span>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-4">
+                            <div class="row mb-4">
+                                <div class="col-12 col-md-6">
+                                    <strong>Request Type:</strong>
+                                    <span t-field="permission_request.request_type"/>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <strong>Client Name:</strong>
+                                    <span t-field="permission_request.client_name"/>
+                                </div>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col-12 col-md-6">
+                                    <strong>Date:</strong>
+                                    <span t-field="permission_request.create_date"/>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <strong>Client Number:</strong>
+                                    <span t-field="permission_request.client_number"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <h6>Request Details</h6>
+                            <div class="p-3 bg-light">
+                                <span t-field="permission_request.request_details"/>
+                            </div>
+                        </div>
+                        <t t-if="permission_request.operations_feedback">
+                            <div class="mb-4">
+                                <h6>Operations Feedback</h6>
+                                <div class="p-3 bg-light">
+                                    <span t-field="permission_request.operations_feedback"/>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="portal_create_permission_request" name="Create Permission Request">
+        <t t-call="portal.portal_layout">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-10 col-md-12">
+                        <div class="card shadow-sm mt-4 mb-5">
+                            <div class="card-header bg-white">
+                                <div class="row">
+                                    <div class="col">
+                                        <h3 class="mb-0"><i class="fa fa-file-text-o text-primary mr-2"></i>Create
+                                            Permission Request
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <form action="/my/permission_request/create" method="post" class="o_portal_form">
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-lg-3 col-md-4 font-weight-bold text-secondary">
+                                            Request Type
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="col-lg-7 col-md-8">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text bg-light">
+                                                        <i class="fa fa-tag text-muted"></i>
+                                                    </span>
+                                                </div>
+                                                <select name="request_type" class="form-control" required="required">
+                                                    <option value="">Select a request type</option>
+                                                    <option value="lead">Lead</option>
+                                                    <option value="unit">Unit</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-lg-3 col-md-4 font-weight-bold text-secondary">
+                                            Client Name
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="col-lg-7 col-md-8">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text bg-light">
+                                                        <i class="fa fa-user text-muted"></i>
+                                                    </span>
+                                                </div>
+                                                <input type="text" name="client_name" class="form-control"
+                                                       required="required" placeholder="Enter client name"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-lg-3 col-md-4 font-weight-bold text-secondary">
+                                            Client Number
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="col-lg-7 col-md-8">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text bg-light">
+                                                        <i class="fa fa-phone text-muted"></i>
+                                                    </span>
+                                                </div>
+                                                <input type="text" name="client_number" class="form-control"
+                                                       required="required" placeholder="Enter client phone number"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-lg-3 col-md-4 font-weight-bold text-secondary">
+                                            Request Details
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="col-lg-7 col-md-8">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text bg-light">
+                                                        <i class="fa fa-comment text-muted"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea name="request_details" class="form-control" rows="5"
+                                                          required="required"
+                                                          placeholder="Provide detailed information about your request"></textarea>
+                                            </div>
+                                            <small class="text-muted">Please provide as much detail as possible to help
+                                                us process your request efficiently.
+                                            </small>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row mt-4">
+                                        <div class="offset-lg-3 offset-md-4 col-lg-7 col-md-8">
+                                            <div class="alert alert-info" role="alert">
+                                                <i class="fa fa-info-circle mr-2"></i>
+                                                Your request will be reviewed by our operations team once submitted.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <div class="offset-lg-3 offset-md-4 col-lg-7 col-md-8">
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="fa fa-check mr-1"></i>
+                                                Submit Request
+                                            </button>
+                                            <a href="/my/permission_requests" class="btn btn-light ml-2">
+                                                <i class="fa fa-times mr-1"></i>
+                                                Cancel
+                                            </a>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

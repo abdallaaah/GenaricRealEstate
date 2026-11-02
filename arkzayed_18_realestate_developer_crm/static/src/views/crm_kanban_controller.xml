@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates>
+    <t t-name="arkzayed_18_realestate_developer_crm.CrmKanbanController" t-inherit="web.KanbanView" t-inherit-mode="primary">
+        <xpath expr="//t[@t-set-slot='layout-actions']" position="inside">
+            <LeadCounter/>
+        </xpath>
+    </t>
+</templates>

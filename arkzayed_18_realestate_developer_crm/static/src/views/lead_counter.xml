@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="arkzayed_18_realestate_developer_crm.LeadCounter">
+        <span class="mx-5 oe_stat_button btn btn-primary px-5 fs-5" style="pointer-events: none;" t-esc="leadCounterService.state.counts"/>
+    </t>
+</templates>

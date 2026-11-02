@@ -1,0 +1,113 @@
+# -*- coding: utf-8 -*-
+{
+    'name': "Ark Zayed Real Estate Developer CRM",
+    'summary': "real estate broker",
+    'description': """
+    Real Estate Broker Module
+    """,
+    'author': "iSkyDev",
+    'website': "https://www.iskydev.com",
+    'category': 'Uncategorized',
+    'version': '0.1',
+    'depends': [
+        'crm',
+        'hr',
+        'website_crm_partner_assign',
+        'arkzayed_18_contact_customization',
+        'arkzayed_18_realestate_development',
+        'website_studio',
+        'documents',
+        'portal',
+        'web',
+        'base_geolocalize',
+        'sales_team',
+        'mail',
+        'utm',
+    ],
+    'data': [
+        # security
+        'security/ir.model.access.csv',
+        'security/groups.xml',
+        'security/ir_rules.xml',
+        # data
+        'data/crm_stage_data.xml',
+        'data/lead_stage_data.xml',
+        'data/crm_lead_data.xml',
+        'data/website_controller_page.xml',
+        'data/website_menu.xml',
+        'data/permission_request.xml',
+        'data/unit_data.xml',
+        'data/crm_lost_reason_data.xml',
+        'data/job_level.xml',
+        'data/ir_cron.xml',
+        # wizard
+        'wizard/crm_lead_to_opportunity.xml',
+        'wizard/crm_lead_reassign_views.xml',
+        'wizard/qualified_stage.xml',
+        'wizard/unqualified_stage.xml',
+        'wizard/sales_achievement_report_views.xml',
+        # reports
+        'report/sales_achievement_report.xml',
+        # views
+        'views/lead_view_inherit.xml',
+        'views/crm_lead_views.xml',
+        'views/broker_unit_views.xml',
+        'views/developer_project_view.xml',
+        'views/project_commission_view.xml',
+        'views/project_sale_phase_views.xml',
+        'views/crm_stage.xml',
+        'views/neighborhood.xml',
+        'views/menus.xml',
+        'views/crm_portal.xml',
+        'views/sales_team_views.xml',
+        'views/portal/unit_portal.xml',
+        'views/portal/create_unit.xml',
+        'views/lead_stage_views.xml',
+        'views/utm_views_inherit.xml',
+        'views/partner_tree_view_inherit.xml',
+        'views/res_country_views_inherit.xml',
+        'views/res_country_state_views_inherit.xml',
+        'views/res_country_city_views.xml',
+        'views/mail_activity.xml',
+        'views/team_member_view_inherit.xml',
+        'views/meeting_report_views.xml',
+        'views/lead2opp_form_view.xml',
+        'views/permission_request.xml',
+        'views/hr_emplyee_inherit.xml',
+        'views/res_users.xml',
+        'views/res_config_settings_views.xml',
+        # 'views/job_level.xml',
+        # 'views/attachment_type.xml',
+        # portal
+        'views/portal/portal_notification_template.xml',
+        'views/portal/permission_request_portal.xml',
+    ],
+    'assets': {
+        'web._assets_primary_variables': [
+            ('before', '/web_enterprise/static/src/scss/primary_variables.scss',
+             'arkzayed_18_realestate_developer_crm/static/src/scss/primary_variables.scss'),
+        ],
+        'web.assets_frontend': [
+            'arkzayed_18_realestate_developer_crm/static/src/js/notification.js',
+            "arkzayed_18_realestate_developer_crm/static/src/js/crm_partner_assign.js",
+            "arkzayed_18_realestate_developer_crm/static/src/js/unit_creation.js",
+            "arkzayed_18_realestate_developer_crm/static/src/js/portal_convert_lead_to_opportunity.js",
+            "arkzayed_18_realestate_developer_crm/static/src/scss/style.css",
+            'arkzayed_18_realestate_developer_crm/static/src/js/lead_stage.js',
+            # 'arkzayed_18_realestate_developer_crm/static/src/views/portal_chatter.xml',
+            # "arkzayed_18_realestate_developer_crm/static/src/js/many2many_field.js",
+
+        ],
+        'web.assets_backend': [
+            # 'arkzayed_18_realestate_developer_crm/static/src/css/edit_portal.js',
+            # 'arkzayed_18_realestate_developer_crm/static/src/js/lead_stage.js',
+            'arkzayed_18_realestate_developer_crm/static/src/js/kanban_controller.js',
+            'arkzayed_18_realestate_developer_crm/static/src/js/lead_counter.js',
+            'arkzayed_18_realestate_developer_crm/static/src/js/kanban_quick_create_controller.js',
+            'arkzayed_18_realestate_developer_crm/static/src/js/lead_service.js',
+            'arkzayed_18_realestate_developer_crm/static/src/views/lead_counter.xml',
+            'arkzayed_18_realestate_developer_crm/static/src/views/crm_kanban_controller.xml',
+
+        ]
+    }
+}

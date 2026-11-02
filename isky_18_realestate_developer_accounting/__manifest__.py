@@ -5,8 +5,11 @@
     'summary': 'Combined accounting-model inheritance for the real estate developer modules',
     'description': """
 Consolidates the account.* model inheritance that used to be scattered across
-arkzayed_18_realestate_development, arkzayed_18_vendor_bill, arkzayed_cost_distribution
-and arkzayed_loan_payments into a single module, one file per Odoo accounting model.
+arkzayed_18_realestate_development, arkzayed_18_vendor_bill and arkzayed_cost_distribution
+into a single module, one file per Odoo accounting model.
+
+arkzayed_loan_payments was deliberately excluded - its account.loan / account.loan.line /
+account.move additions stay in that module.
 
 Cheque-dependent fields and logic were intentionally left in place in
 arkzayed_18_realestate_development (account.payment) and in
@@ -22,7 +25,6 @@ that has not been resolved yet. Flagged here on purpose; see conversation notes.
     'author': 'iSkyDev',
     'depends': [
         'account',
-        'account_loans',
         'purchase_requisition',
         'arkzayed_18_realestate_development',
         'arkzayed_18_vendor_bill',
@@ -36,7 +38,6 @@ that has not been resolved yet. Flagged here on purpose; see conversation notes.
         'views/account_move_views.xml',
         'views/account_payment_views.xml',
         'views/account_tax_group_views.xml',
-        'views/account_loan_views.xml',
         'views/account_reconcile_wizard_views.xml',
         'views/res_config_settings_views.xml',
     ],
