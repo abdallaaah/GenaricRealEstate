@@ -42,13 +42,6 @@ class AccountPayment(models.Model):
             else:
                 rec.unit_price_words = False
 
-    requisition_id = fields.Many2one(
-        'purchase.requisition',
-        string='Purchase Requisition',
-        readonly=True,
-        help="Related purchase requisition for down payment"
-    )
-
     sale_reservation_id = fields.Many2one("real.estate.sale.reservation", "Sale Reservation")
     from_down_payment = fields.Boolean()
     sale_proposal_id = fields.Many2one("sale.proposal", "Sale Proposal")

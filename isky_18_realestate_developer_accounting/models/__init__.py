@@ -5,5 +5,4 @@ from . import account_cash_flow
 from . import account_journal
 from . import account_move
 from . import account_payment
-from . import account_tax_group
 from . import res_config_settings

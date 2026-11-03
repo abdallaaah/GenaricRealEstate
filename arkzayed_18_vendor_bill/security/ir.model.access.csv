@@ -1,7 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_account_move_history_line,account.move.history.line,model_account_move_history_line,,1,1,1,1
-access_purchase_requisition_payment_wizard,purchase.requisition.payment.wizard,model_purchase_requisition_payment_wizard,,1,1,1,1
-access_res_partner_reconciliation_line,access_res_partner_reconciliation_line,model_res_partner_reconciliation_line,,1,1,1,1
-access_account_move_history_report,access_account_move_history_report,model_account_move_history_line_report,,1,1,1,1
-access_wip_report,access_wip_report,model_wip_report,account.group_account_readonly,1,0,0,0
-access_wip_report_manager,access_wip_report_manager,model_wip_report,account.group_account_manager,1,0,0,0
