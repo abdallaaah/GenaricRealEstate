@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- No chart of accounts or journal items exist yet for this company (accounting
+         is not a feature of this product; account/sale_commission are only pulled
+         in transitively for the commission-plan model), so a direct currency write
+         is safe here; Odoo only blocks a currency *change* once journal items exist. -->
+    <record id="isky_20_broker_base.main_broker_company" model="res.company">
+        <field name="currency_id" ref="base.EGP"/>
+    </record>
+</odoo>

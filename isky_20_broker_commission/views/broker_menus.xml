@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="broker_menu_commission" name="Commission" parent="isky_20_broker_base.broker_menu_root" sequence="30"/>
+    <menuitem id="broker_menu_commission_achievement" name="Achievements" parent="broker_menu_commission"
+              action="realestate_commission_achievement_action" sequence="10"/>
+    <menuitem id="broker_menu_commission_report" name="Achievement Report" parent="broker_menu_commission"
+              action="realestate_achievement_report_action" sequence="20"/>
+    <menuitem id="broker_menu_commission_plans" name="Commission Plans" parent="broker_menu_commission"
+              action="sale_commission.sale_commission_action_plan" sequence="30"/>
+</odoo>

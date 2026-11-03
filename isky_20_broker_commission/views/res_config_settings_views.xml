@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.isky.broker.commission</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="isky_20_broker_crm.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <block id="isky_20_broker_settings" position="inside">
+                <setting id="isky_20_broker_commission_threshold" string="Commission Threshold"
+                         help="Below this project base commission percentage, the computed commission is halved. If the project's base commission exactly equals this threshold, the commission is capped at the amount below.">
+                    <div class="row">
+                        <label for="base_percentage_threshold" class="col-lg-4 o_light_label"/>
+                        <field name="base_percentage_threshold" class="oe_inline"/>
+                    </div>
+                    <div class="row mt8">
+                        <label for="base_max_commission_percentage_amount" class="col-lg-4 o_light_label"/>
+                        <field name="base_max_commission_percentage_amount" class="oe_inline"/>
+                    </div>
+                </setting>
+                <setting id="isky_20_broker_commission_plans" string="Commission Plans"
+                          help="Target and achieve-type commission plans, filtered to Real Estate Commission so they don't mix with unrelated Sale Commission plans a client might also use.">
+                    <button type="action" name="sale_commission.sale_commission_action_plan"
+                            string="Configure Commission Plans" icon="east" class="btn-link"/>
+                </setting>
+            </block>
+        </field>
+    </record>
+</odoo>

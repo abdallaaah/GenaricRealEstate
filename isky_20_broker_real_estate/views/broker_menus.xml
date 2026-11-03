@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="broker_menu_real_estate" name="Real Estate" parent="isky_20_broker_base.broker_menu_root" sequence="20"/>
+    <menuitem id="broker_menu_broker_unit" name="Units" parent="broker_menu_real_estate"
+              action="broker_unit_action" sequence="10"/>
+    <menuitem id="broker_menu_developer_project" name="Projects" parent="broker_menu_real_estate"
+              action="developer_project_action" sequence="20"/>
+    <menuitem id="broker_menu_project_commission" name="Project Commissions" parent="isky_20_broker_base.broker_menu_configuration"
+              action="project_commission_action" sequence="30"/>
+</odoo>

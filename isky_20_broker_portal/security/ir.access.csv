@@ -1,0 +1,5 @@
+id,name,model_id,group_id/id,operation,domain
+access_permission_request_user,permission.request.user,permission.request,base.group_user,crud,
+access_permission_request_portal,permission.request.portal,permission.request,base.group_portal,cr,"[('requester_id', '=', user.id)]"
+access_broker_unit_portal,broker.unit.portal,broker.unit,base.group_portal,cru,"[('seller_sales_person', '=', user.id)]"
+crm_lead_rule_portal_hierarchy,CRM Lead: portal salesperson hierarchy,crm.lead,base.group_portal,ru,"['|', '|', '|', ('user_id', '=', user.id), ('user_id.sale_team_id.user_id', '=', user.id), ('sales_ids', 'in', user.id), ('commission_ids.employee_id', 'in', user.id)]"

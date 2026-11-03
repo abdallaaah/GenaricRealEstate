@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_partner_form_inherit_broker" model="ir.ui.view">
+        <field name="name">res.partner.view.form.inherit.broker</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='sales_purchases']" position="after">
+                <page name="broker_information" string="Broker Information">
+                    <group>
+                        <group string="Roles">
+                            <field name="is_broker"/>
+                            <field name="is_ambassador"/>
+                            <field name="is_developer"/>
+                            <field name="is_resale_seller"/>
+                            <field name="is_resale_buyer"/>
+                            <field name="is_customer"/>
+                            <field name="is_vendor"/>
+                        </group>
+                        <group string="Portal Access">
+                            <field name="sale_portal_user"/>
+                            <field name="purchase_portal_user"/>
+                            <field name="lease_contract"/>
+                            <field name="facility_contract"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Identification">
+                            <field name="national_id"/>
+                            <field name="national_id_expiry_date"/>
+                            <field name="national_id_attachment" filename="national_id"/>
+                            <field name="passport_number"/>
+                            <field name="passport_number_expiry_date"/>
+                            <field name="passport_attachment" filename="passport_number"/>
+                        </group>
+                        <group string="Company Registration">
+                            <field name="cr"/>
+                            <field name="cr_expiry_date"/>
+                            <field name="cr_attachment" filename="cr"/>
+                            <field name="TRN"/>
+                            <field name="TRN_expiry_date"/>
+                            <field name="TRN_attachment" filename="TRN"/>
+                            <field name="tax_expiry_date"/>
+                            <field name="tax_attachment" filename="tax_expiry_date"/>
+                            <field name="company_profile" filename="name"/>
+                        </group>
+                    </group>
+                    <group string="Extra Phone Numbers">
+                        <field name="whats_up_phone"/>
+                        <field name="phone1"/>
+                        <field name="phone2"/>
+                        <field name="phone3"/>
+                        <field name="phone4"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

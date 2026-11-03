@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- EGP ships inactive by default; this product targets the Egyptian market. -->
+    <record id="base.EGP" model="res.currency">
+        <field name="active">True</field>
+    </record>
+
+    <!-- A brand-new company, not the pre-existing default one: Odoo's automatic
+         chart-of-accounts / fiscal-localization selection only fires when a company
+         is *created* with its country already set, not when the country is written
+         onto an existing company afterward (verified: writing country_id on the
+         default company left it on a generic USD chart; a freshly created company
+         with country_id=Egypt from the start got the correct 'eg' chart template
+         with EGP automatically, matching how l10n_eg's own demo company works). -->
+    <record id="main_broker_company" model="res.company">
+        <field name="name">iSky Real Estate Brokers</field>
+        <field name="country_id" ref="base.eg"/>
+        <field name="city">Cairo</field>
+        <field name="phone">+20 2 2461 0000</field>
+        <field name="email">info@isky-broker.example</field>
+    </record>
+
+    <!-- Make it the only company the admin operates in for this installation. -->
+    <record id="base.user_admin" model="res.users">
+        <field name="company_ids" eval="[(6, 0, [ref('main_broker_company')])]"/>
+        <field name="company_id" ref="main_broker_company"/>
+    </record>
+</odoo>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="utm_source_personal" model="utm.source">
+        <field name="name">Personal</field>
+    </record>
+</odoo>

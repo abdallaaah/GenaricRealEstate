@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="stage_new" model="crm.stage">
+        <field name="name">New</field>
+        <field name="sequence">0</field>
+    </record>
+    <record id="stage_eoi" model="crm.stage">
+        <field name="name">EOI</field>
+        <field name="sequence">10</field>
+        <field name="is_eoi">True</field>
+    </record>
+    <record id="stage_reservation" model="crm.stage">
+        <field name="name">Reservation</field>
+        <field name="sequence">20</field>
+        <field name="is_reserved">True</field>
+    </record>
+    <record id="stage_contract" model="crm.stage">
+        <field name="name">Contract</field>
+        <field name="sequence">30</field>
+        <field name="is_contract">True</field>
+    </record>
+    <record id="stage_collected" model="crm.stage">
+        <field name="name">Collected</field>
+        <field name="sequence">40</field>
+        <field name="is_collected">True</field>
+    </record>
+    <record id="stage_confirmed_contract" model="crm.stage">
+        <field name="name">Confirmed Contract</field>
+        <field name="sequence">50</field>
+        <field name="is_confirmed_contract">True</field>
+        <field name="is_won">True</field>
+    </record>
+    <record id="stage_request_to_cancel" model="crm.stage">
+        <field name="name">Request to Cancel</field>
+        <field name="sequence">60</field>
+        <field name="is_request_to_cancel">True</field>
+    </record>
+    <record id="stage_cancel" model="crm.stage">
+        <field name="name">Cancelled</field>
+        <field name="sequence">70</field>
+        <field name="is_cancel">True</field>
+    </record>
+    <record id="stage_reopen" model="crm.stage">
+        <field name="name">Reopened</field>
+        <field name="sequence">80</field>
+    </record>
+</odoo>

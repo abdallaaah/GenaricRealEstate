@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- Geography -->
+    <record id="demo_governorate" model="res.country.state">
+        <field name="name">Cairo Governorate</field>
+        <field name="code">CAI</field>
+        <field name="country_id" ref="base.eg"/>
+    </record>
+    <record id="demo_governorate_giza" model="res.country.state">
+        <field name="name">Giza Governorate</field>
+        <field name="code">GIZ</field>
+        <field name="country_id" ref="base.eg"/>
+    </record>
+    <record id="demo_country_city" model="res.country.city">
+        <field name="name">New Cairo</field>
+        <field name="governorate_id" ref="demo_governorate"/>
+    </record>
+    <record id="demo_country_city_october" model="res.country.city">
+        <field name="name">6th of October City</field>
+        <field name="governorate_id" ref="demo_governorate_giza"/>
+    </record>
+    <record id="demo_neighborhood" model="neighborhood.neighborhood">
+        <field name="name">Fifth Settlement</field>
+        <field name="city_id" ref="demo_country_city"/>
+    </record>
+    <record id="demo_neighborhood_2" model="neighborhood.neighborhood">
+        <field name="name">Sheikh Zayed</field>
+        <field name="city_id" ref="demo_country_city_october"/>
+    </record>
+
+    <!-- Projects -->
+    <record id="demo_developer_project" model="developer.project">
+        <field name="name">Madinaty Gardens</field>
+        <field name="developer_id" ref="isky_20_broker_base.demo_partner_developer"/>
+        <field name="country_id" ref="base.eg"/>
+        <field name="governorate_id" ref="demo_governorate"/>
+        <field name="city_id" ref="demo_country_city"/>
+        <field name="neighborhood_id" ref="demo_neighborhood"/>
+    </record>
+    <record id="demo_developer_project_2" model="developer.project">
+        <field name="name">Palm Hills October</field>
+        <field name="developer_id" ref="isky_20_broker_base.demo_partner_developer_2"/>
+        <field name="country_id" ref="base.eg"/>
+        <field name="governorate_id" ref="demo_governorate_giza"/>
+        <field name="city_id" ref="demo_country_city_october"/>
+        <field name="neighborhood_id" ref="demo_neighborhood_2"/>
+    </record>
+    <record id="demo_developer_project_3" model="developer.project">
+        <field name="name">SODIC Eastown</field>
+        <field name="developer_id" ref="isky_20_broker_base.demo_partner_developer_3"/>
+        <field name="country_id" ref="base.eg"/>
+        <field name="governorate_id" ref="demo_governorate"/>
+        <field name="city_id" ref="demo_country_city"/>
+        <field name="neighborhood_id" ref="demo_neighborhood"/>
+    </record>
+
+    <record id="demo_project_commission" model="project.commission">
+        <field name="developer_project_id" ref="demo_developer_project"/>
+        <field name="start_date" eval="(DateTime.today() - relativedelta(years=1)).strftime('%Y-%m-%d')"/>
+        <field name="end_date" eval="(DateTime.today() + relativedelta(years=5)).strftime('%Y-%m-%d')"/>
+        <field name="commission_percentage">5.0</field>
+        <field name="additional_commission_percentage">1.0</field>
+        <field name="commission_multiplier">normal</field>
+    </record>
+    <record id="demo_project_commission_2" model="project.commission">
+        <field name="developer_project_id" ref="demo_developer_project_2"/>
+        <field name="start_date" eval="(DateTime.today() - relativedelta(years=1)).strftime('%Y-%m-%d')"/>
+        <field name="end_date" eval="(DateTime.today() + relativedelta(years=5)).strftime('%Y-%m-%d')"/>
+        <field name="commission_percentage">4.0</field>
+        <field name="additional_commission_percentage">0.5</field>
+        <field name="commission_multiplier">double</field>
+    </record>
+    <record id="demo_project_commission_3" model="project.commission">
+        <field name="developer_project_id" ref="demo_developer_project_3"/>
+        <field name="start_date" eval="(DateTime.today() - relativedelta(years=1)).strftime('%Y-%m-%d')"/>
+        <field name="end_date" eval="(DateTime.today() + relativedelta(years=5)).strftime('%Y-%m-%d')"/>
+        <field name="commission_percentage">6.0</field>
+        <field name="additional_commission_percentage">1.5</field>
+        <field name="commission_multiplier">normal</field>
+    </record>
+
+    <record id="demo_sale_phase_1" model="project.sale.phase">
+        <field name="name">Phase 1</field>
+        <field name="project_id" ref="demo_developer_project"/>
+    </record>
+    <record id="demo_sale_phase_2" model="project.sale.phase">
+        <field name="name">Phase 2</field>
+        <field name="project_id" ref="demo_developer_project_2"/>
+    </record>
+</odoo>

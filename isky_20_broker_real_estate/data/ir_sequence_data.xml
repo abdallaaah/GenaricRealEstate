@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="unit_primary_sequence" model="ir.sequence">
+        <field name="name">Broker Unit - Primary</field>
+        <field name="code">isky_20_broker_real_estate.unit.primary</field>
+        <field name="prefix">PU/</field>
+        <field name="padding">5</field>
+    </record>
+    <record id="unit_resale_sequence" model="ir.sequence">
+        <field name="name">Broker Unit - Resale</field>
+        <field name="code">isky_20_broker_real_estate.unit.resale</field>
+        <field name="prefix">RU/</field>
+        <field name="padding">5</field>
+    </record>
+</odoo>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="developer_project_view_list" model="ir.ui.view">
+        <field name="name">developer.project.view.list</field>
+        <field name="model">developer.project</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="developer_id"/>
+                <field name="country_id"/>
+                <field name="governorate_id"/>
+                <field name="city_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="developer_project_view_form" model="ir.ui.view">
+        <field name="name">developer.project.view.form</field>
+        <field name="model">developer.project</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="developer_id"/>
+                        </group>
+                        <group>
+                            <field name="country_id"/>
+                            <field name="governorate_id"/>
+                            <field name="city_id"/>
+                            <field name="neighborhood_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="commissions" string="Commissions">
+                            <field name="project_commission_ids">
+                                <list editable="bottom">
+                                    <field name="start_date"/>
+                                    <field name="end_date"/>
+                                    <field name="commission_percentage"/>
+                                    <field name="additional_commission_percentage"/>
+                                    <field name="commission_multiplier"/>
+                                    <field name="is_first_commission" column_invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="developer_project_action" model="ir.actions.act_window">
+        <field name="name">Developer Projects</field>
+        <field name="res_model">developer.project</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

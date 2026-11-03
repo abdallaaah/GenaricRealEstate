@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="demo_lead_new" model="crm.lead">
+        <field name="name">New Lead - Villa Inquiry, Sheikh Zayed</field>
+        <field name="type">lead</field>
+        <field name="user_id" ref="isky_20_broker_base.demo_user_salesperson_3"/>
+        <field name="developer_id" ref="isky_20_broker_base.demo_partner_developer_2"/>
+        <field name="project_id" ref="isky_20_broker_real_estate.demo_developer_project_2"/>
+        <field name="dest_country_id" ref="base.eg"/>
+        <field name="governorate_id" ref="isky_20_broker_real_estate.demo_governorate_giza"/>
+        <field name="dest_city_id" ref="isky_20_broker_real_estate.demo_country_city_october"/>
+        <field name="phone">+20 100 999 1111</field>
+        <field name="contact_name">Rania Samy Hosny</field>
+        <field name="interested_in">buy</field>
+        <field name="buying_type">primary</field>
+    </record>
+
+    <record id="demo_opp_eoi" model="crm.lead">
+        <field name="name">EOI - Apartment A-101, Madinaty Gardens</field>
+        <field name="type">opportunity</field>
+        <field name="user_id" ref="isky_20_broker_base.demo_user_salesperson"/>
+        <field name="partner_id" ref="isky_20_broker_base.demo_partner_customer_1"/>
+        <field name="developer_id" ref="isky_20_broker_base.demo_partner_developer"/>
+        <field name="project_id" ref="isky_20_broker_real_estate.demo_developer_project"/>
+        <field name="unit_id" ref="isky_20_broker_real_estate.demo_unit_1"/>
+        <field name="unit_number">A-101</field>
+        <field name="dest_country_id" ref="base.eg"/>
+        <field name="governorate_id" ref="isky_20_broker_real_estate.demo_governorate"/>
+        <field name="dest_city_id" ref="isky_20_broker_real_estate.demo_country_city"/>
+        <field name="phone">+20 100 123 4567</field>
+        <field name="interested_in">buy</field>
+        <field name="buying_type">primary</field>
+        <field name="stage_id" ref="stage_eoi"/>
+    </record>
+
+    <record id="demo_opp_split_deal" model="crm.lead">
+        <field name="name">Reservation - Duplex A-102, Madinaty Gardens (Split Deal)</field>
+        <field name="type">opportunity</field>
+        <field name="user_id" ref="isky_20_broker_base.demo_user_salesperson"/>
+        <field name="partner_id" ref="isky_20_broker_base.demo_partner_customer_2"/>
+        <field name="developer_id" ref="isky_20_broker_base.demo_partner_developer"/>
+        <field name="project_id" ref="isky_20_broker_real_estate.demo_developer_project"/>
+        <field name="unit_id" ref="isky_20_broker_real_estate.demo_unit_2"/>
+        <field name="unit_number">A-102</field>
+        <field name="dest_country_id" ref="base.eg"/>
+        <field name="governorate_id" ref="isky_20_broker_real_estate.demo_governorate"/>
+        <field name="dest_city_id" ref="isky_20_broker_real_estate.demo_country_city"/>
+        <field name="phone">+20 101 234 5678</field>
+        <field name="interested_in">buy</field>
+        <field name="buying_type">primary</field>
+        <field name="split_deal">True</field>
+        <field name="sales_ids" eval="[(6, 0, [ref('isky_20_broker_base.demo_user_salesperson_2')])]"/>
+        <field name="stage_id" ref="stage_reservation"/>
+        <field name="reserved_date" eval="DateTime.today().strftime('%Y-%m-%d')"/>
+        <field name="reservation_price">200000</field>
+    </record>
+
+    <record id="demo_opp_confirmed" model="crm.lead">
+        <field name="name">Confirmed Contract - Villa B-205, Palm Hills October</field>
+        <field name="type">opportunity</field>
+        <field name="user_id" ref="isky_20_broker_base.demo_user_salesperson_2"/>
+        <field name="partner_id" ref="isky_20_broker_base.demo_partner_customer_3"/>
+        <field name="developer_id" ref="isky_20_broker_base.demo_partner_developer_2"/>
+        <field name="project_id" ref="isky_20_broker_real_estate.demo_developer_project_2"/>
+        <field name="unit_id" ref="isky_20_broker_real_estate.demo_unit_3"/>
+        <field name="unit_number">B-205</field>
+        <field name="dest_country_id" ref="base.eg"/>
+        <field name="governorate_id" ref="isky_20_broker_real_estate.demo_governorate_giza"/>
+        <field name="dest_city_id" ref="isky_20_broker_real_estate.demo_country_city_october"/>
+        <field name="phone">+20 111 345 6789</field>
+        <field name="interested_in">buy</field>
+        <field name="buying_type">primary</field>
+        <field name="stage_id" ref="stage_confirmed_contract"/>
+        <field name="reserved_date" eval="(DateTime.today() - relativedelta(months=3)).strftime('%Y-%m-%d')"/>
+        <field name="reservation_price">600000</field>
+        <field name="contracted_date" eval="(DateTime.today() - relativedelta(months=2)).strftime('%Y-%m-%d')"/>
+        <field name="contract_price">12000000</field>
+        <field name="collected_date" eval="(DateTime.today() - relativedelta(months=1)).strftime('%Y-%m-%d')"/>
+        <field name="confirmed_date" eval="DateTime.today().strftime('%Y-%m-%d')"/>
+        <field name="achievement_date" eval="(DateTime.today() - relativedelta(months=3)).strftime('%Y-%m-%d')"/>
+    </record>
+
+    <record id="demo_opp_cancelled" model="crm.lead">
+        <field name="name">Cancelled - Townhouse C-310, SODIC Eastown</field>
+        <field name="type">opportunity</field>
+        <field name="user_id" ref="isky_20_broker_base.demo_user_salesperson_3"/>
+        <field name="partner_id" ref="isky_20_broker_base.demo_partner_customer_4"/>
+        <field name="developer_id" ref="isky_20_broker_base.demo_partner_developer_3"/>
+        <field name="project_id" ref="isky_20_broker_real_estate.demo_developer_project_3"/>
+        <field name="unit_id" ref="isky_20_broker_real_estate.demo_unit_4"/>
+        <field name="unit_number">C-310</field>
+        <field name="dest_country_id" ref="base.eg"/>
+        <field name="governorate_id" ref="isky_20_broker_real_estate.demo_governorate"/>
+        <field name="dest_city_id" ref="isky_20_broker_real_estate.demo_country_city"/>
+        <field name="phone">+20 122 456 7890</field>
+        <field name="interested_in">buy</field>
+        <field name="buying_type">primary</field>
+        <field name="stage_id" ref="stage_cancel"/>
+        <field name="lost_reason_id" ref="crm.lost_reason_1"/>
+    </record>
+
+    <record id="demo_lead_qualified" model="crm.lead">
+        <field name="name">Qualified Lead - Office OFF-12, SODIC Eastown</field>
+        <field name="type">lead</field>
+        <field name="user_id" ref="isky_20_broker_base.demo_user_team_leader"/>
+        <field name="developer_id" ref="isky_20_broker_base.demo_partner_developer_3"/>
+        <field name="project_id" ref="isky_20_broker_real_estate.demo_developer_project_3"/>
+        <field name="dest_country_id" ref="base.eg"/>
+        <field name="governorate_id" ref="isky_20_broker_real_estate.demo_governorate"/>
+        <field name="dest_city_id" ref="isky_20_broker_real_estate.demo_country_city"/>
+        <field name="phone">+20 109 567 8901</field>
+        <field name="contact_name">Mohamed Samir Fathy</field>
+        <field name="interested_in">rent</field>
+        <field name="priority">2</field>
+        <field name="unit_type">office_space</field>
+        <field name="finish_type">finished</field>
+        <field name="min_area">100</field>
+        <field name="max_area">200</field>
+        <field name="min_price">30000</field>
+        <field name="max_price">50000</field>
+        <field name="qualified_comment">Needs a private office near 90th Street, budget flexible.</field>
+        <field name="lead_stage_id" ref="lead_stage_qualified"/>
+    </record>
+</odoo>

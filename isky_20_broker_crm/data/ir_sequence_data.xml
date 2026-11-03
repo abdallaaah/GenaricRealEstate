@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="lead_sequence" model="ir.sequence">
+        <field name="name">Broker Lead</field>
+        <field name="code">isky_20_broker_crm.lead</field>
+        <field name="prefix">L/</field>
+        <field name="padding">5</field>
+    </record>
+    <record id="opportunity_sequence" model="ir.sequence">
+        <field name="name">Broker Opportunity</field>
+        <field name="code">isky_20_broker_crm.opportunity</field>
+        <field name="prefix">O/</field>
+        <field name="padding">5</field>
+    </record>
+</odoo>

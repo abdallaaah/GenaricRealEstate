@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="demo_crm_team" model="crm.team">
+        <field name="name">New Cairo Brokerage Team</field>
+        <field name="user_id" ref="demo_user_team_leader"/>
+        <field name="company_id" ref="main_broker_company"/>
+        <field name="sales_manager_id" ref="demo_user_sales_manager"/>
+        <field name="director_id" ref="demo_user_director"/>
+        <field name="member_ids" eval="[(6, 0, [
+            ref('demo_user_salesperson'),
+            ref('demo_user_salesperson_2'),
+            ref('demo_user_salesperson_3'),
+        ])]"/>
+    </record>
+</odoo>

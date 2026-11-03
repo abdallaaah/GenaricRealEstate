@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="portal_entry_units" model="portal.entry">
+        <field name="name">Units</field>
+        <field name="description">Your resale listings</field>
+        <field name="url">/my/units</field>
+        <field name="placeholder_count">broker_unit_count</field>
+        <field name="category">vendor_category</field>
+        <field name="sequence">180</field>
+    </record>
+    <record id="portal_entry_permission_requests" model="portal.entry">
+        <field name="name">Permission Requests</field>
+        <field name="description">Request permission to claim a lead or unit</field>
+        <field name="url">/my/permission-requests</field>
+        <field name="placeholder_count">permission_request_count</field>
+        <field name="category">vendor_category</field>
+        <field name="sequence">190</field>
+    </record>
+</odoo>
