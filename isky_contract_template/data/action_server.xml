@@ -23,7 +23,7 @@
             <field name="model">sale.proposal</field>
             <field name="report_file">isky_contract_template.sale_proposal_dynamic_contract_template</field>
             <field name="report_name">isky_contract_template.sale_proposal_dynamic_contract_template</field>
-            <field name="binding_model_id" ref="arkzayed_18_realestate_development.model_sale_proposal"/>
+            <field name="binding_model_id" ref="isky_18_realestate_developer_sales_crm.model_sale_proposal"/>
             <field name="binding_type">report</field>
             <field name="paperformat_id" ref="paperformat_sale_proposal_contract"/>
         </record>

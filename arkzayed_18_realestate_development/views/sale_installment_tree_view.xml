@@ -5,8 +5,8 @@
             <field name="name">Make Payment</field>
             <field name="type">ir.actions.server</field>
             <field name="state">code</field>
-            <field name="model_id" ref="arkzayed_18_realestate_development.model_installment_lines"/>
-            <field name="binding_model_id" ref="arkzayed_18_realestate_development.model_installment_lines"/>
+            <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_installment_lines"/>
+            <field name="binding_model_id" ref="isky_18_realestate_developer_sales_crm.model_installment_lines"/>
             <field name="binding_view_types">list</field>
             <field name="code">
                 records.make_payment()

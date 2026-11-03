@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from num2words import num2words
 
-from odoo.addons.arkzayed_18_realestate_development.models.selections import contract_type_selection
+from odoo.addons.isky_18_realestate_developer_unit_inventory.models.selections import contract_type_selection
 from odoo import models, fields, api, _, Command
 from odoo.exceptions import UserError, ValidationError
 

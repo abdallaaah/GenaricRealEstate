@@ -1,3 +1,1 @@
-# -*- coding: utf-8 -*-
-
-from . import meeting_report
+# meeting_report.py moved to isky_18_realestate_developer_sales_crm.

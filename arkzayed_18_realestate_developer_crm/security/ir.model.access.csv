@@ -5,10 +5,7 @@ access_gas_counter,access.gas.counter,model_gas_counter,,1,1,1,1
 access_water_counter,access.water.counter,model_water_counter,,1,1,1,1
 access_landline_counter,access.landline.counter,model_landline_counter,,1,1,1,1
 access_internet_internet,access.internet.internet,model_internet,,1,1,1,1
-access_developer_project,access.developer.project,model_developer_project,,1,1,1,1
 access_project_phase,access.project.phase,model_project_sale_phase,,1,1,1,1
-access_neighborhood_neighborhood,access.neighborhood.neighborhood,model_neighborhood_neighborhood,,1,1,1,1
-access_res_country_city,access.res.country.city,model_res_country_city,,1,1,1,1
 access_lead_stage,access.lead.stage,model_lead_stage,,1,1,1,1
 access_user_notification,access_user_notification,model_user_notification,,1,1,1,1
 access_partner_notification_rel,access_partner_notification_rel,model_partner_notification_rel,,1,1,1,1
@@ -26,5 +23,4 @@ access_crm_meeting_report,access.crm.meeting.report,model_crm_meeting_report,bas
 access_crm_lead_scoring_frequency_portal,access_crm_lead_scoring_frequency_portal,crm.model_crm_lead_scoring_frequency,base.group_portal,1,0,0,0
 access_permission_request,access_permission_request,model_permission_request,,1,1,1,1
 access_project_commission,access_project_commission,model_project_commission,,1,1,1,1
-
 access_sales_achievement_report_wizard,access.sales.achievement.report.wizard,model_sales_achievement_report_wizard,base.group_user,1,1,1,1

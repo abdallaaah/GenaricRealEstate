@@ -23,6 +23,8 @@
         'sales_team',
         'mail',
         'utm',
+        'isky_18_realestate_developer_unit_inventory',
+        'isky_18_realestate_developer_sales_crm',
     ],
     'data': [
         # security

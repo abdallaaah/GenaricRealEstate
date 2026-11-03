@@ -22,7 +22,7 @@
             <field name="report_name">arkzayed_18_realestate_development.reservation_with_broker</field>
             <field name="report_file">arkzayed_18_realestate_development.reservation_with_broker</field>
             <field name="print_report_name">"Reservation Report For %s" % (object.customer_id.name)</field>
-            <field name="binding_model_id" ref="arkzayed_18_realestate_development.model_real_estate_sale_reservation"/>
+            <field name="binding_model_id" ref="isky_18_realestate_developer_sales_crm.model_real_estate_sale_reservation"/>
             <field name="binding_type">report</field>
             <field name="paperformat_id" ref="arkzayed_18_realestate_development.report_reservation_paperformat"/>
         </record>
@@ -38,7 +38,7 @@
             <field name="report_name">arkzayed_18_realestate_development.reservation_without_broker</field>
             <field name="report_file">arkzayed_18_realestate_development.reservation_without_broker</field>
             <field name="print_report_name">"Reservation Report For %s" % (object.customer_id.name)</field>
-            <field name="binding_model_id" ref="arkzayed_18_realestate_development.model_real_estate_sale_reservation"/>
+            <field name="binding_model_id" ref="isky_18_realestate_developer_sales_crm.model_real_estate_sale_reservation"/>
             <field name="binding_type">report</field>
             <field name="paperformat_id" ref="arkzayed_18_realestate_development.report_reservation_paperformat"/>
         </record>

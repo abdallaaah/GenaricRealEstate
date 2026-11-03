@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_vendor_commitment,access.vendor.commitment,model_vendor_commitment,arkzayed_18_realestate_development.group_vendor_commitment_user,1,1,1,1
+access_capex_type,access.capex.type,model_capex_scope,,1,1,1,1
+aceess_capex_scope_lines,aceess.capex.scope.lines,model_capex_cost_lines,,1,1,1,1
+access_construction_progress_engineer,access.construction.progress.engineer,model_arkzayed_construction_progress,arkzayed_18_realestate_development.group_progress_engineer,1,1,1,0
+access_construction_progress_manager,access.construction.progress.manager,model_arkzayed_construction_progress,arkzayed_18_realestate_development.group_progress_manager,1,1,1,1
+access_progress_update_wizard,access.progress.update.wizard,model_arkzayed_progress_update_wizard,,1,1,1,1
+access_progress_report_wizard,access.progress.report.wizard,model_arkzayed_progress_report_wizard,,1,1,1,1

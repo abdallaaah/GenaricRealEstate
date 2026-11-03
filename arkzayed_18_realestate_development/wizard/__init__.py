@@ -12,8 +12,6 @@ from . import commission_summary_report_wizard
 from . import collections_wizard
 from . import sales_wizard
 from . import cash_wizard
-from . import progress_wizard
-from . import report_wizard
 from . import combined_cheque_wizard
 from . import cheque_split_wizard
 from . import discount_report_wizard

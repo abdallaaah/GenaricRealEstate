@@ -60,7 +60,7 @@ cheques management in odoo
     'summary': """This module will help to track outgoing checks and incoming checks outgoing check and incoming check outgoing cheque and incoming cheque outgoing cheques and incoming cheques Post Dated Cheque management PDC cheque management account check post dated check PDC check customer check vendor check writing account check writing account cheque writing incoming check outgoing check print cheque print check bank cheque printing check""",
     # This module is the single, self-contained cheque module (it fully absorbs the
     # former Globalteckz `gt_cheque_management`, which has been removed from the repo).
-    'depends' : ['base', 'account', 'attachment_indexation', 'project', 'isky_18_realestate_developer_accounting'],
+    'depends' : ['base', 'account', 'attachment_indexation', 'project'],
     "license" : "Other proprietary",
     'images': ['static/description/banner.png'],
     "price": "49.00",

@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <record id="module_category_real_state_project_assigned" model="ir.module.category">
-            <field name="name">Real State Project</field>
-        </record>
 
         <record id="module_category_engineer_menu" model="ir.module.category">
             <field name="name">Engineer Menu</field>
@@ -45,21 +42,6 @@
             <field name="model_id" ref="model_crm_team"/>
             <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
         </record>
-        <record id="real_estate_facility_company_rule" model="ir.rule">
-            <field name="name">real_estate_facility_company_rule</field>
-            <field name="model_id" ref="model_real_estate_facility"/>
-            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
-        </record>
-        <record id="real_estate_feature_company_rule" model="ir.rule">
-            <field name="name">real_estate_feature_company_rule</field>
-            <field name="model_id" ref="model_real_estate_feature"/>
-            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
-        </record>
-        <record id="real_estate_nearby_connectivity_company_rule" model="ir.rule">
-            <field name="name">real_estate_nearby_connectivity_company_rule</field>
-            <field name="model_id" ref="model_real_estate_nearby_connectivity"/>
-            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
-        </record>
 
         <record id="account_analytic_plan_company_rule" model="ir.rule">
             <field name="name">Analytic Plan: Multi-company</field>
@@ -80,14 +62,6 @@
             <field name="global" eval="True"/>
             <field name="domain_force">[('assignees_ids', 'in', [user.id])]</field>
         </record>
-        <record id="real_state_project_user_group" model="res.groups">
-            <field name="name">User</field>
-            <field name="category_id" ref="module_category_real_state_project_assigned"/>
-        </record>
-        <record id="real_state_project_admin_group" model="res.groups">
-            <field name="name">Admin</field>
-            <field name="category_id" ref="module_category_real_state_project_assigned"/>
-        </record>
 
         <record id="payment_cfo_group" model="res.groups">
             <field name="name">Payment CFO</field>
@@ -99,143 +73,24 @@
 
         <record id="group_finance_approval" model="res.groups">
             <field name="name">Finance Approval</field>
-            <field name="category_id" ref="module_category_real_state_project_assigned"/>
+            <field name="category_id" ref="isky_18_realestate_developer_unit_inventory.module_category_real_state_project_assigned"/>
         </record>
 
         <record id="group_finance_two_approval" model="res.groups">
             <field name="name">Second Finance Approval</field>
-            <field name="category_id" ref="module_category_real_state_project_assigned"/>
+            <field name="category_id" ref="isky_18_realestate_developer_unit_inventory.module_category_real_state_project_assigned"/>
         </record>
 
         <record id="group_manager_approval" model="res.groups">
             <field name="name">Manager Approval</field>
-            <field name="category_id" ref="module_category_real_state_project_assigned"/>
+            <field name="category_id" ref="isky_18_realestate_developer_unit_inventory.module_category_real_state_project_assigned"/>
         </record>
 
         <record id="group_operation_manager_approval" model="res.groups">
             <field name="name">Operation Manager Approval</field>
-            <field name="category_id" ref="module_category_real_state_project_assigned"/>
+            <field name="category_id" ref="isky_18_realestate_developer_unit_inventory.module_category_real_state_project_assigned"/>
         </record>
 
-        <record id="user_real_state_project_assigned_rule" model="ir.rule">
-            <field name="name">User Project Assigned</field>
-            <field name="model_id" ref="model_realestate_project"/>
-            <field name="domain_force">[('id', 'in', user.realestate_project_ids.ids)]</field>
-            <field name="groups"
-                   eval="[Command.link(ref('arkzayed_18_realestate_development.real_state_project_user_group'))]"/>
-        </record>
-        <record id="admin_real_state_project_assigned_rule" model="ir.rule">
-            <field name="name">Admin Project Assigned (all)</field>
-            <field name="model_id" ref="model_realestate_project"/>
-            <field name="domain_force">[(1, '=', 1)]</field>
-            <field name="groups"
-                   eval="[Command.link(ref('arkzayed_18_realestate_development.real_state_project_admin_group'))]"/>
-        </record>
-        <record id="user_real_state_unit_assigned_rule" model="ir.rule">
-            <field name="name">User Unit Assigned</field>
-            <field name="model_id" ref="model_real_estate_unit"/>
-            <field name="domain_force">[('project_id', 'in', user.realestate_project_ids.ids)]</field>
-            <field name="groups"
-                   eval="[Command.link(ref('arkzayed_18_realestate_development.real_state_project_user_group'))]"/>
-        </record>
-        <record id="admin_real_state_unit_assigned_rule" model="ir.rule">
-            <field name="name">Admin Unit Assigned</field>
-            <field name="model_id" ref="model_real_estate_unit"/>
-            <field name="domain_force">[(1, '=', 1)]</field>
-            <field name="groups"
-                   eval="[Command.link(ref('arkzayed_18_realestate_development.real_state_project_admin_group'))]"/>
-        </record>
-<!--        <record id="user_real_state_cluster_assigned_rule" model="ir.rule">-->
-<!--            <field name="name">User Cluster Assigned</field>-->
-<!--            <field name="model_id" ref="model_cluster"/>-->
-<!--            <field name="domain_force">[('project_id', 'in', user.realestate_project_ids.ids)]</field>-->
-<!--            <field name="groups"-->
-<!--                   eval="[Command.link(ref('arkzayed_18_realestate_development.real_state_project_user_group'))]"/>-->
-<!--        </record>-->
-<!--        <record id="admin_real_state_cluster_assigned_rule" model="ir.rule">-->
-<!--            <field name="name">Admin Cluster Assigned</field>-->
-<!--            <field name="model_id" ref="model_cluster"/>-->
-<!--            <field name="domain_force">[(1, '=', 1)]</field>-->
-<!--            <field name="groups"-->
-<!--                   eval="[Command.link(ref('arkzayed_18_realestate_development.real_state_project_admin_group'))]"/>-->
-<!--        </record>-->
-        <record id="user_real_state_floor_assigned_rule" model="ir.rule">
-            <field name="name">User Floor Assigned</field>
-            <field name="model_id" ref="model_floor"/>
-            <field name="domain_force">[('project_id', 'in', user.realestate_project_ids.ids)]</field>
-            <field name="groups"
-                   eval="[Command.link(ref('arkzayed_18_realestate_development.real_state_project_user_group'))]"/>
-        </record>
-        <record id="admin_real_state_floor_assigned_rule" model="ir.rule">
-            <field name="name">Admin Floor Assigned</field>
-            <field name="model_id" ref="model_floor"/>
-            <field name="domain_force">[(1, '=', 1)]</field>
-            <field name="groups"
-                   eval="[Command.link(ref('arkzayed_18_realestate_development.real_state_project_admin_group'))]"/>
-        </record>
-<!--        <record id="user_real_state_floor_area_assigned_rule" model="ir.rule">-->
-<!--            <field name="name">User Floor area Assigned</field>-->
-<!--            <field name="model_id" ref="model_floor_area"/>-->
-<!--            <field name="domain_force">[('project_id', 'in', user.realestate_project_ids.ids)]</field>-->
-<!--            <field name="groups"-->
-<!--                   eval="[Command.link(ref('arkzayed_18_realestate_development.real_state_project_user_group'))]"/>-->
-<!--        </record>-->
-<!--        <record id="admin_real_state_floor_area_assigned_rule" model="ir.rule">-->
-<!--            <field name="name">Admin Floor area Assigned</field>-->
-<!--            <field name="model_id" ref="model_floor_area"/>-->
-<!--            <field name="domain_force">[(1, '=', 1)]</field>-->
-<!--            <field name="groups"-->
-<!--                   eval="[Command.link(ref('arkzayed_18_realestate_development.real_state_project_admin_group'))]"/>-->
-<!--        </record>-->
-        <record id="user_real_state_building_assigned_rule" model="ir.rule">
-            <field name="name">User Building Assigned</field>
-            <field name="model_id" ref="model_real_estate_building"/>
-            <field name="domain_force">[('project_id', 'in', user.realestate_project_ids.ids)]</field>
-            <field name="groups"
-                   eval="[Command.link(ref('arkzayed_18_realestate_development.real_state_project_user_group'))]"/>
-        </record>
-        <record id="admin_real_state_building_assigned_rule" model="ir.rule">
-            <field name="name">Admin Building Assigned</field>
-            <field name="model_id" ref="model_real_estate_building"/>
-            <field name="domain_force">[(1, '=', 1)]</field>
-            <field name="groups"
-                   eval="[Command.link(ref('arkzayed_18_realestate_development.real_state_project_admin_group'))]"/>
-        </record>
-        <record id="real_estate_unit_company_rule" model="ir.rule">
-            <field name="name">real estate unit company</field>
-            <field name="model_id" ref="model_real_estate_unit"/>
-            <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
-        </record>
-<!--        <record id="cluster_company_rule" model="ir.rule">-->
-<!--            <field name="name">cluster company</field>-->
-<!--            <field name="model_id" ref="model_cluster"/>-->
-<!--            <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>-->
-<!--        </record>-->
-<!--        <record id="floor_area_company_rule" model="ir.rule">-->
-<!--            <field name="name">floor area company</field>-->
-<!--            <field name="model_id" ref="model_floor_area"/>-->
-<!--            <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>-->
-<!--        </record>-->
-        <record id="floor_company_rule" model="ir.rule">
-            <field name="name">floor company</field>
-            <field name="model_id" ref="model_floor"/>
-            <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
-        </record>
-        <record id="zone_company_rule" model="ir.rule">
-            <field name="name">zone company</field>
-            <field name="model_id" ref="model_zone"/>
-            <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
-        </record>
-        <record id="real_estate_building_company_rule" model="ir.rule">
-            <field name="name">real estate building company</field>
-            <field name="model_id" ref="model_real_estate_building"/>
-            <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
-        </record>
-        <record id="realestate_project_company_rule" model="ir.rule">
-            <field name="name">real estate project company</field>
-            <field name="model_id" ref="model_realestate_project"/>
-            <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
-        </record>
         <record id="revenue_share2_company_rule" model="ir.rule">
             <field name="name">revenue share2 company</field>
             <field name="model_id" ref="model_revenue_share2"/>
@@ -256,19 +111,14 @@
             <field name="model_id" ref="model_real_estate_sale_reservation"/>
             <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
         </record>
-        <record id="real_estate_project_phase_company_rule" model="ir.rule">
-            <field name="name">real estate project phase company</field>
-            <field name="model_id" ref="model_real_estate_project_phase"/>
-            <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
-        </record>
         <record id="broker_contract_company_rule" model="ir.rule">
             <field name="name">Broker Contract: Restrict by Company</field>
-            <field name="model_id" ref="model_broker_contract"/>
+            <field name="model_id" ref="isky_18_realestate_developer_commission.model_broker_contract"/>
             <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
         </record>
         <record id="broker_claim_company_rule" model="ir.rule">
             <field name="name">Broker Claim: Restrict by Company</field>
-            <field name="model_id" ref="model_broker_claim"/>
+            <field name="model_id" ref="isky_18_realestate_developer_commission.model_broker_claim"/>
             <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
         </record>
         <record id="maintenance_template_company_rule" model="ir.rule">
@@ -278,7 +128,7 @@
         </record>
         <record id="project_commission_company_rule" model="ir.rule">
             <field name="name">Project Commission: Restrict by Company</field>
-            <field name="model_id" ref="model_realestate_project_commission"/>
+            <field name="model_id" ref="isky_18_realestate_developer_commission.model_realestate_project_commission"/>
             <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
         </record>
         <record id="customer_ownership_company_rule" model="ir.rule">
@@ -288,7 +138,7 @@
         </record>
         <record id="capex_scope_company_rule" model="ir.rule">
             <field name="name">Capex Scope: Restrict by Company</field>
-            <field name="model_id" ref="model_capex_scope"/>
+            <field name="model_id" ref="isky_18_realestate_developer_construction.model_capex_scope"/>
             <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
         </record>
         <record id="installment_template_company_rule" model="ir.rule">
@@ -296,62 +146,52 @@
             <field name="model_id" ref="model_installment_template"/>
             <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
         </record>
-        <record id="unit_design_company_rule" model="ir.rule">
-            <field name="name">Unit Design: Restrict by Company</field>
-            <field name="model_id" ref="model_unit_design"/>
-            <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
-        </record>
-        <record id="realestate_project_type_company_rule" model="ir.rule">
-            <field name="name">Real Estate Project Type: Restrict by Company</field>
-            <field name="model_id" ref="model_realestate_project_type"/>
-            <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
-        </record>
         <record id="group_vendor_commitment_user" model="res.groups">
             <field name="name">Vendor Commitment User</field>
-            <field name="category_id" ref="module_category_real_state_project_assigned"/>
+            <field name="category_id" ref="isky_18_realestate_developer_unit_inventory.module_category_real_state_project_assigned"/>
         </record>
         <record id="group_exception_reservation" model="res.groups">
             <field name="name">Exception Reservation</field>
-            <field name="category_id" ref="module_category_real_state_project_assigned"/>
+            <field name="category_id" ref="isky_18_realestate_developer_unit_inventory.module_category_real_state_project_assigned"/>
         </record>
         <record id="group_create_contract" model="res.groups">
             <field name="name">Create Contract Before Confirmation</field>
             <field name="implied_ids" eval="[(4, ref('arkzayed_18_realestate_development.group_create_contract_action'))]"/>
-            <field name="category_id" ref="module_category_real_state_project_assigned"/>
+            <field name="category_id" ref="isky_18_realestate_developer_unit_inventory.module_category_real_state_project_assigned"/>
         </record>
 
         <!-- Per-action permissions controlling Reservation action button visibility -->
         <record id="group_calculate_installments" model="res.groups">
             <field name="name">Reservation: Calculate Installments</field>
-            <field name="category_id" ref="module_category_real_state_project_assigned"/>
+            <field name="category_id" ref="isky_18_realestate_developer_unit_inventory.module_category_real_state_project_assigned"/>
         </record>
         <record id="group_calculate_maintenance" model="res.groups">
             <field name="name">Reservation: Calculate Maintenance</field>
-            <field name="category_id" ref="module_category_real_state_project_assigned"/>
+            <field name="category_id" ref="isky_18_realestate_developer_unit_inventory.module_category_real_state_project_assigned"/>
         </record>
         <record id="group_create_payment" model="res.groups">
             <field name="name">Reservation: Create Payment</field>
-            <field name="category_id" ref="module_category_real_state_project_assigned"/>
+            <field name="category_id" ref="isky_18_realestate_developer_unit_inventory.module_category_real_state_project_assigned"/>
         </record>
         <record id="group_check_payment" model="res.groups">
             <field name="name">Reservation: Check Payment</field>
-            <field name="category_id" ref="module_category_real_state_project_assigned"/>
+            <field name="category_id" ref="isky_18_realestate_developer_unit_inventory.module_category_real_state_project_assigned"/>
         </record>
         <record id="group_create_contract_action" model="res.groups">
             <field name="name">Reservation: Create Contract</field>
-            <field name="category_id" ref="module_category_real_state_project_assigned"/>
+            <field name="category_id" ref="isky_18_realestate_developer_unit_inventory.module_category_real_state_project_assigned"/>
         </record>
         <record id="group_confirm_reservation" model="res.groups">
             <field name="name">Reservation: Confirm Reservation</field>
-            <field name="category_id" ref="module_category_real_state_project_assigned"/>
+            <field name="category_id" ref="isky_18_realestate_developer_unit_inventory.module_category_real_state_project_assigned"/>
         </record>
         <record id="group_block_unit" model="res.groups">
             <field name="name">Block Unit</field>
-            <field name="category_id" ref="module_category_real_state_project_assigned"/>
+            <field name="category_id" ref="isky_18_realestate_developer_unit_inventory.module_category_real_state_project_assigned"/>
         </record>
         <record id="vendor_commitment_company_rule" model="ir.rule">
             <field name="name">Vendor Commitment: Restrict by Company</field>
-            <field name="model_id" ref="model_vendor_commitment"/>
+            <field name="model_id" ref="isky_18_realestate_developer_construction.model_vendor_commitment"/>
             <field name="domain_force">[('company_id', 'in', company_ids)]</field>
         </record>
         <record id="group_payment_receipt_signature" model="res.groups">
@@ -360,14 +200,14 @@
         </record>
         <record id="group_restrict_net_area_visibility" model="res.groups">
             <field name="name">Restrict Net Area Visibility</field>
-            <field name="category_id" ref="module_category_real_state_project_assigned"/>
+            <field name="category_id" ref="isky_18_realestate_developer_unit_inventory.module_category_real_state_project_assigned"/>
         </record>
 
         <!-- Ticking an installment as Paid by hand counts money that has no payment or cheque
              behind it, so it is reserved to the accountants the client puts in this group. -->
         <record id="group_manual_paid_installment" model="res.groups">
             <field name="name">Can Tick Installments as Paid</field>
-            <field name="category_id" ref="module_category_real_state_project_assigned"/>
+            <field name="category_id" ref="isky_18_realestate_developer_unit_inventory.module_category_real_state_project_assigned"/>
         </record>
         <function model="res.users" name="write">
             <value model="res.users" eval="[ref('base.user_admin')]"/>

@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_broker_claim,access.broker.claim,model_broker_claim,base.group_user,1,1,1,1
+access_broker_contract,access.broker.contract,model_broker_contract,base.group_user,1,1,1,1
+access_broker_contract_line,access.broker.contract.line,model_broker_contract_line,base.group_user,1,1,1,1
+access_project_commission,access_project_commission,model_realestate_project_commission,,1,1,1,1
+access_commission_commission,access.access.commission.commission,model_realestate_commission,,1,1,1,1
+access_realestate_commission_achievement,access_realestate_commission_achievement.,model_realestate_commission_achievement,,1,1,1,1
+access_job_level,access_job_level,model_job_level,,1,1,1,1
+access_broker_team,access_broker_team,model_broker_team,,1,1,1,1
+access_broker_team_member,access_broker_team_member,model_broker_team_member,,1,1,1,1
+access_broker_visit,access.broker.visit,model_broker_visit,,1,1,1,1
+access_broker_visit_comment,access.broker.visit.comment,model_broker_visit_comment,,1,1,1,1
+access_commission_category,access.commission.category,model_commission_category,,1,1,1,1

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="module_category_real_state_project_assigned" model="ir.module.category">
+            <field name="name">Real State Project</field>
+        </record>
+        <record id="real_estate_facility_company_rule" model="ir.rule">
+            <field name="name">real_estate_facility_company_rule</field>
+            <field name="model_id" ref="model_real_estate_facility"/>
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+        <record id="real_estate_feature_company_rule" model="ir.rule">
+            <field name="name">real_estate_feature_company_rule</field>
+            <field name="model_id" ref="model_real_estate_feature"/>
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+        <record id="real_estate_nearby_connectivity_company_rule" model="ir.rule">
+            <field name="name">real_estate_nearby_connectivity_company_rule</field>
+            <field name="model_id" ref="model_real_estate_nearby_connectivity"/>
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+        <record id="real_state_project_user_group" model="res.groups">
+            <field name="name">User</field>
+            <field name="category_id" ref="module_category_real_state_project_assigned"/>
+        </record>
+        <record id="real_state_project_admin_group" model="res.groups">
+            <field name="name">Admin</field>
+            <field name="category_id" ref="module_category_real_state_project_assigned"/>
+        </record>
+        <record id="user_real_state_project_assigned_rule" model="ir.rule">
+            <field name="name">User Project Assigned</field>
+            <field name="model_id" ref="model_realestate_project"/>
+            <field name="domain_force">[('id', 'in', user.realestate_project_ids.ids)]</field>
+            <field name="groups"
+                   eval="[Command.link(ref('real_state_project_user_group'))]"/>
+        </record>
+        <record id="admin_real_state_project_assigned_rule" model="ir.rule">
+            <field name="name">Admin Project Assigned (all)</field>
+            <field name="model_id" ref="model_realestate_project"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups"
+                   eval="[Command.link(ref('real_state_project_admin_group'))]"/>
+        </record>
+        <record id="user_real_state_unit_assigned_rule" model="ir.rule">
+            <field name="name">User Unit Assigned</field>
+            <field name="model_id" ref="model_real_estate_unit"/>
+            <field name="domain_force">[('project_id', 'in', user.realestate_project_ids.ids)]</field>
+            <field name="groups"
+                   eval="[Command.link(ref('real_state_project_user_group'))]"/>
+        </record>
+        <record id="admin_real_state_unit_assigned_rule" model="ir.rule">
+            <field name="name">Admin Unit Assigned</field>
+            <field name="model_id" ref="model_real_estate_unit"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups"
+                   eval="[Command.link(ref('real_state_project_admin_group'))]"/>
+        </record>
+<!--        <record id="user_real_state_cluster_assigned_rule" model="ir.rule">-->
+<!--            <field name="name">User Cluster Assigned</field>-->
+<!--            <field name="model_id" ref="model_cluster"/>-->
+<!--            <field name="domain_force">[('project_id', 'in', user.realestate_project_ids.ids)]</field>-->
+<!--            <field name="groups"-->
+<!--                   eval="[Command.link(ref('real_state_project_user_group'))]"/>-->
+<!--        </record>-->
+<!--        <record id="admin_real_state_cluster_assigned_rule" model="ir.rule">-->
+<!--            <field name="name">Admin Cluster Assigned</field>-->
+<!--            <field name="model_id" ref="model_cluster"/>-->
+<!--            <field name="domain_force">[(1, '=', 1)]</field>-->
+<!--            <field name="groups"-->
+<!--                   eval="[Command.link(ref('real_state_project_admin_group'))]"/>-->
+<!--        </record>-->
+        <record id="user_real_state_floor_assigned_rule" model="ir.rule">
+            <field name="name">User Floor Assigned</field>
+            <field name="model_id" ref="model_floor"/>
+            <field name="domain_force">[('project_id', 'in', user.realestate_project_ids.ids)]</field>
+            <field name="groups"
+                   eval="[Command.link(ref('real_state_project_user_group'))]"/>
+        </record>
+        <record id="admin_real_state_floor_assigned_rule" model="ir.rule">
+            <field name="name">Admin Floor Assigned</field>
+            <field name="model_id" ref="model_floor"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups"
+                   eval="[Command.link(ref('real_state_project_admin_group'))]"/>
+        </record>
+<!--        <record id="user_real_state_floor_area_assigned_rule" model="ir.rule">-->
+<!--            <field name="name">User Floor area Assigned</field>-->
+<!--            <field name="model_id" ref="model_floor_area"/>-->
+<!--            <field name="domain_force">[('project_id', 'in', user.realestate_project_ids.ids)]</field>-->
+<!--            <field name="groups"-->
+<!--                   eval="[Command.link(ref('real_state_project_user_group'))]"/>-->
+<!--        </record>-->
+<!--        <record id="admin_real_state_floor_area_assigned_rule" model="ir.rule">-->
+<!--            <field name="name">Admin Floor area Assigned</field>-->
+<!--            <field name="model_id" ref="model_floor_area"/>-->
+<!--            <field name="domain_force">[(1, '=', 1)]</field>-->
+<!--            <field name="groups"-->
+<!--                   eval="[Command.link(ref('real_state_project_admin_group'))]"/>-->
+<!--        </record>-->
+        <record id="user_real_state_building_assigned_rule" model="ir.rule">
+            <field name="name">User Building Assigned</field>
+            <field name="model_id" ref="model_real_estate_building"/>
+            <field name="domain_force">[('project_id', 'in', user.realestate_project_ids.ids)]</field>
+            <field name="groups"
+                   eval="[Command.link(ref('real_state_project_user_group'))]"/>
+        </record>
+        <record id="admin_real_state_building_assigned_rule" model="ir.rule">
+            <field name="name">Admin Building Assigned</field>
+            <field name="model_id" ref="model_real_estate_building"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups"
+                   eval="[Command.link(ref('real_state_project_admin_group'))]"/>
+        </record>
+        <record id="real_estate_unit_company_rule" model="ir.rule">
+            <field name="name">real estate unit company</field>
+            <field name="model_id" ref="model_real_estate_unit"/>
+            <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
+        </record>
+<!--        <record id="cluster_company_rule" model="ir.rule">-->
+<!--            <field name="name">cluster company</field>-->
+<!--            <field name="model_id" ref="model_cluster"/>-->
+<!--            <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>-->
+<!--        </record>-->
+<!--        <record id="floor_area_company_rule" model="ir.rule">-->
+<!--            <field name="name">floor area company</field>-->
+<!--            <field name="model_id" ref="model_floor_area"/>-->
+<!--            <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>-->
+<!--        </record>-->
+        <record id="floor_company_rule" model="ir.rule">
+            <field name="name">floor company</field>
+            <field name="model_id" ref="model_floor"/>
+            <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
+        </record>
+        <record id="zone_company_rule" model="ir.rule">
+            <field name="name">zone company</field>
+            <field name="model_id" ref="model_zone"/>
+            <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
+        </record>
+        <record id="real_estate_building_company_rule" model="ir.rule">
+            <field name="name">real estate building company</field>
+            <field name="model_id" ref="model_real_estate_building"/>
+            <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
+        </record>
+        <record id="realestate_project_company_rule" model="ir.rule">
+            <field name="name">real estate project company</field>
+            <field name="model_id" ref="model_realestate_project"/>
+            <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
+        </record>
+        <record id="real_estate_project_phase_company_rule" model="ir.rule">
+            <field name="name">real estate project phase company</field>
+            <field name="model_id" ref="model_real_estate_project_phase"/>
+            <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
+        </record>
+        <record id="unit_design_company_rule" model="ir.rule">
+            <field name="name">Unit Design: Restrict by Company</field>
+            <field name="model_id" ref="model_unit_design"/>
+            <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
+        </record>
+        <record id="realestate_project_type_company_rule" model="ir.rule">
+            <field name="name">Real Estate Project Type: Restrict by Company</field>
+            <field name="model_id" ref="model_realestate_project_type"/>
+            <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
+        </record>
+    </data>
+</odoo>

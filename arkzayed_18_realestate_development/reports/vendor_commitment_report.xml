@@ -25,7 +25,7 @@
             <field name="report_name">arkzayed_18_realestate_development.vendor_commitment_single_report_template</field>
             <field name="report_file">arkzayed_18_realestate_development.vendor_commitment_single_report_template</field>
             <field name="print_report_name">'تحليل التزامات الموردين - %s' % (object.commitment_type)</field>
-            <field name="binding_model_id" ref="model_vendor_commitment"/>
+            <field name="binding_model_id" ref="isky_18_realestate_developer_construction.model_vendor_commitment"/>
             <field name="binding_type">report</field>
             <field name="binding_view_types">form</field>
             <field name="paperformat_id" ref="paperformat_vendor_commitment_a4"/>
@@ -40,7 +40,7 @@
             <field name="report_file">arkzayed_18_realestate_development.vendor_commitment_multi_report_template</field>
             <field name="print_report_name">'تحليل التزامات الموردين - %s' % (time.strftime('%Y-%m-%d'))</field>
             <field name="paperformat_id" ref="paperformat_vendor_commitment_a4"/>
-            <field name="binding_model_id" ref="model_vendor_commitment"/>
+            <field name="binding_model_id" ref="isky_18_realestate_developer_construction.model_vendor_commitment"/>
             <field name="binding_type">report</field>
             <field name="binding_view_types">list</field>
         </record>

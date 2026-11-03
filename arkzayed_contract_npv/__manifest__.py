@@ -4,7 +4,7 @@
     'summary': 'NPV of each contract\'s installment schedule, a standalone what-if Calculator, and a '
                'portfolio-wide Executive Report',
     'author': 'iSkyDev',
-    'depends': ['arkzayed_18_realestate_development'],
+    'depends': ['arkzayed_18_realestate_development', 'isky_18_realestate_developer_sales_crm'],
     'license': 'LGPL-3',
     'data': [
         'security/security.xml',

@@ -60,8 +60,8 @@
         <!-- Server Action for Excel Export -->
         <record id="action_export_handover_excel" model="ir.actions.server">
             <field name="name">Handover Report Excel</field>
-            <field name="model_id" ref="arkzayed_18_realestate_development.model_sale_proposal"/>
-            <field name="binding_model_id" ref="arkzayed_18_realestate_development.model_sale_proposal"/>
+            <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_sale_proposal"/>
+            <field name="binding_model_id" ref="isky_18_realestate_developer_sales_crm.model_sale_proposal"/>
             <field name="binding_type">report</field>
             <field name="state">code</field>
             <field name="code">action = records.action_export_handover_excel()</field>

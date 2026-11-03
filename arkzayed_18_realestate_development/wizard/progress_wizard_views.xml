@@ -27,7 +27,7 @@
         <field name="res_model">arkzayed.progress.update.wizard</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
-        <field name="binding_model_id" ref="arkzayed_18_realestate_development.model_real_estate_unit"/>
+        <field name="binding_model_id" ref="isky_18_realestate_developer_unit_inventory.model_real_estate_unit"/>
         <field name="binding_view_types">list,form</field>
     </record>
 
@@ -36,7 +36,7 @@
         <field name="res_model">arkzayed.progress.update.wizard</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
-        <field name="binding_model_id" ref="arkzayed_18_realestate_development.model_real_estate_building"/>
+        <field name="binding_model_id" ref="isky_18_realestate_developer_unit_inventory.model_real_estate_building"/>
         <field name="binding_view_types">list,form</field>
     </record>
 

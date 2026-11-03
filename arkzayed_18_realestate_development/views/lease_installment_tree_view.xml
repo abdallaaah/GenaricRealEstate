@@ -15,8 +15,8 @@
             <field name="name">Make Invoice</field>
             <field name="type">ir.actions.server</field>
             <field name="state">code</field>
-            <field name="model_id" ref="arkzayed_18_realestate_development.model_loan_line"/>
-            <field name="binding_model_id" ref="arkzayed_18_realestate_development.model_loan_line"/>
+            <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_loan_line"/>
+            <field name="binding_model_id" ref="isky_18_realestate_developer_sales_crm.model_loan_line"/>
             <field name="binding_view_types">list</field>
             <field name="code">
                 records.make_invoice()
@@ -111,8 +111,8 @@
         </record>
         <record id="revenue_share1_action_make_invoice" model="ir.actions.server">
             <field name="name">Make revenue share1 invoice</field>
-            <field name="model_id" ref="arkzayed_18_realestate_development.model_loan_line"/>
-            <field name="binding_model_id" ref="arkzayed_18_realestate_development.model_loan_line"/>
+            <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_loan_line"/>
+            <field name="binding_model_id" ref="isky_18_realestate_developer_sales_crm.model_loan_line"/>
             <field name="binding_view_types">list</field>
             <field name="state">code</field>
             <field name="code">
@@ -121,8 +121,8 @@
         </record>
         <record id="revenue_share2_action_make_invoice" model="ir.actions.server">
             <field name="name">Make revenue share2 invoice</field>
-            <field name="model_id" ref="arkzayed_18_realestate_development.model_loan_line"/>
-            <field name="binding_model_id" ref="arkzayed_18_realestate_development.model_loan_line"/>
+            <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_loan_line"/>
+            <field name="binding_model_id" ref="isky_18_realestate_developer_sales_crm.model_loan_line"/>
             <field name="binding_view_types">list</field>
             <field name="state">code</field>
             <field name="code">

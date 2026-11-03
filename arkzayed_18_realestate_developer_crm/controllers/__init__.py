@@ -1,5 +1,1 @@
-# -*- coding: utf-8 -*-
-
-from . import main
-from . import units_controller
-from . import permission_request_controller
+# All controller files moved to isky_18_realestate_developer_sales_crm.

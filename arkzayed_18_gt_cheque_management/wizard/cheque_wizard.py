@@ -30,9 +30,9 @@ class ChequeWizard(models.TransientModel):
     cheque_date = fields.Date(string='Cheque Date')
     
 
-    def cash_submit(self):  
-        cheque_inc = self.env['cheque.manage'].search([])
-        cheque_inc.cheque_date = self.cheque_date 
+    def cash_submit(self):
+        cheque_inc = self.env['cheque.manage'].browse(self._context.get('active_ids'))
+        cheque_inc.cheque_date = self.cheque_date
         return cheque_inc.write({'state': 'done'})
     
     
@@ -43,8 +43,8 @@ class ChequeTransferWizard(models.TransientModel):
     contact = fields.Many2one('res.partner', 'Contact')
     
 
-    def transfer_submit(self):  
-        cheque_inc = self.env['cheque.manage'].search([])
+    def transfer_submit(self):
+        cheque_inc = self.env['cheque.manage'].browse(self._context.get('active_ids'))
         return cheque_inc.write({'state': 'transfer'})
     
                     

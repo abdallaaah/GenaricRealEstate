@@ -18,6 +18,10 @@
         'analytic',
         'sale_commission',
         'isky_18_realestate_developer_accounting',
+        'isky_18_realestate_developer_unit_inventory',
+        'isky_18_realestate_developer_sales_crm',
+        'isky_18_realestate_developer_commission',
+        'isky_18_realestate_developer_construction',
     ],
     "data": [
         # security

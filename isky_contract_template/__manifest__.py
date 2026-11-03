@@ -9,7 +9,7 @@
     'website': "https://www.iskydev.com",
     'category': 'Uncategorized',
     'version': '0.1',
-    'depends': ['base', 'sale', 'arkzayed_18_realestate_development'],
+    'depends': ['base', 'sale', 'arkzayed_18_realestate_development', 'isky_18_realestate_developer_sales_crm'],
     'data': [
         'security/ir.model.access.csv',
         'views/dynamic_template_views.xml',

@@ -9,7 +9,6 @@ class ResPartner(models.Model):
         string="Account Down Payment Receivable",
         domain="[('deprecated', '=', False), ('reconcile','=',True)]",
         help="This account will be used instead of the default one as the down payment receivable account for the current partner",
-        required=True
     )
 
     property_account_down_payment_payable_id = fields.Many2one(
@@ -17,7 +16,6 @@ class ResPartner(models.Model):
         string="Account Down Payment Payable",
         domain="[('deprecated', '=', False), ('reconcile','=',True)]",
         help="This account will be used instead of the default one as the down payment payable account for the current partner",
-        required=True
     )
 
     property_notes_receivable_account_id = fields.Many2one('account.account', string='Notes Receivable Account',)

@@ -1,7 +1,7 @@
 from odoo import models, fields, _, api
 from dateutil.relativedelta import relativedelta
 from odoo.exceptions import UserError, ValidationError
-from .selections import referred_by_selection, charge_for_selection, charge_area_selection, charge_price_selection
+from odoo.addons.isky_18_realestate_developer_unit_inventory.models.selections import referred_by_selection, charge_for_selection, charge_area_selection, charge_price_selection
 
 referred_by_selection = referred_by_selection.copy()
 referred_by_selection.remove(('management', 'Management'))

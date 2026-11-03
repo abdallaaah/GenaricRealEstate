@@ -170,7 +170,11 @@ class ChequeManage(models.Model):
 
     def submit_under_collection_action(self):
         self.ensure_one()
-        if not self.cheque_scan and not self.sale_proposal_id.is_old_contract:
+        # sale_proposal_id only exists when a real-estate-specific extension of cheque.manage
+        # is installed (not guaranteed on this generic base model) - read it defensively.
+        sale_proposal = getattr(self, 'sale_proposal_id', False)
+        is_old_contract = sale_proposal.is_old_contract if sale_proposal else False
+        if not self.cheque_scan and not is_old_contract:
             raise ValidationError(_("Cannot proceed to 'Under Collection'.\n"
                                     "A Cheque Scan must be uploaded before continuing.\n"
                                     "Please attach the scanned copy of the cheque and try again."))

@@ -34,6 +34,7 @@ conversation notes.
         'account',
         'arkzayed_18_realestate_development',
         'arkzayed_cost_distribution',
+        'isky_18_realestate_developer_unit_inventory',
     ],
     'data': [
         'views/account_account_views.xml',

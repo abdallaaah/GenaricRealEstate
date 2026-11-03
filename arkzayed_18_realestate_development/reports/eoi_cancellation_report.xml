@@ -7,7 +7,7 @@
 		<field name="report_name">arkzayed_18_realestate_development.report_cancel_form</field>
 		<field name="report_file">arkzayed_18_realestate_development.report_cancel_form</field>
         <field name="print_report_name">"EOI Cancellation Form For %s" % (object.name)</field>
-		<field name="binding_model_id" ref="arkzayed_18_realestate_development.model_eoi_eoi"/>
+		<field name="binding_model_id" ref="isky_18_realestate_developer_sales_crm.model_eoi_eoi"/>
 		<field name="binding_type">report</field>
 	</record>
      <template id="report_cancel_form">

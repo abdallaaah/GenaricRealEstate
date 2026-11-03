@@ -19,8 +19,8 @@
         <field name="name">Construction Progress Report</field>
         <field name="model">arkzayed.progress.report.wizard</field>
         <field name="report_type">qweb-pdf</field>
-        <field name="report_name">arkzayed_construction_progress.report_progress</field>
-        <field name="report_file">arkzayed_construction_progress.report_progress</field>
+        <field name="report_name">arkzayed_18_realestate_development.report_progress</field>
+        <field name="report_file">arkzayed_18_realestate_development.report_progress</field>
         <field name="print_report_name">'Construction Progress Report'</field>
         <field name="paperformat_id" ref="paperformat_progress_landscape"/>
     </record>
