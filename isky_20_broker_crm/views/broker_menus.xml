@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="broker_menu_lead_stage" name="Lead Pre-Qualification Stages"
+              parent="isky_20_broker_base.broker_menu_configuration" action="lead_stage_action" sequence="40"/>
+    <menuitem id="broker_menu_approval_rule" name="Approval Rules"
+              parent="isky_20_broker_base.broker_menu_configuration" action="broker_approval_rule_action" sequence="50"/>
+</odoo>

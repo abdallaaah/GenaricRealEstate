@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="crm_lead_reassign_view_form" model="ir.ui.view">
+        <field name="name">crm.lead.reassign.view.form</field>
+        <field name="model">crm.lead.reassign</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="user_id"/>
+                </group>
+                <footer>
+                    <button name="action_reassign" string="Reassign" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="crm_lead_reassign_action" model="ir.actions.act_window">
+        <field name="name">Reassign Leads</field>
+        <field name="res_model">crm.lead.reassign</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="crm.model_crm_lead"/>
+        <field name="binding_view_types">list</field>
+    </record>
+</odoo>

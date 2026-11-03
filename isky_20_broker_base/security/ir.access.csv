@@ -1,0 +1,4 @@
+id,name,model_id,group_id/id,operation,domain
+access_job_level_user,job.level.user,job.level,base.group_user,r,
+access_job_level_admin,job.level.admin,job.level,group_broker_admin,crud,
+access_broker_feature_flag_admin,broker.feature.flag.admin,broker.feature.flag,group_broker_admin,crud,

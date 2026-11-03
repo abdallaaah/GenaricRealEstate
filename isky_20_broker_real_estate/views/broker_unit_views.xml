@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="broker_unit_view_list" model="ir.ui.view">
+        <field name="name">broker.unit.view.list</field>
+        <field name="model">broker.unit</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="unit_number"/>
+                <field name="project_id"/>
+                <field name="unit_type"/>
+                <field name="unit_status"/>
+                <field name="sale_price"/>
+                <field name="rent_price"/>
+                <field name="currency_id" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="broker_unit_view_form" model="ir.ui.view">
+        <field name="name">broker.unit.view.form</field>
+        <field name="model">broker.unit</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="unit_status" widget="statusbar" statusbar_visible="available,sold,rented"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" readonly="1"/>
+                            <field name="unit_number"/>
+                            <field name="unit_sale_type"/>
+                            <field name="tcr" readonly="1"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="project_id"/>
+                            <field name="developer_id" readonly="1"/>
+                            <field name="sale_phase_id"/>
+                            <field name="unit_purpose"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="classification" string="Classification">
+                            <group>
+                                <group>
+                                    <field name="unit_type"/>
+                                    <field name="retail_type" invisible="unit_type != 'retail'"/>
+                                    <field name="office_type" invisible="unit_type != 'office'"/>
+                                    <field name="residential_type" invisible="unit_type != 'residential'"/>
+                                    <field name="entertainment_type" invisible="unit_type != 'entertainment'"/>
+                                    <field name="industrial_type" invisible="unit_type != 'industrial'"/>
+                                    <field name="parking_type" invisible="unit_type != 'parking'"/>
+                                    <field name="public_area_type" invisible="unit_type != 'public_area'"/>
+                                </group>
+                                <group>
+                                    <field name="finishing_type"/>
+                                    <field name="furnished"/>
+                                    <field name="heating_source"/>
+                                    <field name="number_of_rooms"/>
+                                    <field name="number_of_bathrooms"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page name="areas" string="Areas and Features">
+                            <group>
+                                <group string="Areas">
+                                    <field name="indoor_gross_area"/>
+                                    <field name="outdoor_gross_area"/>
+                                    <field name="unit_area" readonly="1"/>
+                                    <field name="indoor_net_area"/>
+                                    <field name="outdoor_net_area"/>
+                                    <field name="net_area" readonly="1"/>
+                                    <field name="built_up_area"/>
+                                </group>
+                                <group string="Features">
+                                    <field name="garden_view"/>
+                                    <field name="pool_view"/>
+                                    <field name="city_view"/>
+                                    <field name="sea_view"/>
+                                    <field name="has_garden"/>
+                                    <field name="garden_area" invisible="not has_garden"/>
+                                    <field name="has_roof"/>
+                                    <field name="roof_area" invisible="not has_roof"/>
+                                    <field name="has_parking"/>
+                                    <field name="number_of_parking_slots" invisible="not has_parking"/>
+                                    <field name="has_balcony"/>
+                                    <field name="number_of_balconies" invisible="not has_balcony"/>
+                                    <field name="has_pool"/>
+                                    <field name="pool_area" invisible="not has_pool"/>
+                                    <field name="is_floors"/>
+                                    <field name="floors_count" invisible="not is_floors"/>
+                                    <field name="is_yard"/>
+                                    <field name="yard_area" invisible="not is_yard"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page name="pricing" string="Pricing">
+                            <group>
+                                <group string="Sale">
+                                    <field name="sale_price"/>
+                                    <field name="sale_maintenance_price"/>
+                                    <field name="sale_price_per_meter"/>
+                                    <field name="down_payment_percentage"/>
+                                </group>
+                                <group string="Rent">
+                                    <field name="rent_price"/>
+                                    <field name="rent_period"/>
+                                    <field name="rent_maintenance_price"/>
+                                    <field name="maintenance_period"/>
+                                    <field name="rent_price_per_meter"/>
+                                    <field name="maintenance_price_per_meter"/>
+                                    <field name="maintenance_percentage"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page name="location" string="Location">
+                            <group>
+                                <field name="country_id"/>
+                                <field name="governorate_id"/>
+                                <field name="city_id"/>
+                                <field name="neighborhood_id"/>
+                                <field name="location_url"/>
+                                <field name="latitude"/>
+                                <field name="longitude"/>
+                            </group>
+                        </page>
+                        <page name="seller" string="Resale Seller" invisible="unit_sale_type != 'resale'">
+                            <group>
+                                <field name="seller_client_id"/>
+                                <field name="seller_client_phone" readonly="1"/>
+                                <field name="seller_client_extra_phone" readonly="1"/>
+                                <field name="seller_sales_person"/>
+                                <field name="seller_team_leader" readonly="1"/>
+                                <field name="seller_sales_manager" readonly="1"/>
+                                <field name="seller_sales_director" readonly="1"/>
+                                <field name="seller_purpose_sale_price"/>
+                                <field name="seller_purpose_rent_price"/>
+                            </group>
+                        </page>
+                        <page name="utilities" string="Utilities">
+                            <field name="counter_ids">
+                                <list editable="bottom">
+                                    <field name="counter_type"/>
+                                    <field name="serial_no"/>
+                                    <field name="service_provider"/>
+                                    <field name="activation_date"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page name="customer" string="Customer">
+                            <group>
+                                <field name="customer_id"/>
+                                <field name="phone" readonly="1"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="broker_unit_action" model="ir.actions.act_window">
+        <field name="name">Units</field>
+        <field name="res_model">broker.unit</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

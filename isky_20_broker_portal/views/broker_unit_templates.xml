@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_my_units" name="My Units">
+        <t t-call="portal.portal_layout">
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Units</t>
+            </t>
+            <t t-if="not units">
+                <div class="alert alert-warning" role="alert">There are no units yet.</div>
+            </t>
+            <t t-else="">
+                <t t-call="portal.portal_table">
+                    <thead>
+                        <tr>
+                            <th>Reference</th>
+                            <th>Project</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="units" t-as="unit">
+                            <tr>
+                                <td><a t-attf-href="/my/unit/#{unit.id}"><t t-out="unit.name"/></a></td>
+                                <td><t t-out="unit.project_id.name"/></td>
+                                <td><t t-out="unit.unit_type"/></td>
+                                <td><t t-out="unit.unit_status"/></td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </t>
+            </t>
+            <a href="/my/unit/create" class="btn btn-primary mt-3">New Unit</a>
+        </t>
+    </template>
+
+    <template id="portal_my_unit" name="Unit">
+        <t t-call="portal.portal_layout">
+            <div class="card">
+                <div class="card-body">
+                    <h4><t t-out="unit.name"/></h4>
+                    <p><strong>Project:</strong> <t t-out="unit.project_id.name"/></p>
+                    <p><strong>Type:</strong> <t t-out="unit.unit_type"/></p>
+                    <p><strong>Status:</strong> <t t-out="unit.unit_status"/></p>
+                    <p><strong>Sale Price:</strong> <t t-out="unit.sale_price"/></p>
+                    <p><strong>Rent Price:</strong> <t t-out="unit.rent_price"/></p>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="portal_create_unit" name="New Unit">
+        <t t-call="portal.portal_layout">
+            <form action="/my/unit/create" method="post" class="card p-4">
+                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                <div class="mb-3">
+                    <label class="form-label">Project</label>
+                    <select name="project_id" class="form-select">
+                        <t t-foreach="projects" t-as="project">
+                            <option t-att-value="project.id"><t t-out="project.name"/></option>
+                        </t>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Seller Client</label>
+                    <select name="seller_client_id" class="form-select">
+                        <t t-foreach="sellers" t-as="seller">
+                            <option t-att-value="seller.id"><t t-out="seller.name"/></option>
+                        </t>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Unit Purpose</label>
+                    <select name="unit_purpose" class="form-select">
+                        <option value="to_sale">To Sale</option>
+                        <option value="to_rent">To Rent</option>
+                        <option value="sale_or_rent">Sale Or Rent</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Unit Number</label>
+                    <input type="text" name="unit_number" class="form-control"/>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Sale Price</label>
+                    <input type="number" name="sale_price" class="form-control"/>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Rent Price</label>
+                    <input type="number" name="rent_price" class="form-control"/>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </t>
+    </template>
+</odoo>

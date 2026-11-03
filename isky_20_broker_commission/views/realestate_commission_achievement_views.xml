@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="realestate_commission_achievement_view_list" model="ir.ui.view">
+        <field name="name">realestate.commission.achievement.view.list</field>
+        <field name="model">realestate.commission.achievement</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="opportunity_id"/>
+                <field name="user_id"/>
+                <field name="job_level_id"/>
+                <field name="is_tcr_sales_person"/>
+                <field name="commission_plan_id"/>
+                <field name="sales_volume"/>
+                <field name="commission_percentage"/>
+                <field name="commission_amount"/>
+                <field name="basic_hierarchy_commission"/>
+                <field name="total_commission_amount"/>
+                <field name="paid_amount"/>
+                <field name="currency_id" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="realestate_commission_achievement_action" model="ir.actions.act_window">
+        <field name="name">Commission Achievements</field>
+        <field name="res_model">realestate.commission.achievement</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

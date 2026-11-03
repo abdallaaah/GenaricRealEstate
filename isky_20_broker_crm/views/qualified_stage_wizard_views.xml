@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="qualified_stage_wizard_view_form" model="ir.ui.view">
+        <field name="name">qualified.stage.wizard.view.form</field>
+        <field name="model">qualified.stage.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <field name="lead_id" invisible="1"/>
+                <field name="limited_budget" invisible="1"/>
+                <field name="currency_id" invisible="1"/>
+                <group>
+                    <field name="priority"/>
+                    <field name="unit_type"/>
+                    <field name="finish_type"/>
+                    <field name="min_area"/>
+                    <field name="max_area"/>
+                    <field name="min_price"/>
+                    <field name="max_price"/>
+                    <field name="qualified_comment"/>
+                </group>
+                <footer>
+                    <button name="action_confirm" string="Qualify" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

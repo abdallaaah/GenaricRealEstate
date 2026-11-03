@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="crm_team_view_form_inherit_broker" model="ir.ui.view">
+        <field name="name">crm.team.view.form.inherit.broker</field>
+        <field name="model">crm.team</field>
+        <field name="inherit_id" ref="sales_team.crm_team_view_form"/>
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="sales_manager_id"/>
+                <field name="director_id"/>
+                <field name="operation_id"/>
+                <field name="operation_executive_id"/>
+            </field>
+        </field>
+    </record>
+</odoo>

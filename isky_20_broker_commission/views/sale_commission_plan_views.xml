@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sale_commission_plan_view_form_inherit_broker" model="ir.ui.view">
+        <field name="name">sale.commission.plan.view.form.inherit.broker</field>
+        <field name="model">sale.commission.plan</field>
+        <field name="inherit_id" ref="sale_commission.sale_commission_plan_view_form"/>
+        <field name="arch" type="xml">
+            <field name="team_id" position="after">
+                <field name="realestate_commission"/>
+                <field name="job_position_id" invisible="type != 'target'"/>
+                <field name="job_level_id" invisible="type != 'achieve'"/>
+            </field>
+        </field>
+    </record>
+</odoo>
