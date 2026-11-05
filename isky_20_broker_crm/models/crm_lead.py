@@ -68,7 +68,7 @@ class CrmLead(models.Model):
     # (confirmed by a real install failure against stock CRM/website_crm_partner_assign demo
     # data). Required-ness for an actual broker deal is enforced at the right stage instead,
     # the same way eoi/reservation/contract attachments already are (validate_required_fields).
-    developer_id = fields.Many2one('res.partner')
+    developer_id = fields.Many2one('res.partner', domain="[('is_developer', '=', True)]")
     project_id = fields.Many2one('developer.project', tracking=True)
     unit_id = fields.Many2one('broker.unit')
     unit_type = fields.Selection(UNIT_TYPE_SELECTION)
