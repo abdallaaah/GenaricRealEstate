@@ -1,0 +1,117 @@
+### RUN_ID=20261105-154441-2329406
+### START=2026-11-05 15:44:41 EET
+### DB=phase3_combo_cheque_only
+### ARGS=-i arkzayed_18_gt_cheque_management
+2026-11-05 13:44:44,738 2330018 WARNING phase3_combo_cheque_only odoo.modules.module: Missing `license` key in manifest for 'arkzayed_18_contact_customization', defaulting to LGPL-3 
+2026-11-05 13:44:44,749 2330018 WARNING phase3_combo_cheque_only odoo.modules.module: Missing `license` key in manifest for 'arkzayed_18_realestate_developer_crm', defaulting to LGPL-3 
+2026-11-05 13:44:44,758 2330018 WARNING phase3_combo_cheque_only odoo.modules.module: Missing `license` key in manifest for 'arkzayed_18_realestate_development', defaulting to LGPL-3 
+2026-11-05 13:44:45,716 2330018 WARNING phase3_combo_cheque_only odoo.modules.module: Missing `license` key in manifest for 'isky_contract_template', defaulting to LGPL-3 
+2026-11-05 13:44:45,725 2330018 WARNING phase3_combo_cheque_only odoo.modules.module: Missing `license` key in manifest for 'isky_hr_egypt_allowances_application_contract', defaulting to LGPL-3 
+2026-11-05 13:45:16,973 2330018 WARNING phase3_combo_cheque_only odoo.addons.attachment_indexation.models.ir_attachment: Attachment indexation of PDF documents is unavailable because the 'pdfminer' Python library cannot be found on the system. You may install it from https://pypi.org/project/pdfminer.six/ (e.g. `pip3 install pdfminer.six`) 
+<string>:38: (ERROR/3) Unexpected indentation.
+<string>:43: (WARNING/2) Block quote ends without a blank line; unexpected unindent.
+2026-11-05 13:46:58,351 2330018 WARNING phase3_combo_cheque_only py.warnings: /opt/odoo/odoo18/odoo/odoo/api.py:484: DeprecationWarning: The model odoo.addons.arkzayed_18_gt_cheque_management.models.cheque_manage is not overriding the create method in batch
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 186, in load_module_graph
+    load_openerp_module(package.name)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/module.py", line 384, in load_openerp_module
+    __import__(qualname)
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/arkzayed_18_gt_cheque_management/__init__.py", line 20, in <module>
+    from . import models
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/arkzayed_18_gt_cheque_management/models/__init__.py", line 20, in <module>
+    from . import cheque_manage
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/arkzayed_18_gt_cheque_management/models/cheque_manage.py", line 26, in <module>
+    class ChequeManage(models.Model):
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/arkzayed_18_gt_cheque_management/models/cheque_manage.py", line 203, in ChequeManage
+    @api.model
+  File "/opt/odoo/odoo18/odoo/odoo/api.py", line 431, in model
+    return model_create_single(method)
+  File "/opt/odoo/odoo18/odoo/odoo/api.py", line 484, in model_create_single
+    warnings.warn(
+ 
+2026-11-05 13:46:58,367 2330018 WARNING phase3_combo_cheque_only odoo.models: The model cheque.portfolio has no _description 
+2026-11-05 13:46:58,368 2330018 WARNING phase3_combo_cheque_only odoo.models: The model cheque.wizard has no _description 
+2026-11-05 13:46:58,368 2330018 WARNING phase3_combo_cheque_only odoo.models: The model cheque.transfer.wizard has no _description 
+2026-11-05 13:46:58,368 2330018 WARNING phase3_combo_cheque_only odoo.models: The model cheque.outgoing.wizard has no _description 
+2026-11-05 13:46:58,368 2330018 WARNING phase3_combo_cheque_only odoo.models: The model incoming.cheque.report_saleproforma has no _description 
+2026-11-05 13:46:58,368 2330018 WARNING phase3_combo_cheque_only odoo.models: The model outgoing.cheque.report_saleproforma has no _description 
+2026-11-05 13:46:58,369 2330018 WARNING phase3_combo_cheque_only odoo.models: The model cheque.report.wizard has no _description 
+2026-11-05 13:46:58,614 2330018 WARNING phase3_combo_cheque_only odoo.fields: Field cheque.manage.journal_id: unknown parameter 'states', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-05 13:46:58,615 2330018 WARNING phase3_combo_cheque_only odoo.fields: Field cheque.manage.move_line_ids: unknown parameter 'ondelete', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-05 13:46:59,011 2330018 WARNING phase3_combo_cheque_only odoo.addons.base.models.ir_model: Two fields (attachment_count, message_attachment_count) of cheque.manage() have the same label: Attachment Count. [Modules: arkzayed_18_gt_cheque_management and mail] 
+2026-11-05 13:46:59,011 2330018 WARNING phase3_combo_cheque_only odoo.addons.base.models.ir_model: Two fields (outgoing_state, state) of cheque.manage() have the same label: Status. [Modules: arkzayed_18_gt_cheque_management and arkzayed_18_gt_cheque_management] 
+2026-11-05 13:46:59,011 2330018 WARNING phase3_combo_cheque_only odoo.addons.base.models.ir_model: Two fields (company_id, partner_id) of cheque.manage() have the same label: Company. [Modules: arkzayed_18_gt_cheque_management and arkzayed_18_gt_cheque_management] 
+2026-11-05 13:47:00,366 2330018 WARNING phase3_combo_cheque_only odoo.addons.base.models.ir_model: Rule access_under_collection_wizard has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-05 13:47:00,366 2330018 WARNING phase3_combo_cheque_only odoo.addons.base.models.ir_model: Rule access_return_reason has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-05 13:47:00,366 2330018 WARNING phase3_combo_cheque_only odoo.addons.base.models.ir_model: Rule access.cheque.portfolio has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-05 13:47:01,215 2330018 WARNING phase3_combo_cheque_only odoo.modules.loading: The models ['cheque.wizard', 'cheque.transfer.wizard', 'cheque.report.wizard'] have no access rules in module arkzayed_18_gt_cheque_management, consider adding some, like:
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+arkzayed_18_gt_cheque_management.access_cheque_wizard,access_cheque_wizard,arkzayed_18_gt_cheque_management.model_cheque_wizard,base.group_user,1,0,0,0
+arkzayed_18_gt_cheque_management.access_cheque_transfer_wizard,access_cheque_transfer_wizard,arkzayed_18_gt_cheque_management.model_cheque_transfer_wizard,base.group_user,1,0,0,0
+arkzayed_18_gt_cheque_management.access_cheque_report_wizard,access_cheque_report_wizard,arkzayed_18_gt_cheque_management.model_cheque_report_wizard,base.group_user,1,0,0,0 
+2026-11-05 13:47:01,490 2330018 WARNING phase3_combo_cheque_only odoo.fields: Field cheque.manage.journal_id: unknown parameter 'states', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-05 13:47:01,491 2330018 WARNING phase3_combo_cheque_only odoo.fields: Field cheque.manage.move_line_ids: unknown parameter 'ondelete', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-05 13:47:02,143 2330018 WARNING phase3_combo_cheque_only odoo.fields: Field cheque.manage.journal_id: unknown parameter 'states', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-05 13:47:02,143 2330018 WARNING phase3_combo_cheque_only odoo.fields: Field cheque.manage.move_line_ids: unknown parameter 'ondelete', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-05 13:47:02,807 2330018 WARNING phase3_combo_cheque_only odoo.fields: Field cheque.manage.journal_id: unknown parameter 'states', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-05 13:47:02,807 2330018 WARNING phase3_combo_cheque_only odoo.fields: Field cheque.manage.move_line_ids: unknown parameter 'ondelete', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-05 13:47:04,325 2330018 WARNING phase3_combo_cheque_only odoo.fields: Field cheque.manage.journal_id: unknown parameter 'states', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-05 13:47:04,325 2330018 WARNING phase3_combo_cheque_only odoo.fields: Field cheque.manage.move_line_ids: unknown parameter 'ondelete', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-05 13:47:05,099 2330018 WARNING phase3_combo_cheque_only odoo.fields: Field cheque.manage.journal_id: unknown parameter 'states', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-05 13:47:05,099 2330018 WARNING phase3_combo_cheque_only odoo.fields: Field cheque.manage.move_line_ids: unknown parameter 'ondelete', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-05 13:47:06,031 2330018 WARNING phase3_combo_cheque_only odoo.fields: Field cheque.manage.journal_id: unknown parameter 'states', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-05 13:47:06,031 2330018 WARNING phase3_combo_cheque_only odoo.fields: Field cheque.manage.move_line_ids: unknown parameter 'ondelete', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-05 13:47:06,767 2330018 WARNING phase3_combo_cheque_only odoo.fields: Field cheque.manage.journal_id: unknown parameter 'states', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-05 13:47:06,767 2330018 WARNING phase3_combo_cheque_only odoo.fields: Field cheque.manage.move_line_ids: unknown parameter 'ondelete', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-05 13:47:07,392 2330018 WARNING phase3_combo_cheque_only odoo.fields: Field cheque.manage.journal_id: unknown parameter 'states', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-05 13:47:07,393 2330018 WARNING phase3_combo_cheque_only odoo.fields: Field cheque.manage.move_line_ids: unknown parameter 'ondelete', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-05 13:47:07,783 2330018 WARNING phase3_combo_cheque_only odoo.fields: Field cheque.manage.journal_id: unknown parameter 'states', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-05 13:47:07,783 2330018 WARNING phase3_combo_cheque_only odoo.fields: Field cheque.manage.move_line_ids: unknown parameter 'ondelete', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-05 13:47:08,334 2330018 WARNING phase3_combo_cheque_only odoo.fields: Field cheque.manage.journal_id: unknown parameter 'states', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-05 13:47:08,334 2330018 WARNING phase3_combo_cheque_only odoo.fields: Field cheque.manage.move_line_ids: unknown parameter 'ondelete', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-05 13:47:09,398 2330018 WARNING phase3_combo_cheque_only odoo.fields: Field cheque.manage.journal_id: unknown parameter 'states', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-05 13:47:09,399 2330018 WARNING phase3_combo_cheque_only odoo.fields: Field cheque.manage.move_line_ids: unknown parameter 'ondelete', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-05 13:47:10,180 2330018 WARNING phase3_combo_cheque_only odoo.fields: Field cheque.manage.journal_id: unknown parameter 'states', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-05 13:47:10,180 2330018 WARNING phase3_combo_cheque_only odoo.fields: Field cheque.manage.move_line_ids: unknown parameter 'ondelete', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-05 13:47:11,163 2330018 WARNING phase3_combo_cheque_only odoo.fields: Field cheque.manage.journal_id: unknown parameter 'states', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-05 13:47:11,163 2330018 WARNING phase3_combo_cheque_only odoo.fields: Field cheque.manage.move_line_ids: unknown parameter 'ondelete', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-05 13:47:12,884 2330018 WARNING phase3_combo_cheque_only odoo.fields: Field cheque.manage.journal_id: unknown parameter 'states', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-05 13:47:12,884 2330018 WARNING phase3_combo_cheque_only odoo.fields: Field cheque.manage.move_line_ids: unknown parameter 'ondelete', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-05 13:47:13,320 2330018 WARNING phase3_combo_cheque_only odoo.fields: Field cheque.manage.journal_id: unknown parameter 'states', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-05 13:47:13,320 2330018 WARNING phase3_combo_cheque_only odoo.fields: Field cheque.manage.move_line_ids: unknown parameter 'ondelete', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-05 13:47:13,966 2330018 WARNING phase3_combo_cheque_only odoo.fields: Field cheque.manage.journal_id: unknown parameter 'states', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-05 13:47:13,967 2330018 WARNING phase3_combo_cheque_only odoo.fields: Field cheque.manage.move_line_ids: unknown parameter 'ondelete', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-05 13:47:14,432 2330018 WARNING phase3_combo_cheque_only odoo.fields: Field cheque.manage.journal_id: unknown parameter 'states', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-05 13:47:14,433 2330018 WARNING phase3_combo_cheque_only odoo.fields: Field cheque.manage.move_line_ids: unknown parameter 'ondelete', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-05 13:47:14,800 2330018 WARNING phase3_combo_cheque_only odoo.fields: Field cheque.manage.journal_id: unknown parameter 'states', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-05 13:47:14,801 2330018 WARNING phase3_combo_cheque_only odoo.fields: Field cheque.manage.move_line_ids: unknown parameter 'ondelete', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-05 13:47:15,879 2330018 WARNING phase3_combo_cheque_only odoo.fields: Field cheque.manage.journal_id: unknown parameter 'states', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-05 13:47:15,879 2330018 WARNING phase3_combo_cheque_only odoo.fields: Field cheque.manage.move_line_ids: unknown parameter 'ondelete', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-05 13:47:16,154 2330018 WARNING phase3_combo_cheque_only odoo.fields: Field cheque.manage.journal_id: unknown parameter 'states', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-05 13:47:16,155 2330018 WARNING phase3_combo_cheque_only odoo.fields: Field cheque.manage.move_line_ids: unknown parameter 'ondelete', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+### END=2026-11-05 15:47:21 EET
+### EXIT=0
+### RUN_ID=20261105-154441-2329406 (end)

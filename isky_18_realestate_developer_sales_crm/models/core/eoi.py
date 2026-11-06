@@ -1,6 +1,10 @@
 from odoo import models, fields, api, _, Command
-from odoo.exceptions import ValidationError
+from odoo.exceptions import AccessError, ValidationError
 from odoo.tools import float_compare
+
+# Single source for the manual-Paid group xmlid. Safe one-way import: installment_lines does
+# not import this module.
+from .installment_lines import MANUAL_PAID_GROUP
 
 from odoo.addons.isky_18_realestate_developer_unit_inventory.models.selections import unit_type_selection, residential_type_selection, referred_by_selection, public_area_selection, \
     retail_type_selection, entertainment_type_selection, industrial_type_selection, finishing_type_selection, \
@@ -15,10 +19,10 @@ referred_by_selection.remove(('management', 'Management'))
 class Eoi(models.Model):
     """EOi model is related to Sales"""
     _name = "eoi.eoi"
-    _inherit = ['mail.thread', 'mail.activity.mixin']
+    _inherit = ['mail.thread', 'mail.activity.mixin', 'realestate.sales.commission.hooks']
 
     name = fields.Char('EOI Reference', copy=False, readonly=True, index=True,
-                       default=lambda self: _('New'))
+                       default='New')
     customer_id = fields.Many2one('res.partner')
     referred_by = fields.Selection(selection=referred_by_selection, string='Referred By')
     referred_by_employee_id = fields.Many2one('hr.employee')
@@ -53,7 +57,12 @@ class Eoi(models.Model):
         ('to_refunded', 'To Be Refunded'),
         ('refunded', 'Refunded')], string='Status', default='new', copy=False)
     internal_notes = fields.Char()
-    is_paid = fields.Boolean(deafult=False)
+    # Supplement S2 (manual payment tracking, used in Mode B). 'deafult' was a typo, so this
+    # field never actually had a default; fixed in Phase 3 step 2b. paid_date/paid_by_id satisfy
+    # S2's "Setting Paid stores date and user" without creating any journal entry.
+    is_paid = fields.Boolean(string='Paid', default=False, copy=False, tracking=True)
+    paid_date = fields.Datetime(string='Paid On', readonly=True, copy=False)
+    paid_by_id = fields.Many2one('res.users', string='Paid By', readonly=True, copy=False)
     in_sent_payment = fields.Boolean(default=False, copy=False)
     in_refund_payment = fields.Boolean(default=False)
     finishing_type = fields.Selection(selection=finishing_type_selection, string='Finishing Type')
@@ -71,9 +80,8 @@ class Eoi(models.Model):
     account_payment_ids = fields.One2many('account.payment', 'eoi_id', string='Payment')
     payment_count = fields.Integer(compute='_compute_payment_count', string='Payment Count')
 
-    # fields for cheque
-    cheque_manage_ids = fields.One2many('cheque.manage', 'eoi_id', string='Cheque')
-    cheque_count = fields.Integer(compute='_compute_cheque_count', string='Cheque Count')
+    # cheque_manage_ids / cheque_count moved to
+    # isky_18_realestate_developer_sales_cheques (Phase 3 step 3), supplement S1.
 
     # fields for reservations
     reservation_ids = fields.One2many('real.estate.sale.reservation', 'eoi_id', string='Reservations')
@@ -84,13 +92,10 @@ class Eoi(models.Model):
         string='Salesperson',
         default=lambda self: self.env.user,
         tracking=True,
-        domain=[
-            '|', '|', '|',
-            ('job_level_id.is_sales_person', '=', True),
-            ('job_level_id.is_directory', '=', True),
-            ('job_level_id.is_sales_manager', '=', True),
-            ('job_level_id.is_sales_sector_manager', '=', True)
-        ]    )
+        # domain on job_level_id.is_* removed: job.level lives in L3 (commission), and a
+        # Many2many domain referencing it registers an implicit dependency that crashes
+        # field-setup while this L2 module is loading, before L3 exists yet.
+    )
 
     split_deal = fields.Boolean(string='Split Deal')
 
@@ -145,23 +150,14 @@ class Eoi(models.Model):
         'eoi_id',
         'sales_id',
         string='Sales',
-        domain=[
-            '|', '|', '|',
-            ('job_level_id.is_sales_person', '=', True),
-            ('job_level_id.is_directory', '=', True),
-            ('job_level_id.is_sales_manager', '=', True),
-            ('job_level_id.is_sales_sector_manager', '=', True)
-        ]    )
-
-    # Commission lines - using the same commission.commission model
-    commission_ids = fields.One2many(
-        'realestate.commission',
-        'eoi_id',
-        string='Commission',
-        compute='compute_person_hierarchy',
-        store=True,
-        readonly=False
+        # domain on job_level_id.is_* removed: job.level lives in L3 (commission), and a
+        # Many2many domain referencing it registers an implicit dependency that crashes
+        # field-setup while this L2 module is loading, before L3 exists yet.
     )
+
+    # commission_ids field (One2many to realestate.commission, L3) moved to
+    # isky_18_realestate_developer_commission/models/core/eoi_commission_hierarchy_ext.py -
+    # that model is L3's own, and L2 must not depend on L3.
     project_id = fields.Many2one('realestate.project')
 
     phase_one_id = fields.Many2one(
@@ -297,91 +293,11 @@ class Eoi(models.Model):
                 rec.phase_four_id = False
                 rec.phase_domain_ids = False
 
-    @api.depends('user_id', 'sales_ids', 'split_deal')
-    def compute_person_hierarchy(self):
-        """
-        Compute commission hierarchy for EOI based on user_id and sales_ids
-        Similar to CRM Lead hierarchy
-        """
-        # Job positions list (3 levels: Sales Person, Sales Manager, Director)
-        job_positions = ['Sales Person', 'Sales Manager', 'Team Leader', 'Director']
-        job_position_order = {pos: index for index, pos in enumerate(job_positions)}
-
-        for rec in self:
-            # Skip if no user assigned
-            if not rec.user_id:
-                rec.commission_ids = [Command.clear()]
-                continue
-
-            # Get team for the main user
-            team_member = self.env['crm.team.member'].search([('user_id', '=', rec.user_id.id)], limit=1)
-
-            if not team_member or not team_member.crm_team_id:
-                # If user has no team, skip commission calculation
-                rec.commission_ids = [Command.clear()]
-                continue
-
-            team_id = team_member.crm_team_id
-
-            # Clear existing commission lines
-            rec.commission_ids = [Command.clear()]
-            unique_lines = {}  # Changed to dict to store user_id: job_position
-
-            # Build team hierarchy for main user (3 levels)
-            team_users = [
-                rec.user_id,  # Sales Person
-                team_id.user_id,  # Sales Manager (team leader)
-                team_id.director_id  # Director
-            ]
-
-            # Add main user's team hierarchy
-            for i in range(len(team_users)):
-                if team_users[i]:  # Only add if user exists
-                    user_id = team_users[i].id
-                    # Keep the highest position if user appears multiple times
-                    if user_id not in unique_lines or job_position_order[job_positions[i]] < job_position_order[
-                        unique_lines[user_id]]:
-                        unique_lines[user_id] = job_positions[i]
-
-            # If split deal, add hierarchies for additional sales people
-            if rec.split_deal and rec.sales_ids:
-                for person in rec.sales_ids:
-                    # Get team for each additional sales person
-                    person_team_member = self.env['crm.team.member'].search(
-                        [('user_id', '=', person.id)], limit=1
-                    )
-
-                    if person_team_member and person_team_member.crm_team_id:
-                        person_team_id = person_team_member.crm_team_id
-
-                        # Build hierarchy for this person
-                        person_team_users = [
-                            person,  # Sales Person
-                            person_team_id.user_id,  # Sales Manager
-                            person_team_id.director_id  # Director
-                        ]
-
-                        # Add to unique lines
-                        for i in range(len(person_team_users)):
-                            if person_team_users[i]:  # Only add if user exists
-                                user_id = person_team_users[i].id
-                                # Keep the highest position if user appears multiple times
-                                if user_id not in unique_lines or job_position_order[job_positions[i]] < \
-                                        job_position_order[unique_lines[user_id]]:
-                                    unique_lines[user_id] = job_positions[i]
-
-            # Sort lines by job position hierarchy
-            sorted_lines = sorted(unique_lines.items(), key=lambda x: job_position_order[x[1]])
-
-            # Create commission lines
-            lines = [Command.create({
-                'eoi_id': rec.id,
-                'employee_id': user_id,
-                'jop_position': job_position,
-                'commission': 100.0  # Default commission percentage
-            }) for user_id, job_position in sorted_lines]
-
-            rec.commission_ids = lines
+    # compute_person_hierarchy: this copy was always shadowed by
+    # eoi_commission_hierarchy_ext.py's (imported after this file - Odoo's MRO means the
+    # later-imported one wins), so it never ran. Removed along with the field it targeted;
+    # see eoi_commission_hierarchy_ext.py for the one that was actually active, now moved to
+    # isky_18_realestate_developer_commission.
 
     @api.onchange('sales_ids')
     def _onchange_sales_ids(self):
@@ -430,6 +346,50 @@ class Eoi(models.Model):
 
     def action_submit(self):
         self.status = 'submitted'
+
+    def action_mark_paid(self):
+        """Supplement S2 manual payment tracking, the Mode B counterpart of registering a
+        payment: record the EOI as paid, storing date and user, WITHOUT creating any
+        account.payment or account.move. Works identically in Mode A and Mode B - it never
+        touches the accounting layer.
+
+        Gated on the same group as ticking an installment Paid by hand: both acknowledge money
+        that has no payment or cheque record behind it.
+        """
+        self._check_manual_paid_group()
+        for rec in self:
+            if rec.is_paid:
+                continue
+            rec.write({
+                'is_paid': True,
+                'paid_date': fields.Datetime.now(),
+                'paid_by_id': self.env.uid,
+            })
+            rec._message_log(body=_(
+                "%(user)s marked this EOI as paid by hand. No journal entry was created.",
+                user=self.env.user.name,
+            ))
+
+    def action_unmark_paid(self):
+        """Undo action_mark_paid. Same group gate."""
+        self._check_manual_paid_group()
+        for rec in self:
+            if not rec.is_paid:
+                continue
+            rec.write({'is_paid': False, 'paid_date': False, 'paid_by_id': False})
+            rec._message_log(body=_(
+                "%(user)s cleared the manual Paid mark on this EOI.",
+                user=self.env.user.name,
+            ))
+
+    def _check_manual_paid_group(self):
+        """Same group as installment.lines' manual Paid tick - see
+        isky_18_realestate_developer_sales_crm/security/security.xml."""
+        if not self.env.su and not self.env.user.has_group(MANUAL_PAID_GROUP):
+            raise AccessError(self.env._(
+                "Only users of the group 'Can Tick Installments as Paid' can mark an EOI as "
+                "paid by hand."
+            ))
 
     def _compute_reservation_count(self):
         for record in self:
@@ -509,10 +469,7 @@ class Eoi(models.Model):
                 if payment.state == 'paid':
                     payment.sale_reservation_id = reservation.id
 
-        if self.cheque_manage_ids:
-            for cheque in self.cheque_manage_ids:
-                if cheque.state not in ['draft', 'return_to_client']:
-                    cheque.sale_reservation_id = reservation.id
+        self._link_cheques_to_reservation(reservation)
 
         # Open the created reservation form view
         return {
@@ -523,6 +480,16 @@ class Eoi(models.Model):
             'res_id': reservation.id,
             'target': 'current',
         }
+
+    def _return_cheques_on_refund(self):
+        """Return this EOI's outstanding cheques to the client. Base: no cheque module, so
+        nothing to do. sales_cheques overrides it."""
+        return
+
+    def _link_cheques_to_reservation(self, reservation):
+        """Point this EOI's non-draft cheques at the reservation it just produced.
+        Base: nothing to do - no cheque module. sales_cheques overrides it."""
+        return
 
     def action_view_reservations(self):
         """Show all reservations linked to this EOI"""
@@ -616,90 +583,15 @@ class Eoi(models.Model):
             'domain': [('eoi_id', '=', self.id), ('from_eoi', '=', True)]
         }
 
-    def _compute_cheque_count(self):
-        for record in self:
-            record.cheque_count = len(record.cheque_manage_ids)
-
-    def create_cheque_payment(self):
-        self.ensure_one()
-        cheque_payment_id = self.env['cheque.manage'].create({
-            'payer': self.customer_id.id,
-            'amount': self.reservation_amount,
-            'eoi_id': self.id,
-            'journal_id': self.env['account.journal'].search([], limit=1).id,
-            'cheq_type': 'incoming',
-            'from_eoi': True,
-        })
-        return {
-            'name': _('Cheque Payment'),
-            'view_type': 'form',
-            'view_mode': 'form',
-            'res_model': 'cheque.manage',
-            'res_id': cheque_payment_id.id,
-            'type': 'ir.actions.act_window',
-            'target': 'current',
-        }
-
-    def check_cheque_payment(self):
-        for rec in self:
-            if not self.cheque_manage_ids:
-                raise ValidationError("EOI Cheque Payment is Not Complete")
-            else:
-                if rec.cheque_manage_ids[0].amount != self.reservation_amount:
-                    raise ValidationError("The Cheque Payment Of This EOI Not Equal The Reservation Amount")
-
-                if rec.payment_methods != 'cheque':
-                    raise ValidationError("Please use 'Check Payment' button for cash or bank payments")
-
-                # Check if the cheque payment is not in draft or returned state
-                # Assuming the cheque state is stored in a field called 'state' in account.payment
-                if rec.cheque_manage_ids[0].state not in ['draft', 'return_to_client']:
-                    rec.status = "paid"
-                else:
-                    raise ValidationError("EOI Cheque Payment is not in a valid state")
-
-    def action_show_cheques(self):
-        cheques = self.env['cheque.manage'].search([('eoi_id', '=', self.id)])
-        if cheques:
-            return {
-                'type': 'ir.actions.act_window',
-                'res_model': 'cheque.manage',
-                'name': _("Cheques"),
-                'target': 'current',
-                'views': [(False, 'list'), (False, 'form')],
-                'domain': [('eoi_id', '=', self.id)],
-                'context': {
-                    'default_cheq_type': 'incoming',
-                    'default_eoi_id': self.id,
-                    'default_amount': self.reservation_amount,
-                    'default_payer': self.customer_id.id
-                }
-            }
-        else:
-            return {
-                'type': 'ir.actions.act_window',
-                'res_model': 'cheque.manage',
-                'name': _("Cheques"),
-                'target': 'current',
-                'views': [(False, 'form'), (False, 'list')],
-                'context': {
-                    'default_cheq_type': 'incoming',
-                    'default_eoi_id': self.id,
-                    'default_amount': self.reservation_amount,
-                    'default_payer': self.customer_id.id
-                }
-            }
+    # _compute_cheque_count(), create_cheque_payment(), check_cheque_payment() and
+    # action_show_cheques() moved to isky_18_realestate_developer_sales_cheques
+    # (Phase 3 step 3).
 
     def accept_eoi(self):
         self.status = 'accepted'
 
     def reject_eoi(self):
-        cheques = self.env['cheque.manage'].search([('eoi_id', '=', self.id), ('state', 'in', ['collect', 'register'])])
-        if cheques:
-            for cheque in cheques:
-                cheque.action_return()
-                if cheque.state == 'return_to_client':
-                    cheque.action_return_to_client()
+        self._return_cheques_on_refund()
         self.status = 'rejected'
 
     # here will need to make a refund payment with same amount

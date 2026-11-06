@@ -34,3 +34,8 @@ access_unit_estimate_delivery,access.unit.estimate.delivery,model_unit_estimate_
 access_developer_project,access.developer.project,model_developer_project,,1,1,1,1
 access_neighborhood_neighborhood,access.neighborhood.neighborhood,model_neighborhood_neighborhood,,1,1,1,1
 access_res_country_city,access.res.country.city,model_res_country_city,,1,1,1,1
+access_realestate_hierarchy_template,access.realestate.hierarchy.template,model_realestate_hierarchy_template,base.group_user,1,1,1,1
+access_realestate_hierarchy_level,access.realestate.hierarchy.level,model_realestate_hierarchy_level,base.group_user,1,1,1,1
+access_down_payment_increase,access_down_payment_increase,model_down_payment_increase,,1,1,1,1
+access_installment_template,access_installment_template,model_installment_template,,1,1,1,1
+access_maintenance_template,access_maintenance_template,model_maintenance_template,,1,1,1,1

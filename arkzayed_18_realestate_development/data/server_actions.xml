@@ -2,8 +2,8 @@
     <data>
         <record id="action_generate_contract_commissions" model="ir.actions.server">
             <field name="name">Generate Commissions</field>
-            <field name="model_id" ref="model_sale_proposal"/>
-            <field name="binding_model_id" ref="model_sale_proposal"/>
+            <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_sale_proposal"/>
+            <field name="binding_model_id" ref="isky_18_realestate_developer_sales_crm.model_sale_proposal"/>
             <field name="binding_view_types">list</field>
             <field name="state">code</field>
             <field name="code">
@@ -13,8 +13,8 @@
 
         <record id="action_recalc_reservation_installment_serial" model="ir.actions.server">
             <field name="name">Recalculate Installment Serial</field>
-            <field name="model_id" ref="model_real_estate_sale_reservation"/>
-            <field name="binding_model_id" ref="model_real_estate_sale_reservation"/>
+            <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_real_estate_sale_reservation"/>
+            <field name="binding_model_id" ref="isky_18_realestate_developer_sales_crm.model_real_estate_sale_reservation"/>
             <field name="binding_view_types">list,form</field>
             <field name="state">code</field>
             <field name="code">
@@ -23,8 +23,8 @@
         </record>
         <record id="action_recalc_contract_installment_serial" model="ir.actions.server">
             <field name="name">Recalculate Installment Serial</field>
-            <field name="model_id" ref="model_sale_proposal"/>
-            <field name="binding_model_id" ref="model_sale_proposal"/>
+            <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_sale_proposal"/>
+            <field name="binding_model_id" ref="isky_18_realestate_developer_sales_crm.model_sale_proposal"/>
             <field name="binding_view_types">list,form</field>
             <field name="state">code</field>
             <field name="code">
@@ -34,8 +34,8 @@
 
         <record id="action_update_reservation_customer_ownership_ids" model="ir.actions.server">
             <field name="name">Copy Customer Ownership</field>
-            <field name="model_id" ref="model_real_estate_sale_reservation"/>
-            <field name="binding_model_id" ref="model_real_estate_sale_reservation"/>
+            <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_real_estate_sale_reservation"/>
+            <field name="binding_model_id" ref="isky_18_realestate_developer_sales_crm.model_real_estate_sale_reservation"/>
             <field name="binding_view_types">list,form</field>
             <field name="state">code</field>
             <field name="code">
@@ -44,8 +44,8 @@
         </record>
         <record id="action_update_contract_customer_ownership_ids" model="ir.actions.server">
             <field name="name">Copy Customer Ownership</field>
-            <field name="model_id" ref="model_sale_proposal"/>
-            <field name="binding_model_id" ref="model_sale_proposal"/>
+            <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_sale_proposal"/>
+            <field name="binding_model_id" ref="isky_18_realestate_developer_sales_crm.model_sale_proposal"/>
             <field name="binding_view_types">list,form</field>
             <field name="state">code</field>
             <field name="code">
@@ -55,8 +55,8 @@
 <!--        &lt;!&ndash; Server Action bound to Sale Reservation &ndash;&gt;-->
 <!--        <record id="action_server_execute_data_migration_reservation" model="ir.actions.server">-->
 <!--            <field name="name">Migrate Historical Payment Allocations</field>-->
-<!--            <field name="model_id" ref="model_real_estate_sale_reservation"/>-->
-<!--            <field name="binding_model_id" ref="model_real_estate_sale_reservation"/>-->
+<!--            <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_real_estate_sale_reservation"/>-->
+<!--            <field name="binding_model_id" ref="isky_18_realestate_developer_sales_crm.model_real_estate_sale_reservation"/>-->
 <!--            <field name="binding_type">action</field>-->
 <!--            <field name="binding_view_types">list,form</field>-->
 <!--            <field name="state">code</field>-->
@@ -68,8 +68,8 @@
 <!--        &lt;!&ndash; Server Action bound to Sale Proposal (Contract) &ndash;&gt;-->
 <!--        <record id="action_server_execute_data_migration_contract" model="ir.actions.server">-->
 <!--            <field name="name">Migrate Historical Payment Allocations</field>-->
-<!--            <field name="model_id" ref="model_sale_proposal"/>-->
-<!--            <field name="binding_model_id" ref="model_sale_proposal"/>-->
+<!--            <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_sale_proposal"/>-->
+<!--            <field name="binding_model_id" ref="isky_18_realestate_developer_sales_crm.model_sale_proposal"/>-->
 <!--            <field name="binding_type">action</field>-->
 <!--            <field name="binding_view_types">list,form</field>-->
 <!--            <field name="state">code</field>-->
@@ -79,8 +79,8 @@
 <!--        </record>-->
 <!--        <record id="action_sync_reservation_to_contract_lines" model="ir.actions.server">-->
 <!--            <field name="name">Sync Reservation to Contract Lines</field>-->
-<!--            <field name="model_id" ref="model_sale_proposal"/>-->
-<!--            <field name="binding_model_id" ref="model_sale_proposal"/>-->
+<!--            <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_sale_proposal"/>-->
+<!--            <field name="binding_model_id" ref="isky_18_realestate_developer_sales_crm.model_sale_proposal"/>-->
 <!--            <field name="binding_view_types">list,form</field>-->
 <!--            <field name="state">code</field>-->
 <!--            <field name="code">-->

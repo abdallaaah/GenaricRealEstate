@@ -4,9 +4,11 @@
     'version': '1.0',
     'summary': 'Combined accounting-model inheritance for the real estate developer modules',
     'description': """
-Consolidates the account.* model inheritance that used to be scattered across
-arkzayed_18_realestate_development and arkzayed_cost_distribution into a single module,
-one file per Odoo accounting model.
+Level 1 of the real estate developer product restructuring: an optional accounting bridge.
+Depends only on `account` and L0 (unit_inventory). Consolidates the account.* model
+inheritance that is genuinely accounting-only (account.account/journal/analytic config,
+res.config.settings account/journal settings, currency-conversion and down-payment/overseas
+account selection on account.payment, the approval workflow, the reconcile wizard override).
 
 arkzayed_loan_payments was deliberately excluded - its account.loan / account.loan.line /
 account.move additions stay in that module.
@@ -22,18 +24,19 @@ Cheque-dependent fields and logic were intentionally left in place in
 arkzayed_18_realestate_development (account.payment) and in
 arkzayed_18_gt_cheque_management, and are not part of this module.
 
-NOTE: this module depends on arkzayed_18_realestate_development / arkzayed_cost_distribution
-for the business models its fields point to (sale.proposal, real.estate.unit, eoi.eoi,
-arkzayed.cost.allocation, ...). Those modules' own remaining code/views still reference
-fields that now live here, so they need this module as a dependency too - that back-and-forth
-is a circular dependency that has not been resolved yet. Flagged here on purpose; see
-conversation notes.
+Phase 2 (see claude/decisions_log.md): every field/method here that pointed to sale.proposal,
+real.estate.sale.reservation, eoi.eoi, installment.lines/maintenance.installment.lines,
+loan.line, revenue.share2, installment.penalty, reservation.payment, eoi.payment, or
+payment.allocation moved to isky_18_realestate_developer_sales_crm (L2); everything that
+pointed to broker.claim moved to isky_18_realestate_developer_commission (L3); the
+arkzayed.cost.allocation fields on account.move.line moved to arkzayed_cost_distribution,
+where they lived before an earlier consolidation. This module is now a true optional bridge -
+the product installs and works without it.
     """,
     'author': 'iSkyDev',
     'depends': [
         'account',
-        'arkzayed_18_realestate_development',
-        'arkzayed_cost_distribution',
+        'account_reports',
         'isky_18_realestate_developer_unit_inventory',
     ],
     'data': [

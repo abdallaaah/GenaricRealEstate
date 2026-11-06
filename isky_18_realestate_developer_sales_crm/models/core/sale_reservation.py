@@ -1,4 +1,4 @@
-from odoo import models, fields, api, _, Command
+from odoo import models, fields, api, _
 from odoo.tools.safe_eval import datetime
 from odoo.exceptions import ValidationError, UserError
 import calendar
@@ -23,10 +23,13 @@ def add_months(source_date, months):
 
 class SaleContract(models.Model):
     _name = "real.estate.sale.reservation"
-    _inherit = ['mail.thread', 'mail.activity.mixin','installment.mixin']
+    _inherit = ['mail.thread', 'mail.activity.mixin','installment.mixin', 'realestate.sales.installments.gate', 'realestate.split.parent.mixin', 'realestate.sales.commission.hooks']
+
+    _split_child_fk = 'reservation_id'
+    _split_parent_label = 'reservation'
 
     name = fields.Char(string='Reservation Reference', required=True, copy=False, readonly=True, index=True,
-                       default=lambda self: _('New'))
+                       default='New')
     customer_id = fields.Many2one('res.partner', string='Customer')
     customer_phone = fields.Char(related='customer_id.phone', string='Phone', readonly=True)
     customer_email = fields.Char(string='Customer Email Address', compute='_compute_customer_info',inverse='_inverse_customer_info', store=True, copy=False)
@@ -126,10 +129,10 @@ class SaleContract(models.Model):
     transfer_reference = fields.Char()
     transfer_date = fields.Date()
 
-    # Bank Cheque
-    bank_cheque_journal = fields.Many2one('account.journal', string='Bank Journal', domain=[('type', '=', 'bank')])
-    cheque_number = fields.Char()
-    cheque_due_date = fields.Date()
+    # Bank Cheque: bank_cheque_journal / cheque_number / cheque_due_date moved to
+    # isky_18_realestate_developer_sales_cheques (Phase 3 step 3) - they only feed
+    # create_cheque_payment(), which moved with them. The 'bank_cheque' value of
+    # payment_method stays here: it is a stored selection value, not a cheque coupling.
 
     # Cash
     cash_journal = fields.Many2one('account.journal', string='Cash Journal', domain=[('type', '=', 'cash')])
@@ -154,22 +157,20 @@ class SaleContract(models.Model):
     is_payment_checked = fields.Boolean(compute='_compute_is_payment_checked', store=True)
     stop_check_expiration = fields.Boolean()
 
-    @api.depends('account_payment_ids', 'account_payment_ids.state', 'cheque_manage_ids', 'cheque_manage_ids.state')
+    @api.depends('account_payment_ids', 'account_payment_ids.state')
     def _compute_is_payment_checked(self):
+        # S6: the cheque half is added by sales_cheques, which redeclares this compute with
+        # the cheque depends and calls super(). The field is latching - it is only ever set
+        # to True here - so the override can safely run after this.
         for rec in self:
-            matching_cheques = False
             matching_payments = False
             if rec.account_payment_ids:
                 matching_payments = rec.account_payment_ids.filtered(
                     lambda p: p.payment_type == 'inbound' and p.state in ['to_check', 'in_process',
                                                                           'paid'] and p.from_down_payment == True
                 )
-            if rec.cheque_manage_ids:
-                matching_cheques = rec.cheque_manage_ids.filtered(
-                    lambda c: c.state not in ['draft','return_to_client', 'return', 'cancel'] and c.from_down_payment == True
-                )
 
-            if matching_cheques or matching_payments:
+            if matching_payments:
                 rec.is_payment_checked = True
             else:
                 rec.is_payment_checked = rec.is_payment_checked
@@ -181,8 +182,55 @@ class SaleContract(models.Model):
             for payment in self.eoi_id.account_payment_ids:
                 payment.sale_reservation_id = self.id
 
-            for cheque in self.eoi_id.cheque_manage_ids:
-                cheque.sale_reservation_id = self.id
+            self._link_eoi_cheques()
+
+    # ----------------------------------------------------------------------------------
+    # Cheque hooks (supplement S1, Phase 3 step 3)
+    #
+    # sales_crm must install without the optional cheque module, so every cheque-aware
+    # branch is reduced to one of these. The base returns the cheque-free answer;
+    # isky_18_realestate_developer_sales_cheques overrides each one. Each amount hook has
+    # its own cheque-state filter because the original code filtered differently per call
+    # site - they are deliberately not collapsed into a single helper.
+    # ----------------------------------------------------------------------------------
+
+    def _eoi_cheque_amount(self):
+        """Incoming EOI cheques that still count toward the EOI amount."""
+        return 0.0
+
+    def _registered_cheque_amount(self):
+        """Cheques registered against the down payment, draft included."""
+        return 0.0
+
+    def _checked_cheque_amount(self):
+        """Cheques that satisfy check_payment(): anything past draft."""
+        return 0.0
+
+    def _contract_cheque_amount(self):
+        """Cheques collected on this reservation, counted toward the contract down payment."""
+        return 0.0
+
+    def _link_eoi_cheques(self):
+        """Point the EOI's cheques at this reservation."""
+        return
+
+    def _link_cheques_to_contract(self, contract_id):
+        """Point this reservation's cheques at the contract it just produced."""
+        return
+
+    def _allocate_cheques_to_line(self, line, Allocation):
+        """Create payment.allocation rows for this reservation's cheques against line."""
+        return
+
+    def _cheque_fund_entries(self):
+        """Fund-pool entries for the FIFO waterfall in _reallocate_reservation_funds().
+        Same dict shape as the payment entries built there."""
+        return []
+
+    def _deal_project(self):
+        """A reservation carries project_id directly; fall back to the unit's project."""
+        self.ensure_one()
+        return self.project_id or self.unit_id.project_id
 
     def action_stop_checking_expiration(self):
         self.ensure_one()
@@ -222,7 +270,7 @@ class SaleContract(models.Model):
     # Payment tracking fields
     account_payment_ids = fields.One2many('account.payment', 'sale_reservation_id', string='Payment')
     account_move_ids = fields.One2many('account.move', 'sale_reservation_id', string='Journal Entries')
-    cheque_manage_ids = fields.One2many('cheque.manage', 'sale_reservation_id', string='Cheque')
+    # cheque_manage_ids moved to isky_18_realestate_developer_sales_cheques (Phase 3 step 3).
     penalty_move_id = fields.Many2one('account.move', string='Penalty Journal Entry', readonly=True, copy=False)
     payment_count = fields.Integer(compute='_compute_payment_count', string='Payment Count')
     in_sent_payment = fields.Boolean(default=False, copy=False)
@@ -237,13 +285,10 @@ class SaleContract(models.Model):
         string='Salesperson',
         default=lambda self: self.env.user,
         tracking=True,
-        domain=[
-            '|', '|', '|',
-            ('job_level_id.is_sales_person', '=', True),
-            ('job_level_id.is_directory', '=', True),
-            ('job_level_id.is_sales_manager', '=', True),
-            ('job_level_id.is_sales_sector_manager', '=', True)
-        ]  )
+        # domain on job_level_id.is_* removed: job.level lives in L3 (commission), and a
+        # Many2many domain referencing it registers an implicit dependency that crashes
+        # field-setup while this L2 module is loading, before L3 exists yet.
+    )
 
     referred_by = fields.Selection(selection=referred_by_selection, string="Referred By")
     referred_by_employee_id = fields.Many2one('hr.employee')
@@ -303,20 +348,14 @@ class SaleContract(models.Model):
         'reservation_id',
         'sales_id',
         string='Sales',
-        domain=[
-            '|', '|', '|',
-            ('job_level_id.is_sales_person', '=', True),
-            ('job_level_id.is_directory', '=', True),
-            ('job_level_id.is_sales_manager', '=', True),
-            ('job_level_id.is_sales_sector_manager', '=', True)
-        ]    )
-
-    # Commission lines - using the same commission.commission model
-    commission_ids = fields.One2many(
-        'realestate.commission',
-        'sale_reservation_id',
-        string='Commission'
+        # domain on job_level_id.is_* removed: job.level lives in L3 (commission), and a
+        # Many2many domain referencing it registers an implicit dependency that crashes
+        # field-setup while this L2 module is loading, before L3 exists yet.
     )
+
+    # commission_ids field (One2many to realestate.commission, L3) moved to
+    # isky_18_realestate_developer_commission/models/core/sale_reservation_crm_ext.py -
+    # that model is L3's own, and L2 must not depend on L3.
 
     sales_consultant_names = fields.Char(
         string='Sales Consultants',
@@ -355,9 +394,6 @@ class SaleContract(models.Model):
         'eoi_id.account_payment_ids.state',
         'eoi_id.account_payment_ids.amount',
         'eoi_id.account_payment_ids.payment_type',
-        'eoi_id.cheque_manage_ids.state',
-        'eoi_id.cheque_manage_ids.amount',
-        'eoi_id.cheque_manage_ids.cheq_type',
     )
     def _compute_eoi_amount(self):
         for rec in self:
@@ -365,11 +401,7 @@ class SaleContract(models.Model):
                 valid_payments = rec.eoi_id.account_payment_ids.filtered(
                     lambda p: p.payment_type == 'inbound' and p.state not in ('canceled', 'rejected') and p.from_eoi == True
                 )
-                valid_cheques = rec.eoi_id.cheque_manage_ids.filtered(
-                    lambda c: c.cheq_type == 'incoming' and c.state not in ('cancel', 'return_to_client',
-                                                                            'return', 'bounce') and c.from_eoi == True
-                )
-                rec.eoi_amount = sum(valid_payments.mapped('amount')) + sum(valid_cheques.mapped('amount'))
+                rec.eoi_amount = sum(valid_payments.mapped('amount')) + rec._eoi_cheque_amount()
             else:
                 rec.eoi_amount = 0.0
 
@@ -571,8 +603,7 @@ class SaleContract(models.Model):
                                         rec.customer_id.name))
 
     @api.depends('down_payment',
-                 'account_payment_ids.amount', 'account_payment_ids.state',
-                 'cheque_manage_ids.amount', 'cheque_manage_ids.state')
+                 'account_payment_ids.amount', 'account_payment_ids.state')
     def _compute_remaining_payment_amount(self):
         for rec in self:
             expected_amount = rec.down_payment
@@ -584,14 +615,7 @@ class SaleContract(models.Model):
             )
             payment_amount = sum(valid_payments.mapped('amount'))
 
-            # Sum valid cheques (exclude cancelled, returned, or bounced)
-            # We explicitly INCLUDE draft cheques here so the remaining amount drops as soon as the user registers it!
-            valid_cheques = rec.cheque_manage_ids.filtered(
-                lambda c: c.state not in ('return_to_client', 'return', 'cancel', 'bounce')
-            )
-            cheque_amount = sum(valid_cheques.mapped('amount'))
-
-            total_registered = payment_amount + cheque_amount
+            total_registered = payment_amount + rec._registered_cheque_amount()
             remaining_payment_amount = max(0.0, expected_amount - total_registered)
             rec.remaining_payment_amount = rec._apply_rounding_config(remaining_payment_amount)
 
@@ -626,7 +650,7 @@ class SaleContract(models.Model):
                 rec.remaining_amount = rec.remaining_amount
 
     def _compute_can_edit_discount_percentage(self):
-        can_edit_discount_percentage = self.env.user.has_group('arkzayed_18_realestate_development.group_edit_discount_percentage')
+        can_edit_discount_percentage = self.env.user.has_group('isky_18_realestate_developer_sales_crm.group_edit_discount_percentage')
         for rec in self:
             rec.can_edit_discount_percentage = can_edit_discount_percentage
 
@@ -735,62 +759,10 @@ class SaleContract(models.Model):
                 if plan_line:
                     rec.payment_plan_line_id = plan_line[0] if len(plan_line) > 1 else plan_line
 
-    def _build_commission_hierarchy(self):
-        self.ensure_one()
-
-        DEFAULT_COMMISSION = 100.0
-
-        job_position_order = {
-            'Sales Manager': 0,
-            'Sales Person': 1,
-        }
-        def _get_team_users_with_roles(user):
-            team_member = self.env['crm.team.member'].search(
-                [('user_id', '=', user.id)], limit=1
-            )
-
-            if team_member and team_member.crm_team_id:
-                return [
-                    (user, 'Sales Person'),
-                    (team_member.crm_team_id.user_id, 'Sales Manager'),
-                ]
-            return [(user, 'Sales Person')]
-
-        unique_lines = {}
-
-        self.commission_ids = [Command.clear()]
-
-        def _add_users(users_with_roles):
-            for user, role in users_with_roles:
-                if not user:
-                    continue
-                uid = user.id
-
-                if (
-                        uid not in unique_lines
-                        or job_position_order[role] < job_position_order.get(unique_lines[uid], 99)
-                ):
-                    unique_lines[uid] = role
-
-        _add_users(_get_team_users_with_roles(self.user_id))
-
-        if self.split_deal and self.sales_ids:
-            for person in self.sales_ids:
-                _add_users(_get_team_users_with_roles(person))
-
-        sorted_lines = sorted(
-            unique_lines.items(),
-            key=lambda x: job_position_order[x[1]]
-        )
-
-        self.commission_ids = [
-            Command.create({
-                'employee_id': user_id,
-                'jop_position': role,
-                'commission': DEFAULT_COMMISSION,
-            })
-            for user_id, role in sorted_lines
-        ]
+    # _build_commission_hierarchy: this copy was always shadowed by
+    # sale_reservation_crm_ext.py's (imported after this file - Odoo's MRO means the
+    # later-imported one wins), so it never ran. Removed; see sale_reservation_crm_ext.py for
+    # the one that was actually active, now moved to isky_18_realestate_developer_commission.
 
     @api.onchange('unit_id', 'unit_has_discount')
     def change_year_no(self):
@@ -1036,7 +1008,7 @@ class SaleContract(models.Model):
         """
         self.ensure_one()
         if not self.env.user.has_group(
-                'arkzayed_18_realestate_development.group_exception_reservation'):
+                'isky_18_realestate_developer_sales_crm.group_exception_reservation'):
             raise UserError(_(
                 "You are not allowed to perform an Exception Reservation."))
         self.state = 'exception_reservation'
@@ -1044,7 +1016,7 @@ class SaleContract(models.Model):
     def action_confirm(self):
         """Confirm the reservation"""
         # check that the user has the required group to confirm the reservation
-        if not self.env.user.has_group('arkzayed_18_realestate_development.group_confirm_reservation'):
+        if not self.env.user.has_group('isky_18_realestate_developer_sales_crm.group_confirm_reservation'):
             raise UserError(_("You are not allowed to confirm a reservation."))
         if not self.installment_ids or not self.maintenance_installment_ids:
             raise ValidationError(_('Please create installment and maintenance installment first.'))
@@ -1129,70 +1101,8 @@ class SaleContract(models.Model):
             }
         return True
 
-    def create_cheque_payment(self):
-        """Create cheque payment AND allocate to Down Payment line"""
-        self.ensure_one()
-        if not self.installment_ids or not self.maintenance_installment_ids:
-            raise ValidationError(_('Please create installment and maintenance installment first.'))
-        if not self.payment_attachment:
-            raise ValidationError(_("Please upload the Payment Attachment before creating a cheque payment."))
-
-        # Security Block
-        if self.remaining_payment_amount <= 0.0:
-            raise ValidationError(_("There is no remaining amount to be paid for this reservation."))
-
-        journal = self.bank_cheque_journal
-
-        if not journal:
-            # Get the first available journal for cheque
-            journal = self.env['account.journal'].search([], limit=1)
-
-        if not journal:
-            raise ValidationError(_("No journal found. Please create one first."))
-
-        # Automatically set the amount to the exact remaining balance
-        amount = self.remaining_payment_amount
-        amount = self._apply_rounding_config(amount)
-
-        cheque_payment_id = self.env['cheque.manage'].create({
-            'payer': self.customer_id.id,
-            'amount': amount,
-            'sale_reservation_id': self.id,
-            'eoi_id': self.eoi_id.id if self.eoi_id else False,
-            'unit_id': self.unit_id.id if self.unit_id else False,
-            'journal_id': journal.id,
-            'cheq_type': 'incoming',
-            'from_down_payment': True,
-            'from_reservation': True,
-        })
-        if self.cheque_due_date:
-            cheque_payment_id.cheque_date = self.cheque_due_date
-
-        if self.cheque_number:
-            cheque_payment_id.cheque_no = self.cheque_number
-
-        # --- ALLOCATE TO DOWN PAYMENT INSTALLMENT LINE ---
-        dp_lines = self.installment_ids.filtered(
-            lambda l: l.is_down_payment or l.is_down_payment_reservation or (l.name and 'Down Payment' in l.name)
-        )
-        if dp_lines:
-            dp_line = dp_lines[0]
-            self.env['payment.allocation'].create({
-                'cheque_id': cheque_payment_id.id,
-                'installment_id': dp_line.id,
-                'allocated_amount': cheque_payment_id.amount,
-            })
-            dp_line.write({'payment_method_used': 'cheque'})
-        # -------------------------------------------------
-        return {
-            'name': _('Cheque Payment'),
-            'view_type': 'form',
-            'view_mode': 'form',
-            'res_model': 'cheque.manage',
-            'res_id': cheque_payment_id.id,
-            'type': 'ir.actions.act_window',
-            'target': 'current',
-        }
+    # create_cheque_payment() moved to isky_18_realestate_developer_sales_cheques
+    # (Phase 3 step 3).
 
     def check_payment(self):
         """Check if payment is complete for bank transfer or cash"""
@@ -1205,21 +1115,15 @@ class SaleContract(models.Model):
                 next_state = 'paid'
 
             payment_amount = 0
-            cheque_amount = 0
             if rec.account_payment_ids:
                 matching_payments = rec.account_payment_ids.filtered(
                     lambda p: p.payment_type == 'inbound' and p.state in ['to_check', 'in_process',
                                                                           'paid']
                 )
                 payment_amount = sum(matching_payments.mapped('amount')) if matching_payments else 0
-            if rec.cheque_manage_ids:
-                matching_cheques = rec.cheque_manage_ids.filtered(
-                    lambda c: c.state not in ['draft', 'return_to_client']
-                )
-                cheque_amount = sum(matching_cheques.mapped('amount')) if matching_cheques else 0
             expected_amount = rec.down_payment
             expected_amount = rec._apply_rounding_config(expected_amount)
-            total_payments = payment_amount + cheque_amount
+            total_payments = payment_amount + rec._checked_cheque_amount()
 
             if total_payments < expected_amount:
                 raise ValidationError(
@@ -1259,38 +1163,8 @@ class SaleContract(models.Model):
             'res_id': self.penalty_move_id.id,
         }
 
-    def action_show_cheques(self):
-        """Show cheques for this reservation"""
-        cheques = self.env['cheque.manage'].search([('sale_reservation_id', '=', self.id)])
-        if cheques:
-            return {
-                'type': 'ir.actions.act_window',
-                'res_model': 'cheque.manage',
-                'name': _("Cheques"),
-                'target': 'current',
-                'views': [(False, 'list'), (False, 'form')],
-                'domain': [('sale_reservation_id', '=', self.id)],
-                'context': {
-                    'default_cheq_type': 'incoming',
-                    'default_sale_reservation_id': self.id,
-                    'default_amount': self.reservation_amount,
-                    'default_payer': self.customer_id.id
-                }
-            }
-        else:
-            return {
-                'type': 'ir.actions.act_window',
-                'res_model': 'cheque.manage',
-                'name': _("Cheques"),
-                'target': 'current',
-                'views': [(False, 'form'), (False, 'list')],
-                'context': {
-                    'default_cheq_type': 'incoming',
-                    'default_sale_reservation_id': self.id,
-                    'default_amount': self.reservation_amount,
-                    'default_payer': self.customer_id.id
-                }
-            }
+    # action_show_cheques() moved to isky_18_realestate_developer_sales_cheques
+    # (Phase 3 step 3).
 
     def action_create_contract(self):
         """Modified to transfer installment lines to contract"""
@@ -1399,8 +1273,7 @@ class SaleContract(models.Model):
         if self.account_payment_ids:
             self.account_payment_ids.write({'sale_proposal_id': contract_id.id})
 
-        if self.cheque_manage_ids:
-            self.cheque_manage_ids.write({'sale_proposal_id': contract_id.id})
+        self._link_cheques_to_contract(contract_id)
 
         # Find the Down Payment line and link the payments/cheques specifically to it
         dp_lines = self.installment_ids.filtered(lambda l: l.is_down_payment_reservation)
@@ -1411,14 +1284,9 @@ class SaleContract(models.Model):
             valid_payments = self.account_payment_ids.filtered(
                 lambda p: p.state not in ('cancel', 'canceled', 'rejected') and p.payment_type == 'inbound'
             )
-            valid_cheques = self.cheque_manage_ids.filtered(
-                lambda c: c.state not in ('return_to_client', 'return', 'cancel', 'bounce')
-            )
-
             # Calculate total collected for this reservation
             total_payments = sum(valid_payments.mapped('amount'))
-            total_cheques = sum(valid_cheques.mapped('amount'))
-            total_collected = round(total_payments + total_cheques, 2)
+            total_collected = round(total_payments + self._contract_cheque_amount(), 2)
 
             line_total_amount = round(dp_line.total_amount or dp_line.amount, 2)
             net_dp_needed = round(line_total_amount, 2)
@@ -1444,15 +1312,7 @@ class SaleContract(models.Model):
                         })
                 dp_line.write({'payment_method_used': 'payment'})
 
-            if valid_cheques:
-                for chq in valid_cheques:
-                    if not Allocation.search([('cheque_id', '=', chq.id), ('installment_id', '=', dp_line.id)]):
-                        Allocation.create({
-                            'cheque_id': chq.id,
-                            'installment_id': dp_line.id,
-                            'allocated_amount': chq.amount
-                        })
-                dp_line.write({'payment_method_used': 'cheque'})
+            self._allocate_cheques_to_line(dp_line, Allocation)
         if contract_id:
             self.state = "contracted"
             self.unit_id.unit_status = 'reserved'
@@ -1574,11 +1434,9 @@ class SaleContract(models.Model):
                 'to_check', 'cfo_approved', 'deputy_cfo_approved', 'in_process', 'paid'
             )
         )
-        active_cheques = self.cheque_manage_ids.filtered(
-            lambda c: c.state in ('register', 'collect', 'done', 'under_collection', 'return', 'bounce')
-        )
+        cheque_funds = self._cheque_fund_entries()
 
-        if not active_payments and not active_cheques:
+        if not active_payments and not cheque_funds:
             return
 
         # Step 2: Clear old payment.allocation records for active funds & lines of this reservation
@@ -1595,18 +1453,13 @@ class SaleContract(models.Model):
         for p in active_payments:
             fund_pool.append({
                 'type': 'payment',
+                'alloc_field': 'payment_id',
                 'record': p,
                 'date': p.date or fields.Date.today(),
                 'remaining_pool': p.amount
             })
 
-        for c in active_cheques:
-            fund_pool.append({
-                'type': 'cheque',
-                'record': c,
-                'date': c.cheque_date or c.cheque_receive_date or fields.Date.today(),
-                'remaining_pool': c.amount
-            })
+        fund_pool.extend(cheque_funds)
 
         fund_pool.sort(key=lambda x: (x['date'] is False, x['date']))
 
@@ -1632,10 +1485,7 @@ class SaleContract(models.Model):
                     'allocated_amount': alloc_amt,
                 }
 
-                if fund['type'] == 'payment':
-                    alloc_vals['payment_id'] = fund['record'].id
-                else:
-                    alloc_vals['cheque_id'] = fund['record'].id
+                alloc_vals[fund['alloc_field']] = fund['record'].id
 
                 if line_type == 'installment':
                     alloc_vals['installment_id'] = line.id
@@ -1648,8 +1498,7 @@ class SaleContract(models.Model):
                 line_amount_needed -= alloc_amt
 
                 # Update payment method flag on the line
-                method_used = 'payment' if fund['type'] == 'payment' else 'cheque'
-                line.write({'payment_method_used': method_used})
+                line.write({'payment_method_used': fund['type']})
 
     def _apply_rounding_config(self, amount):
         """Apply apply_cents_in_last_line and apply_to_nearer_ten configuration rules to an amount."""
@@ -1677,6 +1526,11 @@ class SaleContract(models.Model):
 
     def action_calculate_installments(self):
         """Calculate installments for reservation with cleanup and automated fund re-allocation"""
+        # Step 5: installments toggle. Returns a warning rather than raising - the deal must
+        # still complete with no lines.
+        if not self._installments_allowed():
+            return self._installments_off_notification()
+
         if not self.price_after_discount or self.price_after_discount <= 0:
             raise ValidationError(_("Unit sales price must be greater than zero."))
 
@@ -1719,6 +1573,9 @@ class SaleContract(models.Model):
 
     def action_calculate_maintenance_installments(self):
         """Calculate maintenance installments for reservation with cleanup and automated fund re-allocation"""
+        if not self._installments_allowed():
+            return self._installments_off_notification()
+
         if not self.maintenance:
             raise ValidationError(_("Maintenance is not enabled."))
 
@@ -1763,6 +1620,10 @@ class SaleContract(models.Model):
 
     def _prepare_reservation_installment_lines(self):
         """Prepare installment lines for reservation"""
+        # Step 5: gate before the clearing assignment below, so a project with installments
+        # off neither creates lines nor destroys anything that already exists.
+        if not self._installments_allowed():
+            return []
         self.installment_ids = None
         installment_lines = []
         ind = 1
@@ -1960,6 +1821,8 @@ class SaleContract(models.Model):
         return installment_lines
 
     def _prepare_reservation_maintenance_lines(self):
+        if not self._installments_allowed():
+            return []
         """Prepare maintenance installment lines for reservation"""
         self.maintenance_installment_ids = None
         maintenance_lines = []
@@ -2258,39 +2121,9 @@ class SaleContract(models.Model):
         else:
             raise ValidationError(_("You should choose unit first."))
 
-    def action_copy_customer_ownership_ids(self):
-        already_done_recs = []
-        to_create = []
-
-        for rec in self:
-            for line in rec.customer_ownership_ids:
-                existed_line = rec.customer_new_ownership_ids.filtered(lambda l: l.percentage == line.percentage
-                              and l.customer_id.id == line.customer_id.id and l.from_action == True)
-                if existed_line:
-                    already_done_recs.append(rec.name)
-                    break
-                to_create.append({
-                    'customer_id': line.customer_id.id,
-                    'percentage': line.percentage,
-                    'company_id': line.company_id.id,
-                    'reservation_id': rec.id,
-                    'from_action': True,
-                })
-
-        if already_done_recs:
-            raise ValidationError(_("Server action already ran for reservations: %s", ', '.join(already_done_recs)))
-        if to_create:
-            self.env['customer.ownership'].create(to_create)
-        return {
-            'type': 'ir.actions.client',
-            'tag': 'display_notification',
-            'params': {
-                'title': _("Success"),
-                'message': _("%s ownership record(s) copied successfully.", len(to_create)),
-                'type': 'success',
-                'sticky': False,
-            }
-        }
+    # action_copy_customer_ownership_ids() moved to
+    # realestate.split.parent.mixin (Phase 3 step 5): it was duplicated verbatim here
+    # and in the other deal model, differing only in the FK key.
 
     def action_recalc_installment_serial(self):
         for reservation in self:

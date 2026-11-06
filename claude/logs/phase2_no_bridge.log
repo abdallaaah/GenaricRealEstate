@@ -1,0 +1,1152 @@
+2026-11-04 17:46:02,227 9339 WARNING phase2_no_bridge_test odoo.modules.module: Missing `license` key in manifest for 'arkzayed_18_contact_customization', defaulting to LGPL-3 
+2026-11-04 17:46:02,273 9339 WARNING phase2_no_bridge_test odoo.modules.module: Missing `license` key in manifest for 'arkzayed_18_realestate_developer_crm', defaulting to LGPL-3 
+2026-11-04 17:46:02,317 9339 WARNING phase2_no_bridge_test odoo.modules.module: Missing `license` key in manifest for 'arkzayed_18_realestate_development', defaulting to LGPL-3 
+2026-11-04 17:46:06,828 9339 WARNING phase2_no_bridge_test odoo.modules.module: Missing `license` key in manifest for 'isky_contract_template', defaulting to LGPL-3 
+2026-11-04 17:46:06,870 9339 WARNING phase2_no_bridge_test odoo.modules.module: Missing `license` key in manifest for 'isky_hr_egypt_allowances_application_contract', defaulting to LGPL-3 
+<string>:38: (ERROR/3) Unexpected indentation.
+<string>:43: (WARNING/2) Block quote ends without a blank line; unexpected unindent.
+2026-11-04 17:51:13,485 9339 WARNING phase2_no_bridge_test odoo.tools.translate: no translation language detected, skipping translation <frame at 0x70c055068580, file '/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/core/real_estate_unit.py', line 1039, code RealEstateUnit> 
+Stack (most recent call last):
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 186, in load_module_graph
+    load_openerp_module(package.name)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/module.py", line 384, in load_openerp_module
+    __import__(qualname)
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/__init__.py", line 1, in <module>
+    from . import models
+  File "<frozen importlib._bootstrap>", line 1415, in _handle_fromlist
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/__init__.py", line 3, in <module>
+    from . import core
+  File "<frozen importlib._bootstrap>", line 1415, in _handle_fromlist
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/core/__init__.py", line 8, in <module>
+    from . import real_estate_unit
+  File "<frozen importlib._bootstrap>", line 1415, in _handle_fromlist
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/core/real_estate_unit.py", line 27, in <module>
+    class RealEstateUnit(models.Model):
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/core/real_estate_unit.py", line 1039, in RealEstateUnit
+    ('monthly_installment', 1, _("Monthly")),
+  File "/opt/odoo/odoo18/odoo/odoo/tools/translate.py", line 634, in get_text_alias
+    module, lang = _get_translation_source(1)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/translate.py", line 623, in _get_translation_source
+    lang = lang or _get_lang(frame, default_lang)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/translate.py", line 614, in _get_lang
+    _logger.log(log_level, 'no translation language detected, skipping translation %s', frame, stack_info=True)
+2026-11-04 17:51:13,491 9339 WARNING phase2_no_bridge_test odoo.tools.translate: no translation language detected, skipping translation <frame at 0x70c055068580, file '/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/core/real_estate_unit.py', line 1040, code RealEstateUnit> 
+Stack (most recent call last):
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 186, in load_module_graph
+    load_openerp_module(package.name)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/module.py", line 384, in load_openerp_module
+    __import__(qualname)
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/__init__.py", line 1, in <module>
+    from . import models
+  File "<frozen importlib._bootstrap>", line 1415, in _handle_fromlist
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/__init__.py", line 3, in <module>
+    from . import core
+  File "<frozen importlib._bootstrap>", line 1415, in _handle_fromlist
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/core/__init__.py", line 8, in <module>
+    from . import real_estate_unit
+  File "<frozen importlib._bootstrap>", line 1415, in _handle_fromlist
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/core/real_estate_unit.py", line 27, in <module>
+    class RealEstateUnit(models.Model):
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/core/real_estate_unit.py", line 1040, in RealEstateUnit
+    ('quarterly_installment', 3, _("Quarterly")),
+  File "/opt/odoo/odoo18/odoo/odoo/tools/translate.py", line 634, in get_text_alias
+    module, lang = _get_translation_source(1)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/translate.py", line 623, in _get_translation_source
+    lang = lang or _get_lang(frame, default_lang)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/translate.py", line 614, in _get_lang
+    _logger.log(log_level, 'no translation language detected, skipping translation %s', frame, stack_info=True)
+2026-11-04 17:51:13,494 9339 WARNING phase2_no_bridge_test odoo.tools.translate: no translation language detected, skipping translation <frame at 0x70c055068580, file '/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/core/real_estate_unit.py', line 1041, code RealEstateUnit> 
+Stack (most recent call last):
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 186, in load_module_graph
+    load_openerp_module(package.name)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/module.py", line 384, in load_openerp_module
+    __import__(qualname)
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/__init__.py", line 1, in <module>
+    from . import models
+  File "<frozen importlib._bootstrap>", line 1415, in _handle_fromlist
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/__init__.py", line 3, in <module>
+    from . import core
+  File "<frozen importlib._bootstrap>", line 1415, in _handle_fromlist
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/core/__init__.py", line 8, in <module>
+    from . import real_estate_unit
+  File "<frozen importlib._bootstrap>", line 1415, in _handle_fromlist
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/core/real_estate_unit.py", line 27, in <module>
+    class RealEstateUnit(models.Model):
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/core/real_estate_unit.py", line 1041, in RealEstateUnit
+    ('semi_annual_installment', 6, _("Semi Annual")),
+  File "/opt/odoo/odoo18/odoo/odoo/tools/translate.py", line 634, in get_text_alias
+    module, lang = _get_translation_source(1)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/translate.py", line 623, in _get_translation_source
+    lang = lang or _get_lang(frame, default_lang)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/translate.py", line 614, in _get_lang
+    _logger.log(log_level, 'no translation language detected, skipping translation %s', frame, stack_info=True)
+2026-11-04 17:51:13,498 9339 WARNING phase2_no_bridge_test odoo.tools.translate: no translation language detected, skipping translation <frame at 0x70c055068580, file '/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/core/real_estate_unit.py', line 1042, code RealEstateUnit> 
+Stack (most recent call last):
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 186, in load_module_graph
+    load_openerp_module(package.name)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/module.py", line 384, in load_openerp_module
+    __import__(qualname)
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/__init__.py", line 1, in <module>
+    from . import models
+  File "<frozen importlib._bootstrap>", line 1415, in _handle_fromlist
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/__init__.py", line 3, in <module>
+    from . import core
+  File "<frozen importlib._bootstrap>", line 1415, in _handle_fromlist
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/core/__init__.py", line 8, in <module>
+    from . import real_estate_unit
+  File "<frozen importlib._bootstrap>", line 1415, in _handle_fromlist
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/core/real_estate_unit.py", line 27, in <module>
+    class RealEstateUnit(models.Model):
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/core/real_estate_unit.py", line 1042, in RealEstateUnit
+    ('annual_installment', 12, _("Annual")),
+  File "/opt/odoo/odoo18/odoo/odoo/tools/translate.py", line 634, in get_text_alias
+    module, lang = _get_translation_source(1)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/translate.py", line 623, in _get_translation_source
+    lang = lang or _get_lang(frame, default_lang)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/translate.py", line 614, in _get_lang
+    _logger.log(log_level, 'no translation language detected, skipping translation %s', frame, stack_info=True)
+2026-11-04 17:51:13,543 9339 WARNING phase2_no_bridge_test odoo.models: The model realestate.project.type has no _description 
+2026-11-04 17:51:13,545 9339 WARNING phase2_no_bridge_test odoo.models: The model real.estate.project.phase has no _description 
+2026-11-04 17:51:13,546 9339 WARNING phase2_no_bridge_test odoo.models: The model unit.design has no _description 
+2026-11-04 17:51:13,549 9339 WARNING phase2_no_bridge_test odoo.models: The model parking.template has no _description 
+2026-11-04 17:51:13,550 9339 WARNING phase2_no_bridge_test odoo.models: The model premiums.premiums has no _description 
+2026-11-04 17:51:13,551 9339 WARNING phase2_no_bridge_test odoo.models: The model price.plan.line has no _description 
+2026-11-04 17:51:13,552 9339 WARNING phase2_no_bridge_test odoo.models: The model real.estate.facility has no _description 
+2026-11-04 17:51:13,553 9339 WARNING phase2_no_bridge_test odoo.models: The model real.estate.feature has no _description 
+2026-11-04 17:51:13,553 9339 WARNING phase2_no_bridge_test odoo.models: The model real.estate.nearby.connectivity has no _description 
+2026-11-04 17:51:13,555 9339 WARNING phase2_no_bridge_test odoo.models: The model developer.project has no _description 
+2026-11-04 17:51:13,556 9339 WARNING phase2_no_bridge_test odoo.models: The model neighborhood.neighborhood has no _description 
+2026-11-04 17:51:13,557 9339 WARNING phase2_no_bridge_test odoo.models: The model res.country.city has no _description 
+2026-11-04 17:51:13,571 9339 WARNING phase2_no_bridge_test odoo.models: The model blocked.unit.reason has no _description 
+2026-11-04 17:51:14,378 9339 WARNING phase2_no_bridge_test odoo.fields: Field business.unit.type.name: unknown parameter 'unique', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-04 17:51:14,437 9339 WARNING phase2_no_bridge_test py.warnings: /opt/odoo/odoo18/odoo/odoo/fields.py:542: UserWarning: Property cluster.parent_source_id.required should be a boolean (1).
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 205, in load_module_graph
+    registry.setup_models(env.cr)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 341, in setup_models
+    model._setup_fields()
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 3725, in _setup_fields
+    field.setup(self)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 542, in setup
+    warnings.warn(f'Property {self}.required should be a boolean ({self.required}).')
+ 
+2026-11-04 17:51:14,446 9339 WARNING phase2_no_bridge_test py.warnings: /opt/odoo/odoo18/odoo/odoo/fields.py:542: UserWarning: Property floor.area.parent_source_id.required should be a boolean (1).
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 205, in load_module_graph
+    registry.setup_models(env.cr)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 341, in setup_models
+    model._setup_fields()
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 3725, in _setup_fields
+    field.setup(self)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 542, in setup
+    warnings.warn(f'Property {self}.required should be a boolean ({self.required}).')
+ 
+2026-11-04 17:51:14,454 9339 WARNING phase2_no_bridge_test py.warnings: /opt/odoo/odoo18/odoo/odoo/fields.py:542: UserWarning: Property real.estate.building.parent_source_id.required should be a boolean (1).
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 205, in load_module_graph
+    registry.setup_models(env.cr)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 341, in setup_models
+    model._setup_fields()
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 3725, in _setup_fields
+    field.setup(self)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 542, in setup
+    warnings.warn(f'Property {self}.required should be a boolean ({self.required}).')
+ 
+2026-11-04 17:51:17,670 9339 WARNING phase2_no_bridge_test odoo.addons.base.models.ir_model: Two fields (project_id, parent_id) of zone() have the same label: Project. [Modules: isky_18_realestate_developer_unit_inventory and isky_18_realestate_developer_unit_inventory] 
+2026-11-04 17:51:30,538 9339 WARNING phase2_no_bridge_test odoo.addons.base.models.ir_model: Rule access.real.estate.project has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-04 17:51:30,539 9339 WARNING phase2_no_bridge_test odoo.addons.base.models.ir_model: Rule access.real.estate.unit.model has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-04 17:51:30,540 9339 WARNING phase2_no_bridge_test odoo.addons.base.models.ir_model: Rule access.cluster has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-04 17:51:30,540 9339 WARNING phase2_no_bridge_test odoo.addons.base.models.ir_model: Rule access.floor has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-04 17:51:30,541 9339 WARNING phase2_no_bridge_test odoo.addons.base.models.ir_model: Rule access.floor.area has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-04 17:51:30,541 9339 WARNING phase2_no_bridge_test odoo.addons.base.models.ir_model: Rule access.zone has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-04 17:51:30,541 9339 WARNING phase2_no_bridge_test odoo.addons.base.models.ir_model: Rule access_price_plan_line has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-04 17:51:30,542 9339 WARNING phase2_no_bridge_test odoo.addons.base.models.ir_model: Rule access_counter_counter has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-04 17:51:30,542 9339 WARNING phase2_no_bridge_test odoo.addons.base.models.ir_model: Rule access_gas_counter_counter has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-04 17:51:30,543 9339 WARNING phase2_no_bridge_test odoo.addons.base.models.ir_model: Rule access_water_counter_counter has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-04 17:51:30,543 9339 WARNING phase2_no_bridge_test odoo.addons.base.models.ir_model: Rule access_landline_counter has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-04 17:51:30,543 9339 WARNING phase2_no_bridge_test odoo.addons.base.models.ir_model: Rule access_internet has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-04 17:51:30,544 9339 WARNING phase2_no_bridge_test odoo.addons.base.models.ir_model: Rule access.parking.template has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-04 17:51:30,544 9339 WARNING phase2_no_bridge_test odoo.addons.base.models.ir_model: Rule access.block.unit.wizard has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-04 17:51:30,545 9339 WARNING phase2_no_bridge_test odoo.addons.base.models.ir_model: Rule access_residential_sub_type has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-04 17:51:30,545 9339 WARNING phase2_no_bridge_test odoo.addons.base.models.ir_model: Rule access_premiums_premiums has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-04 17:51:30,546 9339 WARNING phase2_no_bridge_test odoo.addons.base.models.ir_model: Rule access_archive_place has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-04 17:51:30,546 9339 WARNING phase2_no_bridge_test odoo.addons.base.models.ir_model: Rule access_unit_type_configuration has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-04 17:51:30,547 9339 WARNING phase2_no_bridge_test odoo.addons.base.models.ir_model: Rule access_office_type has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-04 17:51:30,548 9339 WARNING phase2_no_bridge_test odoo.addons.base.models.ir_model: Rule access_parking_area_configuration has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-04 17:51:30,549 9339 WARNING phase2_no_bridge_test odoo.addons.base.models.ir_model: Rule access.business.unit.type has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-04 17:51:30,549 9339 WARNING phase2_no_bridge_test odoo.addons.base.models.ir_model: Rule access.unit.estimate.delivery has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-04 17:51:30,550 9339 WARNING phase2_no_bridge_test odoo.addons.base.models.ir_model: Rule access.developer.project has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-04 17:51:30,550 9339 WARNING phase2_no_bridge_test odoo.addons.base.models.ir_model: Rule access.neighborhood.neighborhood has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-04 17:51:30,551 9339 WARNING phase2_no_bridge_test odoo.addons.base.models.ir_model: Rule access.res.country.city has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-04 17:51:30,551 9339 WARNING phase2_no_bridge_test odoo.addons.base.models.ir_model: Rule access_down_payment_increase has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-04 17:51:30,552 9339 WARNING phase2_no_bridge_test odoo.addons.base.models.ir_model: Rule access_installment_template has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-04 17:51:30,552 9339 WARNING phase2_no_bridge_test odoo.addons.base.models.ir_model: Rule access_maintenance_template has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-04 17:51:30,883 9339 WARNING phase2_no_bridge_test odoo.models: The model blocked.unit.reason has no _description 
+2026-11-04 17:51:31,889 9339 WARNING phase2_no_bridge_test odoo.fields: Field business.unit.type.name: unknown parameter 'unique', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-04 17:51:31,915 9339 WARNING phase2_no_bridge_test py.warnings: /opt/odoo/odoo18/odoo/odoo/fields.py:542: UserWarning: Property cluster.parent_source_id.required should be a boolean (1).
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 205, in load_module_graph
+    registry.setup_models(env.cr)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 341, in setup_models
+    model._setup_fields()
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 3725, in _setup_fields
+    field.setup(self)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 542, in setup
+    warnings.warn(f'Property {self}.required should be a boolean ({self.required}).')
+ 
+2026-11-04 17:51:31,923 9339 WARNING phase2_no_bridge_test py.warnings: /opt/odoo/odoo18/odoo/odoo/fields.py:542: UserWarning: Property floor.area.parent_source_id.required should be a boolean (1).
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 205, in load_module_graph
+    registry.setup_models(env.cr)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 341, in setup_models
+    model._setup_fields()
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 3725, in _setup_fields
+    field.setup(self)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 542, in setup
+    warnings.warn(f'Property {self}.required should be a boolean ({self.required}).')
+ 
+2026-11-04 17:51:31,929 9339 WARNING phase2_no_bridge_test py.warnings: /opt/odoo/odoo18/odoo/odoo/fields.py:542: UserWarning: Property real.estate.building.parent_source_id.required should be a boolean (1).
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 205, in load_module_graph
+    registry.setup_models(env.cr)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 341, in setup_models
+    model._setup_fields()
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 3725, in _setup_fields
+    field.setup(self)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 542, in setup
+    warnings.warn(f'Property {self}.required should be a boolean ({self.required}).')
+ 
+2026-11-04 17:51:33,506 9339 WARNING phase2_no_bridge_test odoo.addons.base.models.ir_model: Two fields (project_id, parent_id) of zone() have the same label: Project. [Modules: isky_18_realestate_developer_unit_inventory and isky_18_realestate_developer_unit_inventory] 
+2026-11-04 17:51:37,571 9339 WARNING phase2_no_bridge_test odoo.fields: Field business.unit.type.name: unknown parameter 'unique', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-04 17:51:37,588 9339 WARNING phase2_no_bridge_test py.warnings: /opt/odoo/odoo18/odoo/odoo/fields.py:542: UserWarning: Property cluster.parent_source_id.required should be a boolean (1).
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 205, in load_module_graph
+    registry.setup_models(env.cr)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 341, in setup_models
+    model._setup_fields()
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 3725, in _setup_fields
+    field.setup(self)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 542, in setup
+    warnings.warn(f'Property {self}.required should be a boolean ({self.required}).')
+ 
+2026-11-04 17:51:37,593 9339 WARNING phase2_no_bridge_test py.warnings: /opt/odoo/odoo18/odoo/odoo/fields.py:542: UserWarning: Property floor.area.parent_source_id.required should be a boolean (1).
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 205, in load_module_graph
+    registry.setup_models(env.cr)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 341, in setup_models
+    model._setup_fields()
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 3725, in _setup_fields
+    field.setup(self)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 542, in setup
+    warnings.warn(f'Property {self}.required should be a boolean ({self.required}).')
+ 
+2026-11-04 17:51:37,597 9339 WARNING phase2_no_bridge_test py.warnings: /opt/odoo/odoo18/odoo/odoo/fields.py:542: UserWarning: Property real.estate.building.parent_source_id.required should be a boolean (1).
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 205, in load_module_graph
+    registry.setup_models(env.cr)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 341, in setup_models
+    model._setup_fields()
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 3725, in _setup_fields
+    field.setup(self)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 542, in setup
+    warnings.warn(f'Property {self}.required should be a boolean ({self.required}).')
+ 
+2026-11-04 17:51:39,948 9339 WARNING phase2_no_bridge_test odoo.fields: Field business.unit.type.name: unknown parameter 'unique', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-04 17:51:39,961 9339 WARNING phase2_no_bridge_test py.warnings: /opt/odoo/odoo18/odoo/odoo/fields.py:542: UserWarning: Property cluster.parent_source_id.required should be a boolean (1).
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 205, in load_module_graph
+    registry.setup_models(env.cr)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 341, in setup_models
+    model._setup_fields()
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 3725, in _setup_fields
+    field.setup(self)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 542, in setup
+    warnings.warn(f'Property {self}.required should be a boolean ({self.required}).')
+ 
+2026-11-04 17:51:39,965 9339 WARNING phase2_no_bridge_test py.warnings: /opt/odoo/odoo18/odoo/odoo/fields.py:542: UserWarning: Property floor.area.parent_source_id.required should be a boolean (1).
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 205, in load_module_graph
+    registry.setup_models(env.cr)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 341, in setup_models
+    model._setup_fields()
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 3725, in _setup_fields
+    field.setup(self)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 542, in setup
+    warnings.warn(f'Property {self}.required should be a boolean ({self.required}).')
+ 
+2026-11-04 17:51:39,969 9339 WARNING phase2_no_bridge_test py.warnings: /opt/odoo/odoo18/odoo/odoo/fields.py:542: UserWarning: Property real.estate.building.parent_source_id.required should be a boolean (1).
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 205, in load_module_graph
+    registry.setup_models(env.cr)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 341, in setup_models
+    model._setup_fields()
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 3725, in _setup_fields
+    field.setup(self)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 542, in setup
+    warnings.warn(f'Property {self}.required should be a boolean ({self.required}).')
+ 
+2026-11-04 17:51:41,127 9339 WARNING phase2_no_bridge_test odoo.models: The model blocked.unit.reason has no _description 
+2026-11-04 17:51:41,142 9339 WARNING phase2_no_bridge_test odoo.models: The model blocked.unit.reason has no _description 
+2026-11-04 17:51:41,144 9339 WARNING phase2_no_bridge_test odoo.models: The model blocked.unit.reason has no _description 
+2026-11-04 17:51:41,149 9339 WARNING phase2_no_bridge_test odoo.models: The model realestate.project.type has no _description 
+2026-11-04 17:51:41,149 9339 WARNING phase2_no_bridge_test odoo.models: The model real.estate.project.phase has no _description 
+2026-11-04 17:51:41,150 9339 WARNING phase2_no_bridge_test odoo.models: The model unit.design has no _description 
+2026-11-04 17:51:41,150 9339 WARNING phase2_no_bridge_test odoo.models: The model parking.template has no _description 
+2026-11-04 17:51:41,151 9339 WARNING phase2_no_bridge_test odoo.models: The model premiums.premiums has no _description 
+2026-11-04 17:51:41,151 9339 WARNING phase2_no_bridge_test odoo.models: The model price.plan.line has no _description 
+2026-11-04 17:51:41,151 9339 WARNING phase2_no_bridge_test odoo.models: The model real.estate.facility has no _description 
+2026-11-04 17:51:41,152 9339 WARNING phase2_no_bridge_test odoo.models: The model real.estate.feature has no _description 
+2026-11-04 17:51:41,152 9339 WARNING phase2_no_bridge_test odoo.models: The model real.estate.nearby.connectivity has no _description 
+2026-11-04 17:51:41,152 9339 WARNING phase2_no_bridge_test odoo.models: The model developer.project has no _description 
+2026-11-04 17:51:41,153 9339 WARNING phase2_no_bridge_test odoo.models: The model neighborhood.neighborhood has no _description 
+2026-11-04 17:51:41,153 9339 WARNING phase2_no_bridge_test odoo.models: The model res.country.city has no _description 
+2026-11-04 17:51:41,155 9339 WARNING phase2_no_bridge_test odoo.models: The model blocked.unit.reason has no _description 
+2026-11-04 17:51:41,952 9339 WARNING phase2_no_bridge_test odoo.fields: Field business.unit.type.name: unknown parameter 'unique', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-04 17:51:41,965 9339 WARNING phase2_no_bridge_test py.warnings: /opt/odoo/odoo18/odoo/odoo/fields.py:542: UserWarning: Property cluster.parent_source_id.required should be a boolean (1).
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 205, in load_module_graph
+    registry.setup_models(env.cr)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 341, in setup_models
+    model._setup_fields()
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 3725, in _setup_fields
+    field.setup(self)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 542, in setup
+    warnings.warn(f'Property {self}.required should be a boolean ({self.required}).')
+ 
+2026-11-04 17:51:41,969 9339 WARNING phase2_no_bridge_test py.warnings: /opt/odoo/odoo18/odoo/odoo/fields.py:542: UserWarning: Property floor.area.parent_source_id.required should be a boolean (1).
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 205, in load_module_graph
+    registry.setup_models(env.cr)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 341, in setup_models
+    model._setup_fields()
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 3725, in _setup_fields
+    field.setup(self)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 542, in setup
+    warnings.warn(f'Property {self}.required should be a boolean ({self.required}).')
+ 
+2026-11-04 17:51:41,973 9339 WARNING phase2_no_bridge_test py.warnings: /opt/odoo/odoo18/odoo/odoo/fields.py:542: UserWarning: Property real.estate.building.parent_source_id.required should be a boolean (1).
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 205, in load_module_graph
+    registry.setup_models(env.cr)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 341, in setup_models
+    model._setup_fields()
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 3725, in _setup_fields
+    field.setup(self)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 542, in setup
+    warnings.warn(f'Property {self}.required should be a boolean ({self.required}).')
+ 
+2026-11-04 17:51:48,416 9339 WARNING phase2_no_bridge_test odoo.addons.base.models.ir_model: Two fields (project_id, parent_id) of zone() have the same label: Project. [Modules: isky_18_realestate_developer_unit_inventory and isky_18_realestate_developer_unit_inventory] 
+2026-11-04 17:52:04,573 9339 WARNING phase2_no_bridge_test odoo.models: The model blocked.unit.reason has no _description 
+2026-11-04 17:52:05,060 9339 WARNING phase2_no_bridge_test odoo.fields: Field business.unit.type.name: unknown parameter 'unique', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-04 17:52:05,074 9339 WARNING phase2_no_bridge_test py.warnings: /opt/odoo/odoo18/odoo/odoo/fields.py:542: UserWarning: Property cluster.parent_source_id.required should be a boolean (1).
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 205, in load_module_graph
+    registry.setup_models(env.cr)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 341, in setup_models
+    model._setup_fields()
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 3725, in _setup_fields
+    field.setup(self)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 542, in setup
+    warnings.warn(f'Property {self}.required should be a boolean ({self.required}).')
+ 
+2026-11-04 17:52:05,078 9339 WARNING phase2_no_bridge_test py.warnings: /opt/odoo/odoo18/odoo/odoo/fields.py:542: UserWarning: Property floor.area.parent_source_id.required should be a boolean (1).
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 205, in load_module_graph
+    registry.setup_models(env.cr)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 341, in setup_models
+    model._setup_fields()
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 3725, in _setup_fields
+    field.setup(self)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 542, in setup
+    warnings.warn(f'Property {self}.required should be a boolean ({self.required}).')
+ 
+2026-11-04 17:52:05,081 9339 WARNING phase2_no_bridge_test py.warnings: /opt/odoo/odoo18/odoo/odoo/fields.py:542: UserWarning: Property real.estate.building.parent_source_id.required should be a boolean (1).
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 205, in load_module_graph
+    registry.setup_models(env.cr)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 341, in setup_models
+    model._setup_fields()
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 3725, in _setup_fields
+    field.setup(self)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 542, in setup
+    warnings.warn(f'Property {self}.required should be a boolean ({self.required}).')
+ 
+2026-11-04 17:52:06,354 9339 WARNING phase2_no_bridge_test odoo.addons.base.models.ir_model: Two fields (project_id, parent_id) of zone() have the same label: Project. [Modules: isky_18_realestate_developer_unit_inventory and isky_18_realestate_developer_unit_inventory] 
+2026-11-04 17:52:10,960 9339 WARNING phase2_no_bridge_test odoo.fields: Field business.unit.type.name: unknown parameter 'unique', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-04 17:52:10,973 9339 WARNING phase2_no_bridge_test py.warnings: /opt/odoo/odoo18/odoo/odoo/fields.py:542: UserWarning: Property cluster.parent_source_id.required should be a boolean (1).
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 497, in load_modules
+    registry.setup_models(cr)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 341, in setup_models
+    model._setup_fields()
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 3725, in _setup_fields
+    field.setup(self)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 542, in setup
+    warnings.warn(f'Property {self}.required should be a boolean ({self.required}).')
+ 
+2026-11-04 17:52:10,978 9339 WARNING phase2_no_bridge_test py.warnings: /opt/odoo/odoo18/odoo/odoo/fields.py:542: UserWarning: Property floor.area.parent_source_id.required should be a boolean (1).
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 497, in load_modules
+    registry.setup_models(cr)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 341, in setup_models
+    model._setup_fields()
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 3725, in _setup_fields
+    field.setup(self)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 542, in setup
+    warnings.warn(f'Property {self}.required should be a boolean ({self.required}).')
+ 
+2026-11-04 17:52:10,981 9339 WARNING phase2_no_bridge_test py.warnings: /opt/odoo/odoo18/odoo/odoo/fields.py:542: UserWarning: Property real.estate.building.parent_source_id.required should be a boolean (1).
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 497, in load_modules
+    registry.setup_models(cr)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 341, in setup_models
+    model._setup_fields()
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 3725, in _setup_fields
+    field.setup(self)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 542, in setup
+    warnings.warn(f'Property {self}.required should be a boolean ({self.required}).')
+ 
+2026-11-04 17:52:11,591 9339 WARNING phase2_no_bridge_test odoo.fields: Field business.unit.type.name: unknown parameter 'unique', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 

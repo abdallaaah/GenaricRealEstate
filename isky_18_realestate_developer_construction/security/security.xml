@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="group_vendor_commitment_user" model="res.groups">
+        <field name="name">Vendor Commitment User</field>
+        <field name="category_id" ref="isky_18_realestate_developer_unit_inventory.module_category_real_state_project_assigned"/>
+    </record>
 
     <record id="module_category_construction_progress" model="ir.module.category">
         <field name="name">Construction Progress</field>
@@ -24,5 +28,4 @@
             <field name="groups_id" eval="[(4, ref('group_progress_manager'))]"/>
         </record>
     </data>
-
 </odoo>

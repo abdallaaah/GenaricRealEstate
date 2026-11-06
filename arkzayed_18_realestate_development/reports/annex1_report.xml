@@ -25,7 +25,7 @@
             <field name="report_name">arkzayed_18_realestate_development.annex1_report_template</field>
             <field name="report_file">arkzayed_18_realestate_development.annex1_report_template</field>
             <field name="print_report_name">'ANNEX 1 - %s' % (object.name)</field>
-            <field name="binding_model_id" ref="model_sale_proposal"/>
+            <field name="binding_model_id" ref="isky_18_realestate_developer_sales_crm.model_sale_proposal"/>
             <field name="binding_type">report</field>
             <field name="paperformat_id" ref="paperformat_annex1_a4"/>
         </record>

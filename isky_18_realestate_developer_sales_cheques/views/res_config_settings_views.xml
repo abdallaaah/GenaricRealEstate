@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Inherits base.res_config_settings_view_form directly, matching the accounting
+         bridge: this module must stay an optional bridge with no dependency on
+         arkzayed_18_realestate_development's settings tab.
+
+         The two blocks below are titled "Financials" and "Sales Setup" after the five
+         sections Phase 6 defines. Those sections do not exist yet, so there is nothing to
+         xpath into; Phase 6 relocates these blocks into the real sections. Both live in
+         this module, so they appear only when sales_cheques is installed - which is what
+         S8 asks for regarding the toggle's visibility. -->
+    <record id="res_config_settings_view_form_sales_cheques" model="ir.ui.view">
+        <field name="name">res.config.settings.form.inherit.sales.cheques</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="76"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+              <div class="app_settings_block" data-string="Real Estate Cheques"
+                   string="Real Estate Cheques" data-key="real_estate_cheques">
+
+                <h2>Financials</h2>
+                <div class="row mt16 o_settings_container">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Incoming Cheque Credit Account</span>
+                            <div class="text-muted">
+                                Credit account used for every incoming cheque. Required: creating a
+                                cheque without it is rejected.
+                            </div>
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label for="cheque_incoming_credit_account_id"
+                                           string="Credit Account" class="col-lg-4 o_light_label"/>
+                                    <field name="cheque_incoming_credit_account_id"
+                                           context="{'active_test': False}"
+                                           options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2>Sales Setup</h2>
+                <div class="row mt16 o_settings_container">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="cheques_enabled"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="cheques_enabled"/>
+                            <div class="text-muted">
+                                Generate cheques from a sale proposal's payment plan. When off, deals
+                                produce no cheques; registering a cheque by hand still works.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+              </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

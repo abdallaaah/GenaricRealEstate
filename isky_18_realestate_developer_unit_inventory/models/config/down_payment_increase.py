@@ -1,6 +1,6 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
-from odoo.addons.isky_18_realestate_developer_unit_inventory.models.selections import unit_type_selection
+from ..selections import unit_type_selection
 
 class DownPaymentIncrease(models.Model):
     _name = 'down.payment.increase'

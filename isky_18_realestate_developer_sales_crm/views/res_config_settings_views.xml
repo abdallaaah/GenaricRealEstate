@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Phase 3 step 5 / S4: the view lives in the owning module. Inherits
+         base.res_config_settings_view_form directly rather than the monolith's settings tab,
+         so L2 keeps no dependency on arkzayed_18_realestate_development (that dependency is
+         what Phase 2 removed to break the cycle).
+
+         "Sales Setup" is one of the five sections Phase 6 defines; those sections do not
+         exist yet, so this is a self-contained block that Phase 6 will relocate. -->
+    <record id="res_config_settings_view_form_sales_crm" model="ir.ui.view">
+        <field name="name">res.config.settings.form.inherit.sales.crm</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="74"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+              <div class="app_settings_block" data-string="Real Estate Sales"
+                   string="Real Estate Sales" data-key="real_estate_sales">
+
+                <h2>Sales Setup</h2>
+                <div class="row mt16 o_settings_container">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="installments_enabled"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="installments_enabled"/>
+                            <div class="text-muted">
+                                Default for new projects: generate installment and maintenance
+                                installment lines on reservations and contracts. A project can
+                                override this. Cannot be changed once projects inheriting it have
+                                installment lines.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+              </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,8 +1,8 @@
-from . import installment_mixin
-from . import installment_template
+# res_company and the project override define the installments flags that core models
+# read, so they load before res_config_settings' related fields.
+from . import res_company
+from . import realestate_project_sales_ext
 from . import maintenance_config
-from . import maintenance_template
-from . import down_payment_increase
 from . import discount_config
 from . import discount_approval
 from . import res_config_settings

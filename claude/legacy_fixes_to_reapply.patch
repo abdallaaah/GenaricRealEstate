@@ -1,0 +1,793 @@
+diff --git a/arkzayed_18_realestate_developer_crm/data/ir_cron.xml b/arkzayed_18_realestate_developer_crm/data/ir_cron.xml
+index d1423a7..b8169e6 100644
+--- a/arkzayed_18_realestate_developer_crm/data/ir_cron.xml
++++ b/arkzayed_18_realestate_developer_crm/data/ir_cron.xml
+@@ -2,7 +2,7 @@
+     <data>
+         <record id="ir_cron_crm_lead_salesperson_reassign" model="ir.cron">
+             <field name="name">CRM Lead SalesPerson Reassign</field>
+-            <field name="model_id" ref="model_crm_lead"/>
++            <field name="model_id" ref="crm.model_crm_lead"/>
+             <field name="state">code</field>
+             <field name="code">model.handle_inactivity()</field>
+             <field name="interval_number">1</field>
+diff --git a/arkzayed_18_realestate_developer_crm/data/website_controller_page.xml b/arkzayed_18_realestate_developer_crm/data/website_controller_page.xml
+index c1b4132..0d2bd9f 100644
+--- a/arkzayed_18_realestate_developer_crm/data/website_controller_page.xml
++++ b/arkzayed_18_realestate_developer_crm/data/website_controller_page.xml
+@@ -115,7 +115,7 @@
+ 
+     <record id="website_controller_page_1" model="website.controller.page">
+         <field name="name">Units</field> <!-- page title -->
+-        <field name="model_id" ref="model_broker_unit"/>
++        <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_broker_unit"/>
+         <field name="website_id" ref="website.default_website"/>
+         <field name="website_published" eval="True"/>
+         <field name="view_id" ref="website_listing_broker_unit"/>
+diff --git a/arkzayed_18_realestate_developer_crm/security/groups.xml b/arkzayed_18_realestate_developer_crm/security/groups.xml
+index 9dcc0bb..44f7c99 100644
+--- a/arkzayed_18_realestate_developer_crm/security/groups.xml
++++ b/arkzayed_18_realestate_developer_crm/security/groups.xml
+@@ -61,7 +61,7 @@
+         <!-- Admin can see all requests -->
+         <record id="permission_request_admin_rule" model="ir.rule">
+             <field name="name">Admin sees all permission requests</field>
+-            <field name="model_id" ref="model_permission_request"/>
++            <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_permission_request"/>
+             <field name="domain_force">[(1, '=', 1)]</field>
+             <field name="groups" eval="[(4, ref('base.group_system'))]"/>
+             <field name="perm_read" eval="1"/>
+@@ -73,7 +73,7 @@
+         <!-- Operations can see all requests -->
+         <record id="permission_request_operations_rule" model="ir.rule">
+             <field name="name">Sales Sector Manager sees all permission requests</field>
+-            <field name="model_id" ref="model_permission_request"/>
++            <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_permission_request"/>
+             <field name="domain_force">[(1, '=', 1)]</field>
+             <field name="groups" eval="[(4, ref('operation_manager_group'))]"/>
+             <field name="perm_read" eval="1"/>
+@@ -85,7 +85,7 @@
+         <!-- Operation executive can see all requests -->
+ <!--        <record id="permission_request_operation_executive_rule" model="ir.rule">-->
+ <!--            <field name="name">Operation Executive sees all permission requests</field>-->
+-<!--            <field name="model_id" ref="model_permission_request"/>-->
++<!--            <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_permission_request"/>-->
+ <!--            <field name="domain_force">[(1, '=', 1)]</field>-->
+ <!--            <field name="groups" eval="[(4, ref('operation_executive_group'))]"/>-->
+ <!--            <field name="perm_read" eval="1"/>-->
+@@ -97,7 +97,7 @@
+         <!-- Sales Manager sees only team's requests -->
+         <record id="permission_request_sales_manager_rule" model="ir.rule">
+             <field name="name">Sales Manager sees own team's permission requests</field>
+-            <field name="model_id" ref="model_permission_request"/>
++            <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_permission_request"/>
+             <field name="domain_force">[
+                 '|',
+                 ('requester_id', '=', user.id),
+@@ -113,7 +113,7 @@
+         <!-- Director sees only team's requests -->
+         <record id="permission_request_director_rule" model="ir.rule">
+             <field name="name">Director sees own team's permission requests</field>
+-            <field name="model_id" ref="model_permission_request"/>
++            <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_permission_request"/>
+             <field name="domain_force">[
+                 '|',
+                 ('requester_id', '=', user.id),
+@@ -129,7 +129,7 @@
+         <!-- Team Leader sees only team's requests -->
+         <record id="permission_request_team_leader_rule" model="ir.rule">
+             <field name="name">Team Leader sees team's permission requests</field>
+-            <field name="model_id" ref="model_permission_request"/>
++            <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_permission_request"/>
+             <field name="domain_force">[
+                 '|',
+                 ('requester_id', '=', user.id),
+@@ -145,7 +145,7 @@
+         <!-- Salesperson sees only own requests -->
+         <record id="permission_request_salesperson_rule" model="ir.rule">
+             <field name="name">Salesperson sees own permission requests</field>
+-            <field name="model_id" ref="model_permission_request"/>
++            <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_permission_request"/>
+             <field name="domain_force">[('requester_id', '=', user.id)]</field>
+             <field name="groups" eval="[(4, ref('sales_team.group_sale_salesman'))]"/>
+             <field name="perm_read" eval="1"/>
+diff --git a/arkzayed_18_realestate_developer_crm/security/ir_rules.xml b/arkzayed_18_realestate_developer_crm/security/ir_rules.xml
+index 8618294..c8598b8 100644
+--- a/arkzayed_18_realestate_developer_crm/security/ir_rules.xml
++++ b/arkzayed_18_realestate_developer_crm/security/ir_rules.xml
+@@ -140,14 +140,14 @@
+         <!--    sale proposal record rule    -->
+         <record id="rule_sale_proposal_admin_visibility" model="ir.rule">
+             <field name="name">Sale Proposal Visibility: Admin All Access</field>
+-            <field name="model_id" ref="model_sale_proposal"/>
++            <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_sale_proposal"/>
+             <field name="domain_force">[(1, '=', 1)]</field>
+             <field name="groups" eval="[(4, ref('arkzayed_18_realestate_developer_crm.sales_administrator_group'))]"/>
+         </record>
+ 
+         <record id="rule_sale_proposal_hierarchy_visibility" model="ir.rule">
+             <field name="name">Sale Proposal Visibility: Assigned and Hierarchy (via Commission)</field>
+-            <field name="model_id" ref="model_sale_proposal"/>
++            <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_sale_proposal"/>
+             <field name="domain_force">['|', ('user_id', '=', user.id), ('commission_ids.employee_id', '=', user.id)]</field>
+             <field name="perm_read" eval="True"/>
+             <field name="perm_write" eval="True"/>
+@@ -204,7 +204,7 @@
+ 
+         <record id="crm_meeting_report_admin_rule" model="ir.rule">
+             <field name="name">CRM Meeting Report for Admin</field>
+-            <field name="model_id" ref="model_crm_meeting_report"/>
++            <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_crm_meeting_report"/>
+             <field name="groups"
+                    eval="[(6, 0, [ref('arkzayed_18_realestate_developer_crm.lead_admin_group'), ref('arkzayed_18_realestate_developer_crm.operation_manager_group')])]"/>
+ <!--                   , ref('arkzayed_18_realestate_developer_crm.operation_executive_group')-->
+@@ -213,7 +213,7 @@
+         </record>
+         <record id="crm_meeting_report_user_rule" model="ir.rule">
+             <field name="name">CRM Meeting Report for User</field>
+-            <field name="model_id" ref="model_crm_meeting_report"/>
++            <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_crm_meeting_report"/>
+             <field name="groups"
+                    eval="[(6, 0, [ref('sales_team.group_sale_salesman_all_leads'), ref('arkzayed_18_realestate_developer_crm.sales_manager_group'), ref('arkzayed_18_realestate_developer_crm.director_manager_group')])]"/>
+             <field name="domain_force">[('user_id', 'in', user.env['crm.team'].search([
+diff --git a/arkzayed_18_realestate_development/__manifest__.py b/arkzayed_18_realestate_development/__manifest__.py
+index 27a4e05..dc18cdf 100644
+--- a/arkzayed_18_realestate_development/__manifest__.py
++++ b/arkzayed_18_realestate_development/__manifest__.py
+@@ -26,7 +26,6 @@
+     "data": [
+         # security
+         'security/security.xml',
+-        'security/construction_progress_security.xml',
+         'security/ir.model.access.csv',
+         # data
+         'data/ir_sequence.xml',
+diff --git a/arkzayed_18_realestate_development/data/installment_add_partner_actions.xml b/arkzayed_18_realestate_development/data/installment_add_partner_actions.xml
+index adbb516..b019c80 100644
+--- a/arkzayed_18_realestate_development/data/installment_add_partner_actions.xml
++++ b/arkzayed_18_realestate_development/data/installment_add_partner_actions.xml
+@@ -2,8 +2,8 @@
+ <odoo>
+     <record id="action_add_installment_partner" model="ir.actions.server">
+         <field name="name">Add Partner Info</field>
+-        <field name="model_id" ref="model_installment_lines"/>
+-        <field name="binding_model_id" ref="model_installment_lines"/>
++        <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_installment_lines"/>
++        <field name="binding_model_id" ref="isky_18_realestate_developer_sales_crm.model_installment_lines"/>
+         <field name="state">code</field>
+         <field name="code">
+         for rec in records:
+diff --git a/arkzayed_18_realestate_development/data/maintenance_add_partner_actions.xml b/arkzayed_18_realestate_development/data/maintenance_add_partner_actions.xml
+index 68a1a16..b7feb95 100644
+--- a/arkzayed_18_realestate_development/data/maintenance_add_partner_actions.xml
++++ b/arkzayed_18_realestate_development/data/maintenance_add_partner_actions.xml
+@@ -2,8 +2,8 @@
+ <odoo>
+     <record id="action_fix_missing_partner" model="ir.actions.server">
+         <field name="name">Fix Missing Partner Info</field>
+-        <field name="model_id" ref="model_maintenance_installment_lines"/>
+-        <field name="binding_model_id" ref="model_maintenance_installment_lines"/>
++        <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_maintenance_installment_lines"/>
++        <field name="binding_model_id" ref="isky_18_realestate_developer_sales_crm.model_maintenance_installment_lines"/>
+         <field name="state">code</field>
+         <field name="code">
+ for rec in records:
+diff --git a/arkzayed_18_realestate_development/data/recalculate_areas_server_actions.xml b/arkzayed_18_realestate_development/data/recalculate_areas_server_actions.xml
+index 4dade8e..0c060e8 100644
+--- a/arkzayed_18_realestate_development/data/recalculate_areas_server_actions.xml
++++ b/arkzayed_18_realestate_development/data/recalculate_areas_server_actions.xml
+@@ -4,8 +4,8 @@
+         <!-- Server Action to Update Gross with Ceil -->
+         <record id="action_update_gross_ceil" model="ir.actions.server">
+             <field name="name">Recalculate Gross Areas (Round Up)</field>
+-            <field name="model_id" ref="model_real_estate_unit"/>
+-            <field name="binding_model_id" ref="model_real_estate_unit"/>
++            <field name="model_id" ref="isky_18_realestate_developer_unit_inventory.model_real_estate_unit"/>
++            <field name="binding_model_id" ref="isky_18_realestate_developer_unit_inventory.model_real_estate_unit"/>
+             <field name="binding_view_types">list,form</field>
+             <field name="state">code</field>
+             <field name="code"><![CDATA[
+diff --git a/arkzayed_18_realestate_development/data/recalculate_unit_price_actions.xml b/arkzayed_18_realestate_development/data/recalculate_unit_price_actions.xml
+index b0fa92b..b063e60 100644
+--- a/arkzayed_18_realestate_development/data/recalculate_unit_price_actions.xml
++++ b/arkzayed_18_realestate_development/data/recalculate_unit_price_actions.xml
+@@ -3,8 +3,8 @@
+         <!-- Server Action to Update Gross with Ceil -->
+         <record id="action_update_unit_price" model="ir.actions.server">
+             <field name="name">Recalculate Unit Price</field>
+-            <field name="model_id" ref="model_real_estate_unit"/>
+-            <field name="binding_model_id" ref="model_real_estate_unit"/>
++            <field name="model_id" ref="isky_18_realestate_developer_unit_inventory.model_real_estate_unit"/>
++            <field name="binding_model_id" ref="isky_18_realestate_developer_unit_inventory.model_real_estate_unit"/>
+             <field name="binding_view_types">list,form</field>
+             <field name="state">code</field>
+             <field name="code"><![CDATA[
+diff --git a/arkzayed_18_realestate_development/data/server_actions.xml b/arkzayed_18_realestate_development/data/server_actions.xml
+index 42cbd0e..765e1ed 100644
+--- a/arkzayed_18_realestate_development/data/server_actions.xml
++++ b/arkzayed_18_realestate_development/data/server_actions.xml
+@@ -2,8 +2,8 @@
+     <data>
+         <record id="action_generate_contract_commissions" model="ir.actions.server">
+             <field name="name">Generate Commissions</field>
+-            <field name="model_id" ref="model_sale_proposal"/>
+-            <field name="binding_model_id" ref="model_sale_proposal"/>
++            <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_sale_proposal"/>
++            <field name="binding_model_id" ref="isky_18_realestate_developer_sales_crm.model_sale_proposal"/>
+             <field name="binding_view_types">list</field>
+             <field name="state">code</field>
+             <field name="code">
+@@ -13,8 +13,8 @@
+ 
+         <record id="action_recalc_reservation_installment_serial" model="ir.actions.server">
+             <field name="name">Recalculate Installment Serial</field>
+-            <field name="model_id" ref="model_real_estate_sale_reservation"/>
+-            <field name="binding_model_id" ref="model_real_estate_sale_reservation"/>
++            <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_real_estate_sale_reservation"/>
++            <field name="binding_model_id" ref="isky_18_realestate_developer_sales_crm.model_real_estate_sale_reservation"/>
+             <field name="binding_view_types">list,form</field>
+             <field name="state">code</field>
+             <field name="code">
+@@ -23,8 +23,8 @@
+         </record>
+         <record id="action_recalc_contract_installment_serial" model="ir.actions.server">
+             <field name="name">Recalculate Installment Serial</field>
+-            <field name="model_id" ref="model_sale_proposal"/>
+-            <field name="binding_model_id" ref="model_sale_proposal"/>
++            <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_sale_proposal"/>
++            <field name="binding_model_id" ref="isky_18_realestate_developer_sales_crm.model_sale_proposal"/>
+             <field name="binding_view_types">list,form</field>
+             <field name="state">code</field>
+             <field name="code">
+@@ -34,8 +34,8 @@
+ 
+         <record id="action_update_reservation_customer_ownership_ids" model="ir.actions.server">
+             <field name="name">Copy Customer Ownership</field>
+-            <field name="model_id" ref="model_real_estate_sale_reservation"/>
+-            <field name="binding_model_id" ref="model_real_estate_sale_reservation"/>
++            <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_real_estate_sale_reservation"/>
++            <field name="binding_model_id" ref="isky_18_realestate_developer_sales_crm.model_real_estate_sale_reservation"/>
+             <field name="binding_view_types">list,form</field>
+             <field name="state">code</field>
+             <field name="code">
+@@ -44,8 +44,8 @@
+         </record>
+         <record id="action_update_contract_customer_ownership_ids" model="ir.actions.server">
+             <field name="name">Copy Customer Ownership</field>
+-            <field name="model_id" ref="model_sale_proposal"/>
+-            <field name="binding_model_id" ref="model_sale_proposal"/>
++            <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_sale_proposal"/>
++            <field name="binding_model_id" ref="isky_18_realestate_developer_sales_crm.model_sale_proposal"/>
+             <field name="binding_view_types">list,form</field>
+             <field name="state">code</field>
+             <field name="code">
+@@ -55,8 +55,8 @@
+ <!--        &lt;!&ndash; Server Action bound to Sale Reservation &ndash;&gt;-->
+ <!--        <record id="action_server_execute_data_migration_reservation" model="ir.actions.server">-->
+ <!--            <field name="name">Migrate Historical Payment Allocations</field>-->
+-<!--            <field name="model_id" ref="model_real_estate_sale_reservation"/>-->
+-<!--            <field name="binding_model_id" ref="model_real_estate_sale_reservation"/>-->
++<!--            <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_real_estate_sale_reservation"/>-->
++<!--            <field name="binding_model_id" ref="isky_18_realestate_developer_sales_crm.model_real_estate_sale_reservation"/>-->
+ <!--            <field name="binding_type">action</field>-->
+ <!--            <field name="binding_view_types">list,form</field>-->
+ <!--            <field name="state">code</field>-->
+@@ -68,8 +68,8 @@
+ <!--        &lt;!&ndash; Server Action bound to Sale Proposal (Contract) &ndash;&gt;-->
+ <!--        <record id="action_server_execute_data_migration_contract" model="ir.actions.server">-->
+ <!--            <field name="name">Migrate Historical Payment Allocations</field>-->
+-<!--            <field name="model_id" ref="model_sale_proposal"/>-->
+-<!--            <field name="binding_model_id" ref="model_sale_proposal"/>-->
++<!--            <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_sale_proposal"/>-->
++<!--            <field name="binding_model_id" ref="isky_18_realestate_developer_sales_crm.model_sale_proposal"/>-->
+ <!--            <field name="binding_type">action</field>-->
+ <!--            <field name="binding_view_types">list,form</field>-->
+ <!--            <field name="state">code</field>-->
+@@ -79,8 +79,8 @@
+ <!--        </record>-->
+ <!--        <record id="action_sync_reservation_to_contract_lines" model="ir.actions.server">-->
+ <!--            <field name="name">Sync Reservation to Contract Lines</field>-->
+-<!--            <field name="model_id" ref="model_sale_proposal"/>-->
+-<!--            <field name="binding_model_id" ref="model_sale_proposal"/>-->
++<!--            <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_sale_proposal"/>-->
++<!--            <field name="binding_model_id" ref="isky_18_realestate_developer_sales_crm.model_sale_proposal"/>-->
+ <!--            <field name="binding_view_types">list,form</field>-->
+ <!--            <field name="state">code</field>-->
+ <!--            <field name="code">-->
+diff --git a/arkzayed_18_realestate_development/reports/annex1_report.xml b/arkzayed_18_realestate_development/reports/annex1_report.xml
+index 7d89fb0..848f953 100644
+--- a/arkzayed_18_realestate_development/reports/annex1_report.xml
++++ b/arkzayed_18_realestate_development/reports/annex1_report.xml
+@@ -25,7 +25,7 @@
+             <field name="report_name">arkzayed_18_realestate_development.annex1_report_template</field>
+             <field name="report_file">arkzayed_18_realestate_development.annex1_report_template</field>
+             <field name="print_report_name">'ANNEX 1 - %s' % (object.name)</field>
+-            <field name="binding_model_id" ref="model_sale_proposal"/>
++            <field name="binding_model_id" ref="isky_18_realestate_developer_sales_crm.model_sale_proposal"/>
+             <field name="binding_type">report</field>
+             <field name="paperformat_id" ref="paperformat_annex1_a4"/>
+         </record>
+diff --git a/arkzayed_18_realestate_development/reports/eoi_form.xml b/arkzayed_18_realestate_development/reports/eoi_form.xml
+index 2f80faf..96067c8 100644
+--- a/arkzayed_18_realestate_development/reports/eoi_form.xml
++++ b/arkzayed_18_realestate_development/reports/eoi_form.xml
+@@ -23,7 +23,7 @@
+         <field name="report_name">arkzayed_18_realestate_development.report_eoi_request</field>
+         <field name="report_file">arkzayed_18_realestate_development.report_eoi_request</field>
+         <field name="print_report_name">'EOI Form - %s' % (object.name)</field>
+-        <field name="binding_model_id" ref="model_eoi_eoi"/>
++        <field name="binding_model_id" ref="isky_18_realestate_developer_sales_crm.model_eoi_eoi"/>
+         <field name="binding_type">report</field>
+         <field name="paperformat_id" ref="arkzayed_18_realestate_development.paperformat_eoi_tight"/>
+     </record>
+@@ -35,7 +35,7 @@
+         <field name="report_name">arkzayed_18_realestate_development.report_eoi_request_no_source</field>
+         <field name="report_file">arkzayed_18_realestate_development.report_eoi_request_no_source</field>
+         <field name="print_report_name">'EOI Form With No Client Source - %s' % (object.name)</field>
+-        <field name="binding_model_id" ref="model_eoi_eoi"/>
++        <field name="binding_model_id" ref="isky_18_realestate_developer_sales_crm.model_eoi_eoi"/>
+         <field name="binding_type">report</field>
+         <field name="paperformat_id" ref="arkzayed_18_realestate_development.paperformat_eoi_tight"/>
+     </record>
+diff --git a/arkzayed_18_realestate_development/reports/eoi_report.xml b/arkzayed_18_realestate_development/reports/eoi_report.xml
+index 19b712c..15cd078 100644
+--- a/arkzayed_18_realestate_development/reports/eoi_report.xml
++++ b/arkzayed_18_realestate_development/reports/eoi_report.xml
+@@ -26,7 +26,7 @@
+             <field name="report_name">arkzayed_18_realestate_development.eoi_report_template</field>
+             <field name="report_file">arkzayed_18_realestate_development.eoi_report_template</field>
+             <field name="print_report_name">'EOI - %s' % (object.name)</field>
+-            <field name="binding_model_id" ref="model_eoi_eoi"/>
++            <field name="binding_model_id" ref="isky_18_realestate_developer_sales_crm.model_eoi_eoi"/>
+             <field name="binding_type">report</field>
+             <field name="paperformat_id" ref="arkzayed_18_realestate_development.paperformat_eoi_one_page"/>
+ 
+diff --git a/arkzayed_18_realestate_development/reports/handover_report_pdf.xml b/arkzayed_18_realestate_development/reports/handover_report_pdf.xml
+index 5eb5007..e3b5e43 100644
+--- a/arkzayed_18_realestate_development/reports/handover_report_pdf.xml
++++ b/arkzayed_18_realestate_development/reports/handover_report_pdf.xml
+@@ -22,7 +22,7 @@
+             <field name="report_name">arkzayed_18_realestate_development.handover_report_pdf_template</field>
+             <field name="report_file">arkzayed_18_realestate_development.handover_report_pdf_template</field>
+             <field name="print_report_name">'Handover Report'</field>
+-            <field name="binding_model_id" ref="model_sale_proposal"/>
++            <field name="binding_model_id" ref="isky_18_realestate_developer_sales_crm.model_sale_proposal"/>
+             <field name="binding_type">report</field>
+             <field name="paperformat_id" ref="paperformat_handover_report"/>
+         </record>
+diff --git a/arkzayed_18_realestate_development/reports/management_payment_plan_report.xml b/arkzayed_18_realestate_development/reports/management_payment_plan_report.xml
+index d25af8b..f28c795 100644
+--- a/arkzayed_18_realestate_development/reports/management_payment_plan_report.xml
++++ b/arkzayed_18_realestate_development/reports/management_payment_plan_report.xml
+@@ -9,7 +9,7 @@
+         <field name="report_file">arkzayed_18_realestate_development.dept_plan_res</field>
+         <field name="print_report_name">f"Departments Payment Plan - {object.unit_id.system_code or object.name}"</field>
+         <field name="paperformat_id" ref="arkzayed_18_realestate_development.report_payment_plan_paperformat"/>
+-        <field name="binding_model_id" ref="model_real_estate_sale_reservation"/>
++        <field name="binding_model_id" ref="isky_18_realestate_developer_sales_crm.model_real_estate_sale_reservation"/>
+         <field name="binding_type">report</field>
+     </record>
+ 
+@@ -21,7 +21,7 @@
+         <field name="report_file">arkzayed_18_realestate_development.ceo_plan_res</field>
+         <field name="print_report_name">f"CEO Payment Plan - {object.unit_id.system_code or object.name}"</field>
+         <field name="paperformat_id" ref="arkzayed_18_realestate_development.report_payment_plan_paperformat"/>
+-        <field name="binding_model_id" ref="model_real_estate_sale_reservation"/>
++        <field name="binding_model_id" ref="isky_18_realestate_developer_sales_crm.model_real_estate_sale_reservation"/>
+         <field name="binding_type">report</field>
+     </record>
+ 
+@@ -34,7 +34,7 @@
+         <field name="report_file">arkzayed_18_realestate_development.dept_plan_prop</field>
+         <field name="print_report_name">f"Departments Payment Plan - {object.unit_id.system_code or object.name}"</field>
+         <field name="paperformat_id" ref="arkzayed_18_realestate_development.report_payment_plan_paperformat"/>
+-        <field name="binding_model_id" ref="model_sale_proposal"/>
++        <field name="binding_model_id" ref="isky_18_realestate_developer_sales_crm.model_sale_proposal"/>
+         <field name="binding_type">report</field>
+     </record>
+ 
+@@ -46,7 +46,7 @@
+         <field name="report_file">arkzayed_18_realestate_development.ceo_plan_prop</field>
+         <field name="print_report_name">f"CEO Payment Plan - {object.unit_id.system_code or object.name}"</field>
+         <field name="paperformat_id" ref="arkzayed_18_realestate_development.report_payment_plan_paperformat"/>
+-        <field name="binding_model_id" ref="model_sale_proposal"/>
++        <field name="binding_model_id" ref="isky_18_realestate_developer_sales_crm.model_sale_proposal"/>
+         <field name="binding_type">report</field>
+     </record>
+ 
+diff --git a/arkzayed_18_realestate_development/reports/payment_schedule_report.xml b/arkzayed_18_realestate_development/reports/payment_schedule_report.xml
+index 5fceb41..0f87a03 100644
+--- a/arkzayed_18_realestate_development/reports/payment_schedule_report.xml
++++ b/arkzayed_18_realestate_development/reports/payment_schedule_report.xml
+@@ -25,7 +25,7 @@
+             <field name="report_name">arkzayed_18_realestate_development.payment_schedule_report_template</field>
+             <field name="report_file">arkzayed_18_realestate_development.payment_schedule_report_template</field>
+             <field name="print_report_name">'Payment Schedule - %s' % (object.name)</field>
+-            <field name="binding_model_id" ref="model_sale_proposal"/>
++            <field name="binding_model_id" ref="isky_18_realestate_developer_sales_crm.model_sale_proposal"/>
+             <field name="binding_type">report</field>
+             <field name="paperformat_id" ref="paperformat_payment_schedule_a4"/>
+         </record>
+diff --git a/arkzayed_18_realestate_development/reports/report_sale_contract_document.xml b/arkzayed_18_realestate_development/reports/report_sale_contract_document.xml
+index c64b626..357ae97 100644
+--- a/arkzayed_18_realestate_development/reports/report_sale_contract_document.xml
++++ b/arkzayed_18_realestate_development/reports/report_sale_contract_document.xml
+@@ -6,7 +6,7 @@
+         <field name="report_name">arkzayed_18_realestate_development.report_sale_contract_document</field>
+         <field name="report_file">arkzayed_18_realestate_development.report_sale_contract_document</field>
+         <field name="print_report_name">'Contract'</field>
+-        <field name="binding_model_id" ref="model_sale_proposal"/>
++        <field name="binding_model_id" ref="isky_18_realestate_developer_sales_crm.model_sale_proposal"/>
+         <field name="binding_type">report</field>
+     </record>
+     <template id="report_sale_contract_document">
+diff --git a/arkzayed_18_realestate_development/reports/unit_documents.xml b/arkzayed_18_realestate_development/reports/unit_documents.xml
+index 71da324..861f94c 100644
+--- a/arkzayed_18_realestate_development/reports/unit_documents.xml
++++ b/arkzayed_18_realestate_development/reports/unit_documents.xml
+@@ -5,7 +5,7 @@
+         <field name="report_type">qweb-pdf</field>
+         <field name="report_name">arkzayed_18_realestate_development.report_unit_documents_document</field>
+         <field name="report_file">arkzayed_18_realestate_development.report_unit_documents_document</field>
+-        <field name="binding_model_id" ref="model_real_estate_unit"/>
++        <field name="binding_model_id" ref="isky_18_realestate_developer_unit_inventory.model_real_estate_unit"/>
+         <field name="binding_type">report</field>
+         <field name="paperformat_id" ref="base.paperformat_euro"/>
+     </record>
+diff --git a/arkzayed_18_realestate_development/reports/unit_layout.xml b/arkzayed_18_realestate_development/reports/unit_layout.xml
+index d8583eb..2217902 100644
+--- a/arkzayed_18_realestate_development/reports/unit_layout.xml
++++ b/arkzayed_18_realestate_development/reports/unit_layout.xml
+@@ -7,7 +7,7 @@
+         <field name="report_type">qweb-pdf</field>
+         <field name="report_name">arkzayed_18_realestate_development.report_unit_plan_document</field>
+         <field name="report_file">arkzayed_18_realestate_development.report_unit_plan_document</field>
+-        <field name="binding_model_id" ref="model_real_estate_unit"/>
++        <field name="binding_model_id" ref="isky_18_realestate_developer_unit_inventory.model_real_estate_unit"/>
+         <field name="binding_type">report</field>
+         <field name="paperformat_id" ref="base.paperformat_euro"/>
+     </record>
+diff --git a/arkzayed_18_realestate_development/reports/unit_offer_plan_report.xml b/arkzayed_18_realestate_development/reports/unit_offer_plan_report.xml
+index 3925856..89ed5cf 100644
+--- a/arkzayed_18_realestate_development/reports/unit_offer_plan_report.xml
++++ b/arkzayed_18_realestate_development/reports/unit_offer_plan_report.xml
+@@ -29,8 +29,8 @@
+     <!-- Server action so the popup is also available under Actions (form and list) -->
+     <record id="action_server_unit_offer_plan" model="ir.actions.server">
+         <field name="name">Unit Offer Plan</field>
+-        <field name="model_id" ref="model_real_estate_unit"/>
+-        <field name="binding_model_id" ref="model_real_estate_unit"/>
++        <field name="model_id" ref="isky_18_realestate_developer_unit_inventory.model_real_estate_unit"/>
++        <field name="binding_model_id" ref="isky_18_realestate_developer_unit_inventory.model_real_estate_unit"/>
+         <field name="binding_view_types">form,list</field>
+         <field name="state">code</field>
+         <field name="code">action = records[:1].action_print_unit_offer_plan()</field>
+diff --git a/arkzayed_18_realestate_development/reports/unit_plan_report.xml b/arkzayed_18_realestate_development/reports/unit_plan_report.xml
+index 89e5217..f2f03a5 100644
+--- a/arkzayed_18_realestate_development/reports/unit_plan_report.xml
++++ b/arkzayed_18_realestate_development/reports/unit_plan_report.xml
+@@ -5,7 +5,7 @@
+         <field name="report_type">qweb-pdf</field>
+         <field name="report_name">arkzayed_18_realestate_development.report_print_unit_plan_for_reservation</field>
+         <field name="report_file">arkzayed_18_realestate_development.report_print_unit_plan_for_reservation</field>
+-        <field name="binding_model_id" ref="model_real_estate_sale_reservation"/>
++        <field name="binding_model_id" ref="isky_18_realestate_developer_sales_crm.model_real_estate_sale_reservation"/>
+         <field name="binding_type">report</field>
+         <field name="paperformat_id" ref="base.paperformat_euro"/>
+     </record>
+@@ -16,7 +16,7 @@
+         <field name="report_type">qweb-pdf</field>
+         <field name="report_name">arkzayed_18_realestate_development.report_print_unit_plan_for_contract</field>
+         <field name="report_file">arkzayed_18_realestate_development.report_print_unit_plan_for_contract</field>
+-        <field name="binding_model_id" ref="model_sale_proposal"/>
++        <field name="binding_model_id" ref="isky_18_realestate_developer_sales_crm.model_sale_proposal"/>
+         <field name="binding_type">report</field>
+         <field name="paperformat_id" ref="base.paperformat_euro"/>
+     </record>
+diff --git a/arkzayed_18_realestate_development/security/construction_progress_security.xml b/arkzayed_18_realestate_development/security/construction_progress_security.xml
+deleted file mode 100644
+index ff13128..0000000
+--- a/arkzayed_18_realestate_development/security/construction_progress_security.xml
++++ /dev/null
+@@ -1,28 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<odoo>
+-
+-    <record id="module_category_construction_progress" model="ir.module.category">
+-        <field name="name">Construction Progress</field>
+-    </record>
+-
+-    <record id="group_progress_engineer" model="res.groups">
+-        <field name="name">Site Engineer</field>
+-        <field name="category_id" ref="module_category_construction_progress"/>
+-        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+-        <field name="comment">Can add progress updates on the units and buildings assigned to them.</field>
+-    </record>
+-
+-    <record id="group_progress_manager" model="res.groups">
+-        <field name="name">Progress Manager</field>
+-        <field name="category_id" ref="module_category_construction_progress"/>
+-        <field name="implied_ids" eval="[(4, ref('group_progress_engineer'))]"/>
+-        <field name="comment">Can update any unit or building, correct or delete updates, and assign engineers.</field>
+-    </record>
+-
+-    <data noupdate="1">
+-        <record id="base.user_admin" model="res.users">
+-            <field name="groups_id" eval="[(4, ref('group_progress_manager'))]"/>
+-        </record>
+-    </data>
+-
+-</odoo>
+diff --git a/arkzayed_18_realestate_development/security/security.xml b/arkzayed_18_realestate_development/security/security.xml
+index f542b87..eb1b7b3 100644
+--- a/arkzayed_18_realestate_development/security/security.xml
++++ b/arkzayed_18_realestate_development/security/security.xml
+@@ -39,7 +39,7 @@
+ 
+         <record id="crm_team_company_rule" model="ir.rule">
+             <field name="name">crm_team_company_rule</field>
+-            <field name="model_id" ref="model_crm_team"/>
++            <field name="model_id" ref="crm.model_crm_team"/>
+             <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+         </record>
+ 
+@@ -52,13 +52,13 @@
+ 
+         <record id="project_assignees_rule" model="ir.rule">
+             <field name="name">Project Assignees</field>
+-            <field name="model_id" ref="model_project_project"/>
++            <field name="model_id" ref="project.model_project_project"/>
+             <field name="global" eval="True"/>
+             <field name="domain_force">[('assignees_ids', 'in', [user.id])]</field>
+         </record>
+         <record id="task_assignees_rule" model="ir.rule">
+             <field name="name">Task Assignees</field>
+-            <field name="model_id" ref="model_project_task"/>
++            <field name="model_id" ref="project.model_project_task"/>
+             <field name="global" eval="True"/>
+             <field name="domain_force">[('assignees_ids', 'in', [user.id])]</field>
+         </record>
+@@ -93,22 +93,22 @@
+ 
+         <record id="revenue_share2_company_rule" model="ir.rule">
+             <field name="name">revenue share2 company</field>
+-            <field name="model_id" ref="model_revenue_share2"/>
++            <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_revenue_share2"/>
+             <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
+         </record>
+         <record id="eoi_eoi_company_rule" model="ir.rule">
+             <field name="name">eoi eoi company</field>
+-            <field name="model_id" ref="model_eoi_eoi"/>
++            <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_eoi_eoi"/>
+             <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
+         </record>
+         <record id="sale_proposal_company_rule" model="ir.rule">
+             <field name="name">sale proposal company</field>
+-            <field name="model_id" ref="model_sale_proposal"/>
++            <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_sale_proposal"/>
+             <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
+         </record>
+         <record id="sale_reservation_company_rule" model="ir.rule">
+             <field name="name">sale reservation company</field>
+-            <field name="model_id" ref="model_real_estate_sale_reservation"/>
++            <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_real_estate_sale_reservation"/>
+             <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
+         </record>
+         <record id="broker_contract_company_rule" model="ir.rule">
+@@ -123,7 +123,7 @@
+         </record>
+         <record id="maintenance_template_company_rule" model="ir.rule">
+             <field name="name">Maintenance Template: Restrict by Company</field>
+-            <field name="model_id" ref="model_maintenance_template"/>
++            <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_maintenance_template"/>
+             <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
+         </record>
+         <record id="project_commission_company_rule" model="ir.rule">
+@@ -133,7 +133,7 @@
+         </record>
+         <record id="customer_ownership_company_rule" model="ir.rule">
+             <field name="name">Customer Ownership: Restrict by Company</field>
+-            <field name="model_id" ref="model_customer_ownership"/>
++            <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_customer_ownership"/>
+             <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
+         </record>
+         <record id="capex_scope_company_rule" model="ir.rule">
+@@ -143,13 +143,9 @@
+         </record>
+         <record id="installment_template_company_rule" model="ir.rule">
+             <field name="name">Installment Template: Restrict by Company</field>
+-            <field name="model_id" ref="model_installment_template"/>
++            <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_installment_template"/>
+             <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
+         </record>
+-        <record id="group_vendor_commitment_user" model="res.groups">
+-            <field name="name">Vendor Commitment User</field>
+-            <field name="category_id" ref="isky_18_realestate_developer_unit_inventory.module_category_real_state_project_assigned"/>
+-        </record>
+         <record id="group_exception_reservation" model="res.groups">
+             <field name="name">Exception Reservation</field>
+             <field name="category_id" ref="isky_18_realestate_developer_unit_inventory.module_category_real_state_project_assigned"/>
+diff --git a/arkzayed_18_realestate_development/views/maintenance_config_views.xml b/arkzayed_18_realestate_development/views/maintenance_config_views.xml
+index 38ac633..5900e06 100644
+--- a/arkzayed_18_realestate_development/views/maintenance_config_views.xml
++++ b/arkzayed_18_realestate_development/views/maintenance_config_views.xml
+@@ -24,7 +24,7 @@
+ 
+     <record id="action_maintenance_config_server" model="ir.actions.server">
+         <field name="name">Maintenance Configuration</field>
+-        <field name="model_id" ref="model_maintenance_config"/>
++        <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_maintenance_config"/>
+         <field name="state">code</field>
+         <field name="code">
+             action = model.action_open_config()
+diff --git a/arkzayed_18_realestate_development/views/menus.xml b/arkzayed_18_realestate_development/views/menus.xml
+index 466e393..baa14e3 100644
+--- a/arkzayed_18_realestate_development/views/menus.xml
++++ b/arkzayed_18_realestate_development/views/menus.xml
+@@ -55,7 +55,7 @@
+           name="Vendor Commitments"
+           parent="accountant.menu_accounting"
+           action="action_vendor_commitment"
+-          groups="arkzayed_18_realestate_development.group_vendor_commitment_user"
++          groups="isky_18_realestate_developer_construction.group_vendor_commitment_user"
+           sequence="7"/>
+ 
+     <!-- Configuration Categories -->
+diff --git a/arkzayed_18_realestate_development/views/real_estate_unit_views.xml b/arkzayed_18_realestate_development/views/real_estate_unit_views.xml
+index f2a2ae9..72b8da4 100644
+--- a/arkzayed_18_realestate_development/views/real_estate_unit_views.xml
++++ b/arkzayed_18_realestate_development/views/real_estate_unit_views.xml
+@@ -5,8 +5,8 @@
+         <!-- Server Action: convert selected units from "Available" to "Available For Sale" -->
+         <record id="action_convert_available_for_sale" model="ir.actions.server">
+             <field name="name">Convert to Available For Sale</field>
+-            <field name="model_id" ref="model_real_estate_unit"/>
+-            <field name="binding_model_id" ref="model_real_estate_unit"/>
++            <field name="model_id" ref="isky_18_realestate_developer_unit_inventory.model_real_estate_unit"/>
++            <field name="binding_model_id" ref="isky_18_realestate_developer_unit_inventory.model_real_estate_unit"/>
+             <field name="binding_view_types">list,form</field>
+             <field name="state">code</field>
+             <field name="code"><![CDATA[
+diff --git a/arkzayed_18_realestate_development/wizard/broker_statement_wizard.py b/arkzayed_18_realestate_development/wizard/broker_statement_wizard.py
+index 6d48490..c1e7f0e 100644
+--- a/arkzayed_18_realestate_development/wizard/broker_statement_wizard.py
++++ b/arkzayed_18_realestate_development/wizard/broker_statement_wizard.py
+@@ -6,7 +6,7 @@ import xlsxwriter
+ 
+ from odoo import _, api, fields, models
+ from odoo.exceptions import UserError
+-from odoo.addons.arkzayed_18_realestate_development.models.sale_proposal import COMMISSION_EXCLUDED_STATES
++from odoo.addons.isky_18_realestate_developer_sales_crm.models.core.sale_proposal import COMMISSION_EXCLUDED_STATES
+ 
+ TYPE_ORDER = ['broker', 'ambassador', 'agent', 'employee']
+ STATUS_LABELS = {
+diff --git a/arkzayed_cost_distribution/__manifest__.py b/arkzayed_cost_distribution/__manifest__.py
+index a1ff397..d212a7e 100644
+--- a/arkzayed_cost_distribution/__manifest__.py
++++ b/arkzayed_cost_distribution/__manifest__.py
+@@ -3,7 +3,15 @@
+     'version': '1.1',
+     'summary': 'Distribute shared costs (PO/Bill lines) across units by area, and track direct vs indirect cost per unit',
+     'author': 'iSkyDev',
+-    'depends': ['account', 'arkzayed_18_realestate_development', 'isky_18_realestate_developer_accounting'],
++    'depends': [
++        'account', 'isky_18_realestate_developer_unit_inventory', 'isky_18_realestate_developer_accounting',
++        # Needed for views only (real.estate.unit/building, zone form views to inherit) - L0 has
++        # no form views of its own yet, that's a separate, already-flagged gap. Does NOT
++        # reintroduce the Phase 2 cycle: that cycle was broken by removing the accounting
++        # bridge's own upward edges to this module and to arkzayed_18_realestate_development,
++        # not by this (one-directional, downward) edge.
++        'arkzayed_18_realestate_development',
++    ],
+     'license': 'LGPL-3',
+     'data': [
+         'security/ir.model.access.csv',
+diff --git a/arkzayed_cost_distribution/models/__init__.py b/arkzayed_cost_distribution/models/__init__.py
+index 24c3058..e700e30 100644
+--- a/arkzayed_cost_distribution/models/__init__.py
++++ b/arkzayed_cost_distribution/models/__init__.py
+@@ -1,6 +1,7 @@
+ from . import cost_distribution
+ from . import report
+ from . import cost_allocation
++from . import account_move_line
+ from . import real_estate_unit
+ from . import real_estate_building
+ from . import zone
+diff --git a/arkzayed_cost_distribution/models/account_move_line.py b/arkzayed_cost_distribution/models/account_move_line.py
+new file mode 100644
+index 0000000..19017ac
+--- /dev/null
++++ b/arkzayed_cost_distribution/models/account_move_line.py
+@@ -0,0 +1,36 @@
++from odoo import models, fields, api
++
++
++class AccountMoveLine(models.Model):
++    _inherit = 'account.move.line'
++
++    distribution_state = fields.Selection([
++        ('pending', 'Not Distributed'),
++        ('partial', 'Partially Distributed'),
++        ('done', 'Fully Distributed'),
++    ], string='Unit Distribution', default='pending')
++
++    allocation_ids = fields.One2many('arkzayed.cost.allocation', 'move_line_id', string='Cost Allocations')
++
++    distributed_amount = fields.Monetary(compute='_compute_distributed_amount', string='Distributed Amount')
++
++    remaining_amount = fields.Monetary(compute='_compute_distributed_amount', string='Remaining to Distribute')
++
++    @api.depends('allocation_ids.amount', 'price_total')
++    def _compute_distributed_amount(self):
++        for line in self:
++            distributed = sum(line.allocation_ids.mapped('amount'))
++            line.distributed_amount = distributed
++            # The distributable amount is the line total including taxes.
++            line.remaining_amount = line.price_total - distributed
++
++    def action_open_cost_distribution_wizard(self):
++        self.ensure_one()
++        return {
++            'type': 'ir.actions.act_window',
++            'name': 'Distribute Cost to Units',
++            'res_model': 'arkzayed.cost.distribution.wizard',
++            'view_mode': 'form',
++            'target': 'new',
++            'context': {'default_move_line_id': self.id},
++        }
+diff --git a/arkzayed_cost_distribution/views/cost_distribution_views.xml b/arkzayed_cost_distribution/views/cost_distribution_views.xml
+index 3f7e39c..5bf30b6 100644
+--- a/arkzayed_cost_distribution/views/cost_distribution_views.xml
++++ b/arkzayed_cost_distribution/views/cost_distribution_views.xml
+@@ -120,11 +120,33 @@
+     <menuitem id="menu_cost_distribution_report" name="Distribution Report"
+               parent="menu_arkzayed_cost_root" action="action_cost_distribution" sequence="20"/>
+ 
+-    <!-- action_pending_cost_distribution and its view now live in
+-         isky_18_realestate_developer_accounting (account.move.line fields it displays
+-         were moved there); the menu entry stays here, next to its sibling menus. -->
++    <record id="view_pending_cost_distribution_list" model="ir.ui.view">
++        <field name="name">account.move.line.pending.distribution.list</field>
++        <field name="model">account.move.line</field>
++        <field name="arch" type="xml">
++            <list string="Pending Cost Distribution" create="0" edit="0">
++                <field name="move_id" string="Bill"/>
++                <field name="name" string="Description"/>
++                <field name="price_total" string="Amount (incl. taxes)"/>
++                <field name="distributed_amount"/>
++                <field name="remaining_amount"/>
++                <field name="distribution_state"/>
++                <button name="action_open_cost_distribution_wizard" type="object"
++                        string="Distribute" class="btn-link" icon="fa-share-alt"/>
++            </list>
++        </field>
++    </record>
++
++    <record id="action_pending_cost_distribution" model="ir.actions.act_window">
++        <field name="name">Pending Cost Distribution</field>
++        <field name="res_model">account.move.line</field>
++        <field name="view_mode">list</field>
++        <field name="view_id" ref="view_pending_cost_distribution_list"/>
++        <field name="domain">[('move_id.move_type', 'in', ['in_invoice', 'in_refund']), ('display_type', '=', 'product'), ('distribution_state', 'in', ['pending', 'partial'])]</field>
++    </record>
++
+     <menuitem id="menu_pending_cost_distribution" name="Pending Cost Distribution"
+               parent="menu_arkzayed_cost_root"
+-              action="isky_18_realestate_developer_accounting.action_pending_cost_distribution"/>
++              action="action_pending_cost_distribution"/>
+ 
+ </odoo>
+diff --git a/arkzayed_trace_commission/wizard/trace_commission.py b/arkzayed_trace_commission/wizard/trace_commission.py
+index 0ea1737..02a88b8 100644
+--- a/arkzayed_trace_commission/wizard/trace_commission.py
++++ b/arkzayed_trace_commission/wizard/trace_commission.py
+@@ -6,7 +6,7 @@ import xlsxwriter
+ 
+ from odoo import _, api, fields, models
+ from odoo.exceptions import UserError
+-from odoo.addons.arkzayed_18_realestate_development.models.sale_proposal import COMMISSION_EXCLUDED_STATES
++from odoo.addons.isky_18_realestate_developer_sales_crm.models.core.sale_proposal import COMMISSION_EXCLUDED_STATES
+ 
+ STATUS_PAID = 'Paid'
+ STATUS_PAID_OUT = 'Paid (outside system)'

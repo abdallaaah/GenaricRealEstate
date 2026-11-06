@@ -26,8 +26,18 @@ Both kept, separately, as project_commission.py / project_commission_crm.py.
     'author': 'iSkyDev',
     'depends': [
         'hr',
+        # Phase 4: undeclared dependency, found when this module was installed for the first
+        # time. models/config/sale_commission_plan.py does `_inherit = "sale.commission.plan"`,
+        # an Enterprise model from `sale_commission`, which was never listed - so this module
+        # has never been installable. Same class as the `account_reports` omission Phase 2
+        # found in the L1 bridge (backlog #7).
+        'sale_commission',
         'isky_18_realestate_developer_unit_inventory',
-        'isky_18_realestate_developer_accounting',
+        # Phase 4 (D4): the hard dependency on the optional L1 accounting bridge was
+        # removed - this module references only core account.payment / account.move /
+        # account.account, nothing the bridge adds. Keeping it forced Mode A on anyone
+        # installing commission. Same change Phase 2b/3 made for sales_crm.
+        'account',
         'isky_18_realestate_developer_sales_crm',
     ],
     'data': [

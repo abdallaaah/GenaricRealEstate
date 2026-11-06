@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
+    <!-- Inherits base.res_config_settings_view_form directly, not
+         arkzayed_18_realestate_development's "real_estate_bits" tab, so this module stays an
+         optional bridge with no dependency back on that module. When both are installed, this
+         renders as its own "Real Estate Accounting" settings tab alongside arkzayed's "Real
+         Estate" one; Phase 6 (Settings) is where these all get consolidated into the plan's
+         five final sections, so no attempt is made to merge them here. -->
     <record id="res_config_settings_view_form_accounting" model="ir.ui.view">
         <field name="name">res.config.settings.form.inherit.accounting</field>
         <field name="model">res.config.settings</field>
         <field name="priority" eval="75"/>
-        <field name="inherit_id" ref="arkzayed_18_realestate_development.res_config_settings_view_form_rs"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//div[@data-key='real_estate_bits']" position="inside">
+            <xpath expr="//form" position="inside">
+              <div class="app_settings_block" data-string="Real Estate Accounting"
+                   string="Real Estate Accounting" data-key="real_estate_accounting">
 
                 <h2>Accounting Settings</h2>
                 <div class="row mt16 o_settings_container">
@@ -185,6 +193,7 @@
                     </div>
                 </div>
 
+              </div>
             </xpath>
         </field>
     </record>

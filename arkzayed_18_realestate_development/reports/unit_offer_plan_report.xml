@@ -29,8 +29,8 @@
     <!-- Server action so the popup is also available under Actions (form and list) -->
     <record id="action_server_unit_offer_plan" model="ir.actions.server">
         <field name="name">Unit Offer Plan</field>
-        <field name="model_id" ref="model_real_estate_unit"/>
-        <field name="binding_model_id" ref="model_real_estate_unit"/>
+        <field name="model_id" ref="isky_18_realestate_developer_unit_inventory.model_real_estate_unit"/>
+        <field name="binding_model_id" ref="isky_18_realestate_developer_unit_inventory.model_real_estate_unit"/>
         <field name="binding_view_types">form,list</field>
         <field name="state">code</field>
         <field name="code">action = records[:1].action_print_unit_offer_plan()</field>

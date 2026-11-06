@@ -13,7 +13,7 @@ class BrokerVisit(models.Model):
         required=True,
         copy=False,
         readonly=True,
-        default=lambda self: _('New'),
+        default='New',
         tracking=True
     )
     broker_id = fields.Many2one(

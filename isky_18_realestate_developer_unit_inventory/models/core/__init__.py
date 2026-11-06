@@ -1,3 +1,4 @@
+from . import hierarchy
 from . import realestate_project
 from . import zone
 from . import cluster
@@ -8,4 +9,3 @@ from . import real_estate_unit
 from . import counter
 from . import internet
 from . import landline
-from . import sequence

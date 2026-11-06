@@ -34,10 +34,10 @@
                                 invisible="state != 'draft'"/>
                         <button name="action_accept" string="Accept" type="object"
                                 class="oe_highlight" invisible="state != 'submitted'"
-                                groups="arkzayed_18_realestate_development.group_block_unit"/>
+                                groups="isky_18_realestate_developer_unit_inventory.group_block_unit"/>
                         <button name="action_reject" string="Reject" type="object"
                                 invisible="state != 'submitted'"
-                                groups="arkzayed_18_realestate_development.group_block_unit"/>
+                                groups="isky_18_realestate_developer_unit_inventory.group_block_unit"/>
                         <button name="action_print_unit_offer_plan" string="Print Unit Offer Plan"
                                 type="object" invisible="not unit_id"/>
                         <field name="state" widget="statusbar"

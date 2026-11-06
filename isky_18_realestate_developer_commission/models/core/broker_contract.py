@@ -7,7 +7,7 @@ class BrokerContract(models.Model):
     _rec_name = 'name'
 
     name = fields.Char(string='Contract Reference', required=True, copy=False, readonly=True, index=True,
-                       default=lambda self: _('New'))
+                       default='New')
     broker_company = fields.Many2one('res.partner', string='Partner', domain=['|', ('is_broker', '=', True), ('is_ambassador', '=', True)], tracking=True)
     collection = fields.Integer('Collection %', tracking=True)
     contract_issue_date = fields.Date('Contract Issue Date', tracking=True)

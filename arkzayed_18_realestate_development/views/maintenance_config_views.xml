@@ -24,7 +24,7 @@
 
     <record id="action_maintenance_config_server" model="ir.actions.server">
         <field name="name">Maintenance Configuration</field>
-        <field name="model_id" ref="model_maintenance_config"/>
+        <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_maintenance_config"/>
         <field name="state">code</field>
         <field name="code">
             action = model.action_open_config()

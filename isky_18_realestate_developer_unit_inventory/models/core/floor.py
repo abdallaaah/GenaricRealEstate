@@ -4,7 +4,7 @@ from odoo import fields, models, api
 class Floor(models.Model):
     _name = 'floor'
     _description = "Floor"
-    _inherit = ['mail.thread', 'mail.activity.mixin']
+    _inherit = ['mail.thread', 'mail.activity.mixin', 'realestate.hierarchy.node.mixin']
     _rec_name = 'system_code'
 
     name = fields.Char()
@@ -67,32 +67,6 @@ class Floor(models.Model):
             rec.total_gross_area = sum(units.mapped('unit_area') or [0.0])
             rec.total_new_gross_area = sum(units.mapped('new_total_gross_area') or [0.0])
 
-    @api.depends('parent_source_id')
-    def _compute_project_id(self):
-        for rec in self:
-            source_id = rec.parent_source_id
-            if source_id and source_id._name == 'realestate.project':
-                rec.project_id = source_id.id
-            elif source_id and source_id._name == 'zone':
-                rec.project_id = source_id.parent_id.id if hasattr(source_id, 'parent_id') else False
-            elif source_id:
-                rec.project_id = False
-                while source_id:
-                    if source_id._name == 'realestate.project':
-                        rec.project_id = source_id.id
-                        break
-                    if hasattr(source_id, 'project_id'):
-                        project_id = source_id.project_id
-                        if project_id:
-                            rec.project_id = project_id.id
-                            break
-                    if hasattr(source_id, 'parent_source_id'):
-                        source_id = source_id.parent_source_id
-                    else:
-                        break
-            else:
-                rec.project_id = False
-
     def compute_floor_location(self):
         for rec in self:
             name = ''
@@ -101,13 +75,3 @@ class Floor(models.Model):
             if rec.parent_source_id and hasattr(rec.parent_source_id, 'location') and rec.parent_source_id.location:
                 name += ',' + rec.parent_source_id.location
             rec.location = name
-
-    @api.depends('abbreviation', 'parent_source_id')
-    def compute_unit_system_code(self):
-        for rec in self:
-            parts = []
-            if rec.parent_source_id and rec.parent_source_id._name != 'realestate.project' and rec.parent_source_id.system_code:
-                parts.append(rec.parent_source_id.system_code)
-            if rec.abbreviation:
-                parts.append(rec.abbreviation)
-            rec.system_code = "-".join(parts)

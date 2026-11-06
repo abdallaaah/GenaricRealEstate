@@ -1,0 +1,142 @@
+### RUN_ID=20261106-162640-1522486
+### START=2026-11-06 16:26:40 EET
+### DB=phase4_commission
+### ARGS=-i isky_18_realestate_developer_commission --test-enable --test-tags /isky_18_realestate_developer_commission --log-level=test
+2026-11-06 14:26:42,120 1522754 INFO ? odoo: Odoo version 18.0 
+2026-11-06 14:26:42,120 1522754 INFO ? odoo: Using configuration file at /tmp/claude-1000/-opt-odoo-odoo18-odoo-custom-GenaricRealEstate/3a43631c-c4f2-4b42-8ba2-4fc748bfb694/scratchpad/gre_test.conf 
+2026-11-06 14:26:42,120 1522754 INFO ? odoo: addons paths: ['/opt/odoo/odoo18/odoo/odoo/addons', '/home/isky/.local/share/Odoo/addons/18.0', '/opt/odoo/odoo18/odoo/enterprise', '/opt/odoo/odoo18/odoo/addons', '/opt/odoo/odoo18/odoo/custom/GenaricRealEstate'] 
+2026-11-06 14:26:42,120 1522754 INFO ? odoo: database: odoo18@localhost:5432 
+2026-11-06 14:26:42,446 1522754 INFO ? odoo.addons.base.models.ir_actions_report: Will use the Wkhtmltopdf binary at /usr/local/bin/wkhtmltopdf 
+2026-11-06 14:26:42,456 1522754 INFO ? odoo.addons.base.models.ir_actions_report: Will use the Wkhtmltoimage binary at /usr/local/bin/wkhtmltoimage 
+2026-11-06 14:26:42,743 1522754 INFO ? odoo.service.server: HTTP service (werkzeug) running on isky-Latitude-7490:8069 
+2026-11-06 14:26:42,761 1522754 INFO phase4_commission odoo.tests.common: Importing test framework 
+2026-11-06 14:26:42,782 1522754 INFO phase4_commission odoo.modules.loading: init db 
+2026-11-06 14:26:43,131 1522754 WARNING phase4_commission odoo.modules.module: Missing `license` key in manifest for 'arkzayed_18_contact_customization', defaulting to LGPL-3 
+2026-11-06 14:26:43,139 1522754 WARNING phase4_commission odoo.modules.module: Missing `license` key in manifest for 'arkzayed_18_realestate_developer_crm', defaulting to LGPL-3 
+2026-11-06 14:26:43,146 1522754 WARNING phase4_commission odoo.modules.module: Missing `license` key in manifest for 'arkzayed_18_realestate_development', defaulting to LGPL-3 
+2026-11-06 14:26:43,917 1522754 WARNING phase4_commission odoo.modules.module: Missing `license` key in manifest for 'isky_contract_template', defaulting to LGPL-3 
+2026-11-06 14:26:43,924 1522754 WARNING phase4_commission odoo.modules.module: Missing `license` key in manifest for 'isky_hr_egypt_allowances_application_contract', defaulting to LGPL-3 
+2026-11-06 14:26:48,291 1522754 INFO phase4_commission odoo.modules.loading: loading 1 modules... 
+2026-11-06 14:26:48,291 1522754 INFO phase4_commission odoo.modules.loading: Loading module base (1/1) 
+2026-11-06 14:26:48,351 1522754 INFO phase4_commission odoo.modules.registry: module base: creating or updating database tables 
+2026-11-06 14:26:49,176 1522754 INFO phase4_commission odoo.models: Prepare computation of ir.module.module.menus_by_module 
+2026-11-06 14:26:49,176 1522754 INFO phase4_commission odoo.models: Prepare computation of ir.module.module.reports_by_module 
+2026-11-06 14:26:49,177 1522754 INFO phase4_commission odoo.models: Prepare computation of ir.module.module.views_by_module 
+2026-11-06 14:26:49,438 1522754 INFO phase4_commission odoo.models: Prepare computation of res.partner.user_id 
+2026-11-06 14:26:49,439 1522754 INFO phase4_commission odoo.models: Prepare computation of res.partner.commercial_partner_id 
+2026-11-06 14:26:49,439 1522754 INFO phase4_commission odoo.models: Prepare computation of res.partner.complete_name 
+2026-11-06 14:26:49,439 1522754 INFO phase4_commission odoo.models: Prepare computation of res.partner.company_registry 
+2026-11-06 14:26:49,439 1522754 INFO phase4_commission odoo.models: Prepare computation of res.partner.commercial_company_name 
+2026-11-06 14:26:49,439 1522754 INFO phase4_commission odoo.models: Prepare computation of res.partner.partner_share 
+2026-11-06 14:26:49,520 1522754 INFO phase4_commission odoo.models: Prepare computation of res.currency.decimal_places 
+2026-11-06 14:26:49,579 1522754 INFO phase4_commission odoo.models: Prepare computation of res.company.uses_default_logo 
+2026-11-06 14:26:49,579 1522754 INFO phase4_commission odoo.models: Prepare computation of res.company.logo_web 
+2026-11-06 14:26:49,584 1522754 INFO phase4_commission odoo.models: Computing parent_path for table res_company... 
+2026-11-06 14:26:49,644 1522754 INFO phase4_commission odoo.models: Prepare computation of res.users.signature 
+2026-11-06 14:26:49,645 1522754 INFO phase4_commission odoo.models: Prepare computation of res.users.share 
+2026-11-06 14:26:53,358 1522754 INFO phase4_commission odoo.modules.loading: loading base/data/res_bank.xml 
+2026-11-06 14:26:53,367 1522754 INFO phase4_commission odoo.modules.loading: loading base/data/res.lang.csv 
+2026-11-06 14:26:53,452 1522754 INFO phase4_commission odoo.modules.loading: loading base/data/res_lang_data.xml 
+2026-11-06 14:26:53,513 1522754 INFO phase4_commission odoo.modules.loading: loading base/data/res_partner_data.xml 
+2026-11-06 14:26:53,636 1522754 INFO phase4_commission odoo.modules.loading: loading base/data/res_currency_data.xml 
+2026-11-06 14:26:54,730 1522754 INFO phase4_commission odoo.modules.loading: loading base/data/res_company_data.xml 
+2026-11-06 14:26:54,747 1522754 INFO phase4_commission odoo.modules.loading: loading base/data/res_users_data.xml 
+2026-11-06 14:26:57,129 1522754 INFO phase4_commission odoo.modules.loading: loading base/data/report_paperformat_data.xml 
+2026-11-06 14:26:57,146 1522754 INFO phase4_commission odoo.modules.loading: loading base/data/res_country_data.xml 
+2026-11-06 14:26:58,173 1522754 INFO phase4_commission odoo.modules.loading: loading base/data/ir_demo_data.xml 
+2026-11-06 14:26:58,197 1522754 INFO phase4_commission odoo.modules.loading: loading base/security/base_groups.xml 
+2026-11-06 14:26:58,809 1522754 INFO phase4_commission odoo.modules.loading: loading base/security/base_security.xml 
+2026-11-06 14:26:59,197 1522754 INFO phase4_commission odoo.modules.loading: loading base/views/base_menus.xml 
+2026-11-06 14:26:59,348 1522754 INFO phase4_commission odoo.modules.loading: loading base/views/decimal_precision_views.xml 
+2026-11-06 14:26:59,390 1522754 INFO phase4_commission odoo.modules.loading: loading base/views/res_config_views.xml 
+2026-11-06 14:26:59,404 1522754 INFO phase4_commission odoo.modules.loading: loading base/data/res.country.state.csv 
+2026-11-06 14:27:03,142 1522754 INFO phase4_commission odoo.modules.loading: loading base/views/ir_actions_views.xml 
+2026-11-06 14:27:04,612 1522754 INFO phase4_commission odoo.modules.loading: loading base/views/ir_asset_views.xml 
+2026-11-06 14:27:04,917 1522754 INFO phase4_commission odoo.modules.loading: loading base/views/ir_config_parameter_views.xml 
+2026-11-06 14:27:05,146 1522754 INFO phase4_commission odoo.modules.loading: loading base/views/ir_cron_views.xml 
+2026-11-06 14:27:05,448 1522754 INFO phase4_commission odoo.modules.loading: loading base/views/ir_cron_trigger_views.xml 
+2026-11-06 14:27:05,628 1522754 INFO phase4_commission odoo.modules.loading: loading base/views/ir_filters_views.xml 
+2026-11-06 14:27:05,818 1522754 INFO phase4_commission odoo.modules.loading: loading base/views/ir_mail_server_views.xml 
+2026-11-06 14:27:06,031 1522754 INFO phase4_commission odoo.modules.loading: loading base/views/ir_model_views.xml 
+2026-11-06 14:27:07,578 1522754 INFO phase4_commission odoo.modules.loading: loading base/views/ir_attachment_views.xml 
+2026-11-06 14:27:07,801 1522754 INFO phase4_commission odoo.modules.loading: loading base/views/ir_rule_views.xml 
+2026-11-06 14:27:07,990 1522754 INFO phase4_commission odoo.modules.loading: loading base/views/ir_sequence_views.xml 
+2026-11-06 14:27:08,193 1522754 INFO phase4_commission odoo.modules.loading: loading base/views/ir_ui_menu_views.xml 
+2026-11-06 14:27:08,407 1522754 INFO phase4_commission odoo.modules.loading: loading base/views/ir_ui_view_views.xml 
+2026-11-06 14:27:08,976 1522754 INFO phase4_commission odoo.modules.loading: loading base/views/ir_default_views.xml 
+2026-11-06 14:27:09,200 1522754 INFO phase4_commission odoo.modules.loading: loading base/data/ir_config_parameter_data.xml 
+2026-11-06 14:27:09,225 1522754 INFO phase4_commission odoo.modules.loading: loading base/data/ir_cron_data.xml 
+2026-11-06 14:27:09,335 1522754 INFO phase4_commission odoo.modules.loading: loading base/report/ir_model_report.xml 
+2026-11-06 14:27:09,379 1522754 INFO phase4_commission odoo.modules.loading: loading base/report/ir_model_templates.xml 
+2026-11-06 14:27:09,482 1522754 INFO phase4_commission odoo.modules.loading: loading base/views/ir_logging_views.xml 
+2026-11-06 14:27:09,733 1522754 INFO phase4_commission odoo.modules.loading: loading base/views/ir_qweb_widget_templates.xml 
+2026-11-06 14:27:09,838 1522754 INFO phase4_commission odoo.modules.loading: loading base/views/ir_module_views.xml 
+2026-11-06 14:27:10,404 1522754 INFO phase4_commission odoo.modules.loading: loading base/data/ir_module_category_data.xml 
+2026-11-06 14:27:11,207 1522754 INFO phase4_commission odoo.modules.loading: loading base/data/ir_module_module.xml 
+2026-11-06 14:27:11,554 1522754 INFO phase4_commission odoo.modules.loading: loading base/report/ir_module_reports.xml 
+2026-11-06 14:27:11,602 1522754 INFO phase4_commission odoo.modules.loading: loading base/report/ir_module_report_templates.xml 
+2026-11-06 14:27:11,660 1522754 INFO phase4_commission odoo.modules.loading: loading base/wizard/base_module_update_views.xml 
+2026-11-06 14:27:11,825 1522754 INFO phase4_commission odoo.modules.loading: loading base/wizard/base_language_install_views.xml 
+2026-11-06 14:27:11,945 1522754 INFO phase4_commission odoo.modules.loading: loading base/wizard/base_import_language_views.xml 
+2026-11-06 14:27:12,060 1522754 INFO phase4_commission odoo.modules.loading: loading base/wizard/base_module_upgrade_views.xml 
+2026-11-06 14:27:12,256 1522754 INFO phase4_commission odoo.modules.loading: loading base/wizard/base_module_uninstall_views.xml 
+2026-11-06 14:27:12,349 1522754 INFO phase4_commission odoo.modules.loading: loading base/wizard/base_export_language_views.xml 
+2026-11-06 14:27:12,503 1522754 INFO phase4_commission odoo.modules.loading: loading base/wizard/base_partner_merge_views.xml 
+2026-11-06 14:27:12,657 1522754 INFO phase4_commission odoo.modules.loading: loading base/data/ir_demo_failure_data.xml 
+2026-11-06 14:27:12,826 1522754 INFO phase4_commission odoo.modules.loading: loading base/views/ir_profile_views.xml 
+2026-11-06 14:27:13,047 1522754 INFO phase4_commission odoo.modules.loading: loading base/views/res_company_views.xml 
+2026-11-06 14:27:13,253 1522754 INFO phase4_commission odoo.modules.loading: loading base/views/res_lang_views.xml 
+2026-11-06 14:27:13,471 1522754 INFO phase4_commission odoo.modules.loading: loading base/views/res_partner_views.xml 
+2026-11-06 14:27:14,607 1522754 INFO phase4_commission odoo.modules.loading: loading base/views/res_bank_views.xml 
+2026-11-06 14:27:15,046 1522754 INFO phase4_commission odoo.modules.loading: loading base/views/res_country_views.xml 
+2026-11-06 14:27:15,623 1522754 INFO phase4_commission odoo.modules.loading: loading base/views/res_currency_views.xml 
+2026-11-06 14:27:15,994 1522754 INFO phase4_commission odoo.modules.loading: loading base/views/res_users_views.xml 
+2026-11-06 14:27:16,653 1522754 INFO phase4_commission odoo.modules.loading: loading base/views/res_device_views.xml 
+2026-11-06 14:27:16,764 1522754 INFO phase4_commission odoo.modules.loading: loading base/views/res_users_identitycheck_views.xml 
+2026-11-06 14:27:16,794 1522754 INFO phase4_commission odoo.modules.loading: loading base/views/res_config_settings_views.xml 
+2026-11-06 14:27:16,823 1522754 INFO phase4_commission odoo.modules.loading: loading base/views/report_paperformat_views.xml 
+2026-11-06 14:27:16,914 1522754 INFO phase4_commission odoo.modules.loading: loading base/security/ir.model.access.csv 
+2026-11-06 14:27:17,614 1522754 INFO phase4_commission odoo.modules.loading: Module base loaded in 29.32s, 8167 queries (+8167 other) 
+2026-11-06 14:27:17,614 1522754 INFO phase4_commission odoo.modules.loading: 1 modules loaded in 29.32s, 8167 queries (+8167 extra) 
+2026-11-06 14:27:17,676 1522754 INFO phase4_commission odoo.modules.loading: updating modules list 
+2026-11-06 14:27:17,679 1522754 INFO phase4_commission odoo.addons.base.models.ir_module: ALLOW access to module.update_list on [] to user __system__ #1 via n/a 
+2026-11-06 14:27:21,924 1522754 INFO phase4_commission odoo.addons.base.models.ir_module: ALLOW access to module.button_install on ['iSky 18 Real Estate Developer - Commissions & Broker'] to user __system__ #1 via n/a 
+2026-11-06 14:27:22,693 1522754 INFO phase4_commission odoo.modules.loading: loading 150 modules... 
+2026-11-06 14:27:22,693 1522754 INFO phase4_commission odoo.modules.loading: Loading module social_media (2/150) 
+2026-11-06 14:27:22,736 1522754 INFO phase4_commission odoo.modules.registry: module social_media: creating or updating database tables 
+2026-11-06 14:27:22,820 1522754 INFO phase4_commission odoo.modules.loading: loading social_media/views/res_company_views.xml 
+2026-11-06 14:27:22,862 1522754 INFO phase4_commission odoo.modules.loading: Module social_media loaded in 0.17s, 74 queries (+74 other) 
+2026-11-06 14:27:22,862 1522754 INFO phase4_commission odoo.modules.loading: Loading module uom (3/150) 
+2026-11-06 14:27:22,908 1522754 INFO phase4_commission odoo.modules.registry: module uom: creating or updating database tables 
+2026-11-06 14:27:23,030 1522754 INFO phase4_commission odoo.modules.loading: loading uom/data/uom_data.xml 
+2026-11-06 14:27:23,185 1522754 INFO phase4_commission odoo.modules.loading: loading uom/security/uom_security.xml 
+2026-11-06 14:27:23,232 1522754 INFO phase4_commission odoo.modules.loading: loading uom/security/ir.model.access.csv 
+2026-11-06 14:27:23,259 1522754 INFO phase4_commission odoo.modules.loading: loading uom/views/uom_uom_views.xml 
+2026-11-06 14:27:23,386 1522754 INFO phase4_commission odoo.modules.loading: Module uom loaded in 0.52s, 305 queries (+305 other) 
+2026-11-06 14:27:23,386 1522754 INFO phase4_commission odoo.modules.loading: Loading module web (4/150) 
+2026-11-06 14:27:23,477 1522754 INFO phase4_commission odoo.modules.registry: module web: creating or updating database tables 
+2026-11-06 14:27:24,963 1522754 INFO phase4_commission odoo.modules.loading: loading web/security/ir.model.access.csv 
+2026-11-06 14:27:24,980 1522754 INFO phase4_commission odoo.modules.loading: loading web/views/webclient_templates.xml 
+2026-11-06 14:27:25,088 1522754 INFO phase4_commission odoo.modules.loading: loading web/views/report_templates.xml 
+2026-11-06 14:27:25,290 1522754 INFO phase4_commission odoo.modules.loading: loading web/views/base_document_layout_views.xml 
+2026-11-06 14:27:25,316 1522754 INFO phase4_commission odoo.modules.loading: loading web/views/partner_view.xml 
+2026-11-06 14:27:25,328 1522754 INFO phase4_commission odoo.modules.loading: loading web/views/speedscope_template.xml 
+2026-11-06 14:27:25,336 1522754 INFO phase4_commission odoo.modules.loading: loading web/views/neutralize_views.xml 
+2026-11-06 14:27:25,346 1522754 INFO phase4_commission odoo.modules.loading: loading web/data/ir_attachment.xml 
+2026-11-06 14:27:25,355 1522754 INFO phase4_commission odoo.modules.loading: loading web/data/report_layout.xml 
+2026-11-06 14:27:25,641 1522754 INFO phase4_commission odoo.modules.loading: Module web loaded in 2.26s, 1123 queries (+1123 other) 
+2026-11-06 14:27:25,642 1522754 INFO phase4_commission odoo.modules.loading: Loading module attachment_indexation (5/150) 
+2026-11-06 14:27:25,643 1522754 WARNING phase4_commission odoo.addons.attachment_indexation.models.ir_attachment: Attachment indexation of PDF documents is unavailable because the 'pdfminer' Python library cannot be found on the system. You may install it from https://pypi.org/project/pdfminer.six/ (e.g. `pip3 install pdfminer.six`) 
+2026-11-06 14:27:25,695 1522754 INFO phase4_commission odoo.modules.registry: module attachment_indexation: creating or updating database tables 
+2026-11-06 14:27:25,775 1522754 INFO phase4_commission odoo.modules.loading: Module attachment_indexation loaded in 0.13s, 29 queries (+29 other) 
+2026-11-06 14:27:25,775 1522754 INFO phase4_commission odoo.modules.loading: Loading module auth_totp (6/150) 
+2026-11-06 14:27:25,847 1522754 INFO phase4_commission odoo.modules.registry: module auth_totp: creating or updating database tables 
+2026-11-06 14:27:25,973 1522754 INFO phase4_commission odoo.modules.loading: loading auth_totp/security/security.xml 
+2026-11-06 14:27:26,031 1522754 INFO phase4_commission odoo.modules.loading: loading auth_totp/security/ir.model.access.csv 
+2026-11-06 14:27:26,049 1522754 INFO phase4_commission odoo.modules.loading: loading auth_totp/data/ir_action_data.xml 
+2026-11-06 14:27:26,060 1522754 INFO phase4_commission odoo.modules.loading: loading auth_totp/views/res_users_views.xml 
+2026-11-06 14:27:26,128 1522754 INFO phase4_commission odoo.modules.loading: loading auth_totp/views/templates.xml 
+2026-11-06 14:27:26,139 1522754 INFO phase4_commission odoo.modules.loading: loading auth_totp/wizard/auth_totp_wizard_views.xml 
+2026-11-06 14:27:26,183 1522754 INFO phase4_commission odoo.modules.loading: Module auth_totp loaded in 0.41s, 188 queries (+188 other) 
+2026-11-06 14:27:26,183 1522754 INFO phase4_commission odoo.modules.loading: Loading module base_import (7/150) 
+2026-11-06 14:27:26,674 1522754 INFO phase4_commission odoo.modules.registry: module base_import: creating or updating database tables 

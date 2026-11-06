@@ -10,7 +10,7 @@ class PermissionRequest(models.Model):
     _order = 'create_date desc'
 
     name = fields.Char(string='Reference', required=True, copy=False, readonly=True,
-                       default=lambda self: _('New'))
+                       default='New')
     requester_id = fields.Many2one('res.users', string='Requester',default=lambda self: self.env.user,readonly=True)
     team_id = fields.Many2one('crm.team', string='Sales Team', related='requester_id.sale_team_id', store=True)
     request_type = fields.Selection([

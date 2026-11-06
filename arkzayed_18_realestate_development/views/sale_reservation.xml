@@ -40,7 +40,7 @@
 
                     <button name="action_exception_reservation" string="Exception Reservation" type="object"
                             class="btn-warning"
-                            groups="arkzayed_18_realestate_development.group_exception_reservation"
+                            groups="isky_18_realestate_developer_sales_crm.group_exception_reservation"
                             invisible="state not in ['draft', 'on_hold', 'initial_reservation']"/>
 
                     <button name="action_calculate_installments"
@@ -58,7 +58,7 @@
                             invisible="maintenance != True or state not in ['draft', 'initial_reservation', 'reserved','on_hold']"/>
 
                     <button name="action_confirm" type="object" string="Confirm"
-                            groups="arkzayed_18_realestate_development.group_confirm_reservation"
+                            groups="isky_18_realestate_developer_sales_crm.group_confirm_reservation"
                             class="btn-primary" invisible="state not in ['draft', 'initial_reservation', 'on_hold']"/>
 
                     <button name="create_payment" type="object" string="Create Payment"
@@ -234,7 +234,7 @@
                         <group string="Discount Details">
                             <field name="contracted_selling_price" readonly="state in ['paid', 'contracted']" force_save="1" string="Price Before Discount"/>
                             <field name="can_edit_discount_percentage" invisible="1"/>
-                            <field name="discount_percentage" groups="arkzayed_18_realestate_development.group_show_discount_percentage" readonly="not can_edit_discount_percentage"/>
+                            <field name="discount_percentage" groups="isky_18_realestate_developer_sales_crm.group_show_discount_percentage" readonly="not can_edit_discount_percentage"/>
                             <field name="price_after_discount" readonly="not can_edit_discount_percentage" string="Value"/>
                             <field name="discount_approved_by" readonly="not can_edit_discount_percentage"/>
                         </group>

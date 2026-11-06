@@ -26,7 +26,6 @@
     "data": [
         # security
         'security/security.xml',
-        'security/construction_progress_security.xml',
         'security/ir.model.access.csv',
         # data
         'data/ir_sequence.xml',

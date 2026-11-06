@@ -15,7 +15,11 @@ ALL_PHONE_FIELDS = ['phone', 'mobile', 'phone1', 'phone2', 'phone3', 'phone4']
 
 
 class CrmLead(models.Model):
-    _inherit = 'crm.lead'
+    # _name is required alongside a list _inherit when extending an existing model:
+    # without it Odoo treats the class as a new anonymous model and the inherited
+    # Many2many relations collide on their table names.
+    _name = 'crm.lead'
+    _inherit = ['crm.lead', 'realestate.sales.commission.hooks']
     _rec_name = 'opportunity_sequence'
 
     #this is a pretty silly way but simple enough to count leads in ninja dashboard
@@ -25,8 +29,13 @@ class CrmLead(models.Model):
         'Opportunity', index='trigram', required=False,
         compute='_compute_name', readonly=False, store=True, tracking=True)
 
-    lead_sequence = fields.Char(index='trigram', readonly=True, default=lambda self: _('New'), copy=False)
-    opportunity_sequence = fields.Char(index='trigram', readonly=True, default=lambda self: _('New'))
+    # Plain 'New' default, not translated: a translated default (_('New')) resolves the
+    # current user's language via a res.partner read, which can hit a column that hasn't been
+    # schema-synced yet when installing fresh with other new res.partner fields in the same
+    # module (sales_crm adds several) - this is just a placeholder immediately overwritten by
+    # a real sequence number once saved, so it doesn't need translating.
+    lead_sequence = fields.Char(index='trigram', readonly=True, default='New', copy=False)
+    opportunity_sequence = fields.Char(index='trigram', readonly=True, default='New')
     lead_stage_id = fields.Many2one('lead.stage')
     first_assignment_date = fields.Datetime(compute='_compute_first_assignment_date', store=True)
 
@@ -316,8 +325,9 @@ class CrmLead(models.Model):
     conflict_opp = fields.Many2one('crm.lead', string='Parent Conflict Opportunity')
     conflict_opp_ids = fields.Many2many('crm.lead', 'opp_rel_conflict_id', 'opp_id', 'conflict_id',
                                         string='Conflict Opportunities')
-    commission_ids = fields.One2many('commission.commission', 'opportunity_id', compute='compute_person_hierarchy',
-                                     store=True, readonly=False)
+    # commission_ids moved to isky_18_realestate_developer_commission (Phase 4, D1): the line
+    # model realestate.commission is L3's own, and it replaced the near-duplicate
+    # commission.commission that used to live here.
     gender = fields.Selection([('male', 'Male'), ('female', 'Female')])
     marital_status = fields.Selection([('single', 'Single'),
                                        ('married', 'Married'),
@@ -1491,53 +1501,11 @@ class CrmLead(models.Model):
         else:
             return False
 
-    @api.depends('user_id', 'sales_ids', 'split_deal')
-    def compute_person_hierarchy(self):
-        """Compute commission hierarchy for sales opportunities."""
-        for rec in self:
-            if rec.type != 'opportunity':
-                rec.commission_ids = []
-                continue
-            hierarchy_lines = self._get_hierarchy_lines(rec)
-            rec.commission_ids = self._create_commission_commands(rec, hierarchy_lines)
-
-    def _get_hierarchy_lines(self, record):
-        """Get unique hierarchy lines for team members."""
-        unique_users = set(self._get_team_users(record.user_id))
-        if record.split_deal and record.sales_ids:
-            for user in record.sales_ids:
-                unique_users.update(self._get_team_users(user._origin))
-
-        return filter(None, unique_users)
-
-    def _get_team_users(self, user):
-        """Get team users for a given user based on job level."""
-        result = set()
-        if user.job_level_id.is_sales_person:
-            team = self.env['crm.team.member'].search([('user_id', '=', user.id)], limit=1).crm_team_id
-            result.update([user, team.user_id, team.director_id, team.sales_manager_id])
-        # elif user.job_level_id.is_team_leader:
-        #     team = self.env['crm.team'].search([('user_id', '=', user.id)], limit=1)
-        #     result.update([user, team.director_id, team.sales_manager_id])
-        elif user.job_level_id.is_sales_manager:
-            team = self.env['crm.team'].search([('sales_manager_id', '=', user.id)], limit=1)
-            result.update([user, team.director_id])
-        elif user.job_level_id.is_directory:
-            result.add(user)
-        return filter(None, result)
-
-    def _create_commission_commands(self, record, hierarchy_lines):
-        """Create commission commands for the given hierarchy lines."""
-        unlink_cmds = [Command.unlink(line.id) for line in record.commission_ids]
-
-        create_cmds = [
-            Command.create({
-                'opportunity_id': record.id,
-                'employee_id': user.id,
-            })
-            for user in hierarchy_lines
-        ]
-        return unlink_cmds + create_cmds
+    # compute_person_hierarchy(), _get_hierarchy_lines(), _get_team_users() and
+    # _create_commission_commands() moved to
+    # isky_18_realestate_developer_commission (Phase 4, D2): all four documents now share
+    # realestate.commission.hierarchy.engine. This copy omitted Sales Sector Manager and
+    # included team.user_id, neither of which the other three did.
 
     def update_split_deal(self, **vals):
         self.browse().check_access('write')
@@ -2203,14 +2171,7 @@ class CrmLead(models.Model):
         }
 
     def _reservation_values(self):
-        commission_lines = []
-        if self.commission_ids:
-            for commission in self.commission_ids:
-                commission_lines.append(Command.create({
-                    'employee_id': commission.employee_id.id,
-                    'jop_position': commission.jop_position,
-                    'commission': commission.commission,
-                }))
+        commission_lines = self._commission_lines_for_copy()
 
         # Prepare reservation values
         reservation_vals = {
@@ -2324,15 +2285,8 @@ class CrmLead(models.Model):
         # Create contract
         contract_id = self.env['sale.proposal'].create(contract_vals)
 
-        # Copy commission lines from reservation to contract
-        if self.commission_ids:
-            for commission in self.commission_ids:
-                self.env['realestate.commission'].create({
-                    'sale_proposal_id': contract_id.id,
-                    'employee_id': commission.employee_id.id,
-                    'jop_position': commission.jop_position,
-                    'commission': commission.commission,
-                })
+        # Copy commission lines onto the contract (no-op without the L3 commission module)
+        self._copy_commission_to_contract(contract_id)
 
         return {
             'type': 'ir.actions.act_window',

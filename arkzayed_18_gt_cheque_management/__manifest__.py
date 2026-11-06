@@ -91,6 +91,13 @@ cheques management in odoo
 
 
         'wizard/under_collected_wizard.xml',
+        # Phase 2b: cash-in-out statement. journal_entries_report.xml and
+        # journal_entries_template.xml were never registered, so
+        # account_cash_in_out_report did not exist as an xmlid and the button that
+        # referenced it was broken unconditionally.
+        'report/journal_entries_report.xml',
+        'report/journal_entries_template.xml',
+        'views/account_move_views.xml',
     ],
     'qweb' : [
     ],

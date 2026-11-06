@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+        <!-- Phase 3 step 2a: 8 groups moved out of this module - 7 to
+             isky_18_realestate_developer_sales_crm (they gate sale.proposal / reservation
+             behaviour) and group_block_unit to isky_18_realestate_developer_unit_inventory
+             (it gates blocking a unit). They were unreachable from those modules here. -->
 
         <record id="module_category_engineer_menu" model="ir.module.category">
             <field name="name">Engineer Menu</field>
@@ -29,17 +33,9 @@
             <field name="name">Can Reserve Available Units</field>
         </record>
 
-        <record id="group_show_discount_percentage" model="res.groups">
-            <field name="name">Show Discount Percentage</field>
-        </record>
-        <record id="group_edit_discount_percentage" model="res.groups">
-            <field name="name">Edit Discount Percentage</field>
-            <field name="implied_ids" eval="[(4, ref('group_show_discount_percentage'))]"/>
-        </record>
-
         <record id="crm_team_company_rule" model="ir.rule">
             <field name="name">crm_team_company_rule</field>
-            <field name="model_id" ref="model_crm_team"/>
+            <field name="model_id" ref="crm.model_crm_team"/>
             <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
         </record>
 
@@ -52,13 +48,13 @@
 
         <record id="project_assignees_rule" model="ir.rule">
             <field name="name">Project Assignees</field>
-            <field name="model_id" ref="model_project_project"/>
+            <field name="model_id" ref="project.model_project_project"/>
             <field name="global" eval="True"/>
             <field name="domain_force">[('assignees_ids', 'in', [user.id])]</field>
         </record>
         <record id="task_assignees_rule" model="ir.rule">
             <field name="name">Task Assignees</field>
-            <field name="model_id" ref="model_project_task"/>
+            <field name="model_id" ref="project.model_project_task"/>
             <field name="global" eval="True"/>
             <field name="domain_force">[('assignees_ids', 'in', [user.id])]</field>
         </record>
@@ -71,21 +67,6 @@
             <field name="name">Payment Deputy CFO</field>
         </record>
 
-        <record id="group_finance_approval" model="res.groups">
-            <field name="name">Finance Approval</field>
-            <field name="category_id" ref="isky_18_realestate_developer_unit_inventory.module_category_real_state_project_assigned"/>
-        </record>
-
-        <record id="group_finance_two_approval" model="res.groups">
-            <field name="name">Second Finance Approval</field>
-            <field name="category_id" ref="isky_18_realestate_developer_unit_inventory.module_category_real_state_project_assigned"/>
-        </record>
-
-        <record id="group_manager_approval" model="res.groups">
-            <field name="name">Manager Approval</field>
-            <field name="category_id" ref="isky_18_realestate_developer_unit_inventory.module_category_real_state_project_assigned"/>
-        </record>
-
         <record id="group_operation_manager_approval" model="res.groups">
             <field name="name">Operation Manager Approval</field>
             <field name="category_id" ref="isky_18_realestate_developer_unit_inventory.module_category_real_state_project_assigned"/>
@@ -93,22 +74,22 @@
 
         <record id="revenue_share2_company_rule" model="ir.rule">
             <field name="name">revenue share2 company</field>
-            <field name="model_id" ref="model_revenue_share2"/>
+            <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_revenue_share2"/>
             <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
         </record>
         <record id="eoi_eoi_company_rule" model="ir.rule">
             <field name="name">eoi eoi company</field>
-            <field name="model_id" ref="model_eoi_eoi"/>
+            <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_eoi_eoi"/>
             <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
         </record>
         <record id="sale_proposal_company_rule" model="ir.rule">
             <field name="name">sale proposal company</field>
-            <field name="model_id" ref="model_sale_proposal"/>
+            <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_sale_proposal"/>
             <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
         </record>
         <record id="sale_reservation_company_rule" model="ir.rule">
             <field name="name">sale reservation company</field>
-            <field name="model_id" ref="model_real_estate_sale_reservation"/>
+            <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_real_estate_sale_reservation"/>
             <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
         </record>
         <record id="broker_contract_company_rule" model="ir.rule">
@@ -123,7 +104,7 @@
         </record>
         <record id="maintenance_template_company_rule" model="ir.rule">
             <field name="name">Maintenance Template: Restrict by Company</field>
-            <field name="model_id" ref="model_maintenance_template"/>
+            <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_maintenance_template"/>
             <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
         </record>
         <record id="project_commission_company_rule" model="ir.rule">
@@ -133,7 +114,7 @@
         </record>
         <record id="customer_ownership_company_rule" model="ir.rule">
             <field name="name">Customer Ownership: Restrict by Company</field>
-            <field name="model_id" ref="model_customer_ownership"/>
+            <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_customer_ownership"/>
             <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
         </record>
         <record id="capex_scope_company_rule" model="ir.rule">
@@ -143,16 +124,8 @@
         </record>
         <record id="installment_template_company_rule" model="ir.rule">
             <field name="name">Installment Template: Restrict by Company</field>
-            <field name="model_id" ref="model_installment_template"/>
+            <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_installment_template"/>
             <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
-        </record>
-        <record id="group_vendor_commitment_user" model="res.groups">
-            <field name="name">Vendor Commitment User</field>
-            <field name="category_id" ref="isky_18_realestate_developer_unit_inventory.module_category_real_state_project_assigned"/>
-        </record>
-        <record id="group_exception_reservation" model="res.groups">
-            <field name="name">Exception Reservation</field>
-            <field name="category_id" ref="isky_18_realestate_developer_unit_inventory.module_category_real_state_project_assigned"/>
         </record>
         <record id="group_create_contract" model="res.groups">
             <field name="name">Create Contract Before Confirmation</field>
@@ -181,14 +154,6 @@
             <field name="name">Reservation: Create Contract</field>
             <field name="category_id" ref="isky_18_realestate_developer_unit_inventory.module_category_real_state_project_assigned"/>
         </record>
-        <record id="group_confirm_reservation" model="res.groups">
-            <field name="name">Reservation: Confirm Reservation</field>
-            <field name="category_id" ref="isky_18_realestate_developer_unit_inventory.module_category_real_state_project_assigned"/>
-        </record>
-        <record id="group_block_unit" model="res.groups">
-            <field name="name">Block Unit</field>
-            <field name="category_id" ref="isky_18_realestate_developer_unit_inventory.module_category_real_state_project_assigned"/>
-        </record>
         <record id="vendor_commitment_company_rule" model="ir.rule">
             <field name="name">Vendor Commitment: Restrict by Company</field>
             <field name="model_id" ref="isky_18_realestate_developer_construction.model_vendor_commitment"/>
@@ -203,16 +168,9 @@
             <field name="category_id" ref="isky_18_realestate_developer_unit_inventory.module_category_real_state_project_assigned"/>
         </record>
 
-        <!-- Ticking an installment as Paid by hand counts money that has no payment or cheque
-             behind it, so it is reserved to the accountants the client puts in this group. -->
-        <record id="group_manual_paid_installment" model="res.groups">
-            <field name="name">Can Tick Installments as Paid</field>
-            <field name="category_id" ref="isky_18_realestate_developer_unit_inventory.module_category_real_state_project_assigned"/>
-        </record>
-        <function model="res.users" name="write">
-            <value model="res.users" eval="[ref('base.user_admin')]"/>
-            <value eval="{'groups_id': [Command.link(ref('arkzayed_18_realestate_development.group_manual_paid_installment'))]}"/>
-        </function>
+        <!-- group_manual_paid_installment moved to
+             isky_18_realestate_developer_sales_crm/security/security.xml (Phase 3 step 1):
+             it gates an installment.lines action, which is a sales_crm model. -->
     </data>
 
     <data noupdate="1">

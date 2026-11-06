@@ -19,6 +19,16 @@
             <field name="model_id" ref="model_real_estate_nearby_connectivity"/>
             <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
         </record>
+        <!-- Phase 3 step 2a: moved here from arkzayed_18_realestate_development. It gates
+             blocking a UNIT, so it belongs in L0. Both L0 (real_estate_unit.py) and L2
+             (sale_request.py) call has_group() on it, and neither depends on the monolith, so
+             it returned False for every user and unit blocking was silently permitted to
+             nobody. L2 reaches it here because sales_crm depends on L0. -->
+        <record id="group_block_unit" model="res.groups">
+            <field name="name">Block Unit</field>
+            <field name="category_id" ref="module_category_real_state_project_assigned"/>
+        </record>
+
         <record id="real_state_project_user_group" model="res.groups">
             <field name="name">User</field>
             <field name="category_id" ref="module_category_real_state_project_assigned"/>

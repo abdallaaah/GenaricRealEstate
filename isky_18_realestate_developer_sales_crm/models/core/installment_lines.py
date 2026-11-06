@@ -4,7 +4,10 @@ from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.tools.translate import _
 
 # Ticking an installment as Paid by hand counts money that has no payment or cheque behind it.
-MANUAL_PAID_GROUP = 'arkzayed_18_realestate_development.group_manual_paid_installment'
+# Defined in this module's own security/security.xml (Phase 3 step 1): it gates an
+# installment.lines action, and while it lived in the monolith sales_crm did not depend on
+# that module, so has_group() always returned False and the button was dead.
+MANUAL_PAID_GROUP = 'isky_18_realestate_developer_sales_crm.group_manual_paid_installment'
 
 
 class LoanLine(models.Model):
@@ -34,7 +37,7 @@ class LoanLine(models.Model):
         help="Outstanding amount still to be collected."
     )
     payment_ids = fields.One2many('account.payment', 'installment_line_id', string="Payments")
-    cheque_ids = fields.One2many('cheque.manage', 'installment_line_id', string="Cheques")
+    # cheque_ids moved to isky_18_realestate_developer_sales_cheques (Phase 3 step 3).
 
     paid = fields.Boolean(
         "Paid",
@@ -46,6 +49,10 @@ class LoanLine(models.Model):
              "'Can Tick Installments as Paid': a ticked installment then counts as fully "
              "collected, even for the part no payment or cheque covers."
     )
+    # Supplement S2: "Setting Paid stores date and user". Recorded as fields, not only in the
+    # chatter, so Mode B has a queryable record of who acknowledged the money and when.
+    paid_date = fields.Datetime(string='Paid On', readonly=True, copy=False)
+    paid_by_id = fields.Many2one('res.users', string='Paid By', readonly=True, copy=False)
 
     company_id = fields.Many2one("res.company", string="Company", default=lambda self: self.env.company)
 
@@ -72,7 +79,8 @@ class LoanLine(models.Model):
 
     # Computed fields for view state badges
     payment_state = fields.Char(string="Payment State", compute="_compute_states")
-    cheque_state = fields.Char(string="Cheque State", compute="_compute_states")
+    # cheque_state moved to isky_18_realestate_developer_sales_cheques; the bridge also
+    # extends _compute_states to fill it.
 
     tax_ids = fields.Many2many("account.tax", string="Tax")
     vat_id = fields.Many2one("account.tax", string="Vat")
@@ -97,17 +105,14 @@ class LoanLine(models.Model):
         string='Allocated Payments',
         compute='_compute_allocated_records'
     )
-    allocated_cheque_ids = fields.Many2many(
-        'cheque.manage',
-        string='Allocated Cheques',
-        compute='_compute_allocated_records'
-    )
+    # allocated_cheque_ids moved to isky_18_realestate_developer_sales_cheques.
 
-    @api.depends('allocation_ids.payment_id', 'allocation_ids.cheque_id')
+    # S6: base depends on payment paths only; sales_cheques redeclares with the cheque paths
+    # added, calls super(), and fills allocated_cheque_ids.
+    @api.depends('allocation_ids.payment_id')
     def _compute_allocated_records(self):
         for rec in self:
             rec.allocated_payment_ids = rec.allocation_ids.mapped('payment_id')
-            rec.allocated_cheque_ids = rec.allocation_ids.mapped('cheque_id')
 
     @api.depends('allocation_ids.payment_id.move_id.amount_residual')
     def _compute_amount_residual(self):
@@ -119,11 +124,11 @@ class LoanLine(models.Model):
             else:
                 rec.amount_residual = 0.0
 
-    @api.depends('allocation_ids.payment_id', 'allocation_ids.cheque_id')
+    @api.depends('allocation_ids.payment_id')
     def _compute_payment_method_used(self):
         for rec in self:
             has_payment = any(alloc.payment_id for alloc in rec.allocation_ids)
-            has_cheque = any(alloc.cheque_id for alloc in rec.allocation_ids)
+            has_cheque = rec._has_cheque_allocation()
 
             if has_payment and has_cheque:
                 rec.payment_method_used = 'both'
@@ -134,14 +139,13 @@ class LoanLine(models.Model):
             else:
                 rec.payment_method_used = False
 
-    @api.depends('allocation_ids.payment_id.state', 'allocation_ids.cheque_id.state')
+    # S6: base computes payment_state only; sales_cheques redeclares with the cheque paths
+    # added, calls super(), and fills cheque_state.
+    @api.depends('allocation_ids.payment_id.state')
     def _compute_states(self):
-        """Summarizes the state of linked payments/cheques for the UI badge"""
+        """Summarizes the state of linked payments for the UI badge"""
         EXCLUDED_PAYMENT_STATES = ('canceled', 'rejected')
         PAID_PAYMENT_STATES = ('paid',)
-
-        EXCLUDED_CHEQUE_STATES = ('cancel', 'return_to_client', 'bounce')
-        DONE_CHEQUE_STATES = ('done',)
 
         for rec in self:
             # 1. Payment State Logic
@@ -159,20 +163,6 @@ class LoanLine(models.Model):
             else:
                 rec.payment_state = False
 
-            # 2. Cheque State Logic
-            valid_cheques = rec.allocation_ids.mapped('cheque_id').filtered(
-                lambda c: c.state not in EXCLUDED_CHEQUE_STATES
-            )
-
-            if valid_cheques:
-                if all(c.state in DONE_CHEQUE_STATES for c in valid_cheques):
-                    rec.cheque_state = 'done'
-                elif any(c.state in DONE_CHEQUE_STATES for c in valid_cheques):
-                    rec.cheque_state = 'partial'
-                else:
-                    rec.cheque_state = 'draft'
-            else:
-                rec.cheque_state = False
 
     @api.depends('is_sale_proposal_vip')
     def _compute_vip_badge(self):
@@ -256,10 +246,11 @@ class LoanLine(models.Model):
         for rec in self:
             rec.total_amount = (rec.vat_id.amount / 100) * rec.amount + rec.amount
 
+    # S6: base depends on payment paths only; sales_cheques redeclares with the cheque paths
+    # added, calls super(), and extends _allocation_is_collected().
     @api.depends(
         'allocation_ids.allocated_amount',
         'allocation_ids.payment_id.state',
-        'allocation_ids.cheque_id.state',
         'total_amount',
     )
     def _compute_paid_remaining(self):
@@ -269,22 +260,27 @@ class LoanLine(models.Model):
         - Payments: 'paid'
         - Cheques:  'done'
         """
-        VALID_PAYMENT_STATES = ('paid')
-        VALID_CHEQUE_STATES = ('done')
-
         for rec in self:
             # Sum up strictly collected/paid allocations for THIS line
             direct_paid = 0.0
             for alloc in rec.allocation_ids:
-                if alloc.payment_id and alloc.payment_id.state in VALID_PAYMENT_STATES:
-                    direct_paid += alloc.allocated_amount
-                elif alloc.cheque_id and alloc.cheque_id.state in VALID_CHEQUE_STATES:
+                if rec._allocation_is_collected(alloc):
                     direct_paid += alloc.allocated_amount
 
             # Compute paid and remaining purely based on allocated records
             line_total = rec.total_amount or 0.0
             rec.paid_amount = min(line_total, direct_paid)
             rec.remaining_amount = max(0.0, line_total - rec.paid_amount)
+
+    def _allocation_is_collected(self, alloc):
+        """Delegates to payment.allocation._is_collected(), the one shared definition of
+        "collected". Kept as a hook so call sites on this model read naturally."""
+        return alloc._is_collected()
+
+    def _has_cheque_allocation(self):
+        """Whether any allocation on this line is a cheque. Base: never (no cheque module).
+        sales_cheques overrides it."""
+        return False
 
     @api.depends('remaining_amount', 'total_amount')
     def _compute_paid(self):
@@ -386,91 +382,9 @@ class LoanLine(models.Model):
             'context': {'create': False},
         }
 
-    def make_cheque_payment(self):
-        """Create a cheque.manage record AND allocate it"""
-        self.ensure_one()
-
-        # Check remaining amount
-        if self.remaining_amount <= 0.0:
-            raise ValidationError(_("This installment is already fully paid."))
-
-        # Get the cheque journal from config
-        journal_param = self.env["ir.config_parameter"].sudo().get_param("arkzayed_18_gt_cheque_management.journal_id")
-        if not journal_param:
-            raise ValidationError(_("Please configure the cheque journal in settings."))
-
-        journal = self.env['account.journal'].browse(int(journal_param))
-        if not journal.exists():
-            raise ValidationError(_("The configured cheque journal does not exist."))
-
-        proposal = self.sale_proposal_id
-        reservation = self.reservation_id or (proposal.sale_contract_reservation_id if proposal else False)
-        eoi = (proposal.eoi_id if proposal else False) or (reservation.eoi_id if reservation else False)
-
-        # Create cheque
-        cheque_vals = {
-            'name': f'{self.sale_proposal_id.name} - {self.name}',
-            'payer': self.sale_proposal_id.customer_id.id,
-            'bank_id': self.sale_proposal_id.bank_id.id if self.sale_proposal_id.bank_id else False,
-            'amount': self.remaining_amount,
-            'cheque_date': self.date,
-            'cheque_receive_date': fields.Date.today(),
-            'state': 'draft',
-            'cheq_type': 'incoming',
-            'description': f'{self.sale_proposal_id.name} - {self.name}',
-            'sale_proposal_id': proposal.id if proposal else False,
-            'sale_reservation_id': reservation.id if reservation else False,
-            'eoi_id': eoi.id if eoi else False,
-            'unit_id': self.unit_id.id if self.unit_id else False,
-            'journal_id': journal.id,
-            'source_type': 'installment',
-            'from_contract': self.env.context.get('from_contract', False),
-            'from_reservation': self.env.context.get('from_reservation', False),
-        }
-
-        cheque = self.env['cheque.manage'].create(cheque_vals)
-
-        # --- NEW: CREATE THE ALLOCATION RECORD! ---
-        self.env['payment.allocation'].create({
-            'cheque_id': cheque.id,
-            'installment_id': self.id,
-            'allocated_amount': self.remaining_amount
-        })
-        # ------------------------------------------
-
-        # Mark payment method
-        self.write({
-            'payment_method_used': 'cheque'
-        })
-
-        # Return action to view the created cheque
-        return {
-            'name': _('Cheque'),
-            'view_mode': 'form',
-            'res_model': 'cheque.manage',
-            'res_id': cheque.id,
-            'type': 'ir.actions.act_window',
-            'context': {'create': False},
-        }
-
-    def view_cheque(self):
-        """Open the associated cheque records using the allocation table."""
-        self.ensure_one()
-
-        # Look through allocations to find the cheques
-        linked_cheques = self.allocation_ids.mapped('cheque_id')
-
-        if not linked_cheques:
-            raise ValidationError(_("No cheques have been allocated to this installment yet."))
-
-        return {
-            'name': _('Cheques'),
-            'view_mode': 'list,form',
-            'res_model': 'cheque.manage',
-            'domain': [('id', 'in', linked_cheques.ids)],
-            'type': 'ir.actions.act_window',
-            'context': {'create': False},
-        }
+    # make_cheque_payment() and view_cheque() moved to
+    # isky_18_realestate_developer_sales_cheques (Phase 3 step 3): both are cheque features
+    # and need the optional L1 cheque module.
 
     def _check_manual_paid_group(self):
         """Ticking Paid by hand is reserved to one group; the automatic tick is not affected
@@ -489,7 +403,12 @@ class LoanLine(models.Model):
         for rec in self:
             if rec.paid:
                 continue
-            rec.with_context(mark_fully_paid=True).write({'paid': True})
+            rec.with_context(mark_fully_paid=True).write({
+                'paid': True,
+                # S2: store date and user on the manual tick.
+                'paid_date': fields.Datetime.now(),
+                'paid_by_id': self.env.uid,
+            })
             if rec.sale_proposal_id:
                 # _message_log and not message_post: this only has to show up in the chatter, and
                 # it must work for a user whose partner has no e-mail address.

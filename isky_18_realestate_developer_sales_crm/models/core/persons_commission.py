@@ -2,6 +2,17 @@ from odoo import models, fields, api
 
 class PersonCommission(models.Model):
 
+    # DEPRECATED (Phase 4, D1). Superseded by realestate.commission in
+    # isky_18_realestate_developer_commission, which carries all four document FKs. Nothing
+    # reads or writes this model any more: crm.lead.commission_ids was its only user and now
+    # points at the L3 model.
+    #
+    # Kept defined rather than deleted for one reason: the legacy
+    # arkzayed_18_realestate_developer_crm/security/ir.model.access.csv references
+    # model_commission_commission, and the legacy-edit authorisation of 2026-11-06 covers
+    # view and menu records only, not ACLs. Deleting the model would break that module's
+    # install. Remove both together when the monolith security files can be touched.
+    # Backlog #43.
     _name = "commission.commission"
 
     opportunity_id = fields.Many2one('crm.lead')

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Sales-coupled parts of account.payment's view, moved here from
+         isky_18_realestate_developer_accounting alongside the fields they display
+         (eoi/sale_proposal/sale_reservation/unit/allocations/collection entry). The
+         accounting bridge keeps its own separate inherit of the same base view for the
+         fields that stayed there (approval workflow, currency conversion, credit card). -->
+    <record id="account_payment_form_view_inherit_crm" model="ir.ui.view">
+        <field name="name">account.payment.form.view.inherit.crm</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button class="oe_stat_button" type="object" name="action_view_collection_entry"
+                        icon="fa-book" invisible="collection_entry_count == 0">
+                    <field name="collection_entry_count" widget="statinfo" string="Collection Entry"/>
+                </button>
+            </xpath>
+
+            <xpath expr="//field[@name='memo']" position="after">
+                <field name="realestate_related_seq" readonly="1" invisible="payment_type != 'inbound'"/>
+            </xpath>
+
+            <xpath expr="//field[@name='partner_bank_id']" position="after">
+                <!-- Phase 3 step 2a: sales-owned flag, moved here with the field -->
+                <field name="is_down_payment" readonly="state == 'posted'" invisible="payment_type == 'outbound'"/>
+                <field name="from_eoi" readonly="id" invisible="payment_type != 'inbound'"/>
+                <field name="from_reservation" readonly="id" invisible="payment_type != 'inbound'"/>
+                <field name="from_contract" readonly="id" invisible="payment_type != 'inbound'"/>
+
+                <field name="eoi_id" readonly="state == 'posted'"/>
+                <field name="sale_proposal_id" readonly="state == 'posted'"/>
+                <field name="additional_proposal_ids" widget="many2many_tags"
+                       options="{'no_create': True}"
+                       readonly="state != 'draft'"
+                       invisible="payment_type != 'inbound' or not sale_proposal_id"
+                       domain="[('customer_id', '=', partner_id), ('id', '!=', sale_proposal_id), ('state', 'not in', ['cancelled', 'terminated'])]"/>
+                <field name="additional_unit_ids" widget="many2many_tags"
+                       options="{'no_create': True}"
+                       readonly="state != 'draft'"
+                       invisible="payment_type != 'inbound' or not sale_proposal_id"
+                       domain="[('sale_contract_id.customer_id', '=', partner_id), ('sale_contract_id', '!=', sale_proposal_id)]"/>
+                <field name="sale_reservation_id" readonly="state == 'posted'"/>
+                <field name="unit_id" readonly="state == 'posted'"
+                       domain="[('sale_contract_id.customer_id', '=', partner_id)] if partner_id else [('sale_contract_id', '!=', False)]"/>
+            </xpath>
+            <xpath expr="//group[@name='main_group']" position="after">
+                <group>
+                    <group string="Info">
+                        <field name="contract_type"/>
+                    </group>
+                </group>
+            </xpath>
+
+            <!-- Installment Allocations Tab -->
+            <xpath expr="//sheet" position="inside">
+                <notebook>
+                    <page name="installment_allocations" string="Installment Allocations" invisible="not sale_proposal_id and not sale_reservation_id">
+                        <field name="available_installment_ids" invisible="1"/>
+                        <field name="available_maintenance_ids" invisible="1"/>
+                        <group>
+                            <field name="unallocated_amount" readonly="1"/>
+                        </group>
+                        <field name="allocation_ids" readonly="state != 'draft'">
+                            <list editable="bottom">
+                                <field name="installment_id" domain="[('id', 'in', parent.available_installment_ids)]"/>
+                                <field name="maintenance_id" domain="[('id', 'in', parent.available_maintenance_ids)]"/>
+                                <field name="source_doc" readonly="1"/>
+                                <field name="label"/>
+                                <field name="line_date" readonly="1"/>
+                                <field name="line_remaining_amount" readonly="1"/>
+                                <field name="allocated_amount" sum="Total Allocated"/>
+                            </list>
+                        </field>
+                    </page>
+                </notebook>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="account_payment_list_view_inherit_crm" model="ir.ui.view">
+        <field name="name">account.payment.list.view.inherit.crm</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//list/field[@name='state']" position="before">
+                <field name="sale_proposal_id" string="Contract"/>
+                <field name="sale_reservation_id" string="Reservation"/>
+                <field name="unit_id" string="Unit"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_account_payment_search_inherit_crm" model="ir.ui.view">
+        <field name="name">account.payment.searh.view.inherit.crm</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="realestate_related_seq" string="Realestate Related Sequence"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

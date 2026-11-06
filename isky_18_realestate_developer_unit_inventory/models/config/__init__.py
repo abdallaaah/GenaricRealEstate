@@ -21,3 +21,9 @@ from . import res_country
 from . import developer_project
 from . import neighborhood
 from . import res_country_city
+from . import res_company
+from . import res_users
+from . import installment_mixin
+from . import down_payment_increase
+from . import installment_template
+from . import maintenance_template

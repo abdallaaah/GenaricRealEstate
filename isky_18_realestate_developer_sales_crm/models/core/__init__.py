@@ -1,4 +1,9 @@
+# the installments gate mixin must load before the models that _inherit it
+from . import commission_hooks_mixin
+from . import installments_gate_mixin
+from . import split_line_mixin
 from . import real_estate_unit_contract_ext
+from . import account_move_crm_ext
 from . import res_currency
 from . import crm_team
 from . import crm_team_hierarchy
@@ -9,13 +14,12 @@ from . import res_users
 from . import res_user
 from . import loan_line
 from . import eoi
-from . import eoi_commission_hierarchy_ext
 from . import eoi_payment
 from . import sale_reservation
-from . import sale_reservation_crm_ext
 from . import reservation_payment
 from . import sale_proposal
 from . import sale_proposal_crm_ext
+from . import archive_place_ext
 from . import customer_ownership
 from . import offer
 from . import sale_request
@@ -25,7 +29,6 @@ from . import discount_request
 from . import installment_penalty
 from . import payment_allocation
 from . import revenue_share2
-from . import cheque_manage
 from . import account_payment
 from . import broker_unit
 from . import counter

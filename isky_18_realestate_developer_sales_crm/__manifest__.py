@@ -41,10 +41,24 @@ definition in models/config/job_level.py.
         'base_geolocalize',
         'arkzayed_18_contact_customization',
         'isky_18_realestate_developer_unit_inventory',
-        'isky_18_realestate_developer_accounting',
-        'arkzayed_18_gt_cheque_management',
+        # Phase 3 step 2b-a: the hard dependency on the optional L1 accounting bridge
+        # (isky_18_realestate_developer_accounting) was removed. Odoo core `account` is
+        # still required: this module _inherits account.move and account.payment, and a
+        # model cannot _inherit a model that does not exist. `account` is not L1 - the L1
+        # bridge is the optional isky module, and Mode B means THAT is absent (supplement
+        # S2). Mode A coupling lives in isky_18_realestate_developer_sales_accounting.
+        'account',
+        # Phase 3 step 3: the hard dependency on the optional L1 cheque module
+        # (arkzayed_18_gt_cheque_management) was removed. Every sales<->cheque link now
+        # lives in isky_18_realestate_developer_sales_cheques (supplement S1), so this
+        # module installs with no cheque module present at all.
     ],
-    'data': [],
+    'data': [
+        'security/security.xml',
+        'views/res_config_settings_views.xml',
+        'views/account_move_views.xml',
+        'views/account_payment_views.xml',
+    ],
     'license': 'LGPL-3',
     'installable': True,
     'application': False,

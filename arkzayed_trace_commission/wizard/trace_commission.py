@@ -6,7 +6,7 @@ import xlsxwriter
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
-from odoo.addons.arkzayed_18_realestate_development.models.sale_proposal import COMMISSION_EXCLUDED_STATES
+from odoo.addons.isky_18_realestate_developer_sales_crm.models.core.sale_proposal import COMMISSION_EXCLUDED_STATES
 
 STATUS_PAID = 'Paid'
 STATUS_PAID_OUT = 'Paid (outside system)'

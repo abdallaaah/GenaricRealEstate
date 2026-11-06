@@ -27,21 +27,26 @@ class EoiPayment(models.Model):
         ('cash', 'Cash')
     ], string='Payment Method')
     payment_ids = fields.One2many('account.payment', 'eoi_payment_id', string='Payments')
-    cheque_ids = fields.One2many('cheque.manage', 'eoi_payment_id', string='Cheques')
+    # cheque_ids (One2many to cheque.manage) moved to
+    # isky_18_realestate_developer_sales_cheques (Phase 3 step 3): L2 must not
+    # hard-depend on the optional L1 cheque module (supplement S1).
     is_payment_created = fields.Boolean()
 
-    @api.depends('payment_ids.state', 'payment_ids.amount', 'cheque_ids.state', 'cheque_ids.amount')
+    # S6 guard pattern: base depends only on payment paths, so this module loads with no
+    # cheque module. isky_18_realestate_developer_sales_cheques redeclares @api.depends with
+    # the cheque paths added, calls super(), and extends _paid_total().
+    @api.depends('payment_ids.state', 'payment_ids.amount')
     def _compute_is_paid(self):
         for rec in self:
-            cheque_amount = sum(rec.cheque_ids.filtered(
-                lambda c: c.cheq_type == 'incoming' and c.state not in ('draft', 'return_to_client', 'return',
-                                                                         'cancel')
-            ).mapped('amount'))
-            payment_amount = sum(rec.payment_ids.filtered(
-                lambda p: p.payment_type == 'inbound' and p.state not in ('draft', 'canceled')
-            ).mapped('amount'))
-            total_paid = cheque_amount + payment_amount
-            rec.is_payed = float_compare(total_paid, rec.amount, precision_digits=2) >= 0
+            rec.is_payed = float_compare(rec._paid_total(), rec.amount, precision_digits=2) >= 0
+
+    def _paid_total(self):
+        """Money counted as received against this line. Base: confirmed inbound payments
+        only. sales_cheques adds incoming cheques that are not draft/returned/cancelled."""
+        self.ensure_one()
+        return sum(self.payment_ids.filtered(
+            lambda p: p.payment_type == 'inbound' and p.state not in ('draft', 'canceled')
+        ).mapped('amount'))
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -104,48 +109,5 @@ class EoiPayment(models.Model):
             }
         return True
 
-    def create_cheque(self):
-        """Create cheque payment"""
-        self.ensure_one()
-        if not self.payment_attachment:
-            raise ValidationError(_("Please upload the Payment Attachment before creating a cheque payment."))
-        journal = self.env['account.journal'].search([], limit=1)
-
-        if not journal:
-            raise ValidationError(_("No journal found. Please create one first."))
-
-        amount = self.amount
-
-        if float_compare(amount, 0.0, precision_digits=2) <= 0:
-            raise ValidationError(_("Payment amount must be greater than zero."))
-
-        total_payments = sum(self.eoi_id.account_payment_ids.filtered(
-            lambda p: p.payment_type == 'inbound' and p.state != 'canceled'
-        ).mapped('amount'))
-        total_cheques = sum(self.eoi_id.cheque_manage_ids.filtered(
-            lambda c: c.state not in ['return_to_client', 'return', 'cancel']
-        ).mapped('amount'))
-        total_paid = total_payments + total_cheques + self.amount
-        if float_compare(total_paid, self.eoi_id.reservation_amount, precision_digits=2) > 0:
-            raise ValidationError(_("The amount will be greater than the EOI Amount."))
-
-        cheque_payment_id = self.env['cheque.manage'].create({
-            'payer': self.eoi_id.customer_id.id,
-            'amount': amount,
-            'eoi_id': self.eoi_id.id,
-            'eoi_payment_id': self.id,
-            'journal_id': journal.id,
-            'cheq_type': 'incoming',
-            'from_eoi': True,
-        })
-        self.is_payment_created = True
-
-        return {
-            'name': _('Cheque Payment'),
-            'view_type': 'form',
-            'view_mode': 'form',
-            'res_model': 'cheque.manage',
-            'res_id': cheque_payment_id.id,
-            'type': 'ir.actions.act_window',
-            'target': 'current',
-        }
+    # create_cheque() moved to isky_18_realestate_developer_sales_cheques
+    # (Phase 3 step 3).

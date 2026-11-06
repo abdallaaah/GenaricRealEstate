@@ -21,6 +21,7 @@ from . import cheque_manage
 from . import res_config_setting
 from . import res_company
 from . import account_journal
+from . import account_move
 from . import res_bank
 from . import account_account
 from . import res_partner

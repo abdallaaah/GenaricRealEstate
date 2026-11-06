@@ -406,7 +406,13 @@ class SalesAchievementReportWizard(models.TransientModel):
 
 
 class ReportSalesAchievement(models.AbstractModel):
+    # _name must stay exactly 'report.<report_name>' (the convention Odoo uses to find this
+    # parser for the qweb-pdf action whose report_name is
+    # 'arkzayed_18_realestate_developer_crm.report_sales_achievement') - but the auto-derived
+    # table name from that long dotted _name exceeds PostgreSQL's 63-char identifier limit, so
+    # it needs an explicit short _table override instead.
     _name = 'report.arkzayed_18_realestate_developer_crm.report_sales_achievement'
+    _table = 'report_sales_achievement_parser'
     _description = 'Sales Achievement PDF Report'
 
     @api.model

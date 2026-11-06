@@ -23,7 +23,7 @@
         <field name="report_name">arkzayed_18_realestate_development.report_eoi_request</field>
         <field name="report_file">arkzayed_18_realestate_development.report_eoi_request</field>
         <field name="print_report_name">'EOI Form - %s' % (object.name)</field>
-        <field name="binding_model_id" ref="model_eoi_eoi"/>
+        <field name="binding_model_id" ref="isky_18_realestate_developer_sales_crm.model_eoi_eoi"/>
         <field name="binding_type">report</field>
         <field name="paperformat_id" ref="arkzayed_18_realestate_development.paperformat_eoi_tight"/>
     </record>
@@ -35,7 +35,7 @@
         <field name="report_name">arkzayed_18_realestate_development.report_eoi_request_no_source</field>
         <field name="report_file">arkzayed_18_realestate_development.report_eoi_request_no_source</field>
         <field name="print_report_name">'EOI Form With No Client Source - %s' % (object.name)</field>
-        <field name="binding_model_id" ref="model_eoi_eoi"/>
+        <field name="binding_model_id" ref="isky_18_realestate_developer_sales_crm.model_eoi_eoi"/>
         <field name="binding_type">report</field>
         <field name="paperformat_id" ref="arkzayed_18_realestate_development.paperformat_eoi_tight"/>
     </record>

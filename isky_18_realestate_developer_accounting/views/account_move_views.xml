@@ -14,22 +14,12 @@
             <xpath expr="//field[@name='name']" position="attributes">
                 <attribute name="force_save">1</attribute>
             </xpath>
-            <xpath expr="//label[@for='invoice_date']" position="before">
-                <field name="is_contract" widget="boolean_toggle"/>
-            </xpath>
-            <xpath expr="//form/header" position="inside">
-                <field name="penalty_id" invisible="1"/>
-                <button name="action_register_penalty_payment"
-                        string="Register Penalty Payment"
-                        type="object"
-                        class="btn-primary"
-                        invisible="not penalty_id or state != 'posted'"/>
-            </xpath>
+            <!-- Phase 3 step 2a: is_contract / is_collection / is_maintenance_collection are
+                 sales-owned and their view lines moved to
+                 isky_18_realestate_developer_sales_crm/views/account_move_views.xml. -->
             <xpath expr="//field[@name='ref'][2]" position="after">
                 <field name="is_checked" invisible="1"/>
-                <field name="is_collection" readonly="1"/>
-                <field name="is_maintenance_collection" readonly="1"/>
-                <field name="is_gis_quia" readonly="1"/>
+                <field name="is_revenue_split_entry" readonly="1"/>
                 <field name="checked_bool" widget="boolean_toggle" />
             </xpath>
         </field>
@@ -58,51 +48,8 @@
        </field>
    </record>
 
-    <!-- from arkzayed_18_gt_cheque_management/views/account_move_views.xml
-         (this view was never listed in that module's manifest data, so it was dead code;
-         moving it here alongside its field/method - now in account_payment.py - makes it live) -->
-    <record id="view_account_move_modi" model="ir.ui.view">
-        <field name="name">account.move.form.inherit.cash_in_out</field>
-        <field name="model">account.move</field>
-        <field name="inherit_id" ref="account.view_move_form"/>
-        <field name="arch" type="xml">
-            <xpath expr="//sheet" position="inside">
-                <field name="journal_type" invisible="1"/>
-            </xpath>
-            <xpath expr="//header" position="inside">
-                <button name="action_cash_in_out_statement"
-                      type="object" string="cash in/out statement"
-                        invisible="journal_type != 'cash'"
-                      class="btn_primary" />
-            </xpath>
-        </field>
-    </record>
+    <!-- Phase 2b: the cash-in-out statement view moved to
+         arkzayed_18_gt_cheque_management/views/account_move_views.xml, alongside the report
+         action it invokes. -->
 
-    <!-- from arkzayed_cost_distribution/views/account_move_line_views.xml -->
-    <record id="view_pending_cost_distribution_list" model="ir.ui.view">
-        <field name="name">account.move.line.pending.distribution.list</field>
-        <field name="model">account.move.line</field>
-        <field name="arch" type="xml">
-            <list string="Pending Cost Distribution" create="0" edit="0">
-                <field name="move_id" string="Bill"/>
-                <field name="name" string="Description"/>
-                <field name="price_total" string="Amount (incl. taxes)"/>
-                <field name="distributed_amount"/>
-                <field name="remaining_amount"/>
-                <field name="distribution_state"/>
-                <button name="action_open_cost_distribution_wizard" type="object"
-                        string="Distribute" class="btn-link" icon="fa-share-alt"/>
-            </list>
-        </field>
-    </record>
-
-    <record id="action_pending_cost_distribution" model="ir.actions.act_window">
-        <field name="name">Pending Cost Distribution</field>
-        <field name="res_model">account.move.line</field>
-        <field name="view_mode">list</field>
-        <field name="view_id" ref="view_pending_cost_distribution_list"/>
-        <field name="domain">[('move_id.move_type', 'in', ['in_invoice', 'in_refund']), ('display_type', '=', 'product'), ('distribution_state', 'in', ['pending', 'partial'])]</field>
-    </record>
-    <!-- the "Pending Cost Distribution" menu item stays in arkzayed_cost_distribution,
-         next to its sibling menus under menu_arkzayed_cost_root -->
 </odoo>

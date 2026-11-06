@@ -7,6 +7,12 @@ from odoo.exceptions import UserError
 class ResConfigSettings(models.TransientModel):
     _inherit = "res.config.settings"
 
+    # Phase 3 step 5: the installments default, surfaced in the Sales Setup block.
+    installments_enabled = fields.Boolean(
+        related='company_id.installments_enabled',
+        readonly=False,
+        string='Use Installments')
+
     residential_default_years = fields.Integer(
         string='Residential Units Default Years',
         config_parameter='arkzayed_18_realestate_development.residential_default_years',

@@ -799,7 +799,7 @@ class ChequeManage(models.Model):
             'date': self.cashed_date or self.cheque_date or fields.Date.today(),
             'ref': _('Collection - %s - %s') % (self.sale_proposal_id.name, self.seq_no),
             'line_ids': line_ids,
-            'is_gis_quia': True,
+            'is_revenue_split_entry': True,
         }
 
         move = self.env['account.move'].create(move_vals)
@@ -813,8 +813,75 @@ class ChequeManage(models.Model):
         return super().under_collection_action()
 
 
+    # ----------------------------------------------------------------------------------
+    # S8 / backlog #34: the incoming credit account.
+    #
+    # cheque.manage.credit_account is required=True and NOT NULL on a fresh database, and no
+    # cheque-creating call site anywhere supplies it. The legacy default_get() resolves
+    # debit_inc_account for incoming cheques and credit_out_account for outgoing ones, then
+    # writes BOTH keys unconditionally - so for an incoming cheque it forces credit_account
+    # back to None, overwriting whatever the caller asked for.
+    #
+    # Rather than patch each of the 11 create() call sites (4 of which are in the legacy
+    # monolith's wizards and off limits per CLAUDE.md), both fixes land on this model: the
+    # create() override below is the single choke point every caller passes through.
+    # ----------------------------------------------------------------------------------
+
+    SETTING_LABEL = "Settings > Real Estate Cheques > Financials > Incoming Cheque Credit Account"
+
+    @api.model
+    def default_get(self, fields_list):
+        """Stop the legacy override from discarding a caller's credit account, and fall back
+        to the company setting. Only ever fills a blank - never replaces a real value."""
+        res = super().default_get(fields_list)
+        if res.get('credit_account'):
+            return res
+        # the legacy default_get sets 'credit_account': None unconditionally when the journal
+        # parameter is set, which wipes a default_credit_account context key. Put it back.
+        ctx_val = self.env.context.get('default_credit_account')
+        if ctx_val:
+            res['credit_account'] = ctx_val
+        elif (res.get('cheq_type') or self.env.context.get('default_cheq_type')) != 'outgoing':
+            account = self.env.company.cheque_incoming_credit_account_id
+            if account:
+                res['credit_account'] = account.id
+        return res
+
+    @api.model
+    def _resolve_incoming_credit_account(self, values):
+        """Fill credit_account for an incoming cheque from the company setting, or refuse with
+        a UserError naming the setting. Guarantees the NOT NULL constraint is never the first
+        thing to fail.
+
+        A value the caller supplied always wins. Outgoing cheques are left exactly as they
+        were: their credit account comes from the legacy credit_out_account parameter, and S8
+        changes no behaviour outside the incoming path.
+        """
+        if values.get('credit_account'):
+            return values
+
+        cheq_type = values.get('cheq_type') or self.env.context.get('default_cheq_type')
+        if cheq_type == 'outgoing':
+            return values
+
+        account_id = self.env.context.get('default_credit_account')
+        if not account_id:
+            account_id = self.env.company.cheque_incoming_credit_account_id.id
+        if not account_id:
+            raise UserError(_(
+                "No incoming cheque credit account is configured for company '%(company)s', "
+                "so this cheque cannot be created.\n\n"
+                "Set it in %(setting)s "
+                "(field cheque_incoming_credit_account_id).",
+                company=self.env.company.name,
+                setting=self.SETTING_LABEL,
+            ))
+        values['credit_account'] = account_id
+        return values
+
     @api.model
     def create(self, values):
+        values = self._resolve_incoming_credit_account(dict(values))
         proposal_id = values.get('sale_proposal_id')
         reservation_id = values.get('sale_reservation_id')
         eoi_id = values.get('eoi_id')

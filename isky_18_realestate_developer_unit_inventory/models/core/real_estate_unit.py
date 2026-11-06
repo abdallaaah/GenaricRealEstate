@@ -27,7 +27,7 @@ def add_months(source_date, months):
 class RealEstateUnit(models.Model):
     _name = 'real.estate.unit'
     _description = 'Real Estate Unit'
-    _inherit = ['mail.thread', 'mail.activity.mixin','installment.mixin']
+    _inherit = ['mail.thread', 'mail.activity.mixin', 'installment.mixin', 'realestate.hierarchy.node.mixin']
     _rec_name = 'system_code'
 
     @api.model
@@ -360,28 +360,6 @@ class RealEstateUnit(models.Model):
     def _compute_terrace_price(self):
         for rec in self:
             rec.terrace_total_price = rec.terrace_gross_area * rec.terrace_price_sqm
-
-    @api.depends('parent_source_id')
-    def _compute_project_id(self):
-        for rec in self:
-            source_id = rec.parent_source_id
-            if source_id and source_id._name == 'realestate.project':
-                rec.project_id = source_id.id
-            if source_id and source_id._name == 'zone':
-                rec.project_id = source_id.parent_id.id
-            elif source_id:
-                rec.project_id = False
-                while source_id:
-                    if source_id._name == 'realestate.project':
-                        rec.project_id = source_id.id
-                        break
-                    project_id = source_id.project_id
-                    if project_id:
-                        rec.project_id = project_id.id
-                        break
-                    source_id = source_id.parent_source_id
-            else:
-                rec.project_id = False
 
     @api.depends('parent_source_id')
     def _compute_building_id(self):
@@ -729,20 +707,10 @@ class RealEstateUnit(models.Model):
             if rec.name:
                 rec.abbreviation = rec.name
 
-    @api.depends('abbreviation', 'parent_source_id')
-    def compute_unit_system_code(self):
-        for rec in self:
-            parts = []
-            if rec.parent_source_id and rec.parent_source_id._name != 'realestate.project' and rec.parent_source_id.system_code:
-                parts.append(rec.parent_source_id.system_code)
-            if rec.abbreviation:
-                parts.append(rec.abbreviation)
-            rec.system_code = "-".join(parts)
-
     def action_unit_blocked(self):
 
         #check if the user has the permission to block the unit
-        if not self.env.user.has_group('arkzayed_18_realestate_development.group_block_unit'):
+        if not self.env.user.has_group('isky_18_realestate_developer_unit_inventory.group_block_unit'):
             raise ValidationError(_("You do not have the permission to block this unit."))
 
         return {'type': 'ir.actions.act_window',

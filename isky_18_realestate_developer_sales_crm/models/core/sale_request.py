@@ -9,7 +9,7 @@ class SaleRequest(models.Model):
     _order = 'create_date desc'
 
     name = fields.Char(string='Reference', required=True, copy=False, readonly=True,
-                        default=lambda self: _('New'))
+                        default='New')
     requester_id = fields.Many2one('res.users', string='Requester',
                                     default=lambda self: self.env.user, readonly=True, tracking=True)
     unit_id = fields.Many2one('real.estate.unit', string='Unit', required=True, tracking=True,
@@ -63,7 +63,7 @@ class SaleRequest(models.Model):
             record.state = 'cancelled'
 
     def _check_approval_rights(self):
-        if not self.env.user.has_group('arkzayed_18_realestate_development.group_block_unit'):
+        if not self.env.user.has_group('isky_18_realestate_developer_unit_inventory.group_block_unit'):
             raise ValidationError(_("You do not have the permission to accept or reject sale requests."))
 
     def action_accept(self):

@@ -29,14 +29,17 @@ COMMISSION_EXCLUDED_STATES = ('draft', 'draft_contract', 'pending_approvals', 'a
 
 class SaleProposal(models.Model):
     _name = 'sale.proposal'
-    _inherit = ['mail.thread', 'mail.activity.mixin', 'installment.mixin']
+    _inherit = ['mail.thread', 'mail.activity.mixin', 'installment.mixin', 'realestate.sales.installments.gate', 'realestate.split.parent.mixin', 'realestate.sales.commission.hooks']
+
+    _split_child_fk = 'contract_id'
+    _split_parent_label = 'contract'
     _description = 'Sale Proposal'
 
     def _default_income_account(self):
         return self.env["ir.config_parameter"].sudo().get_param("arkzayed_18_realestate_development.income_account")
 
     name = fields.Char(string='Contract Reference', required=True, copy=False, readonly=True, index=True,
-                       default=lambda self: _('New'))
+                       default='New')
 
     state = fields.Selection(selection=[
         ('draft', 'Draft Proposal'),
@@ -292,46 +295,11 @@ class SaleProposal(models.Model):
     analytic_account_id = fields.Many2one(comodel_name="account.analytic.account")
     company_id = fields.Many2one('res.company', default=lambda self: self._default_company_id())
 
-    # Add these fields to the SaleProposal class
-    cheque_is_serial = fields.Selection([
-        ('serial', 'Serial'),
-        ('not_serial', 'Not Serial'),
-    ], string='Cheque Numbering', default='serial',
-        help='If Serial, cheques will be numbered sequentially from the starting number. '
-             'If Not Serial, cheques will be created without cheque numbers.')
-    number_of_banks = fields.Selection([
-        ('1', '1'),
-        ('2', '2'),
-        ('3', '3'),
-    ], string='Number of Banks', default='1')
-
-    cheque_starting_number = fields.Char(string='Starting Cheque Number (Bank 1)')
-    bank_id = fields.Many2one('res.bank', string='Bank 1')
-    bank_1_installments_count = fields.Integer(
-        string='Number of Installments (Bank 1)',
-        help='Number of installments to assign to Bank 1. Leave 0 or empty to auto-distribute.')
-
-    cheque_starting_number_2 = fields.Char(string='Starting Cheque Number (Bank 2)')
-    bank_id_2 = fields.Many2one('res.bank', string='Bank 2')
-    bank_2_installments_count = fields.Integer(
-        string='Number of Installments (Bank 2)',
-        help='Number of installments to assign to Bank 2. Leave 0 or empty to auto-distribute.')
-
-    cheque_starting_number_3 = fields.Char(string='Starting Cheque Number (Bank 3)')
-    bank_id_3 = fields.Many2one('res.bank', string='Bank 3')
-    bank_3_installments_count = fields.Integer(
-        string='Number of Installments (Bank 3)',
-        help='Number of installments to assign to Bank 3. Leave 0 or empty to auto-distribute.')
-
-    cheque_ids = fields.One2many('cheque.manage', 'sale_proposal_id', string='Cheques')
-    # Cheques whose MAIN contract is another one but that settle installments of
-    # THIS contract through allocations (multi-contract customer cheques).
-    linked_cheque_ids = fields.Many2many(
-        'cheque.manage',
-        string='Linked Cheques',
-        compute='_compute_linked_cheque_ids',
-    )
-    cheque_count = fields.Integer(string='Cheque Count', compute='_compute_cheque_count')
+    # The cheque-generation configuration block (cheque_is_serial, number_of_banks,
+    # cheque_starting_number*, bank_id*, bank_*_installments_count, cheque_ids,
+    # linked_cheque_ids, cheque_count) moved to
+    # isky_18_realestate_developer_sales_cheques (Phase 3 step 3), supplement S1:
+    # every one of those fields exists only to drive cheque creation.
 
     sale_contract_reservation_id = fields.Many2one('real.estate.sale.reservation', string='Reservation')
     sale_reserved = fields.Boolean(string='Sale Reserved', default=False, copy=False)
@@ -360,6 +328,12 @@ class SaleProposal(models.Model):
     is_finance_two_approver = fields.Boolean(compute='_compute_approval_group_membership')
     is_manager_approver = fields.Boolean(compute='_compute_approval_group_membership')
 
+    def _deal_project(self):
+        """A contract has no project_id of its own (step 0 finding): resolve through the unit,
+        then through the reservation it came from."""
+        self.ensure_one()
+        return self.unit_id.project_id or self.sale_contract_reservation_id.project_id
+
     def _default_company_id(self):
         developer_company = self.env.ref('base.main_company')
         return developer_company.id if developer_company else False
@@ -387,9 +361,9 @@ class SaleProposal(models.Model):
 
     @api.depends_context('uid')
     def _compute_approval_group_membership(self):
-        is_finance = self.env.user.has_group('arkzayed_18_realestate_development.group_finance_approval')
-        is_finance_two = self.env.user.has_group('arkzayed_18_realestate_development.group_finance_two_approval')
-        is_manager = self.env.user.has_group('arkzayed_18_realestate_development.group_manager_approval')
+        is_finance = self.env.user.has_group('isky_18_realestate_developer_sales_crm.group_finance_approval')
+        is_finance_two = self.env.user.has_group('isky_18_realestate_developer_sales_crm.group_finance_two_approval')
+        is_manager = self.env.user.has_group('isky_18_realestate_developer_sales_crm.group_manager_approval')
         for rec in self:
             rec.is_finance_approver = is_finance
             rec.is_finance_two_approver = is_finance_two
@@ -429,13 +403,10 @@ class SaleProposal(models.Model):
         'res.users',
         string='Salesperson',
         tracking=True,
-        domain=[
-            '|', '|', '|',
-            ('job_level_id.is_sales_person', '=', True),
-            ('job_level_id.is_directory', '=', True),
-            ('job_level_id.is_sales_manager', '=', True),
-            ('job_level_id.is_sales_sector_manager', '=', True)
-        ]    )
+        # domain on job_level_id.is_* removed: job.level lives in L3 (commission), and a
+        # Many2many domain referencing it registers an implicit dependency that crashes
+        # field-setup while this L2 module is loading, before L3 exists yet.
+    )
 
     # Commission tracking
     total_collected_amount = fields.Float(
@@ -449,35 +420,12 @@ class SaleProposal(models.Model):
         store=True
     )
 
-    # Commission Achievement Records
-    commission_achievement_ids = fields.One2many(
-        'realestate.commission.achievement',
-        'sale_proposal_id',
-        string='Commission Achievements'
-    )
-    commission_achievement_count = fields.Integer(
-        string='Commission Claims',
-        compute='_compute_commission_achievement_count'
-    )
-
-    # Non-Sales Employee Claims
-    non_sales_claim_ids = fields.One2many(
-        'broker.claim',
-        'sale_proposal_id',
-        string='Non Sales Claims',
-        domain=[('claim_type', '=', 'employee')],
-    )
-    non_sales_claim_count = fields.Integer(
-        string='Non Sales Claims',
-        compute='_compute_non_sales_claim_count'
-    )
-
-    # All commission claims (broker/ambassador/agent/non-sales), for the Commission Summary tab
-    all_commission_claim_ids = fields.One2many(
-        'broker.claim',
-        'sale_proposal_id',
-        string='Commission Claims (All)',
-    )
+    # commission_achievement_ids / non_sales_claim_ids / all_commission_claim_ids (One2many to
+    # realestate.commission.achievement / broker.claim, both L3) - and the two *_count integer
+    # fields that compute off them, since @api.depends on a field that doesn't exist in this
+    # module's own _fields yet (it's added later by commission's _inherit) fails the same way -
+    # moved to isky_18_realestate_developer_commission/models/core/sale_proposal_crm_ext.py.
+    # L2 must not depend on L3.
 
     split_deal = fields.Boolean(string='Split Deal')
     split_with = fields.Selection(selection=split_with_selection, string='Split With')
@@ -530,20 +478,14 @@ class SaleProposal(models.Model):
         'proposal_id',
         'sales_user_id',
         string='Sales',
-        domain=[
-            '|', '|', '|',
-            ('job_level_id.is_sales_person', '=', True),
-            ('job_level_id.is_directory', '=', True),
-            ('job_level_id.is_sales_manager', '=', True),
-            ('job_level_id.is_sales_sector_manager', '=', True)
-        ]    )
-
-    # Commission lines
-    commission_ids = fields.One2many(
-        'realestate.commission',
-        'sale_proposal_id',
-        string='Commission Lines'
+        # domain on job_level_id.is_* removed: job.level lives in L3 (commission), and a
+        # Many2many domain referencing it registers an implicit dependency that crashes
+        # field-setup while this L2 module is loading, before L3 exists yet.
     )
+
+    # commission_ids field (One2many to realestate.commission, L3) moved to
+    # isky_18_realestate_developer_commission/models/core/sale_proposal_crm_ext.py -
+    # that model is L3's own, and L2 must not depend on L3.
 
     # Collection Entry
     client_sign_collection_move_id = fields.Many2one(
@@ -788,9 +730,6 @@ class SaleProposal(models.Model):
         'eoi_id.account_payment_ids.state',
         'eoi_id.account_payment_ids.amount',
         'eoi_id.account_payment_ids.payment_type',
-        'eoi_id.cheque_manage_ids.state',
-        'eoi_id.cheque_manage_ids.amount',
-        'eoi_id.cheque_manage_ids.cheq_type',
     )
     def _compute_eoi_amount(self):
         for rec in self:
@@ -798,11 +737,7 @@ class SaleProposal(models.Model):
                 valid_payments = rec.eoi_id.account_payment_ids.filtered(
                     lambda p: p.payment_type == 'inbound' and p.state not in ('canceled', 'rejected') and p.from_eoi == True
                 )
-                valid_cheques = rec.eoi_id.cheque_manage_ids.filtered(
-                    lambda c: c.cheq_type == 'incoming' and c.state not in ('cancel', 'return_to_client',
-                                                                            'return', 'bounce') and c.from_eoi == True
-                )
-                rec.eoi_amount = sum(valid_payments.mapped('amount')) + sum(valid_cheques.mapped('amount'))
+                rec.eoi_amount = sum(valid_payments.mapped('amount')) + rec._eoi_cheque_amount()
             else:
                 rec.eoi_amount = 0.0
 
@@ -1484,7 +1419,7 @@ class SaleProposal(models.Model):
                 self.currency_id.symbol + ' ' + str(self.reservation_payment or 0)
             ),
             'line_ids': line_ids,
-            'is_gis_quia': True,
+            'is_revenue_split_entry': True,
         }
 
         move = self.env['account.move'].create(move_vals)
@@ -2009,351 +1944,12 @@ class SaleProposal(models.Model):
         for rec in self:
             rec.down_payment_remaining = rec.down_payment - (rec.eoi_amount + rec.reservation_payment)
 
-    @api.depends(
-        'installment_ids.allocation_ids.cheque_id',
-        'maintenance_installment_ids.allocation_ids.cheque_id',
-        'cheque_ids',
-    )
-    def _compute_linked_cheque_ids(self):
-        for rec in self:
-            allocated_cheques = (
-                rec.installment_ids.mapped('allocation_ids.cheque_id')
-                | rec.maintenance_installment_ids.mapped('allocation_ids.cheque_id')
-            )
-            rec.linked_cheque_ids = allocated_cheques - rec.cheque_ids
+    # _compute_linked_cheque_ids() and _compute_cheque_count() moved to
+    # isky_18_realestate_developer_sales_cheques (Phase 3 step 3).
 
-    @api.depends('cheque_ids', 'linked_cheque_ids')
-    def _compute_cheque_count(self):
-        for rec in self:
-            rec.cheque_count = len(rec.cheque_ids | rec.linked_cheque_ids)
-
-    def action_create_cheques(self):
-        """Step 1: Validate data, compile lines that still need coverage, and open the wizard"""
-        self.ensure_one()
-
-        if not self.installment_ids and not self.maintenance_installment_ids:
-            raise ValidationError(_("No installment or maintenance lines found. Please calculate installments first."))
-
-        # Helper to calculate how much of the line is still uncovered
-        def _get_uncovered(line):
-            covered = 0.0
-            for alloc in line.allocation_ids:
-                if alloc.payment_id and alloc.payment_id.state not in ('canceled', 'rejected'):
-                    covered += alloc.allocated_amount
-                elif alloc.cheque_id and alloc.cheque_id.state not in ('cancel', 'return', 'return_to_client',
-                                                                       'bounce'):
-                    covered += alloc.allocated_amount
-
-            line_total = line.total_amount if line.total_amount else line.amount
-            return max(0.0, line_total - covered)
-
-        # Filter lines that still have an uncovered amount > 0
-        unpaid_insts = self.installment_ids.filtered(lambda x: _get_uncovered(x) > 0.0)
-        unpaid_maints = self.maintenance_installment_ids.filtered(lambda x: _get_uncovered(x) > 0.0)
-
-        if not unpaid_insts and not unpaid_maints:
-            raise ValidationError(_("All lines are already fully covered by existing cheques or payments."))
-
-        # Check for missing dates
-        if unpaid_insts.filtered(lambda x: not x.date):
-            missing_names = ', '.join(unpaid_insts.filtered(lambda x: not x.date).mapped('name') or ['Unnamed'])
-            raise ValidationError(
-                _("All installment lines must have a date before creating cheques.\n"
-                  "The following installment(s) are missing dates: %s") % missing_names
-            )
-
-        if unpaid_maints.filtered(lambda x: not x.date):
-            missing_names = ', '.join(unpaid_maints.filtered(lambda x: not x.date).mapped('name') or ['Unnamed'])
-            raise ValidationError(
-                _("All maintenance installment lines must have a date before creating cheques.\n"
-                  "The following maintenance installment(s) are missing dates: %s") % missing_names
-            )
-
-        # Validate Bank Configurations
-        is_serial = self.cheque_is_serial != 'not_serial'
-        num_banks = int(self.number_of_banks or '1')
-
-        if num_banks >= 1:
-            if not self.bank_id:
-                raise ValidationError(_("Please select Bank 1."))
-            if is_serial and not self.cheque_starting_number:
-                raise ValidationError(_("Please enter the starting cheque number for Bank 1."))
-        if num_banks >= 2:
-            if not self.bank_id_2:
-                raise ValidationError(_("Please select Bank 2."))
-            if is_serial and not self.cheque_starting_number_2:
-                raise ValidationError(_("Please enter the starting cheque number for Bank 2."))
-        if num_banks >= 3:
-            if not self.bank_id_3:
-                raise ValidationError(_("Please select Bank 3."))
-            if is_serial and not self.cheque_starting_number_3:
-                raise ValidationError(_("Please enter the starting cheque number for Bank 3."))
-
-        # 1. Create the base Wizard record
-        wizard = self.env['sale.proposal.cheque.wizard'].create({
-            'sale_proposal_id': self.id
-        })
-
-        # 2. Combine and sort all lines that need coverage chronologically
-        combined = []
-        for i in unpaid_insts: combined.append(('installment', i))
-        for m in unpaid_maints: combined.append(('maintenance', m))
-        # Priority 0: 'installment', Priority 1: 'maintenance'
-        combined.sort(key=lambda x: (
-            0 if x[0] == 'installment' else 1,
-            x[1].date is False,
-            x[1].date or fields.Date.max
-        ))
-        # 3. Create Wizard Lines attached to the Wizard
-        for idx, (ltype, line) in enumerate(combined):
-            uncovered_amt = _get_uncovered(line)
-            self.env['sale.proposal.cheque.wizard.line'].create({
-                'wizard_id': wizard.id,
-                'name': f"{idx + 1}. {line.date} | {line.name} | Amount: {uncovered_amt:,.2f}",
-                'line_type': ltype,
-                'installment_id': line.id if ltype == 'installment' else False,
-                'maintenance_id': line.id if ltype == 'maintenance' else False,
-            })
-
-        # 4. Open the specific Wizard record we just built
-        return {
-            'name': _('Select Starting Cheque Line'),
-            'type': 'ir.actions.act_window',
-            'res_model': 'sale.proposal.cheque.wizard',
-            'view_mode': 'form',
-            'res_id': wizard.id,
-            'target': 'new',
-        }
-
-    def action_open_combined_cheque_wizard(self):
-        """Open the Combined Cheque wizard (one cheque covering installments of several
-        of this customer's contracts)."""
-        self.ensure_one()
-        return {
-            'name': _('Combined Cheque'),
-            'type': 'ir.actions.act_window',
-            'res_model': 'combined.cheque.wizard',
-            'view_mode': 'form',
-            'target': 'new',
-            'context': {'default_sale_proposal_id': self.id},
-        }
-
-    def _generate_cheques(self, starting_line_key):
-        """Step 2: Called by the wizard to generate cheques based on the missing balance"""
-        self.ensure_one()
-
-        is_serial = self.cheque_is_serial != 'not_serial'
-        num_banks = int(self.number_of_banks or '1')
-
-        # Get Journal
-        journal_param = self.env["ir.config_parameter"].sudo().get_param("arkzayed_18_gt_cheque_management.journal_id")
-        journal = self.env['account.journal'].browse(int(journal_param))
-
-        # Helper to calculate how much of the line is still uncovered
-        def _get_uncovered(line):
-            covered = 0.0
-            for alloc in line.allocation_ids:
-                if alloc.payment_id and alloc.payment_id.state not in ('canceled', 'rejected'):
-                    covered += alloc.allocated_amount
-                elif alloc.cheque_id and alloc.cheque_id.state not in ('cancel', 'return', 'return_to_client',
-                                                                       'bounce'):
-                    covered += alloc.allocated_amount
-
-            line_total = line.total_amount if line.total_amount else line.amount
-            return max(0.0, line_total - covered)
-
-        # Get lines that still need coverage
-        unpaid_insts = self.installment_ids.filtered(lambda x: _get_uncovered(x) > 0.01)
-        unpaid_maints = self.maintenance_installment_ids.filtered(lambda x: _get_uncovered(x) > 0.01)
-
-        # Build chronological list
-        installments_list = []
-        for inst in unpaid_insts.sorted(key=lambda x: x.date):
-            installments_list.append({
-                'type': 'installment', 'record': inst, 'date': inst.date,
-                'amount': _get_uncovered(inst), 'name': inst.name, 'key': f"installment_{inst.id}"
-            })
-
-        maintenance_list = []
-        for maint in unpaid_maints.sorted(key=lambda x: x.date):
-            maintenance_list.append({
-                'type': 'maintenance', 'record': maint, 'date': maint.date,
-                'amount': _get_uncovered(maint), 'name': maint.name, 'key': f"maintenance_{maint.id}"
-            })
-
-        all_installments = installments_list + maintenance_list
-
-        # Priority 0: 'installment', Priority 1: 'maintenance'
-        all_installments.sort(key=lambda x: (
-            0 if x['type'] == 'installment' else 1,
-            x['date'] is False,
-            x['date'] or fields.Date.max
-        ))
-
-        # Find starting index based on the user's wizard selection
-        start_idx = 0
-        for idx, line in enumerate(all_installments):
-            if line['key'] == starting_line_key:
-                start_idx = idx
-                break
-
-        # Slice the array: Only generate cheques from the start index onwards
-        target_installments = all_installments[start_idx:]
-        total_installments = len(target_installments)
-
-        if total_installments == 0:
-            return {
-                'type': 'ir.actions.client',
-                'tag': 'display_notification',
-                'params': {
-                    'title': _('Nothing to Generate'),
-                    'message': _('There are no remaining installments to generate cheques for.'),
-                    'type': 'warning',
-                    'sticky': False,
-                    'next': {'type': 'ir.actions.act_window_close'},
-                }
-            }
-
-        # Prepare Bank Configs
-        bank_configs = []
-        if num_banks >= 1:
-            bank_configs.append(
-                {'bank_id': self.bank_id.id, 'starting_number': self.cheque_starting_number if is_serial else False,
-                 'count': self.bank_1_installments_count or 0})
-        if num_banks >= 2:
-            bank_configs.append(
-                {'bank_id': self.bank_id_2.id, 'starting_number': self.cheque_starting_number_2 if is_serial else False,
-                 'count': self.bank_2_installments_count or 0})
-        if num_banks >= 3:
-            bank_configs.append(
-                {'bank_id': self.bank_id_3.id, 'starting_number': self.cheque_starting_number_3 if is_serial else False,
-                 'count': self.bank_3_installments_count or 0})
-
-        # Validate numbers and convert to integer
-        if is_serial:
-            for i, config in enumerate(bank_configs):
-                config['starting_int'] = int(config['starting_number'])
-        else:
-            for config in bank_configs:
-                config['starting_int'] = 0
-
-        # Adjust Counts Distribution
-        specified_counts = [c['count'] for c in bank_configs]
-        total_specified = sum(specified_counts)
-
-        if total_specified > 0:
-            if total_specified > total_installments:
-                raise ValidationError(
-                    _("Total installments assigned to banks (%s) exceeds the total number of remaining installments (%s).") % (
-                        total_specified, total_installments))
-
-            # If total specified is less than total, distribute remaining to last bank
-            if total_specified < total_installments:
-                bank_configs[-1]['count'] += (total_installments - total_specified)
-        else:
-            base_count = total_installments // num_banks
-            remainder = total_installments % num_banks
-            for i, config in enumerate(bank_configs):
-                config['count'] = base_count + (1 if i < remainder else 0)
-
-        created_cheques = self.env['cheque.manage']
-
-        current_idx = 0
-        inst_count = 0
-        maint_count = 0
-
-        # Generate Cheques
-        for bank_idx, config in enumerate(bank_configs):
-            cheque_counter = 0
-            for _i in range(config['count']):
-                if current_idx >= total_installments:
-                    break
-
-                inst_data = target_installments[current_idx]
-                inst_record = inst_data['record']
-                inst_type = inst_data['type']
-
-                if is_serial:
-                    current_cheque_number = str(config['starting_int'] + cheque_counter)
-                else:
-                    current_cheque_number = False
-
-                cheque_vals = {
-                    'name': _('%s - %s %s') % (self.name, inst_type.title(), current_idx + 1),
-                    'cheque_no': current_cheque_number,
-                    'payer': self.customer_id.id,
-                    'bank_id': config['bank_id'],
-                    'cheq_type': 'incoming',
-                    'amount': inst_data['amount'],
-                    'cheque_date': inst_data['date'],
-                    'cheque_receive_date': fields.Date.today(),
-                    'journal_id': journal.id,
-                    'state': 'draft',
-                    'description': inst_data['name'] or '',
-                    'source_type': inst_type,
-                    'unit_id': self.unit_id.id,
-                    'sale_proposal_id': self.id,
-                    'from_contract': True,
-                }
-
-                # Link directly to the correct One2Many line via the line ID
-                if inst_type == 'installment':
-                    inst_count += 1
-                elif inst_type == 'maintenance':
-                    maint_count += 1
-
-                # Create the cheque
-                cheque = self.env['cheque.manage'].create(cheque_vals)
-                created_cheques |= cheque
-
-                # Create the allocation bridging the cheque to the installment
-                self.env['payment.allocation'].create({
-                    'cheque_id': cheque.id,
-                    'installment_id': inst_record.id if inst_type == 'installment' else False,
-                    'maintenance_id': inst_record.id if inst_type == 'maintenance' else False,
-                    'allocated_amount': inst_data['amount']
-                })
-
-                # Update line metadata
-                inst_record.write({'payment_method_used': 'cheque'})
-
-                current_idx += 1
-                cheque_counter += 1
-
-        return {
-            'type': 'ir.actions.client',
-            'tag': 'display_notification',
-            'params': {
-                'title': _('Success'),
-                'message': _(
-                    '%s cheque(s) created successfully (%s installment + %s maintenance) across %s bank(s).') % (
-                               len(created_cheques),
-                               inst_count,
-                               maint_count,
-                               num_banks
-                           ),
-                'type': 'success',
-                'sticky': False,
-                'next': {'type': 'ir.actions.act_window_close'},
-            }
-        }
-
-
-    def action_view_cheques(self):
-        """View cheques related to this proposal (own + multi-contract linked)."""
-        self.ensure_one()
-        return {
-            'name': _('Cheques'),
-            'type': 'ir.actions.act_window',
-            'res_model': 'cheque.manage',
-            'view_mode': 'list,form',
-            'domain': [('id', 'in', (self.cheque_ids | self.linked_cheque_ids).ids)],
-            'context': {
-            'default_sale_proposal_id': self.id,
-            'group_by': 'source_type',
-            'default_cheq_type': 'incoming',
-            }
-        }
+    # action_create_cheques(), action_open_combined_cheque_wizard(), _generate_cheques()
+    # and action_view_cheques() moved to isky_18_realestate_developer_sales_cheques
+    # (Phase 3 step 3).
 
     def action_view_payments(self):
         """View payments related to this proposal (own + multi-contract linked)."""
@@ -2418,13 +2014,13 @@ class SaleProposal(models.Model):
     def write(self, vals):
         """Override write to check broker claim and commission achievements when amounts change"""
         if 'finance_user_approve' in vals and not self.env.user.has_group(
-                'arkzayed_18_realestate_development.group_finance_approval'):
+                'isky_18_realestate_developer_sales_crm.group_finance_approval'):
             raise UserError(_("Only users in the 'Finance Approval' group can change the Finance Approval."))
         if 'finance_approve' in vals and not self.env.user.has_group(
-                'arkzayed_18_realestate_development.group_finance_two_approval'):
+                'isky_18_realestate_developer_sales_crm.group_finance_two_approval'):
             raise UserError(_("Only users in the 'Finance Two Approval' group can change the Finance Two Approval."))
         if 'manager_approve' in vals and not self.env.user.has_group(
-                'arkzayed_18_realestate_development.group_manager_approval'):
+                'isky_18_realestate_developer_sales_crm.group_manager_approval'):
             raise UserError(_("Only users in the 'Manager Approval' group can change the Manager Approval."))
         # if the contracted_selling_price was updated or changed just edit its value inside the unit
         if 'contracted_selling_price' in vals:
@@ -2515,6 +2111,9 @@ class SaleProposal(models.Model):
 
     def action_calculate_maintenance(self):
         """Calculate maintenance installments for contract with cleanup and automated fund re-allocation"""
+        if not self._installments_allowed():
+            return self._installments_off_notification()
+
         if self.state not in ['draft', 'pending_approvals']:
             raise ValidationError(_("Maintenance can only be calculated in Draft or Draft Contract state."))
 
@@ -2559,6 +2158,9 @@ class SaleProposal(models.Model):
                     maint_counter += 1
 
     def _prepare_installment_lines(self):
+        # Step 5: gate before the clearing assignment, so nothing existing is destroyed.
+        if not self._installments_allowed():
+            return []
         self.installment_ids = None
         installment_lines = []
         ind = 1
@@ -2755,6 +2357,8 @@ class SaleProposal(models.Model):
         return installment_lines, ind
 
     def _prepare_lines(self):
+        if not self._installments_allowed():
+            return []
         self.maintenance_installment_ids = None
         maintenance_lines = []
         if self.maintenance_template_id:
@@ -2890,17 +2494,32 @@ class SaleProposal(models.Model):
         snapshot = {'payment': {}, 'cheque': {}}
         for line in lines:
             for alloc in line.allocation_ids:
-                if alloc.payment_id:
-                    rec = alloc.payment_id
-                    bucket = snapshot['payment']
-                elif alloc.cheque_id:
-                    rec = alloc.cheque_id
-                    bucket = snapshot['cheque']
-                else:
+                kind = alloc._fund_kind()
+                if not kind:
                     continue
+                rec = alloc._allocation_parent()
+                bucket = snapshot[kind]
                 if rec.sale_proposal_id and rec.sale_proposal_id != self:
                     bucket[rec.id] = bucket.get(rec.id, 0.0) + alloc.allocated_amount
         return snapshot
+
+    # ----------------------------------------------------------------------------------
+    # Cheque hooks (supplement S1, Phase 3 step 3). sales_cheques overrides each one.
+    # ----------------------------------------------------------------------------------
+
+    def _eoi_cheque_amount(self):
+        """Incoming EOI cheques that still count toward the EOI amount."""
+        return 0.0
+
+    def _line_cheque_info(self, installment):
+        """Report columns describing the cheque settling this line, if any."""
+        return {'cheque_no': '', 'bank_name': '', 'has_cheque': False}
+
+    def _cheque_fund_entries(self, foreign_chq_snap, line_type):
+        """Fund-pool entries for the FIFO waterfall in _reallocate_proposal_funds():
+        foreign cheques at priority 0, this contract's own cheques at priority 1. Same dict
+        shape as the payment entries built there."""
+        return []
 
     def _payment_amount_held_outside(self, fund, line_type):
         """Amount this payment/cheque currently holds on allocations that are NOT this
@@ -2946,14 +2565,12 @@ class SaleProposal(models.Model):
                 'to_check', 'cfo_approved', 'deputy_cfo_approved', 'in_process', 'paid'
             )
         )
-        active_cheques = self.cheque_ids.filtered(
-            lambda c: c.state in ('register', 'collect', 'done', 'under_collection', 'return', 'bounce')
-        )
-
         foreign_payments = self.env['account.payment'].browse(list(foreign_pay_snap.keys())).exists()
-        foreign_cheques = self.env['cheque.manage'].browse(list(foreign_chq_snap.keys())).exists()
 
-        if not active_payments and not active_cheques and not foreign_payments and not foreign_cheques:
+        # Both the foreign (priority 0) and the own (priority 1) cheque entries.
+        cheque_funds = self._cheque_fund_entries(foreign_chq_snap, line_type)
+
+        if not active_payments and not foreign_payments and not cheque_funds:
             return
 
         # Step 2: Clear old payment.allocation records for active funds & lines of this contract
@@ -2975,20 +2592,9 @@ class SaleProposal(models.Model):
                 continue
             fund_pool.append({
                 'type': 'payment',
+                'alloc_field': 'payment_id',
                 'record': p,
                 'date': p.date or fields.Date.today(),
-                'remaining_pool': pool,
-                'priority': 0,
-            })
-
-        for c in foreign_cheques:
-            pool = foreign_chq_snap.get(c.id, 0.0)
-            if pool <= 0.0001:
-                continue
-            fund_pool.append({
-                'type': 'cheque',
-                'record': c,
-                'date': c.cheque_date or c.cheque_receive_date or fields.Date.today(),
                 'remaining_pool': pool,
                 'priority': 0,
             })
@@ -2999,23 +2605,14 @@ class SaleProposal(models.Model):
                 continue
             fund_pool.append({
                 'type': 'payment',
+                'alloc_field': 'payment_id',
                 'record': p,
                 'date': p.date or fields.Date.today(),
                 'remaining_pool': pool,
                 'priority': 1,
             })
 
-        for c in active_cheques:
-            pool = c.amount - self._payment_amount_held_outside(c, line_type)
-            if pool <= 0.0001:
-                continue
-            fund_pool.append({
-                'type': 'cheque',
-                'record': c,
-                'date': c.cheque_date or c.cheque_receive_date or fields.Date.today(),
-                'remaining_pool': pool,
-                'priority': 1,
-            })
+        fund_pool.extend(cheque_funds)
 
         fund_pool.sort(key=lambda x: (x['priority'], x['date'] is False, x['date']))
 
@@ -3041,10 +2638,7 @@ class SaleProposal(models.Model):
                     'allocated_amount': alloc_amt,
                 }
 
-                if fund['type'] == 'payment':
-                    alloc_vals['payment_id'] = fund['record'].id
-                else:
-                    alloc_vals['cheque_id'] = fund['record'].id
+                alloc_vals[fund['alloc_field']] = fund['record'].id
 
                 if line_type == 'installment':
                     alloc_vals['installment_id'] = line.id
@@ -3057,11 +2651,15 @@ class SaleProposal(models.Model):
                 line_amount_needed -= alloc_amt
 
                 # Update payment method flag on the line
-                method_used = 'payment' if fund['type'] == 'payment' else 'cheque'
+                method_used = fund['type']
                 line.write({'payment_method_used': method_used})
 
     def action_calculate(self):
         """Calculate installments for contract with cleanup and automated fund re-allocation"""
+        # Step 5: installments toggle. Returns a warning rather than raising.
+        if not self._installments_allowed():
+            return self._installments_off_notification()
+
         if self.state not in ['draft', 'pending_approvals']:
             raise ValidationError(_("Installments can only be calculated in Draft or Draft Contract state."))
 
@@ -3234,9 +2832,7 @@ class SaleProposal(models.Model):
 
         for installment in self.installment_ids:
             for alloc in installment.allocation_ids:
-                if alloc.cheque_id and alloc.cheque_id.state == 'done':
-                    total_collected += alloc.allocated_amount
-                elif alloc.payment_id and alloc.payment_id.state == 'paid':
+                if alloc._is_collected():
                     total_collected += alloc.allocated_amount
 
         return total_collected
@@ -3283,9 +2879,7 @@ class SaleProposal(models.Model):
         collected = 0.0
         for installment in self.installment_ids:
             for alloc in installment.allocation_ids:
-                if alloc.cheque_id and alloc.cheque_id.state == 'done':
-                    collected += alloc.allocated_amount
-                elif alloc.payment_id and alloc.payment_id.state == 'paid':
+                if alloc._is_collected():
                     collected += alloc.allocated_amount
         return collected / self.price_after_discount * 100
 
@@ -3393,9 +2987,7 @@ class SaleProposal(models.Model):
         # Add ONLY installment payments (exclude maintenance)
         for installment in self.installment_ids:
             for alloc in installment.allocation_ids:
-                if alloc.cheque_id and alloc.cheque_id.state == 'done':
-                    total_collected_for_claim += alloc.allocated_amount
-                elif alloc.payment_id and alloc.payment_id.state == 'paid':
+                if alloc._is_collected():
                     total_collected_for_claim += alloc.allocated_amount
 
         # Calculate percentage based on unit price only (not including maintenance)
@@ -3557,68 +3149,10 @@ class SaleProposal(models.Model):
             # Auto-populate commission hierarchy
             self._build_commission_hierarchy()
 
-    def _build_commission_hierarchy(self):
-        """Populate commission lines based on user hierarchy"""
-        self.ensure_one()
-
-        if not self.user_id:
-            return
-
-        # Clear existing lines
-        self.commission_ids = [(5, 0, 0)]
-
-        # Get team hierarchy
-        team_member = self.env['crm.team.member'].search([
-            ('user_id', '=', self.user_id.id)
-        ], limit=1)
-
-        if not team_member:
-            # Just add the salesperson
-            self.commission_ids = [(0, 0, {
-                'employee_id': self.user_id.id,
-                'jop_position': self.user_id.job_level_id.name or 'Sales Person',
-                'commission': 100.0,
-            })]
-            return
-
-        team = team_member.crm_team_id
-        commission_lines = []
-
-        # Sales Person
-        if self.user_id:
-            commission_lines.append((0, 0, {
-                'employee_id': self.user_id.id,
-                'jop_position': 'Sales Person',
-                'commission': 100.0,
-            }))
-
-        # Sales Manager (Team Leader)
-        if team.user_id and team.user_id != self.user_id:
-            commission_lines.append((0, 0, {
-                'employee_id': team.user_id.id,
-                'jop_position': 'Sales Manager',
-                'commission': 100.0,
-            }))
-
-        # Director
-        if team.director_id and team.director_id != self.user_id and team.director_id != team.user_id:
-            commission_lines.append((0, 0, {
-                'employee_id': team.director_id.id,
-                'jop_position': 'Director',
-                'commission': 100.0,
-            }))
-
-        self.commission_ids = commission_lines
-
-    @api.depends('commission_achievement_ids')
-    def _compute_commission_achievement_count(self):
-        for rec in self:
-            rec.commission_achievement_count = len(rec.commission_achievement_ids)
-
-    @api.depends('non_sales_claim_ids')
-    def _compute_non_sales_claim_count(self):
-        for rec in self:
-            rec.non_sales_claim_count = len(rec.non_sales_claim_ids)
+    # _build_commission_hierarchy: this copy was always shadowed by
+    # sale_proposal_crm_ext.py's (imported after this file - Odoo's MRO means the
+    # later-imported one wins), so it never ran. Removed; see sale_proposal_crm_ext.py for
+    # the one that was actually active, now moved to isky_18_realestate_developer_commission.
 
     def action_view_non_sales_claims(self):
         """Smart button to view non-sales employee claims"""
@@ -3780,16 +3314,12 @@ class SaleProposal(models.Model):
 
             for installment in rec.installment_ids:
                 for alloc in installment.allocation_ids:
-                    if alloc.cheque_id and alloc.cheque_id.state == 'done':
-                        total_collected += alloc.allocated_amount
-                    elif alloc.payment_id and alloc.payment_id.state == 'paid':
+                    if alloc._is_collected():
                         total_collected += alloc.allocated_amount
 
             for maintenance in rec.maintenance_installment_ids:
                 for alloc in maintenance.allocation_ids:
-                    if alloc.cheque_id and alloc.cheque_id.state == 'done':
-                        total_collected += alloc.allocated_amount
-                    elif alloc.payment_id and alloc.payment_id.state == 'paid':
+                    if alloc._is_collected():
                         total_collected += alloc.allocated_amount
 
             rec.total_collected_amount = total_collected
@@ -3852,23 +3382,20 @@ class SaleProposal(models.Model):
 
         self.ensure_one()
 
-        excluded_cheque_states = ('cancel', 'return', 'return_to_client', 'bounce')
-
         def _build_lines(installments, base_amount):
             result = []
             for inst in installments:
-                cheque = inst.allocation_ids.mapped('cheque_id').filtered(
-                    lambda c: c.state not in excluded_cheque_states)[:1]
                 percentage = round((inst.total_amount / base_amount) * 100, 2) if base_amount else 0.0
-                result.append({
+                vals = {
                     'name': inst.name or '',
-                    'cheque_no': cheque.cheque_no if cheque else '',
-                    'bank_name': cheque.bank_id.name if cheque and cheque.bank_id else '',
                     'percentage': percentage,
                     'amount': inst.total_amount,
                     'date': inst.date,
-                    'has_cheque': bool(cheque),
-                })
+                }
+                # cheque_no / bank_name / has_cheque always present, so the Excel writer
+                # needs no cheque module.
+                vals.update(self._line_cheque_info(inst))
+                result.append(vals)
             return result
 
         sorted_installments = self.installment_ids.sorted(
@@ -4184,39 +3711,9 @@ class SaleProposal(models.Model):
         else:
             raise ValidationError(_("You should choose unit first."))
 
-    def action_copy_customer_ownership_ids(self):
-        already_done_recs = []
-        to_create = []
-
-        for rec in self:
-            for line in rec.customer_ownership_ids:
-                existed_line = rec.customer_new_ownership_ids.filtered(lambda l: l.percentage == line.percentage
-                              and l.customer_id.id == line.customer_id.id and l.from_action == True)
-                if existed_line:
-                    already_done_recs.append(rec.name)
-                    break
-                to_create.append({
-                    'customer_id': line.customer_id.id,
-                    'percentage': line.percentage,
-                    'company_id': line.company_id.id,
-                    'contract_id': rec.id,
-                    'from_action': True,
-                })
-
-        if already_done_recs:
-            raise ValidationError(_("Server action already ran for contracts: %s", ', '.join(already_done_recs)))
-        if to_create:
-            self.env['customer.ownership'].create(to_create)
-        return {
-            'type': 'ir.actions.client',
-            'tag': 'display_notification',
-            'params': {
-                'title': _("Success"),
-                'message': _("%s ownership record(s) copied successfully.", len(to_create)),
-                'type': 'success',
-                'sticky': False,
-            }
-        }
+    # action_copy_customer_ownership_ids() moved to
+    # realestate.split.parent.mixin (Phase 3 step 5): it was duplicated verbatim here
+    # and in the other deal model, differing only in the FK key.
 
     def action_recalc_installment_serial(self):
         for proposal in self:

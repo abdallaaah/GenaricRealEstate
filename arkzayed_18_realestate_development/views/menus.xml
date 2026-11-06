@@ -55,7 +55,7 @@
           name="Vendor Commitments"
           parent="accountant.menu_accounting"
           action="action_vendor_commitment"
-          groups="arkzayed_18_realestate_development.group_vendor_commitment_user"
+          groups="isky_18_realestate_developer_construction.group_vendor_commitment_user"
           sequence="7"/>
 
     <!-- Configuration Categories -->

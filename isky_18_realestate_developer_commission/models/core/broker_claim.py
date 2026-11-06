@@ -17,7 +17,7 @@ class BrokerClaim(models.Model):
         copy=False,
         readonly=True,
         index=True,
-        default=lambda self: _('New')
+        default='New'
     )
     broker_company = fields.Many2one(
         'res.partner',

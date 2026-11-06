@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- penalty_id/action_register_penalty_payment moved here from
+         isky_18_realestate_developer_accounting: the field points to installment.penalty
+         (this module), the button's own method stays in the accounting bridge (it is
+         generic - just opens account.payment.register on a posted move). -->
+    <record id="view_invoice_form_penalty" model="ir.ui.view">
+        <field name="name">account.move.form.penalty</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/header" position="inside">
+                <field name="penalty_id" invisible="1"/>
+                <button name="action_register_penalty_payment"
+                        string="Register Penalty Payment"
+                        type="object"
+                        class="btn-primary"
+                        invisible="not penalty_id or state != 'posted'"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Phase 3 step 2a: view lines for the sales-owned flags, moved here from
+         isky_18_realestate_developer_accounting together with the fields themselves. -->
+    <record id="view_invoice_form_sales_flags" model="ir.ui.view">
+        <field name="name">account.move.form.sales.flags</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//label[@for='invoice_date']" position="before">
+                <field name="is_contract" widget="boolean_toggle"/>
+            </xpath>
+            <xpath expr="//field[@name='ref'][2]" position="after">
+                <field name="is_collection" readonly="1"/>
+                <field name="is_maintenance_collection" readonly="1"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -587,15 +587,15 @@
                                              so it is reserved to one group; a part-paid installment can only
                                              be settled through the button, which logs it in the chatter. -->
                                         <field name="paid" widget="boolean_toggle"
-                                               groups="arkzayed_18_realestate_development.group_manual_paid_installment"
+                                               groups="isky_18_realestate_developer_sales_crm.group_manual_paid_installment"
                                                readonly="not paid and paid_amount &gt; 0"/>
                                         <button name="action_mark_fully_paid" type="object" string="Mark fully paid"
                                                 icon="fa-check-circle"
                                                 invisible="paid or paid_amount &lt;= 0"
-                                                groups="arkzayed_18_realestate_development.group_manual_paid_installment"
+                                                groups="isky_18_realestate_developer_sales_crm.group_manual_paid_installment"
                                                 confirm="This installment already has a payment. Mark it as fully paid (the rest is counted as settled outside the system)?"/>
                                         <field name="paid" widget="boolean_toggle" readonly="1"
-                                               groups="!arkzayed_18_realestate_development.group_manual_paid_installment"/>
+                                               groups="!isky_18_realestate_developer_sales_crm.group_manual_paid_installment"/>
                                         <field name="payment_method_used" readonly="1" column_invisible="1"/>
                                         <!-- Allocated M2M Tag Widgets -->
                                         <field name="allocated_payment_ids" widget="many2many_tags" readonly="1" string="Payments"/>

@@ -10,7 +10,8 @@ class PaymentAllocation(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
     payment_id = fields.Many2one('account.payment', string='Payment', ondelete='cascade', tracking=True)
-    cheque_id = fields.Many2one('cheque.manage', string='Cheque', ondelete='cascade', tracking=True)
+    # cheque_id (Many2one to cheque.manage) moved to
+    # isky_18_realestate_developer_sales_cheques (Phase 3 step 3), supplement S1.
 
     installment_id = fields.Many2one('installment.lines', string='Unit Installment', ondelete='cascade', tracking=True)
     maintenance_id = fields.Many2one('maintenance.installment.lines', string='Maintenance Installment',
@@ -268,9 +269,37 @@ class PaymentAllocation(models.Model):
                 rec.line_date = False
                 rec.line_remaining_amount = 0.0
 
+    def _is_collected(self):
+        """True when this allocation represents money actually collected.
+
+        The single source of truth for "collected", shared by installment lines, maintenance
+        lines and sale.proposal - CLAUDE.md requires one engine, not a copy per call site.
+        Base: a payment in state 'paid'. sales_cheques extends it with a cheque in state
+        'done'.
+
+        NOTE: the originals wrote `state in ('paid')` / `('done')` - strings, not tuples, so
+        those were substring tests. No current payment or cheque state is a substring of
+        'paid'/'done', so this explicit equality is behaviour-preserving; see bug_backlog.md.
+        """
+        self.ensure_one()
+        return bool(self.payment_id) and self.payment_id.state == 'paid'
+
+    def _fund_kind(self):
+        """Which kind of fund this allocation draws on: 'payment', 'cheque' (added by
+        sales_cheques) or False when it draws on neither. Pairs with
+        _allocation_parent(), which returns the record itself."""
+        self.ensure_one()
+        return 'payment' if self.payment_id else False
+
+    def _allocation_parent(self):
+        """The record this allocation hangs off. Base: the payment. sales_cheques extends
+        it to fall back to the cheque, so sales_crm needs no cheque module."""
+        self.ensure_one()
+        return self.payment_id
+
     @api.onchange('installment_id', 'maintenance_id')
     def _onchange_installment_maintenance(self):
-        parent = self.payment_id or self.cheque_id
+        parent = self._allocation_parent()
         if not parent:
             return
 
@@ -329,7 +358,9 @@ class PaymentAllocation(models.Model):
                     rem=line.remaining_amount
                 ))
 
-    @api.constrains('payment_id', 'cheque_id', 'installment_id', 'maintenance_id')
+    # S6: base covers payments only; sales_cheques redeclares with 'cheque_id' added
+    # and calls super().
+    @api.constrains('payment_id', 'installment_id', 'maintenance_id')
     def _check_unique_allocation_line(self):
         # Skip validation during migration or automated reallocation loops
         if self.env.context.get('skip_allocation_check'):
@@ -356,24 +387,5 @@ class PaymentAllocation(models.Model):
                         "The maintenance installment '%(line)s' is already selected in this payment.",
                         line=rec.maintenance_id.name
                     ))
-
-            if rec.cheque_id:
-                if rec.installment_id and self.search_count([
-                    ('id', '!=', rec.id),
-                    ('cheque_id', '=', rec.cheque_id.id),
-                    ('installment_id', '=', rec.installment_id.id),
-                ]) > 0:
-                    raise ValidationError(_(
-                        "The unit installment '%(line)s' is already selected in this cheque.",
-                        line=rec.installment_id.name
-                    ))
-
-                if rec.maintenance_id and self.search_count([
-                    ('id', '!=', rec.id),
-                    ('cheque_id', '=', rec.cheque_id.id),
-                    ('maintenance_id', '=', rec.maintenance_id.id),
-                ]) > 0:
-                    raise ValidationError(_(
-                        "The maintenance installment '%(line)s' is already selected in this cheque.",
-                        line=rec.maintenance_id.name
-                    ))
+            # The cheque half of this check moved to
+            # isky_18_realestate_developer_sales_cheques (Phase 3 step 3).

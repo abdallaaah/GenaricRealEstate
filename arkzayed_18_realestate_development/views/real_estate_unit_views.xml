@@ -5,8 +5,8 @@
         <!-- Server Action: convert selected units from "Available" to "Available For Sale" -->
         <record id="action_convert_available_for_sale" model="ir.actions.server">
             <field name="name">Convert to Available For Sale</field>
-            <field name="model_id" ref="model_real_estate_unit"/>
-            <field name="binding_model_id" ref="model_real_estate_unit"/>
+            <field name="model_id" ref="isky_18_realestate_developer_unit_inventory.model_real_estate_unit"/>
+            <field name="binding_model_id" ref="isky_18_realestate_developer_unit_inventory.model_real_estate_unit"/>
             <field name="binding_view_types">list,form</field>
             <field name="state">code</field>
             <field name="code"><![CDATA[
@@ -59,7 +59,7 @@ for rec in records:
                                 invisible="unit_status not in ['available', 'available_for_sale']"
                                 string="Block Unit"
                                 type="object"
-                                groups="arkzayed_18_realestate_development.group_block_unit"
+                                groups="isky_18_realestate_developer_unit_inventory.group_block_unit"
                                 class="oe_highlight"/>
                         <button name="action_unit_onhold"
                                 invisible="unit_status not in ['available', 'available_for_sale']"

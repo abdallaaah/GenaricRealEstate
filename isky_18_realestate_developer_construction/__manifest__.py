@@ -25,6 +25,7 @@ corrected to self-consistently point at arkzayed_18_realestate_development.repor
         'isky_18_realestate_developer_unit_inventory',
     ],
     'data': [
+        'security/security.xml',
         'security/ir.model.access.csv',
     ],
     'license': 'LGPL-3',
