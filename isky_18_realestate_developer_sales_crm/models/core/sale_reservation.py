@@ -23,10 +23,17 @@ def add_months(source_date, months):
 
 class SaleContract(models.Model):
     _name = "real.estate.sale.reservation"
-    _inherit = ['mail.thread', 'mail.activity.mixin','installment.mixin', 'realestate.sales.installments.gate', 'realestate.split.parent.mixin', 'realestate.sales.commission.hooks']
+    _inherit = ['mail.thread', 'mail.activity.mixin','installment.mixin', 'realestate.sales.installments.gate', 'realestate.split.parent.mixin', 'realestate.sales.commission.hooks', 'realestate.approval.gate']
 
     _split_child_fk = 'reservation_id'
     _split_parent_label = 'reservation'
+
+    # C1: declared here, on the model that owns customer_new_ownership_ids, rather than on the
+    # abstract parent mixin against a field that mixin does not have. The logic stays in the
+    # mixin - this only carries the @api.constrains trigger.
+    @api.constrains('customer_new_ownership_ids')
+    def _check_ownership_split_total(self):
+        return self._validate_split_children()
 
     name = fields.Char(string='Reservation Reference', required=True, copy=False, readonly=True, index=True,
                        default='New')
@@ -234,7 +241,7 @@ class SaleContract(models.Model):
 
     def action_stop_checking_expiration(self):
         self.ensure_one()
-        if not self.env.user.has_group('arkzayed_18_realestate_development.stop_checking_reservation_expiration'):
+        if not self.env.user.has_group('isky_18_realestate_developer_sales_crm.stop_checking_reservation_expiration'):
             raise ValidationError(_('You are not allowed to stop checking expiration date'))
         self.stop_check_expiration = True
 
@@ -650,7 +657,8 @@ class SaleContract(models.Model):
                 rec.remaining_amount = rec.remaining_amount
 
     def _compute_can_edit_discount_percentage(self):
-        can_edit_discount_percentage = self.env.user.has_group('isky_18_realestate_developer_sales_crm.group_edit_discount_percentage')
+        # S7: configurable stage.
+        can_edit_discount_percentage = self._user_can_approve('edit_discount')
         for rec in self:
             rec.can_edit_discount_percentage = can_edit_discount_percentage
 
@@ -1016,8 +1024,10 @@ class SaleContract(models.Model):
     def action_confirm(self):
         """Confirm the reservation"""
         # check that the user has the required group to confirm the reservation
-        if not self.env.user.has_group('isky_18_realestate_developer_sales_crm.group_confirm_reservation'):
-            raise UserError(_("You are not allowed to confirm a reservation."))
+        # S7: configurable stage.
+        self._require_approval('confirm_reservation', _(
+            "You are not allowed to confirm a reservation."))
+        self._log_approval('confirm_reservation')
         if not self.installment_ids or not self.maintenance_installment_ids:
             raise ValidationError(_('Please create installment and maintenance installment first.'))
         if self.unit_id and self.unit_id.unit_status not in ['available', 'available_for_sale']:

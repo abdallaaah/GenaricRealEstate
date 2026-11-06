@@ -37,17 +37,22 @@ class RealestateProject(models.Model):
     def _has_installment_lines(self):
         """Whether any installment or maintenance installment line belongs to this project.
 
-        installment.lines carries no project_id (see step 0 findings), so the project is
-        reached two ways: through the reservation, which has project_id, and through the
-        line's stored unit_id, which is the only route for a contract-only line because
-        sale.proposal has no project_id either. A line counts if either route matches.
+        Neither installment.lines nor sale.proposal carries project_id, so the project is
+        reached three ways: through the reservation (which has project_id), through the line's
+        stored unit_id, and through sale_proposal_id.unit_id.project_id. A line counts if any
+        route matches. R3's constrains on the line models guarantees at least one route exists.
         """
         self.ensure_one()
         if not self.id:
             return False
+        # R3: three routes, not two. `unit_id` on a line is computed only from
+        # sale_proposal_id.unit_id, so it is empty for a reservation-only line; and walking
+        # sale_proposal_id.unit_id.project_id directly also catches a line whose stored unit_id
+        # has not been recomputed. Any one match counts.
         domain = [
-            '|', ('reservation_id.project_id', '=', self.id),
-                 ('unit_id.project_id', '=', self.id),
+            '|', '|', ('reservation_id.project_id', '=', self.id),
+                      ('unit_id.project_id', '=', self.id),
+                      ('sale_proposal_id.unit_id.project_id', '=', self.id),
         ]
         return bool(
             self.env['installment.lines'].sudo().search_count(domain)

@@ -557,7 +557,7 @@ class CrmLead(models.Model):
     def _get_allowed_step_back_groups(self):
         """Groups allowed to move qualified leads back to previous stages"""
         return [
-            'arkzayed_18_realestate_developer_crm.sales_manager_group',  # Sales Manager
+            'isky_18_realestate_developer_sales_crm.sales_manager_group',  # Sales Manager
             'lead_admin_group',  # Lead Admin
             'operation_manager_group',  # Sales Sector Manager team
             'sales_team.group_sale_salesman_all_leads'  # Team Leader
@@ -696,7 +696,7 @@ class CrmLead(models.Model):
 
         # Stage-related validations and updates
         if 'stage_id' in vals:
-            has_finance_group = self.env.user.has_group('arkzayed_18_realestate_developer_crm.finance_group')
+            has_finance_group = self.env.user.has_group('isky_18_realestate_developer_sales_crm.finance_group')
             stages_allowed_for_finance = [
                 self.env.ref('arkzayed_18_realestate_developer_crm.stage_lead7').id,
                 self.env.ref('arkzayed_18_realestate_developer_crm.stage_lead8').id
@@ -753,7 +753,7 @@ class CrmLead(models.Model):
             vals['previous_opp_stage_id'] = self.stage_id
         # Lead stage validations
         if 'lead_stage_id' in vals:
-            if not self.env.user.has_group('arkzayed_18_realestate_developer_crm.lead_admin_group') and vals.get(
+            if not self.env.user.has_group('isky_18_realestate_developer_sales_crm.lead_admin_group') and vals.get(
                     'lead_stage_id') == self.env.ref('arkzayed_18_realestate_developer_crm.stage_locked').id:
                 raise ValidationError("Only admin can lock lead")
             if vals.get('lead_stage_id') == self.env.ref('arkzayed_18_realestate_developer_crm.stage_qualified').id:
@@ -765,7 +765,7 @@ class CrmLead(models.Model):
         for record in self:
             user = self.env.user
             if not user.has_group(
-                    'arkzayed_18_realestate_developer_crm.operation_manager_group') and not record.duplicate_portal and not record.record_creation:
+                    'isky_18_realestate_developer_sales_crm.operation_manager_group') and not record.duplicate_portal and not record.record_creation:
                 if record.lead_stage_id.locked:
                     raise UserError('You cannot edit a locked lead')
                 if record.stage_id.is_cancel and 'locked' not in vals:
@@ -1494,9 +1494,9 @@ class CrmLead(models.Model):
     @property
     def has_reassign_auth(self):
         if self.env.user.has_group('sales_team.group_sale_salesman_all_leads') \
-                or self.env.user.has_group('arkzayed_18_realestate_developer_crm.sales_manager_group') \
-                or self.env.user.has_group('arkzayed_18_realestate_developer_crm.director_manager_group') \
-                or self.env.user.has_group('arkzayed_18_realestate_developer_crm.operation_manager_group'):
+                or self.env.user.has_group('isky_18_realestate_developer_sales_crm.sales_manager_group') \
+                or self.env.user.has_group('isky_18_realestate_developer_sales_crm.director_manager_group') \
+                or self.env.user.has_group('isky_18_realestate_developer_sales_crm.operation_manager_group'):
             return True
         else:
             return False
@@ -1770,69 +1770,69 @@ class CrmLead(models.Model):
     def _check_eoi_manager_approval(self):
         for rec in self:
             if rec.eoi_status_for_manager and self.type == 'opportunity':
-                if not self.env.user.has_group('arkzayed_18_realestate_developer_crm.approval_manager_group'):
+                if not self.env.user.has_group('isky_18_realestate_developer_sales_crm.approval_manager_group'):
                     raise UserError('You are not allowed to approve - only Manager can approve')
 
     @api.constrains('eoi_status_for_financial')
     def _check_eoi_financial_approval(self):
         for rec in self:
             if rec.eoi_status_for_financial and self.type == 'opportunity':
-                if not self.env.user.has_group('arkzayed_18_realestate_developer_crm.financial_manager_group'):
+                if not self.env.user.has_group('isky_18_realestate_developer_sales_crm.financial_manager_group'):
                     raise UserError('You are not allowed to approve - only Financial Manager can approve')
 
     @api.constrains('eoi_status_for_operations')
     def _check_eoi_operations_approval(self):
         for rec in self:
             if rec.eoi_status_for_operations and self.type == 'opportunity':
-                if not (self.env.user.has_group('arkzayed_18_realestate_developer_crm.operation_manager_group') ):
+                if not (self.env.user.has_group('isky_18_realestate_developer_sales_crm.operation_manager_group') ):
                         # or
-                        # self.env.user.has_group('arkzayed_18_realestate_developer_crm.operation_executive_group')):
+                        # self.env.user.has_group('isky_18_realestate_developer_sales_crm.operation_executive_group')):
                     raise UserError('You are not allowed to approve - only Sales Sector Manager can approve')
 
     @api.constrains('reservation_status_for_manager')
     def _check_reservation_manager_approval(self):
         for rec in self:
             if rec.reservation_status_for_manager and self.type == 'opportunity':
-                if not self.env.user.has_group('arkzayed_18_realestate_developer_crm.approval_manager_group'):
+                if not self.env.user.has_group('isky_18_realestate_developer_sales_crm.approval_manager_group'):
                     raise UserError('You are not allowed to approve - only Manager can approve')
 
     @api.constrains('reservation_status_for_financial')
     def _check_reservation_financial_approval(self):
         for rec in self:
             if rec.reservation_status_for_financial and self.type == 'opportunity':
-                if not self.env.user.has_group('arkzayed_18_realestate_developer_crm.financial_manager_group'):
+                if not self.env.user.has_group('isky_18_realestate_developer_sales_crm.financial_manager_group'):
                     raise UserError('You are not allowed to approve - only Financial Manager can approve')
 
     @api.constrains('reservation_status_for_operations')
     def _check_reservation_operations_approval(self):
         for rec in self:
             if rec.reservation_status_for_operations and self.type == 'opportunity':
-                if not (self.env.user.has_group('arkzayed_18_realestate_developer_crm.operation_manager_group') ):
+                if not (self.env.user.has_group('isky_18_realestate_developer_sales_crm.operation_manager_group') ):
                         # or
-                        # self.env.user.has_group('arkzayed_18_realestate_developer_crm.operation_executive_group')):
+                        # self.env.user.has_group('isky_18_realestate_developer_sales_crm.operation_executive_group')):
                     raise UserError('You are not allowed to approve - only Sales Sector Manager can approve')
 
     @api.constrains('contract_status_for_manager')
     def _check_contract_manager_approval(self):
         for rec in self:
             if rec.contract_status_for_manager and self.type == 'opportunity':
-                if not self.env.user.has_group('arkzayed_18_realestate_developer_crm.approval_manager_group'):
+                if not self.env.user.has_group('isky_18_realestate_developer_sales_crm.approval_manager_group'):
                     raise UserError('You are not allowed to approve - only Manager can approve')
 
     @api.constrains('contract_status_for_financial')
     def _check_contract_financial_approval(self):
         for rec in self:
             if rec.contract_status_for_financial and self.type == 'opportunity':
-                if not self.env.user.has_group('arkzayed_18_realestate_developer_crm.financial_manager_group'):
+                if not self.env.user.has_group('isky_18_realestate_developer_sales_crm.financial_manager_group'):
                     raise UserError('You are not allowed to approve - only Financial Manager can approve')
 
     @api.constrains('contract_status_for_operations')
     def _check_contract_operations_approval(self):
         for rec in self:
             if rec.contract_status_for_operations and self.type == 'opportunity':
-                if not (self.env.user.has_group('arkzayed_18_realestate_developer_crm.operation_manager_group')):
+                if not (self.env.user.has_group('isky_18_realestate_developer_sales_crm.operation_manager_group')):
                         # or
-                        # self.env.user.has_group('arkzayed_18_realestate_developer_crm.operation_executive_group')):
+                        # self.env.user.has_group('isky_18_realestate_developer_sales_crm.operation_executive_group')):
                     raise UserError('You are not allowed to approve - only Sales Sector Manager can approve')
 
     @api.depends('message_ids')
@@ -1958,19 +1958,19 @@ class CrmLead(models.Model):
 
     def is_restricted_user(self):
         user = self.env.user
-        return not (user.has_group('arkzayed_18_realestate_developer_crm.lead_admin_group') or
-                                  user.has_group('arkzayed_18_realestate_developer_crm.operation_manager_group') )
+        return not (user.has_group('isky_18_realestate_developer_sales_crm.lead_admin_group') or
+                                  user.has_group('isky_18_realestate_developer_sales_crm.operation_manager_group') )
         # or
-        #                           user.has_group('arkzayed_18_realestate_developer_crm.operation_executive_group'))
+        #                           user.has_group('isky_18_realestate_developer_sales_crm.operation_executive_group'))
 
     ## validate portal leads
 
     def validate_locked_and_treated_security(self, locked=None):
         user = self.env.user
-        if locked and locked is not None and not user.has_group('arkzayed_18_realestate_developer_crm.lead_admin_group'):
+        if locked and locked is not None and not user.has_group('isky_18_realestate_developer_sales_crm.lead_admin_group'):
             return {'error': 'Only admin allowed to lock lead'}
 
-        if not user.has_group('arkzayed_18_realestate_developer_crm.operation_manager_group') and self.lead_stage_id.locked:
+        if not user.has_group('isky_18_realestate_developer_sales_crm.operation_manager_group') and self.lead_stage_id.locked:
             return {'error': 'You cannot edit a locked lead'}
 
     def validate_all_constraints_for_portal(self):
@@ -1998,53 +1998,53 @@ class CrmLead(models.Model):
 
             # 4
             if record.eoi_status_for_manager and self.type == 'opportunity':
-                if not self.env.user.has_group('arkzayed_18_realestate_developer_crm.approval_manager_group'):
+                if not self.env.user.has_group('isky_18_realestate_developer_sales_crm.approval_manager_group'):
                     message += 'You are not allowed to approve - only Manager can approve\n'
 
             # 5
             if record.eoi_status_for_financial and self.type == 'opportunity':
-                if not self.env.user.has_group('arkzayed_18_realestate_developer_crm.financial_manager_group'):
+                if not self.env.user.has_group('isky_18_realestate_developer_sales_crm.financial_manager_group'):
                     message += 'You are not allowed to approve - only Financial Manager can approve\n'
 
             #6
             if record.eoi_status_for_operations and self.type == 'opportunity':
-                if not (self.env.user.has_group('arkzayed_18_realestate_developer_crm.operation_manager_group') ):
+                if not (self.env.user.has_group('isky_18_realestate_developer_sales_crm.operation_manager_group') ):
                         # or
-                        # self.env.user.has_group('arkzayed_18_realestate_developer_crm.operation_executive_group')):
+                        # self.env.user.has_group('isky_18_realestate_developer_sales_crm.operation_executive_group')):
                     message += 'You are not allowed to approve - only Sales Sector Manager can approve\n'
 
             # 7
             if record.reservation_status_for_manager and self.type == 'opportunity':
-                if not self.env.user.has_group('arkzayed_18_realestate_developer_crm.approval_manager_group'):
+                if not self.env.user.has_group('isky_18_realestate_developer_sales_crm.approval_manager_group'):
                     raise UserError('You are not allowed to approve - only Manager can approve')
 
             # 8
             if record.reservation_status_for_financial and self.type == 'opportunity':
-                if not self.env.user.has_group('arkzayed_18_realestate_developer_crm.financial_manager_group'):
+                if not self.env.user.has_group('isky_18_realestate_developer_sales_crm.financial_manager_group'):
                     message += 'You are not allowed to approve - only Financial Manager can approve\n'
 
             # 9
             if record.reservation_status_for_operations and self.type == 'opportunity':
-                if not (self.env.user.has_group('arkzayed_18_realestate_developer_crm.operation_manager_group') ):
+                if not (self.env.user.has_group('isky_18_realestate_developer_sales_crm.operation_manager_group') ):
                         # or
-                        # self.env.user.has_group('arkzayed_18_realestate_developer_crm.operation_executive_group')):
+                        # self.env.user.has_group('isky_18_realestate_developer_sales_crm.operation_executive_group')):
                     message += 'You are not allowed to approve - only Sales Sector Manager can approve\n'
 
             # 10
             if record.contract_status_for_manager and self.type == 'opportunity':
-                if not self.env.user.has_group('arkzayed_18_realestate_developer_crm.approval_manager_group'):
+                if not self.env.user.has_group('isky_18_realestate_developer_sales_crm.approval_manager_group'):
                     message += 'You are not allowed to approve - only Manager can approve\n'
 
             # 11
             if record.contract_status_for_financial and self.type == 'opportunity':
-                if not self.env.user.has_group('arkzayed_18_realestate_developer_crm.financial_manager_group'):
+                if not self.env.user.has_group('isky_18_realestate_developer_sales_crm.financial_manager_group'):
                     message += 'You are not allowed to approve - only Financial Manager can approve\n'
 
             # 12
             if record.contract_status_for_operations and self.type == 'opportunity':
-                if not (self.env.user.has_group('arkzayed_18_realestate_developer_crm.operation_manager_group')):
+                if not (self.env.user.has_group('isky_18_realestate_developer_sales_crm.operation_manager_group')):
                         # or
-                        # self.env.user.has_group('arkzayed_18_realestate_developer_crm.operation_executive_group')):
+                        # self.env.user.has_group('isky_18_realestate_developer_sales_crm.operation_executive_group')):
                     message += 'You are not allowed to approve - only Sales Sector Manager can approve\n'
 
             if message:
@@ -2130,7 +2130,7 @@ class CrmLead(models.Model):
 
     def _compute_can_edit_stage_history(self):
         for rec in self:
-            rec.can_edit_stage_history = self.env.user.has_group('arkzayed_18_realestate_developer_crm.lead_admin_group')
+            rec.can_edit_stage_history = self.env.user.has_group('isky_18_realestate_developer_sales_crm.lead_admin_group')
 
     def _new_meeting_vals(self):
         current_user = self.env.user

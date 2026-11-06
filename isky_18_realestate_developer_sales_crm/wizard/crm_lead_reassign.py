@@ -22,7 +22,7 @@ class LeadReassign(models.TransientModel):
     def is_admin_user(self, team_ids, user):
         operation = self.get_teams_member_as_operation(team_ids, user)
         # operation_executive = self.get_teams_member_as_operation_executive(team_ids, user)
-        lead_admin = user.has_group('arkzayed_18_realestate_developer_crm.lead_admin_group')
+        lead_admin = user.has_group('isky_18_realestate_developer_sales_crm.lead_admin_group')
         return operation  or lead_admin #or operation_executive
 
     def get_all_teams_members_for_all_roles(self, team_ids, user):

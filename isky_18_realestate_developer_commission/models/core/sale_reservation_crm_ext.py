@@ -34,6 +34,3 @@ class ReservationCommission(models.Model):
     # Explicit entry points: see _commission_build() for why these cannot be left to the MRO.
     def _build_commission_hierarchy(self):
         return self._commission_build()
-
-    def compute_person_hierarchy(self):
-        return self._commission_build()

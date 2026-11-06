@@ -8,15 +8,18 @@ class CustomerOwnership(models.Model):
     _name = 'customer.ownership'
     _inherit = ['realestate.split.line.mixin']
     _rec_name = 'customer_id'
-    _order = 'sequence, id'
+    # _order comes from realestate.split.line.mixin
 
     _split_party_field = 'customer_id'
-    _split_parent_fields = ('reservation_id', 'contract_id')
+    # B2: PRECEDENCE order, not just a list. A contract line also carries reservation_id
+    # (see _compute_reservation_id below), so the contract has to win or the line would be
+    # counted in both totals.
+    _split_parent_fields = ('contract_id', 'reservation_id')
 
     customer_id = fields.Many2one('res.partner')
     # percentage and sequence come from realestate.split.line.mixin
     company_id = fields.Many2one('res.company', string='Company', required=True,
-                                 default=lambda self: self.env.user.company_id)
+                                 default=lambda self: self.env.company)
 
     reservation_id = fields.Many2one('real.estate.sale.reservation', compute='_compute_reservation_id', store=True, readonly=False)
     contract_id = fields.Many2one('sale.proposal')
@@ -32,7 +35,11 @@ class CustomerOwnership(models.Model):
     def _compute_reservation_id(self):
         for rec in self:
             if rec.from_action:
-                return
+                # B1: `continue`, not `return`. A `return` here aborted the loop, leaving every
+                # later record in the set with no value for a stored compute - which Odoo
+                # rejects outright. The copy action creates every line with from_action=True in
+                # one batch, so it could never succeed with more than zero template lines.
+                continue
             if rec.contract_id and rec.contract_id.sale_contract_reservation_id:
                 rec.reservation_id = rec.contract_id.sale_contract_reservation_id.id
             else:

@@ -50,5 +50,120 @@
             <field name="name">Manager Approval</field>
             <field name="category_id" ref="isky_18_realestate_developer_unit_inventory.module_category_real_state_project_assigned"/>
         </record>
+
+        <!-- ============================================================================
+             Phase 4 follow-up (2026-11-06): the eight CRM role/approval groups.
+
+             These were defined in arkzayed_18_realestate_developer_crm and referenced from
+             40 places in this module, which does not depend on it. has_group() therefore
+             returned False for every user and all 40 gates denied everyone. The symptom was
+             severe: crm.lead's nine approval-status fields each default to 'pending' and each
+             constrains on one of these groups, so NO opportunity could be created at all in
+             a database without the legacy CRM module (backlog #44).
+
+             The legacy module keeps its own copies - it references them from its own files and
+             nothing here needs it to change, so no legacy file was touched. The groups below
+             are the canonical ones for this module.
+
+             MIGRATION: in a database where both modules are installed there will be two
+             similarly named groups, and a user holding the legacy one does NOT hold this one.
+             Existing users must be re-assigned, or a one-off script must map them. Recorded as
+             NEEDS REVIEW in the decisions log.
+
+             The implied chain from the legacy definitions is preserved exactly:
+             director -> operation manager -> sales manager -> sales_team.group_sale_salesman.
+             ============================================================================ -->
+
+        <record id="sales_manager_group" model="res.groups">
+            <field name="name">Sales Manager</field>
+            <field name="category_id" ref="base.module_category_sales_sales"/>
+            <field name="implied_ids" eval="[(4, ref('sales_team.group_sale_salesman'))]"/>
+        </record>
+        <record id="operation_manager_group" model="res.groups">
+            <field name="name">Sales Sector Manager</field>
+            <field name="category_id" ref="base.module_category_sales_sales"/>
+            <field name="implied_ids" eval="[(4, ref('sales_manager_group'))]"/>
+        </record>
+        <record id="director_manager_group" model="res.groups">
+            <field name="name">Director</field>
+            <field name="category_id" ref="base.module_category_sales_sales"/>
+            <field name="implied_ids" eval="[(4, ref('operation_manager_group'))]"/>
+        </record>
+        <record id="lead_admin_group" model="res.groups">
+            <field name="name">Lead Admin</field>
+            <field name="category_id" ref="base.module_category_sales_sales"/>
+        </record>
+        <record id="finance_group" model="res.groups">
+            <field name="name">Finance</field>
+            <field name="category_id" ref="base.module_category_sales_sales"/>
+        </record>
+        <record id="approval_manager_group" model="res.groups">
+            <field name="name">Approval Manager</field>
+            <field name="category_id" ref="base.module_category_sales_sales"/>
+        </record>
+        <record id="financial_manager_group" model="res.groups">
+            <field name="name">Financial Manager</field>
+            <field name="category_id" ref="base.module_category_sales_sales"/>
+        </record>
+
+        <!-- operation_executive_group was COMMENTED OUT in the legacy groups.xml, so it has
+             never existed as a record at all - its 7 gates in this module were dead twice
+             over, by layering and by absence. Defined here so the references resolve.
+             NOTE: this makes those 7 gates live for the first time. Per decisions log
+             section 11, enabling previously-dead approval features in an environment with
+             real data needs functional-team confirmation first. -->
+        <record id="operation_executive_group" model="res.groups">
+            <field name="name">Operation Executive</field>
+            <field name="category_id" ref="base.module_category_sales_sales"/>
+        </record>
+
+        <!-- S7 sweep (2026-11-06): the last legacy group reference from this module.
+             Defined in arkzayed_18_realestate_development and called from
+             sale_reservation.action_stop_checking_expiration(), so has_group() returned False
+             for every user and the button was dead. Caught only after the lint was changed to
+             match the has_group() CALL rather than guess from the xmlid's name - this one ends
+             in neither `_group` nor starts with `group_`. The legacy module keeps its own copy
+             for its own view. -->
+        <record id="stop_checking_reservation_expiration" model="res.groups">
+            <field name="name">Reservation Expiration Manager</field>
+            <field name="category_id" ref="isky_18_realestate_developer_unit_inventory.module_category_real_state_project_assigned"/>
+        </record>
+
+        <!-- S7: seed the approver-group settings on companies that already exist. A Many2many
+             `default=` is never backfilled onto existing records, and res.company is created
+             during the base install, so without this every database starts with all eight
+             approval stages empty. Idempotent: fills only what is empty. -->
+        <function model="res.company" name="_s7_apply_default_approver_groups"/>
+
+        <!-- ============================================================================
+             12.2 - access rules. The matrix itself is in security/ir.model.access.csv,
+             which cannot carry comments (Odoo's CSV loader has no comment syntax; a '#'
+             row raises IndexError at install), so the reasoning lives here.
+
+             This module shipped NO access rules for its own 38 models. Every one had zero
+             ACL rows, so no ordinary user could read or write installments, EOIs or
+             contracts at all - the models worked, but only for the superuser. Found during
+             Phase 3 step 2b and carried as open question 12.2 ever since.
+
+             Three deliberate choices:
+
+             1. Groups are `base.group_user`, never an empty group_id. The convention in
+                unit_inventory (28 rows) and commission (9 rows) is an EMPTY group, which in
+                Odoo grants full CRUD to EVERY user - portal and public included. That is
+                not copied here. See backlog #52.
+
+             2. Unlink is split by what deletion means. Children that a recompute deletes
+                and recreates - installment lines, maintenance lines, payment allocations,
+                ownership lines - must be unlinkable by an ordinary user, because
+                `self.installment_ids = None` and the reallocation engine run as that user
+                and would otherwise fail. Top-level documents (EOI, reservation, contract,
+                offer, requests) are manager-only to delete.
+
+             3. Configuration models are readable by all and maintained by
+                sales_manager_group, which the sector-manager and director groups imply.
+
+             `crm.lead` gets no row: core `crm` owns it, and this module only sets _name on
+             it to inject a mixin (Phase 4).
+             ============================================================================ -->
     </data>
 </odoo>

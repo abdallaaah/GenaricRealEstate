@@ -16,6 +16,16 @@ class ResCompany(models.Model):
              "generate no installment or maintenance installment lines; the deal still "
              "completes. A project can override this.")
 
+    # R4: the precision the sum-to-100 split rule compares against, rather than a literal 2
+    # in the engine. Phase 6 puts rounding rules in Financials; this is the first of them, and
+    # it defaults to 2 so the rule behaves exactly as it did before the setting existed.
+    # A scalar default IS backfilled onto existing rows by Odoo, unlike the Many2many defaults
+    # S7 had to seed explicitly.
+    split_percentage_precision = fields.Integer(
+        string='Split Percentage Decimals', default=2,
+        help="Decimal places used when checking that a split adds up to 100%. Raise it if you "
+             "allocate ownership to more than two decimals.")
+
     def write(self, vals):
         """Lock rule (NEEDS REVIEW, see decisions log): the company default cannot be changed
         while a project that inherits it already has installment lines - flipping it would

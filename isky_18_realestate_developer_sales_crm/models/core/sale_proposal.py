@@ -29,10 +29,17 @@ COMMISSION_EXCLUDED_STATES = ('draft', 'draft_contract', 'pending_approvals', 'a
 
 class SaleProposal(models.Model):
     _name = 'sale.proposal'
-    _inherit = ['mail.thread', 'mail.activity.mixin', 'installment.mixin', 'realestate.sales.installments.gate', 'realestate.split.parent.mixin', 'realestate.sales.commission.hooks']
+    _inherit = ['mail.thread', 'mail.activity.mixin', 'installment.mixin', 'realestate.sales.installments.gate', 'realestate.split.parent.mixin', 'realestate.sales.commission.hooks', 'realestate.approval.gate']
 
     _split_child_fk = 'contract_id'
     _split_parent_label = 'contract'
+
+    # C1: declared here, on the model that owns customer_new_ownership_ids, rather than on the
+    # abstract parent mixin against a field that mixin does not have. The logic stays in the
+    # mixin - this only carries the @api.constrains trigger.
+    @api.constrains('customer_new_ownership_ids')
+    def _check_ownership_split_total(self):
+        return self._validate_split_children()
     _description = 'Sale Proposal'
 
     def _default_income_account(self):
@@ -361,13 +368,12 @@ class SaleProposal(models.Model):
 
     @api.depends_context('uid')
     def _compute_approval_group_membership(self):
-        is_finance = self.env.user.has_group('isky_18_realestate_developer_sales_crm.group_finance_approval')
-        is_finance_two = self.env.user.has_group('isky_18_realestate_developer_sales_crm.group_finance_two_approval')
-        is_manager = self.env.user.has_group('isky_18_realestate_developer_sales_crm.group_manager_approval')
+        # S7: who may approve is configuration now, read per record because the governing
+        # company can differ. _user_can_approve() also honours the on/off switch.
         for rec in self:
-            rec.is_finance_approver = is_finance
-            rec.is_finance_two_approver = is_finance_two
-            rec.is_manager_approver = is_manager
+            rec.is_finance_approver = rec._user_can_approve('finance')
+            rec.is_finance_two_approver = rec._user_can_approve('finance_two')
+            rec.is_manager_approver = rec._user_can_approve('manager')
 
     # Broker
     broker_contract_id = fields.Many2one('broker.contract', string='Broker Contract')
@@ -2013,15 +2019,20 @@ class SaleProposal(models.Model):
 
     def write(self, vals):
         """Override write to check broker claim and commission achievements when amounts change"""
-        if 'finance_user_approve' in vals and not self.env.user.has_group(
-                'isky_18_realestate_developer_sales_crm.group_finance_approval'):
-            raise UserError(_("Only users in the 'Finance Approval' group can change the Finance Approval."))
-        if 'finance_approve' in vals and not self.env.user.has_group(
-                'isky_18_realestate_developer_sales_crm.group_finance_two_approval'):
-            raise UserError(_("Only users in the 'Finance Two Approval' group can change the Finance Two Approval."))
-        if 'manager_approve' in vals and not self.env.user.has_group(
-                'isky_18_realestate_developer_sales_crm.group_manager_approval'):
-            raise UserError(_("Only users in the 'Manager Approval' group can change the Manager Approval."))
+        # S7: each approval field is gated on its configured stage, and a successful
+        # approval writes an audit row recording the approver and the group they matched on.
+        for field_name, stage, label in (
+                ('finance_user_approve', 'finance', _('Finance Approval')),
+                ('finance_approve', 'finance_two', _('Second Finance Approval')),
+                ('manager_approve', 'manager', _('Manager Approval'))):
+            if field_name not in vals:
+                continue
+            for rec in self:
+                rec._require_approval(stage, _(
+                    "Only users in the configured approver group for '%(label)s' can change it.",
+                    label=label))
+                if vals.get(field_name):
+                    rec._log_approval(stage)
         # if the contracted_selling_price was updated or changed just edit its value inside the unit
         if 'contracted_selling_price' in vals:
             self.unit_id.contracted_selling_price = vals['contracted_selling_price']

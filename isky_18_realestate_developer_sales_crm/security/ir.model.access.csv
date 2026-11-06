@@ -1,0 +1,55 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_realestate_approval_audit_user,realestate.approval.audit user,model_realestate_approval_audit,base.group_user,1,0,1,0
+access_realestate_approval_audit_admin,realestate.approval.audit admin,model_realestate_approval_audit,base.group_system,1,1,1,1
+access_installment_lines,installment.lines,model_installment_lines,base.group_user,1,1,1,1
+access_maintenance_installment_lines,maintenance.installment.lines,model_maintenance_installment_lines,base.group_user,1,1,1,1
+access_payment_allocation,payment.allocation,model_payment_allocation,base.group_user,1,1,1,1
+access_customer_ownership,customer.ownership,model_customer_ownership,base.group_user,1,1,1,1
+access_eoi_payment,eoi.payment,model_eoi_payment,base.group_user,1,1,1,1
+access_reservation_payment,reservation.payment,model_reservation_payment,base.group_user,1,1,1,1
+access_loan_line,loan.line,model_loan_line,base.group_user,1,1,1,1
+access_attachment_type_line,attachment.type.line,model_attachment_type_line,base.group_user,1,1,1,1
+access_partner_notification_rel,partner.notification.rel,model_partner_notification_rel,base.group_user,1,1,1,1
+access_user_notification,user.notification,model_user_notification,base.group_user,1,1,1,1
+access_counter_counter,counter.counter,model_counter_counter,base.group_user,1,1,1,1
+access_gas_counter,gas.counter,model_gas_counter,base.group_user,1,1,1,1
+access_water_counter,water.counter,model_water_counter,base.group_user,1,1,1,1
+access_landline_counter,landline.counter,model_landline_counter,base.group_user,1,1,1,1
+access_internet,internet,model_internet,base.group_user,1,1,1,1
+access_revenue_share2,revenue.share2,model_revenue_share2,base.group_user,1,1,1,1
+access_installment_penalty,installment.penalty,model_installment_penalty,base.group_user,1,1,1,1
+access_crm_meeting_report,crm.meeting.report,model_crm_meeting_report,base.group_user,1,1,1,1
+access_eoi_eoi,eoi.eoi,model_eoi_eoi,base.group_user,1,1,1,0
+access_eoi_eoi_manager,eoi.eoi manager,model_eoi_eoi,isky_18_realestate_developer_sales_crm.sales_manager_group,1,1,1,1
+access_real_estate_sale_reservation,real.estate.sale.reservation,model_real_estate_sale_reservation,base.group_user,1,1,1,0
+access_real_estate_sale_reservation_manager,real.estate.sale.reservation manager,model_real_estate_sale_reservation,isky_18_realestate_developer_sales_crm.sales_manager_group,1,1,1,1
+access_sale_proposal,sale.proposal,model_sale_proposal,base.group_user,1,1,1,0
+access_sale_proposal_manager,sale.proposal manager,model_sale_proposal,isky_18_realestate_developer_sales_crm.sales_manager_group,1,1,1,1
+access_offer_offer,offer.offer,model_offer_offer,base.group_user,1,1,1,0
+access_offer_offer_manager,offer.offer manager,model_offer_offer,isky_18_realestate_developer_sales_crm.sales_manager_group,1,1,1,1
+access_discount_request,discount.request,model_discount_request,base.group_user,1,1,1,0
+access_discount_request_manager,discount.request manager,model_discount_request,isky_18_realestate_developer_sales_crm.sales_manager_group,1,1,1,1
+access_sale_request,sale.request,model_sale_request,base.group_user,1,1,1,0
+access_sale_request_manager,sale.request manager,model_sale_request,isky_18_realestate_developer_sales_crm.sales_manager_group,1,1,1,1
+access_permission_request,permission.request,model_permission_request,base.group_user,1,1,1,0
+access_permission_request_manager,permission.request manager,model_permission_request,isky_18_realestate_developer_sales_crm.sales_manager_group,1,1,1,1
+access_broker_unit,broker.unit,model_broker_unit,base.group_user,1,1,1,0
+access_broker_unit_manager,broker.unit manager,model_broker_unit,isky_18_realestate_developer_sales_crm.sales_manager_group,1,1,1,1
+access_attachment_type,attachment.type,model_attachment_type,base.group_user,1,0,0,0
+access_attachment_type_manager,attachment.type manager,model_attachment_type,isky_18_realestate_developer_sales_crm.sales_manager_group,1,1,1,1
+access_lead_stage,lead.stage,model_lead_stage,base.group_user,1,0,0,0
+access_lead_stage_manager,lead.stage manager,model_lead_stage,isky_18_realestate_developer_sales_crm.sales_manager_group,1,1,1,1
+access_project_sale_phase,project.sale.phase,model_project_sale_phase,base.group_user,1,0,0,0
+access_project_sale_phase_manager,project.sale.phase manager,model_project_sale_phase,isky_18_realestate_developer_sales_crm.sales_manager_group,1,1,1,1
+access_maintenance_config,maintenance.config,model_maintenance_config,base.group_user,1,0,0,0
+access_maintenance_config_manager,maintenance.config manager,model_maintenance_config,isky_18_realestate_developer_sales_crm.sales_manager_group,1,1,1,1
+access_discount_config,discount.config,model_discount_config,base.group_user,1,0,0,0
+access_discount_config_manager,discount.config manager,model_discount_config,isky_18_realestate_developer_sales_crm.sales_manager_group,1,1,1,1
+access_discount_approval,discount.approval,model_discount_approval,base.group_user,1,0,0,0
+access_discount_approval_manager,discount.approval manager,model_discount_approval,isky_18_realestate_developer_sales_crm.sales_manager_group,1,1,1,1
+access_commission_commission,commission.commission,model_commission_commission,base.group_user,1,0,0,0
+access_commission_commission_admin,commission.commission admin,model_commission_commission,base.group_system,1,1,1,1
+access_crm_lead_reassign,crm.lead.reassign,model_crm_lead_reassign,base.group_user,1,1,1,1
+access_crm_lead_unqualified_wizard,crm.lead.unqualified.wizard,model_crm_lead_unqualified_wizard,base.group_user,1,1,1,1
+access_qualified_stage_wizard,qualified.stage.wizard,model_qualified_stage_wizard,base.group_user,1,1,1,1
+access_sales_achievement_report_wizard,sales.achievement.report.wizard,model_sales_achievement_report_wizard,base.group_user,1,1,1,1

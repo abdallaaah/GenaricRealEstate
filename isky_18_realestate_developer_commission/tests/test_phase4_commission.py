@@ -180,9 +180,19 @@ class TestPhase4Commission(TransactionCase):
         # user_id to whoever the round-robin picks and defeat the comparison
         lead = self.env['crm.lead'].create({
             'name': 'P4 Opp', 'type': 'opportunity', 'user_id': self.u_sales.id,
+            'phone': '+20 100 000 0000',   # a lead constraint requires one phone number
             'company_id': self.company.id, 'is_personal_lead': True,
             'team_id': self.team.id, 'source_id': self.source.id,
-            'medium_id': self.medium.id})
+            'medium_id': self.medium.id,
+            # Nine approval-status fields (eoi_/contract_/reservation_ x manager/financial/
+            # operations) all default to 'pending', and each has an @api.constrains demanding a
+            # group from the legacy CRM module. With that module absent has_group() is always
+            # False, so creating ANY opportunity is rejected nine times over. Set falsy so the
+            # gates stay quiet; this is an L2->legacy coupling, backlog #44, not a commission
+            # concern.
+            **{'%s_status_for_%s' % (doc, role): False
+               for doc in ('eoi', 'contract', 'reservation')
+               for role in ('manager', 'financial', 'operations')}})
         lead._build_commission_hierarchy()
 
         def mapping(doc):

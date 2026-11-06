@@ -52,7 +52,18 @@ class TestModeB(TransactionCase):
         self.assertTrue(eoi.paid_date, "S2 requires the Paid date to be stored.")
         self.assertTrue(eoi.paid_by_id, "S2 requires the Paid user to be stored.")
 
-        line = self.env['installment.lines'].create({'name': 'MODEB-TEST-INST', 'amount': 500.0})
+        # R3: an installment line must be attached to something that identifies a project.
+        # This used to create an unparented line, which the project installments lock could
+        # never see.
+        partner = self.env['res.partner'].create({
+            'name': 'MODEB Customer', 'national_id': 'MODEB-NID-1'})
+        project = self.env['realestate.project'].create({
+            'name': 'MODEB Project', 'abbreviation': 'MBP'})
+        reservation = self.env['real.estate.sale.reservation'].create({
+            'customer_id': partner.id, 'project_id': project.id,
+            'company_id': self.env.company.id})
+        line = self.env['installment.lines'].create({
+            'name': 'MODEB-TEST-INST', 'amount': 500.0, 'reservation_id': reservation.id})
         line.action_mark_fully_paid()
         self.assertTrue(line.paid)
         self.assertTrue(line.paid_date, "S2 requires the Paid date to be stored.")

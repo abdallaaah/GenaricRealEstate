@@ -12,6 +12,7 @@ MANUAL_PAID_GROUP = 'isky_18_realestate_developer_sales_crm.group_manual_paid_in
 
 class LoanLine(models.Model):
     _name = "installment.lines"
+    _inherit = ['realestate.approval.gate']   # S7: configurable manual-Paid stage
     _description = "Installments"
     _order = "serial"
 
@@ -389,7 +390,8 @@ class LoanLine(models.Model):
     def _check_manual_paid_group(self):
         """Ticking Paid by hand is reserved to one group; the automatic tick is not affected
         because compute assignments never go through write()."""
-        if not self.env.su and not self.env.user.has_group(MANUAL_PAID_GROUP):
+        # S7: the group comes from the company configuration, not a hardcoded xmlid.
+        if not self.env.su and not self._user_can_approve('manual_paid'):
             # `_` is shadowed by a local variable in write(), hence self.env._() here too.
             raise AccessError(self.env._(
                 "Only users of the group 'Can Tick Installments as Paid' can tick or untick "
@@ -480,3 +482,36 @@ class LoanLine(models.Model):
                         proposal._check_and_create_ambassador_claim()
 
         return result
+
+    # ----------------------------------------------------------------------------------
+    # R3: an installment line must belong to a deal whose project can be resolved, otherwise
+    # the project installments lock cannot see it. Before this, a line with no reservation and
+    # no contract (or a contract with no unit, or a unit outside any hierarchy) was invisible
+    # to realestate.project._has_installment_lines(), so the lock silently let the setting be
+    # switched after lines existed.
+    # ----------------------------------------------------------------------------------
+    @api.constrains('reservation_id', 'sale_proposal_id')
+    def _check_line_has_resolvable_project(self):
+        for rec in self:
+            if rec.reservation_id:
+                continue
+            proposal = rec.sale_proposal_id
+            if proposal and proposal.unit_id and proposal.unit_id.project_id:
+                continue
+            raise ValidationError(_(
+                "This installment line is not attached to anything that identifies a project. "
+                "Link it to a reservation, or to a contract whose unit belongs to a project - "
+                "otherwise the project's installments setting cannot be locked against it."))
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        """R3: validate on create even when neither parent field appears in the vals.
+
+        @api.constrains only fires for fields actually being written, so a line created with
+        no reservation_id and no sale_proposal_id at all - precisely the invisible-to-the-lock
+        case - slipped past the constrains entirely. Measured, not assumed: the first run of
+        test_unparented_installment_line_refused failed for exactly this reason.
+        """
+        records = super().create(vals_list)
+        records._check_line_has_resolvable_project()
+        return records

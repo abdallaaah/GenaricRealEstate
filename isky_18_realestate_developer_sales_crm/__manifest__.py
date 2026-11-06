@@ -55,6 +55,7 @@ definition in models/config/job_level.py.
     ],
     'data': [
         'security/security.xml',
+        'security/ir.model.access.csv',
         'views/res_config_settings_views.xml',
         'views/account_move_views.xml',
         'views/account_payment_views.xml',

@@ -26,9 +26,18 @@ class MaintenanceConfig(models.Model):
 
     @api.model
     def get_config(self):
-        config = self.search([], limit=1)
+        """The lazy singleton. Read and created with sudo() deliberately.
+
+        12.2: this is called from sale_reservation._default_maintenance() while an ordinary
+        user creates a reservation. Bootstrapping a missing configuration row is a system
+        action, not a user action - requiring the user to hold configuration-write rights
+        would mean every salesperson needs them just to open a reservation, which would make
+        the configuration ACL meaningless. Only the default row is created here; nothing
+        user-supplied is written.
+        """
+        config = self.sudo().search([], limit=1)
         if not config:
-            config = self.create({})
+            config = self.sudo().create({})
         return config
 
     @api.model

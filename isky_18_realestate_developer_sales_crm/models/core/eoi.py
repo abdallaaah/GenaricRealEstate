@@ -19,7 +19,7 @@ referred_by_selection.remove(('management', 'Management'))
 class Eoi(models.Model):
     """EOi model is related to Sales"""
     _name = "eoi.eoi"
-    _inherit = ['mail.thread', 'mail.activity.mixin', 'realestate.sales.commission.hooks']
+    _inherit = ['mail.thread', 'mail.activity.mixin', 'realestate.sales.commission.hooks', 'realestate.approval.gate']
 
     name = fields.Char('EOI Reference', copy=False, readonly=True, index=True,
                        default='New')
@@ -302,14 +302,14 @@ class Eoi(models.Model):
     @api.onchange('sales_ids')
     def _onchange_sales_ids(self):
         """Trigger recomputation when sales_ids changes in the UI"""
-        self.compute_person_hierarchy()
+        self._build_commission_hierarchy()
 
     def write(self, vals):
         """Override write to recompute commission when sales_ids changes"""
         res = super(Eoi, self).write(vals)
         # Force recompute if sales_ids changed
         if 'sales_ids' in vals:
-            self.compute_person_hierarchy()
+            self._build_commission_hierarchy()
         return res
 
     def update_split_deal(self, **vals):
@@ -385,7 +385,8 @@ class Eoi(models.Model):
     def _check_manual_paid_group(self):
         """Same group as installment.lines' manual Paid tick - see
         isky_18_realestate_developer_sales_crm/security/security.xml."""
-        if not self.env.su and not self.env.user.has_group(MANUAL_PAID_GROUP):
+        # S7: the group comes from the company configuration, not a hardcoded xmlid.
+        if not self.env.su and not self._user_can_approve('manual_paid'):
             raise AccessError(self.env._(
                 "Only users of the group 'Can Tick Installments as Paid' can mark an EOI as "
                 "paid by hand."

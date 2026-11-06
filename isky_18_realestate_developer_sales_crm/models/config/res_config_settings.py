@@ -7,6 +7,71 @@ from odoo.exceptions import UserError
 class ResConfigSettings(models.TransientModel):
     _inherit = "res.config.settings"
 
+    # R4 (Financials): the precision the split sum-to-100 rule uses.
+    split_percentage_precision = fields.Integer(
+        related='company_id.split_percentage_precision', readonly=False,
+        string='Split Percentage Decimals')
+
+    # ----------------------------------------------------------------------------------
+    # S7: approval settings. Three entries in the sense section 11 means - one switch, one
+    # block for the contract chain, one block for reservation and discount.
+    # ----------------------------------------------------------------------------------
+    approval_enabled = fields.Boolean(
+        related='company_id.approval_enabled', readonly=False,
+        string='Require Approvals')
+
+    finance_approver_group_ids = fields.Many2many(
+        related='company_id.finance_approver_group_ids', readonly=False,
+        string='Finance Approvers')
+    finance_two_approver_group_ids = fields.Many2many(
+        related='company_id.finance_two_approver_group_ids', readonly=False,
+        string='Second Finance Approvers')
+    manager_approver_group_ids = fields.Many2many(
+        related='company_id.manager_approver_group_ids', readonly=False,
+        string='Manager Approvers')
+    operation_manager_approver_group_ids = fields.Many2many(
+        related='company_id.operation_manager_approver_group_ids', readonly=False,
+        string='Sales Sector Manager Approvers')
+
+    confirm_reservation_group_ids = fields.Many2many(
+        related='company_id.confirm_reservation_group_ids', readonly=False,
+        string='Can Confirm Reservations')
+    show_discount_group_ids = fields.Many2many(
+        related='company_id.show_discount_group_ids', readonly=False,
+        string='Can See Discount Percentage')
+    edit_discount_group_ids = fields.Many2many(
+        related='company_id.edit_discount_group_ids', readonly=False,
+        string='Can Edit Discount Percentage')
+    manual_paid_group_ids = fields.Many2many(
+        related='company_id.manual_paid_group_ids', readonly=False,
+        string='Can Tick Installments as Paid')
+
+    @api.onchange('finance_approver_group_ids', 'finance_two_approver_group_ids',
+                  'manager_approver_group_ids', 'operation_manager_approver_group_ids',
+                  'confirm_reservation_group_ids', 'show_discount_group_ids',
+                  'edit_discount_group_ids', 'manual_paid_group_ids')
+    def _onchange_warn_memberless_approver_groups(self):
+        """Spec section 4: a group with no members may be saved, but the save warns. Odoo has
+        no non-blocking warning on write(), so the warning is raised here - the form shows it
+        and the user can still save - and res.company.write() also logs it server-side."""
+        empty = []
+        for field in ('finance_approver_group_ids', 'finance_two_approver_group_ids',
+                      'manager_approver_group_ids', 'operation_manager_approver_group_ids',
+                      'confirm_reservation_group_ids', 'show_discount_group_ids',
+                      'edit_discount_group_ids', 'manual_paid_group_ids'):
+            for group in self[field]:
+                if not group.users:
+                    empty.append(group.display_name)
+        if empty:
+            return {'warning': {
+                'title': _("Approver group has no members"),
+                'message': _(
+                    "These approver groups have no users assigned yet, so nobody can approve "
+                    "the stages that use them:\n\n%(groups)s\n\n"
+                    "You can still save - assign users before the stage is reached.",
+                    groups='\n'.join('  - %s' % g for g in dict.fromkeys(empty))),
+            }}
+
     # Phase 3 step 5: the installments default, surfaced in the Sales Setup block.
     installments_enabled = fields.Boolean(
         related='company_id.installments_enabled',

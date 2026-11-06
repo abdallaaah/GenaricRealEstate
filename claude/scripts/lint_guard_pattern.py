@@ -109,7 +109,15 @@ def check_file(path, module):
 # feature is silently dead rather than erroring.
 #
 GROUP_REF_MODULE = 'isky_18_realestate_developer_sales_crm'
-GROUP_REF_RE = re.compile(r"""['"]([a-zA-Z0-9_]+)\.(group_[a-zA-Z0-9_]+)['"]""")
+# Check 2 matches the CALL, not the name shape. Earlier revisions guessed from the xmlid -
+# first `group_*`, then also `*group` - and each time a reference slipped through: Phase 4
+# found 40 refs ending in `_group`, and S7 found
+# `arkzayed_18_realestate_development.stop_checking_reservation_expiration`, which matches
+# neither. Any module-qualified xmlid passed to has_group() is now checked, whatever it is
+# called, because has_group() on an unreachable xmlid silently returns False for every user.
+HAS_GROUP_RE = re.compile(r"""has_group\(\s*['"]([a-zA-Z0-9_]+)\.([a-zA-Z0-9_]+)['"]""")
+# XML `groups="module.xmlid"` attributes, which fail the same way.
+GROUP_REF_RE = re.compile(r"""['"]([a-zA-Z0-9_]+)\.((?:group_[a-zA-Z0-9_]+|[a-zA-Z0-9_]*group))['"]""")
 
 
 def manifest_depends(root, module):
@@ -175,7 +183,9 @@ def check_group_refs(root):
             except (OSError, UnicodeDecodeError):
                 continue
             for lineno, line in enumerate(content.splitlines(), 1):
-                for owner, group in GROUP_REF_RE.findall(line):
+                # both patterns: any has_group() call, plus name-shaped xmlids in XML
+                found = set(HAS_GROUP_RE.findall(line)) | set(GROUP_REF_RE.findall(line))
+                for owner, group in sorted(found):
                     if owner not in reachable:
                         violations.append((
                             path, lineno,

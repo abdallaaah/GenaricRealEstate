@@ -1,2 +1,5 @@
 from . import test_mode_b
 from . import test_step5_installments_split
+from . import test_s7_approval_settings
+from . import test_ownership_fixes
+from . import test_acl_12_2

@@ -449,7 +449,7 @@ class BrokerUnit(models.Model):
     def _compute_is_client_tap(self):
         for rec in self:
             if (self.env.user in [rec.seller_sales_person, rec.seller_team_leader, rec.seller_sales_manager]
-                    or self.env.user.has_group('arkzayed_18_realestate_developer_crm.lead_admin_group')):
+                    or self.env.user.has_group('isky_18_realestate_developer_sales_crm.lead_admin_group')):
                 rec.is_client_tap_viewer = True
             else:
                 rec.is_client_tap_viewer = False
@@ -458,7 +458,7 @@ class BrokerUnit(models.Model):
     def _compute_is_seller_details_tap(self):
         for rec in self:
             if (self.env.user in [rec.seller_sales_person, rec.seller_team_leader, rec.seller_sales_manager]
-                    or self.env.user.has_group('arkzayed_18_realestate_developer_crm.lead_admin_group')):
+                    or self.env.user.has_group('isky_18_realestate_developer_sales_crm.lead_admin_group')):
                 rec.is_seller_details_tap_viewer = True
             else:
                 rec.is_seller_details_tap_viewer = False

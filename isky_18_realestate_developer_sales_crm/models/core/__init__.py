@@ -1,4 +1,7 @@
 # the installments gate mixin must load before the models that _inherit it
+# S7: the audit model and the gate helper, before the models that use them
+from . import approval_audit
+from . import approval_gate_mixin
 from . import commission_hooks_mixin
 from . import installments_gate_mixin
 from . import split_line_mixin
