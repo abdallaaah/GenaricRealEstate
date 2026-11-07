@@ -2,6 +2,9 @@ from odoo.exceptions import ValidationError
 from odoo.tests.common import TransactionCase, tagged
 
 
+SCRM = 'isky_18_realestate_developer_sales_crm'
+
+
 @tagged('post_install', '-at_install')
 class TestPhase4Commission(TransactionCase):
     """Phase 4 acceptance: one hierarchy engine, role-driven levels, and the commission basis
@@ -25,8 +28,11 @@ class TestPhase4Commission(TransactionCase):
             'company_id': self.company.id})
 
         def _user(login, level):
+            # an email is required: mail.thread posts a tracking message when a reservation is
+            # created, and it refuses to send without a sender address
             return self.env['res.users'].create({
-                'name': login, 'login': login, 'company_id': self.company.id,
+                'name': login, 'login': login, 'email': '%s@example.com' % login,
+                'company_id': self.company.id,
                 'company_ids': [(6, 0, [self.company.id])], 'job_level_id': level.id})
 
         self.u_sales = _user('p4_sales', self.lvl_sales)
@@ -53,6 +59,37 @@ class TestPhase4Commission(TransactionCase):
             self.env['utm.medium'].create({'name': 'P4 Medium'})
         self.project = self.env['realestate.project'].create({
             'name': 'P4 Project', 'abbreviation': 'P4P'})
+
+        # A real operator, not the superuser. Odoo tests run as superuser, which bypasses both
+        # ACLs and nothing else - so a mapping test that stayed superuser would prove nothing
+        # about whether an ordinary user can actually produce a commission hierarchy.
+        #
+        # The three approval groups are NOT a workaround. crm.lead's nine approval-status
+        # fields default to 'pending', and each has an @api.constrains that demands the
+        # matching approver group, so by the system's own design the person creating an
+        # opportunity with pending approvals is an approver. Those groups now resolve from
+        # sales_crm (they were moved out of the legacy CRM module on 2026-11-06), so this is
+        # the real flow rather than a field fudge. Backlog #44 covers whether defaulting those
+        # statuses to 'pending' is right in the first place.
+        self.operator = self.env['res.users'].create({
+            'name': 'p4_operator', 'login': 'p4_operator',
+            'email': 'p4_operator@example.com',
+            'company_id': self.company.id, 'company_ids': [(6, 0, [self.company.id])],
+            'groups_id': [(6, 0, [
+                self.env.ref('base.group_user').id,
+                self.env.ref('%s.financial_manager_group' % SCRM).id,
+                self.env.ref('%s.approval_manager_group' % SCRM).id,
+                self.env.ref('%s.operation_manager_group' % SCRM).id,
+                # crm.lead carries core CRM record rules, so creating an opportunity needs a
+                # CRM group. sales_manager_group implies sales_team.group_sale_salesman, so one
+                # realistic group covers it.
+                self.env.ref('%s.sales_manager_group' % SCRM).id,
+                # crm.lead carries core CRM record rules. group_sale_salesman is "own documents
+                # only", and these documents belong to u_sales rather than to the operator, so
+                # the manager group ("all documents") is the right one - which is what a real
+                # sales manager creating records for their team holds.
+                self.env.ref('sales_team.group_sale_manager').id,
+            ])]})
 
     def _reservation(self):
         return self.env['real.estate.sale.reservation'].create({
@@ -133,11 +170,16 @@ class TestPhase4Commission(TransactionCase):
         res = self._reservation()
         res._build_commission_hierarchy()
         self.assertTrue(self.project._has_commission())
-        if 'state' in res._fields:
-            try:
-                res.state = 'cancel'
-            except Exception:
-                pass
+
+        # The state value is 'cancelled', not 'cancel'. The previous version of this test wrote
+        # 'cancel' inside a bare try/except, so the write raised on an invalid selection value
+        # and was swallowed - the deal was never actually cancelled and this criterion was
+        # never really tested. Written directly and asserted, because action_cancel() opens a
+        # wizard.
+        self.assertIn('cancelled', dict(res._fields['state'].selection),
+                      "the reservation must have a cancelled state to test this criterion")
+        res.state = 'cancelled'
+        self.assertEqual(res.state, 'cancelled', "the deal really is cancelled")
         self.assertTrue(self.project._has_commission(),
                         "cancelling the deal must not unlock the basis")
         with self.assertRaises(ValidationError):
@@ -164,55 +206,101 @@ class TestPhase4Commission(TransactionCase):
         self.assertEqual(clean.commission_basis_mode, 'inherit')
 
     # -- acceptance 3: same manager mapping across all four documents -------------------
-    def test_same_manager_mapping_across_documents(self):
-        """The whole point of one engine: lead, EOI, reservation and contract must produce the
-        same people in the same roles. Before Phase 4 they did not - the lead omitted Sales
-        Sector Manager and the EOI cleared everything for an unteamed user."""
-        self.project.commission_basis_mode = 'reservation'
+    def _project(self, name, basis):
+        return self.env['realestate.project'].create({
+            'name': 'P4 %s' % name, 'abbreviation': 'P4%s' % name[:2].upper(),
+            'commission_basis_mode': basis})
 
-        res = self._reservation()
-        res._build_commission_hierarchy()
-        eoi = self.env['eoi.eoi'].create({
+    def _as_operator(self, model, vals):
+        """Create as a real user, so the record passes through every gate a user hits."""
+        return self.env[model].with_user(self.operator).create(vals)
+
+    def _lead(self):
+        return self._as_operator('crm.lead', {
+            'name': 'P4 Opp', 'type': 'opportunity', 'user_id': self.u_sales.id,
+            'company_id': self.company.id, 'team_id': self.team.id,
+            'source_id': self.source.id, 'medium_id': self.medium.id,
+            'phone': '+20 100 000 0000',
+            # not a workaround: is_personal_lead means "do not round-robin this lead", and
+            # without it crm.lead.create() reassigns user_id to whoever the rotation picks,
+            # which would compare four documents with different salespeople.
+            'is_personal_lead': True})
+
+    @staticmethod
+    def _mapping(doc):
+        """Who is on the hierarchy, and in which role."""
+        return {(line.employee_id.id, line.job_level_id.id) for line in doc.commission_ids}
+
+    @staticmethod
+    def _participants(doc):
+        """The engine's participant resolution, which the commission basis does not gate - so
+        it is comparable across all four documents at once."""
+        return {user.id for user, _label in doc._commission_participants()}
+
+    def test_same_manager_mapping_across_documents(self):
+        """Criterion C: the same manager mapping across lead, EOI, reservation and contract.
+
+        All four, as a real non-superuser. Two projects are used because criterion A means a
+        reservation and a contract cannot both calculate under one basis, and the basis lock
+        forbids switching once commission exists - so the reservation is driven under
+        basis=reservation and the contract under basis=contract, then the four mappings are
+        compared. Lead and EOI are not basis-gated (Phase 3 fixes them as informational).
+        """
+        proj_res = self._project('Res', 'reservation')
+        proj_con = self._project('Con', 'contract')
+
+        reservation = self._as_operator('real.estate.sale.reservation', {
+            'customer_id': self.partner.id, 'company_id': self.company.id,
+            'project_id': proj_res.id, 'user_id': self.u_sales.id})
+        contract = self._as_operator('sale.proposal', {
+            'customer_id': self.partner.id, 'company_id': self.company.id,
+            'user_id': self.u_sales.id,
+            'sale_contract_reservation_id': self._as_operator(
+                'real.estate.sale.reservation', {
+                    'customer_id': self.partner.id, 'company_id': self.company.id,
+                    'project_id': proj_con.id, 'user_id': self.u_sales.id}).id})
+        eoi = self._as_operator('eoi.eoi', {
             'customer_id': self.partner.id, 'company_id': self.company.id,
             'user_id': self.u_sales.id})
-        eoi._build_commission_hierarchy()
-        # is_personal_lead skips crm.lead's auto-assignment, which would otherwise reassign
-        # user_id to whoever the round-robin picks and defeat the comparison
-        lead = self.env['crm.lead'].create({
-            'name': 'P4 Opp', 'type': 'opportunity', 'user_id': self.u_sales.id,
-            'phone': '+20 100 000 0000',   # a lead constraint requires one phone number
-            'company_id': self.company.id, 'is_personal_lead': True,
-            'team_id': self.team.id, 'source_id': self.source.id,
-            'medium_id': self.medium.id,
-            # Nine approval-status fields (eoi_/contract_/reservation_ x manager/financial/
-            # operations) all default to 'pending', and each has an @api.constrains demanding a
-            # group from the legacy CRM module. With that module absent has_group() is always
-            # False, so creating ANY opportunity is rejected nine times over. Set falsy so the
-            # gates stay quiet; this is an L2->legacy coupling, backlog #44, not a commission
-            # concern.
-            **{'%s_status_for_%s' % (doc, role): False
-               for doc in ('eoi', 'contract', 'reservation')
-               for role in ('manager', 'financial', 'operations')}})
-        lead._build_commission_hierarchy()
+        lead = self._lead()
 
-        def mapping(doc):
-            return {(l.employee_id.id, l.job_level_id.id) for l in doc.commission_ids}
+        docs = {'reservation': reservation, 'contract': contract, 'eoi': eoi, 'lead': lead}
+        for name, doc in docs.items():
+            doc.with_user(self.operator)._build_commission_hierarchy()
 
-        res_map, eoi_map, lead_map = mapping(res), mapping(eoi), mapping(lead)
-        self.assertTrue(res_map, "the reservation must have produced a hierarchy")
-        self.assertEqual(res_map, eoi_map, "EOI mapping must match the reservation")
-        self.assertEqual(res_map, lead_map, "lead mapping must match the reservation")
+        # every document must be eligible in its own right, so an empty mapping cannot pass
+        # by accident
+        for name, doc in docs.items():
+            self.assertTrue(
+                doc.commission_ids,
+                "%s produced no commission hierarchy at all - criterion C cannot be judged "
+                "from an empty set" % name)
 
-        # and all four roles are present, including Sales Sector Manager which the lead omitted
-        levels = {l.job_level_id for l in res.commission_ids}
+        baseline_name, baseline = 'reservation', self._mapping(reservation)
+        for name, doc in docs.items():
+            self.assertEqual(
+                self._mapping(doc), baseline,
+                "%s mapping differs from the %s mapping; one engine must give one answer"
+                % (name, baseline_name))
+
+        # and the basis-independent participant set agrees across all four
+        participant_sets = {name: self._participants(doc) for name, doc in docs.items()}
+        self.assertEqual(len(set(map(frozenset, participant_sets.values()))), 1,
+                         "participants differ across documents: %s" % participant_sets)
+
+        # all four roles present, including Sales Sector Manager, which the old lead copy
+        # omitted entirely
+        levels = {line.job_level_id for line in reservation.commission_ids}
         for lvl in (self.lvl_sales, self.lvl_manager, self.lvl_sector, self.lvl_director):
             self.assertIn(lvl, levels, "%s must be in the hierarchy" % lvl.name)
+        self.assertEqual(len(baseline), 4, "four people, four roles")
 
     def test_unteamed_user_still_gets_a_line(self):
         """D3: the EOI copy used to clear every line when the salesperson had no team, which
         silently dropped their commission."""
         loner = self.env['res.users'].create({
-            'name': 'p4_loner', 'login': 'p4_loner', 'company_id': self.company.id,
+            'name': 'p4_loner', 'login': 'p4_loner', 'email': 'p4_loner@example.com',
+            'company_id': self.company.id,
             'company_ids': [(6, 0, [self.company.id])], 'job_level_id': self.lvl_sales.id})
         eoi = self.env['eoi.eoi'].create({
             'customer_id': self.partner.id, 'company_id': self.company.id,
