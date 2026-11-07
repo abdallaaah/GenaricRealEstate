@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'iSky 18 Real Estate Developer - Sales & CRM',
-    'version': '1.0',
+    # 1.1: #49 moved the lead stage data in, which needs migrations/18.0.1.1/pre-migrate.py
+    # to run on existing databases - Odoo only runs it when the version changes.
+    # 1.2: Phase 7 turned the two hardcoded revenue-split business lines into rows, converted by
+    # migrations/18.0.1.2/pre-migrate.py.
+    'version': '1.2',
     'summary': 'Lead -> EOI -> Reservation -> Contract -> Installments -> Maintenance -> Discounts -> Leasing -> CRM (Level 2)',
     'description': """
 Level 2 of the real estate developer product restructuring. Bundles the full sales pipeline
@@ -56,6 +60,10 @@ definition in models/config/job_level.py.
     'data': [
         'security/security.xml',
         'security/ir.model.access.csv',
+        # #49: stage rows for the two stage models this module owns. Data before views, so
+        # anything referencing a stage resolves.
+        'data/lead_stage_data.xml',
+        'data/crm_stage_data.xml',
         'views/res_config_settings_views.xml',
         'views/account_move_views.xml',
         'views/account_payment_views.xml',

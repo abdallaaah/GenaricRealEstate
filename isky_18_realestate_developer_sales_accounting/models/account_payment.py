@@ -12,7 +12,13 @@ class AccountPayment(models.Model):
     overseas_payment_type, is_revenue_split_entry) or creates account.move records - i.e. it is
     all Mode A. With this module absent, sales_crm runs in Mode B and none of it exists.
     """
-    _inherit = 'account.payment'
+    # _name is required alongside a list _inherit when extending an existing model:
+    # without it Odoo treats the class as a new anonymous model and the inherited
+    # Many2many relations collide on their table names (the same lesson crm_lead.py
+    # records; this run re-learned it from
+    # "TypeError: Many2many fields ... use the same table and columns").
+    _name = 'account.payment'
+    _inherit = ['account.payment', 'realestate.revenue.split.mixin']
 
     # --- S6 guard pattern -------------------------------------------------------------
     # The base compute in sales_crm depends only on always-present paths. This redeclaration
@@ -79,102 +85,41 @@ class AccountPayment(models.Model):
             _logger.warning("Cannot create collection entry for payment %s: No sale proposal found" % self.name)
             return None
 
-        Parameters = self.env['ir.config_parameter'].sudo()
-
-        debit_account_id = Parameters.get_param('arkzayed_18_realestate_development.collection_debit_account_id')
-        credit_gis_account_id = Parameters.get_param('arkzayed_18_realestate_development.collection_credit_gis_account_id')
-        credit_oaya_account_id = Parameters.get_param('arkzayed_18_realestate_development.collection_credit_oaya_account_id')
-        gis_percentage = float(Parameters.get_param('arkzayed_18_realestate_development.collection_gis_percentage') or 0)
-        oaya_percentage = float(Parameters.get_param('arkzayed_18_realestate_development.collection_oaya_percentage') or 0)
-        journal_id = Parameters.get_param('arkzayed_18_realestate_development.collection_journal_id')
-
-        # get analytic accounts
-        analytic_accounts = self.env['account.analytic.account']
-        # get gis analytic account
-        gis_analytic_accounts = analytic_accounts.search([('is_gis_account', '=', True)], limit=1)
-        # get oaya analytic account
-        oaya_analytic_account = analytic_accounts.search([('is_oaya_account', '=', True)], limit=1)
-
-        if not all([debit_account_id, credit_gis_account_id, credit_oaya_account_id, journal_id]):
+        # Phase 7 (D2/D3): business lines are rows, math shared through
+        # realestate.revenue.split.mixin. This path keeps posting ONE move per business line and
+        # keeps logging a warning when configuration is missing - only the source of the
+        # accounts, percentages and analytic accounts changed.
+        debit_account_id, journal_id, missing = self._revenue_split_posting_config()
+        if missing:
             import logging
             _logger = logging.getLogger(__name__)
-            _logger.warning("Collection entry configuration incomplete in settings")
+            _logger.warning("Collection entry configuration incomplete: %s", ', '.join(missing))
             return None
 
         total_amount = self.amount
-
-        # Calculate amounts based on configured percentages
-        gis_amount = round((total_amount * gis_percentage) / 100, 2)
-        oaya_amount = round((total_amount * oaya_percentage) / 100, 2)
-
-        # Total credit is sum of GIS + OAYA
-        total_credit = gis_amount + oaya_amount
-
-        # Debit amount matches the total credit to balance the entry
-        debit_amount = total_credit
+        split = self._revenue_split_amounts(total_amount)
+        if not split:
+            return None
 
         moves_to_link = []
-
-
         move_vals = {
-            'journal_id': int(journal_id),
+            'journal_id': journal_id,
             'date': self.date or fields.Date.today(),
             'ref': _('Collection - %s - %s') % (sale_proposal.name, self.name),
             'is_revenue_split_entry': True,
         }
 
-        # Credit line 1 - GIS
-        if gis_amount > 0:
-            gis_move = self.env['account.move'].create(move_vals)
-            gis_move.write({
-                'line_ids':[
-                    (0, 0, {
-                        'name': _('Collection Expense - %s') % self.name,
-                        'account_id': int(debit_account_id),
-                        'partner_id': self.partner_id.id,
-                        'debit': gis_amount,
-                        'credit': 0.0,
-                        'analytic_distribution':{
-                            str(gis_analytic_accounts.id): 100.0,
-                        }
-                    })
-                    ,(0, 0, {
-                    'name': _('GIS Collection (%.2f%%) - %s') % (gis_percentage, self.name),
-                    'account_id': int(credit_gis_account_id),
-                    'partner_id': self.partner_id.id,
-                    'debit': 0.0,
-                    'credit': gis_amount,
-                })
-                ]})
-
-            moves_to_link.append(gis_move.id)
-
-
-        # Credit line 2 - OAYA
-        if oaya_amount > 0:
-            oaya_move = self.env['account.move'].create(move_vals)
-            oaya_move.write({
-                'line_ids':[
-                    (0, 0, {
-                        'name': _('Collection Expense - %s') % self.name,
-                        'account_id': int(debit_account_id),
-                        'partner_id': self.partner_id.id,
-                        'debit': oaya_amount,
-                        'credit': 0.0,
-                        'analytic_distribution':{
-                            str(oaya_analytic_account.id): 100.0,
-                        }
-                    })
-                    ,(0, 0, {
-                    'name': _('OAYA Collection (%.2f%%) - %s') % (oaya_percentage, self.name),
-                    'account_id': int(credit_oaya_account_id),
-                    'partner_id': self.partner_id.id,
-                    'debit': 0.0,
-                    'credit': oaya_amount,
-                })]
-            })
-
-            moves_to_link.append(oaya_move.id)
+        for line, amount in split:
+            analytic = ({str(line.analytic_account_id.id): 100.0}
+                        if line.analytic_account_id else False)
+            move = self.env['account.move'].create(move_vals)
+            move.write({'line_ids': [
+                (0, 0, self._revenue_split_debit_line(
+                    debit_account_id, amount, self.name, self.partner_id.id, analytic)),
+                (0, 0, self._revenue_split_credit_line(
+                    line, amount, self.name, self.partner_id.id)),
+            ]})
+            moves_to_link.append(move.id)
 
 
         if moves_to_link:

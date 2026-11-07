@@ -1,22 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <!-- Inherits base.res_config_settings_view_form directly, not
-         arkzayed_18_realestate_development's "real_estate_bits" tab, so this module stays an
-         optional bridge with no dependency back on that module. When both are installed, this
-         renders as its own "Real Estate Accounting" settings tab alongside arkzayed's "Real
-         Estate" one; Phase 6 (Settings) is where these all get consolidated into the plan's
-         five final sections, so no attempt is made to merge them here. -->
+    <!-- Phase 6: this bridge's 20 account and journal settings are exactly the plan's
+         Financials definition, so the old "Real Estate Accounting" tab and its "Accounting
+         Settings" heading are gone - both were outside the five sections. The block is injected
+         into the shared "Real Estate" tab that L0 declares, under Financials (decisions log,
+         2026-11-07, P1/P4). L0 is already a dependency of this bridge, so nothing new is added,
+         and no field, value or default changed. -->
     <record id="res_config_settings_view_form_accounting" model="ir.ui.view">
         <field name="name">res.config.settings.form.inherit.accounting</field>
         <field name="model">res.config.settings</field>
         <field name="priority" eval="75"/>
-        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="inherit_id" ref="isky_18_realestate_developer_unit_inventory.res_config_settings_view_form_real_estate"/>
         <field name="arch" type="xml">
-            <xpath expr="//form" position="inside">
-              <div class="app_settings_block" data-string="Real Estate Accounting"
-                   string="Real Estate Accounting" data-key="real_estate_accounting">
-
-                <h2>Accounting Settings</h2>
+            <xpath expr="//div[@id='realestate_financials_section']" position="inside">
                 <div class="row mt16 o_settings_container">
                     <div class="col-12 col-lg-6 o_setting_box">
                         <div class="o_setting_left_pane"/>
@@ -192,8 +188,6 @@
                         </div>
                     </div>
                 </div>
-
-              </div>
             </xpath>
         </field>
     </record>

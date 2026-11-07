@@ -780,9 +780,9 @@ class SaleContract(models.Model):
                 if rec.unit_has_discount:
                     rec.year_no = rec.unit_id.effective_installment_years
                 elif rec.unit_id.unit_type == 'residential':
-                    rec.year_no = int(ICP.get_param('arkzayed.residential_default_years', 8) )
+                    rec.year_no = int(ICP.get_param('realestate.residential_default_years', 8) )
                 elif rec.unit_id.unit_type in ['retail', 'office', 'medical']:
-                    rec.year_no = int(ICP.get_param('arkzayed.non_residential_default_years', 7))
+                    rec.year_no = int(ICP.get_param('realestate.non_residential_default_years', 7))
 
     @api.depends('unit_id', 'unit_id.total_price_unit')
     def _compute_unit_sales_price(self):
@@ -942,7 +942,7 @@ class SaleContract(models.Model):
         if self.unit_id and self.unit_id.unit_status not in ['available', 'available_for_sale']:
             raise ValidationError(_(f'Unit {self.unit_id.system_code} is not available for sale.'))
 
-        expire_hours = self.env['ir.config_parameter'].sudo().get_param('arkzayed_18_realestate_development.onhold_reservation_expiration_hours')
+        expire_hours = self.env['ir.config_parameter'].sudo().get_param('realestate.onhold_reservation_expiration_hours')
 
         self.write({
             'state': 'on_hold',
@@ -977,7 +977,7 @@ class SaleContract(models.Model):
     def action_initial_reservation(self):
         """Block unit with 'Initial Reservation' reason"""
         self.ensure_one()
-        expire_hours = self.env['ir.config_parameter'].sudo().get_param('arkzayed_18_realestate_development.onhold_reservation_expiration_hours')
+        expire_hours = self.env['ir.config_parameter'].sudo().get_param('realestate.onhold_reservation_expiration_hours')
 
         # Find the block reason marked for initial reservation
         initial_reason = self.env['block.reason'].search([('for_initial_reservation', '=', True)], limit=1)
@@ -1032,7 +1032,7 @@ class SaleContract(models.Model):
             raise ValidationError(_('Please create installment and maintenance installment first.'))
         if self.unit_id and self.unit_id.unit_status not in ['available', 'available_for_sale']:
             raise ValidationError(_(f'Unit {self.unit_id.system_code} is not available for sale.'))
-        expire_hours = self.env['ir.config_parameter'].sudo().get_param('arkzayed_18_realestate_development.unpaid_reservation_expiration_hours')
+        expire_hours = self.env['ir.config_parameter'].sudo().get_param('realestate.unpaid_reservation_expiration_hours')
         self.write({
             'state': 'reserved',
             'expiry_date': fields.Datetime.now() + relativedelta(hours=int(expire_hours))
@@ -1516,8 +1516,8 @@ class SaleContract(models.Model):
             return 0.0
 
         ICP = self.env['ir.config_parameter'].sudo()
-        apply_cents = ICP.get_param('arkzayed_18_realestate_development.apply_cents_in_last_line')
-        apply_ten = ICP.get_param('arkzayed_18_realestate_development.apply_to_nearer_ten')
+        apply_cents = ICP.get_param('realestate.apply_cents_in_last_line')
+        apply_ten = ICP.get_param('realestate.apply_to_nearer_ten')
 
         res_amount = amount
 
@@ -2021,7 +2021,7 @@ class SaleContract(models.Model):
     @api.model
     def _cron_check_expired_reservation(self):
         if not self.env['ir.config_parameter'].sudo().get_param(
-                'arkzayed_18_realestate_development.enable_reservation_expiry_cron'):
+                'realestate.enable_reservation_expiry_cron'):
             return
 
         expired_reservations = self.env['real.estate.sale.reservation'].search(
@@ -2048,7 +2048,7 @@ class SaleContract(models.Model):
     def _compute_remaining_expiration_time(self):
         for rec in self:
             if not self.env['ir.config_parameter'].sudo().get_param(
-                    'arkzayed_18_realestate_development.enable_reservation_expiry_cron'):
+                    'realestate.enable_reservation_expiry_cron'):
                 rec.remaining_time = False
                 continue
 

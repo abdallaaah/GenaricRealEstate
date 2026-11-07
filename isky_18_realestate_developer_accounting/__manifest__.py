@@ -42,7 +42,6 @@ the product installs and works without it.
     'data': [
         'views/account_account_views.xml',
         'views/account_journal_views.xml',
-        'views/account_analytic_account_views.xml',
         'views/account_analytic_plan_views.xml',
         'views/account_move_views.xml',
         'views/account_payment_views.xml',

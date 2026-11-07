@@ -7,13 +7,13 @@ class ResConfigSettings(models.TransientModel):
 
     enable_crm_unit_hold = fields.Boolean(
         string="Enable Unit Hold",
-        config_parameter='crm.enable_crm_unit_hold',
+        config_parameter='realestate.enable_unit_hold',
         help="Allow users to temporarily hold units directly from the CRM opportunity."
     )
 
     crm_unit_hold_duration = fields.Integer(
         string="Unit Hold Duration (Hours)",
-        config_parameter='crm.crm_unit_hold_duration',
+        config_parameter='realestate.unit_hold_duration',
         default=24,
         help="Default duration in hours a unit can be held directly from an opportunity."
     )

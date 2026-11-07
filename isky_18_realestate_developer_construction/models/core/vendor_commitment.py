@@ -9,7 +9,12 @@ class VendorCommitment(models.Model):
     _inherit = ["mail.thread", "mail.activity.mixin"]
     _order = "end_date desc, id desc"
 
-    vendor_id = fields.Many2one('res.partner', string='Vendor Name',domain=[('supplier_rank', '>', 0)],required=True,tracking=True)
+    # Phase 5: the domain [('supplier_rank', '>', 0)] was removed. supplier_rank is declared by
+    # Odoo's `account` module, which L4 must not require (decisions log, 2026-11-07, decision 4) -
+    # with only L0 installed the field does not exist and the picker's domain resolves against
+    # nothing. Cost: the picker now offers every contact, not only suppliers. Backlog #63 covers
+    # restoring the filter from the L1 bridge, where the field is guaranteed to exist.
+    vendor_id = fields.Many2one('res.partner', string='Vendor Name',required=True,tracking=True)
     commitment_type = fields.Selection([
         ('permits', 'Permits'),
         ('letter_of_guarantee', 'Letter of Guarantee'),
@@ -59,8 +64,11 @@ class VendorCommitment(models.Model):
         if not records:
             return
 
+        # Phase 5: this used to name the monolith's copy of the group, which this module does not
+        # depend on - env.ref returned None, the cron returned here, and no expiry alert was ever
+        # sent. The group lives in this module's own security.xml (backlog #9).
         group = self.env.ref(
-            "arkzayed_18_realestate_development.group_vendor_commitment_user",
+            "isky_18_realestate_developer_construction.group_vendor_commitment_user",
             raise_if_not_found=False
         )
         if not group or not group.users:

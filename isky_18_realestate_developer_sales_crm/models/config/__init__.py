@@ -9,3 +9,4 @@ from . import discount_config
 from . import discount_approval
 from . import res_config_settings
 from . import res_config_settings_crm
+from . import revenue_split

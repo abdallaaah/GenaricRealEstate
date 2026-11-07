@@ -94,9 +94,9 @@ class RealEstateCommissionAchievement(models.Model):
         for record in self:
             # Get configuration using ICP (ir.config_parameter)
             ICP = self.env['ir.config_parameter'].sudo()
-            debit_account_id = int(ICP.get_param('arkzayed_18_realestate_development.sale_commission_debit_account_id', 0))
-            credit_account_id = int(ICP.get_param('arkzayed_18_realestate_development.sale_commission_credit_account_id', 0))
-            journal_id = int(ICP.get_param('arkzayed_18_realestate_development.sale_commission_journal_id', 0))
+            debit_account_id = int(ICP.get_param('realestate.sale_commission_debit_account_id', 0))
+            credit_account_id = int(ICP.get_param('realestate.sale_commission_credit_account_id', 0))
+            journal_id = int(ICP.get_param('realestate.sale_commission_journal_id', 0))
 
             if not debit_account_id or not credit_account_id:
                 raise UserError(_(

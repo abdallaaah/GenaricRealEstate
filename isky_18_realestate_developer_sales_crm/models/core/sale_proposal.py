@@ -29,7 +29,7 @@ COMMISSION_EXCLUDED_STATES = ('draft', 'draft_contract', 'pending_approvals', 'a
 
 class SaleProposal(models.Model):
     _name = 'sale.proposal'
-    _inherit = ['mail.thread', 'mail.activity.mixin', 'installment.mixin', 'realestate.sales.installments.gate', 'realestate.split.parent.mixin', 'realestate.sales.commission.hooks', 'realestate.approval.gate']
+    _inherit = ['mail.thread', 'mail.activity.mixin', 'installment.mixin', 'realestate.sales.installments.gate', 'realestate.split.parent.mixin', 'realestate.sales.commission.hooks', 'realestate.approval.gate', 'realestate.revenue.split.mixin']
 
     _split_child_fk = 'contract_id'
     _split_parent_label = 'contract'
@@ -43,7 +43,7 @@ class SaleProposal(models.Model):
     _description = 'Sale Proposal'
 
     def _default_income_account(self):
-        return self.env["ir.config_parameter"].sudo().get_param("arkzayed_18_realestate_development.income_account")
+        return self.env["ir.config_parameter"].sudo().get_param("realestate.income_account")
 
     name = fields.Char(string='Contract Reference', required=True, copy=False, readonly=True, index=True,
                        default='New')
@@ -1225,9 +1225,9 @@ class SaleProposal(models.Model):
                 if rec.unit_has_discount:
                     rec.year_no = rec.unit_id.effective_installment_years
                 elif rec.unit_id.unit_type == 'residential':
-                    rec.year_no = int(ICP.get_param('arkzayed.residential_default_years', 8) )
+                    rec.year_no = int(ICP.get_param('realestate.residential_default_years', 8) )
                 elif rec.unit_id.unit_type in ['retail', 'office', 'medical']:
-                    rec.year_no = int(ICP.get_param('arkzayed.non_residential_default_years', 7))
+                    rec.year_no = int(ICP.get_param('realestate.non_residential_default_years', 7))
 
     @api.depends('unit_id', 'unit_id.total_price_unit')
     def _compute_unit_price(self):
@@ -1344,25 +1344,15 @@ class SaleProposal(models.Model):
         if self.client_sign_collection_move_id:
             return None
 
-        # Get configuration parameters
-        Parameters = self.env['ir.config_parameter'].sudo()
+        # Phase 7 (D2/D3): the business lines are rows now, and the money math is shared with
+        # the payment and cheque paths through realestate.revenue.split.mixin.
+        debit_account_id, journal_id, missing = self._revenue_split_posting_config()
 
-        debit_account_id = Parameters.get_param('arkzayed_18_realestate_development.collection_debit_account_id')
-        credit_gis_account_id = Parameters.get_param('arkzayed_18_realestate_development.collection_credit_gis_account_id')
-        credit_oaya_account_id = Parameters.get_param('arkzayed_18_realestate_development.collection_credit_oaya_account_id')
-        gis_percentage = float(Parameters.get_param('arkzayed_18_realestate_development.collection_gis_percentage') or 0)
-        oaya_percentage = float(Parameters.get_param('arkzayed_18_realestate_development.collection_oaya_percentage') or 0)
-        journal_id = Parameters.get_param('arkzayed_18_realestate_development.collection_journal_id')
-
-        # Validate configuration
-        if not all([debit_account_id, credit_gis_account_id, credit_oaya_account_id, journal_id]):
+        # This path raises where the two bridges return quietly - unchanged on purpose.
+        if missing:
             raise ValidationError(_(
-                "Please configure collection accounts and journal in Accounting Configuration:\n"
-                "- Collection Debit Account\n"
-                "- Collection Credit Account - GIS\n"
-                "- Collection Credit Account - OAYA\n"
-                "- Collection Journal"
-            ))
+                "Please configure the collection entry in Settings > Real Estate > Financials:"
+                "\n%(missing)s", missing='\n'.join('- %s' % item for item in missing)))
 
         # Calculate total amount from EOI + Reservation
         total_amount = (self.eoi_amount or 0.0) + (self.reservation_payment or 0.0)
@@ -1371,53 +1361,25 @@ class SaleProposal(models.Model):
         if total_amount <= 0:
             return None
 
-        # Calculate amounts based on configured percentages
-        gis_amount = round((total_amount * gis_percentage) / 100, 2)
-        oaya_amount = round((total_amount * oaya_percentage) / 100, 2)
+        # One rounded share per business line; the debit is their sum, so the entry balances.
+        split = self._revenue_split_amounts(total_amount)
+        if not split:
+            return None
+        total_credit = sum(amount for _line, amount in split)
 
-        # Total credit is sum of GIS + OAYA
-        total_credit = gis_amount + oaya_amount
+        analytic = ({self.analytic_account_id.id: 100}
+                    if self.analytic_account_id else False)
+        reference = _('%(name)s (EOI + Reservation)', name=self.name)
 
-        # Debit amount matches the total credit to balance the entry
-        debit_amount = total_credit
-
-        line_ids = []
-
-        # Debit line - Collection Expense
-        line_ids.append((0, 0, {
-            'name': _('Collection Expense - %s (EOI + Reservation)') % self.name,
-            'account_id': int(debit_account_id),
-            'partner_id': self.customer_id.id,
-            'debit': debit_amount,
-            'credit': 0.0,
-            'analytic_distribution': {self.analytic_account_id.id: 100} if self.analytic_account_id else False,
-        }))
-
-        # Credit line 1 - GIS
-        if gis_amount > 0:
-            line_ids.append((0, 0, {
-                'name': _('GIS Collection (%.2f%%) - %s') % (gis_percentage, self.name),
-                'account_id': int(credit_gis_account_id),
-                'partner_id': self.customer_id.id,
-                'debit': 0.0,
-                'credit': gis_amount,
-                'analytic_distribution': {self.analytic_account_id.id: 100} if self.analytic_account_id else False,
-            }))
-
-        # Credit line 2 - OAYA
-        if oaya_amount > 0:
-            line_ids.append((0, 0, {
-                'name': _('OAYA Collection (%.2f%%) - %s') % (oaya_percentage, self.name),
-                'account_id': int(credit_oaya_account_id),
-                'partner_id': self.customer_id.id,
-                'debit': 0.0,
-                'credit': oaya_amount,
-                'analytic_distribution': {self.analytic_account_id.id: 100} if self.analytic_account_id else False,
-            }))
+        line_ids = [(0, 0, self._revenue_split_debit_line(
+            debit_account_id, total_credit, reference, self.customer_id.id, analytic))]
+        for line, amount in split:
+            line_ids.append((0, 0, self._revenue_split_credit_line(
+                line, amount, self.name, self.customer_id.id, analytic)))
 
         # Create draft journal entry
         move_vals = {
-            'journal_id': int(journal_id),
+            'journal_id': journal_id,
             'date': fields.Date.today(),
             'ref': _('Collection - %s (EOI: %s + Reservation: %s)') % (
                 self.name,
@@ -1500,12 +1462,12 @@ class SaleProposal(models.Model):
         # Get configuration parameters
         ICP = self.env['ir.config_parameter'].sudo()
         maintenance_account_id = ICP.get_param(
-            "arkzayed_18_realestate_development.maintenance_account_id")
+            "realestate.maintenance_account_id")
 
         # Get deferred revenue account based on contract type
         if self.contract_type == 'overseas':
             deferred_revenue_account_id = ICP.get_param(
-                'arkzayed_18_realestate_development.deferred_revenue_overseas_account')
+                'realestate.deferred_revenue_overseas_account')
             deferred_revenue_account = self.env['account.account'].browse(int(deferred_revenue_account_id)) if deferred_revenue_account_id else None
         else:
             deferred_revenue_account = self.company_id.deferred_revenue_account_id
@@ -3074,12 +3036,12 @@ class SaleProposal(models.Model):
 
         ICP = self.env['ir.config_parameter'].sudo()
         base_rate = float(ICP.get_param(
-            'arkzayed_18_realestate_development.non_sales_commission_percentage', 0.0) or 0.0)
+            'realestate.non_sales_commission_percentage', 0.0) or 0.0)
         if base_rate <= 0:
             return
 
         required_collection = float(ICP.get_param(
-            'arkzayed_18_realestate_development.non_sales_commission_collection_percentage', 0.0) or 0.0)
+            'realestate.non_sales_commission_collection_percentage', 0.0) or 0.0)
         current_collection = self._get_installment_collection_percentage()
         if current_collection < required_collection:
             return

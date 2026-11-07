@@ -20,7 +20,7 @@ class MailActivityInherit(models.Model):
         if self.env.context.get('from_crm_call_later'):
             record = self.env['crm.lead'].browse(self.env.context.get('active_id'))
             if record:
-                record.write({'lead_stage_id': self.env.ref('arkzayed_18_realestate_developer_crm.stage_call_later').id, 'follow_up_date': self.date_deadline})
+                record.write({'lead_stage_id': self.env.ref('isky_18_realestate_developer_sales_crm.stage_call_later').id, 'follow_up_date': self.date_deadline})
         return {'type': 'ir.actions.act_window_close'}
 
     @api.model_create_multi

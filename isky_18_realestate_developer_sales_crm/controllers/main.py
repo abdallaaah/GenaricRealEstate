@@ -14,7 +14,7 @@ from operator import itemgetter
 class CustomWebsiteAccount(WebsiteAccount):
     def get_domain_my_lead(self, user):
         # Custom domain: remove the `partner_assigned_id` condition
-        locked_stage = request.env.ref('arkzayed_18_realestate_developer_crm.stage_locked').id
+        locked_stage = request.env.ref('isky_18_realestate_developer_sales_crm.stage_locked').id
         return [
             ('type', '=', 'lead'), '|', ('user_id', '=', user.id), ('user_id.sale_team_id.user_id', '=', user.id)
         ]
@@ -489,7 +489,7 @@ class CustomWebsiteAccount(WebsiteAccount):
     #
     #         lead.sudo().write({
     #             'reasons': reasons,
-    #             'lead_stage_id': request.env.ref('arkzayed_18_realestate_developer_crm.stage_new').id
+    #             'lead_stage_id': request.env.ref('isky_18_realestate_developer_sales_crm.stage_new').id
     #         })
     #         return {'success': True}
     #     except Exception as e:
@@ -525,7 +525,7 @@ class CustomWebsiteAccount(WebsiteAccount):
 
             lead.sudo().write({
                 'lost_reason_id': False,
-                'lead_stage_id': request.env.ref('arkzayed_18_realestate_developer_crm.stage_no_answer').id
+                'lead_stage_id': request.env.ref('isky_18_realestate_developer_sales_crm.stage_no_answer').id
             })
             return {'success': True}
         except Exception as e:
@@ -543,7 +543,7 @@ class CustomWebsiteAccount(WebsiteAccount):
 
             lead.sudo().write({
                 'lost_reason_id': False,
-                'lead_stage_id': request.env.ref('arkzayed_18_realestate_developer_crm.stage_qualified').id
+                'lead_stage_id': request.env.ref('isky_18_realestate_developer_sales_crm.stage_qualified').id
             })
             return {'success': True}
         except Exception as e:

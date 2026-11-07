@@ -18,6 +18,6 @@ class UnqualifiedLeadWizard(models.TransientModel):
         if self.lead_id:
             self.lead_id.write({
                 'lost_reason_id': self.lost_reason_id,
-                'lead_stage_id': self.env.ref('arkzayed_18_realestate_developer_crm.stage_unqualified').id
+                'lead_stage_id': self.env.ref('isky_18_realestate_developer_sales_crm.stage_unqualified').id
             })
         return {'type': 'ir.actions.act_window_close'}

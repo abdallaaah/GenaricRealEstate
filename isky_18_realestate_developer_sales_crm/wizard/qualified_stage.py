@@ -109,9 +109,9 @@ class QualifiedStageWizard(models.TransientModel):
     def action_confirm(self):
         self.ensure_one()
         if self.lead_id:
-            lead_stage_id = self.env.ref('arkzayed_18_realestate_developer_crm.stage_qualified')
+            lead_stage_id = self.env.ref('isky_18_realestate_developer_sales_crm.stage_qualified')
             if self._context.get('limited_budget'):
-                lead_stage_id = self.env.ref('arkzayed_18_realestate_developer_crm.stage_qualified_limited_budget')
+                lead_stage_id = self.env.ref('isky_18_realestate_developer_sales_crm.stage_qualified_limited_budget')
             values = {
                 'priority': self.priority,
                 'unit_type': self.unit_type,

@@ -42,6 +42,8 @@ Both kept, separately, as project_commission.py / project_commission_crm.py.
     ],
     'data': [
         'security/ir.model.access.csv',
+        # Phase 6: the Company Setup and Commission sections of the shared settings tab
+        'views/res_config_settings_views.xml',
     ],
     'license': 'LGPL-3',
     'installable': True,

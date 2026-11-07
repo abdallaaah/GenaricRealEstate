@@ -13,9 +13,9 @@ class InstallmentMixin(models.AbstractModel):
         ICP = self.env['ir.config_parameter'].sudo()
         return {
             'apply_cents': ICP.get_param(
-                'arkzayed_18_realestate_development.apply_cents_in_last_line', 'False') == 'True',
+                'realestate.apply_cents_in_last_line', 'False') == 'True',
             'apply_tens': ICP.get_param(
-                'arkzayed_18_realestate_development.apply_to_nearer_ten', 'False') == 'True',
+                'realestate.apply_to_nearer_ten', 'False') == 'True',
         }
 
     def _get_installment_price_tolerance(self):
@@ -24,7 +24,7 @@ class InstallmentMixin(models.AbstractModel):
         just per-line rounding), so generation is refused instead of silently
         dumping a large, unexplained amount onto one line."""
         ICP = self.env['ir.config_parameter'].sudo()
-        return float(ICP.get_param('arkzayed_18_realestate_development.installment_price_tolerance', '50.0') or 0.0)
+        return float(ICP.get_param('realestate.installment_price_tolerance', '50.0') or 0.0)
 
     def _force_lines_to_match_total(self, lines, target_total, amount_field='amount', label=''):
         """Adjust the last line (by date) so the lines sum to EXACTLY target_total,

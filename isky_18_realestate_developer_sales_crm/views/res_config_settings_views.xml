@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <!-- Phase 3 step 5 / S4: the view lives in the owning module. Inherits
-         base.res_config_settings_view_form directly rather than the monolith's settings tab,
-         so L2 keeps no dependency on arkzayed_18_realestate_development (that dependency is
-         what Phase 2 removed to break the cycle).
+    <!-- Phase 6: L2 contributes the Sales Setup and Financials sections to the shared
+         "Real Estate" tab that L0 declares (decisions log, 2026-11-07, P1/P2).
 
-         "Sales Setup" is one of the five sections Phase 6 defines; those sections do not
-         exist yet, so this is a self-contained block that Phase 6 will relocate. -->
+         Before Phase 6 this module defined a tab of its own ("Real Estate Sales") with the
+         headings "Sales Setup" and "Sales Setup: Approvals", while 17 of its own settings were
+         rendered only by the monolith's settings view under four further headings. Both are
+         gone: every setting this module declares now sits in exactly one of the plan's five
+         sections. The monolith's view still renders 17 of them until Phase 3c retires it
+         (backlog #65) - that is a legacy-view duplicate, not a second home here. -->
     <record id="res_config_settings_view_form_sales_crm" model="ir.ui.view">
         <field name="name">res.config.settings.form.inherit.sales.crm</field>
         <field name="model">res.config.settings</field>
         <field name="priority" eval="74"/>
-        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="inherit_id" ref="isky_18_realestate_developer_unit_inventory.res_config_settings_view_form_real_estate"/>
         <field name="arch" type="xml">
-            <xpath expr="//form" position="inside">
-              <div class="app_settings_block" data-string="Real Estate Sales"
-                   string="Real Estate Sales" data-key="real_estate_sales">
-
-                <h2>Sales Setup</h2>
-                <div class="row mt16 o_settings_container">
+            <!-- Sales Setup: L0 declares the heading and the container; this adds entries. -->
+            <xpath expr="//div[@id='realestate_sales_setup_section']" position="inside">
                     <div class="col-12 col-lg-6 o_setting_box">
                         <div class="o_setting_left_pane">
                             <field name="installments_enabled"/>
@@ -33,11 +31,70 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Default Payment Plan Years</span>
+                            <div class="text-muted">
+                                Years a new payment plan defaults to, by unit kind.
+                            </div>
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label for="residential_default_years" class="col-lg-8 o_light_label"/>
+                                    <field name="residential_default_years"/>
+                                </div>
+                                <div class="row mt16">
+                                    <label for="non_residential_default_years" class="col-lg-8 o_light_label"/>
+                                    <field name="non_residential_default_years"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="enable_reservation_expiry_cron"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="enable_reservation_expiry_cron"/>
+                            <div class="text-muted">
+                                Expire reservations automatically once their allowed time has
+                                passed.
+                            </div>
+                            <div class="content-group" invisible="not enable_reservation_expiry_cron">
+                                <div class="row mt16">
+                                    <label for="onhold_reservation_expiration_hours" class="col-lg-8 o_light_label"/>
+                                    <field name="onhold_reservation_expiration_hours"/>
+                                </div>
+                                <div class="row mt16">
+                                    <label for="unpaid_reservation_expiration_hours" class="col-lg-8 o_light_label"/>
+                                    <field name="unpaid_reservation_expiration_hours"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="enable_crm_unit_hold"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="enable_crm_unit_hold"/>
+                            <div class="text-muted">
+                                Let a salesperson hold a unit straight from an opportunity.
+                            </div>
+                            <div class="content-group" invisible="not enable_crm_unit_hold">
+                                <div class="row mt16">
+                                    <label for="crm_unit_hold_duration" class="col-lg-8 o_light_label"/>
+                                    <field name="crm_unit_hold_duration"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-
-                <h2>Sales Setup: Approvals</h2>
-                <div class="row mt16 o_settings_container">
+                    <!-- S7's three approval entries, inside Sales Setup rather than under a
+                         heading of their own: "Sales Setup: Approvals" was a sixth section name
+                         (P3). Section 11's decision 2 still holds - these choose WHO approves,
+                         never whether a check runs, and unit blocking and the reservation
+                         exception are deliberately absent. -->
                     <div class="col-12 col-lg-6 o_setting_box">
                         <div class="o_setting_left_pane">
                             <field name="approval_enabled"/>
@@ -51,10 +108,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="row mt16 o_settings_container" invisible="not approval_enabled">
-                    <div class="col-12 col-lg-6 o_setting_box">
+                    <div class="col-12 col-lg-6 o_setting_box" invisible="not approval_enabled">
                         <div class="o_setting_left_pane"/>
                         <div class="o_setting_right_pane">
                             <span class="o_form_label">Contract Approval Chain</span>
@@ -82,7 +136,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-lg-6 o_setting_box">
+                    <div class="col-12 col-lg-6 o_setting_box" invisible="not approval_enabled">
                         <div class="o_setting_left_pane"/>
                         <div class="o_setting_right_pane">
                             <span class="o_form_label">Reservation and Discount</span>
@@ -110,8 +164,74 @@
                             </div>
                         </div>
                     </div>
-                </div>
-              </div>
+            </xpath>
+
+            <!-- Financials: installment rounding, the split precision, and collection entries. -->
+            <xpath expr="//div[@id='realestate_financials_section']" position="inside">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="apply_cents_in_last_line"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="apply_cents_in_last_line"/>
+                            <div class="text-muted">
+                                Rounding of generated installment and maintenance lines. The last
+                                line always absorbs the difference; generation is refused when that
+                                difference exceeds the tolerance.
+                            </div>
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label for="apply_to_nearer_ten" class="col-lg-8 o_light_label"/>
+                                    <field name="apply_to_nearer_ten"/>
+                                </div>
+                                <div class="row mt16">
+                                    <label for="installment_price_tolerance" class="col-lg-8 o_light_label"/>
+                                    <field name="installment_price_tolerance"/>
+                                </div>
+                                <div class="row mt16">
+                                    <label for="split_percentage_precision" class="col-lg-8 o_light_label"/>
+                                    <field name="split_percentage_precision"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Collection Entries</span>
+                            <div class="text-muted">
+                                Accounts, journal and revenue split used when posting a collection
+                                entry.
+                            </div>
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label for="collection_journal_id" class="col-lg-6 o_light_label"/>
+                                    <field name="collection_journal_id"/>
+                                </div>
+                                <div class="row mt16">
+                                    <label for="collection_debit_account_id" class="col-lg-6 o_light_label"/>
+                                    <field name="collection_debit_account_id"/>
+                                </div>
+                                <div class="row mt16">
+                                    <span class="o_form_label">Revenue Split</span>
+                                    <div class="text-muted">
+                                        One row per business line. Each row's percentage of the
+                                        collected amount is credited to its account; the debit is
+                                        their sum, so the entry balances.
+                                    </div>
+                                    <field name="revenue_split_line_ids" nolabel="1">
+                                        <list editable="bottom">
+                                            <field name="sequence" widget="handle"/>
+                                            <field name="name"/>
+                                            <field name="percentage"/>
+                                            <field name="account_id"/>
+                                            <field name="analytic_account_id"/>
+                                        </list>
+                                    </field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
             </xpath>
         </field>
     </record>

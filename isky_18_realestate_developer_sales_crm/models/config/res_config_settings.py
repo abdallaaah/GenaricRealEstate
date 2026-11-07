@@ -80,12 +80,12 @@ class ResConfigSettings(models.TransientModel):
 
     residential_default_years = fields.Integer(
         string='Residential Units Default Years',
-        config_parameter='arkzayed_18_realestate_development.residential_default_years',
+        config_parameter='realestate.residential_default_years',
         default=8
     )
     non_residential_default_years = fields.Integer(
         string="Non-Residential Units Default Years",
-        config_parameter='arkzayed.non_residential_default_years',
+        config_parameter='realestate.non_residential_default_years',
         default=7
     )
 
@@ -93,65 +93,40 @@ class ResConfigSettings(models.TransientModel):
     collection_debit_account_id = fields.Many2one(
         'account.account',
         string='Collection Debit Account (Expense)',
-        config_parameter='arkzayed_18_realestate_development.collection_debit_account_id',
+        config_parameter='realestate.collection_debit_account_id',
         domain=[('deprecated', '=', False)],
         help="Debit account for collection expense entries"
     )
-    collection_credit_gis_account_id = fields.Many2one(
-        'account.account',
-        string='Collection Credit Account - GIS',
-        config_parameter='arkzayed_18_realestate_development.collection_credit_gis_account_id',
-        domain=[('deprecated', '=', False)],
-        help="Credit account for GIS in collection entries"
-    )
-    collection_gis_percentage = fields.Float(
-        string='GIS Percentage (%)',
-        config_parameter='arkzayed_18_realestate_development.collection_gis_percentage',
-        help="Percentage of amount to credit to GIS account"
-    )
-    collection_credit_oaya_account_id = fields.Many2one(
-        'account.account',
-        string='Collection Credit Account - OAYA',
-        config_parameter='arkzayed_18_realestate_development.collection_credit_oaya_account_id',
-        domain=[('deprecated', '=', False)],
-        help="Credit account for OAYA in collection entries"
-    )
-    collection_oaya_percentage = fields.Float(
-        string='OAYA Percentage (%)',
-        config_parameter='arkzayed_18_realestate_development.collection_oaya_percentage',
-        help="Percentage of amount to credit to OAYA account"
-    )
+    # Phase 7 (D2): the two client business lines and their percentages were four settings
+    # named after them. They are rows now - one per business line, with its own credit account,
+    # analytic account and percentage - so a second developer with three business lines needs no
+    # code change. The debit account and journal above stay settings: they are not per-line.
+    revenue_split_line_ids = fields.One2many(
+        related='company_id.revenue_split_line_ids', readonly=False,
+        string='Revenue Split')
     collection_journal_id = fields.Many2one(
         'account.journal',
         string='Collection Journal',
-        config_parameter='arkzayed_18_realestate_development.collection_journal_id',
+        config_parameter='realestate.collection_journal_id',
         domain=[('type', '=', 'general')],
         help="Journal for collection entries"
     )
 
-    non_sales_commission_percentage = fields.Float(
-        string='Non-Sales Commission %',
-        config_parameter='arkzayed_18_realestate_development.non_sales_commission_percentage',
-        default=0.5,
-        help="Base commission percentage shared among non-sales employees. Each employee's "
-             "commission category determines what share of this rate they receive."
-    )
-    non_sales_commission_collection_percentage = fields.Float(
-        string='Non-Sales Commission Collection Threshold %',
-        config_parameter='arkzayed_18_realestate_development.non_sales_commission_collection_percentage',
-        help="Minimum collection percentage required on a contract before non-sales "
-             "commission claims are generated for it."
-    )
+    # Phase 6 (P5): the two non-sales commission rates moved to
+    # isky_18_realestate_developer_commission, which declares the Commission section. They are
+    # ir.config_parameter-backed and this module's reader (sale_proposal.py) reads them by
+    # parameter key, which needs no dependency - so the move carries no data and breaks no
+    # reader. The keys are unchanged; renaming the arkzayed_ prefix is Phase 7 (backlog #33).
 
     apply_cents_in_last_line = fields.Boolean(string='Apply Cents in Last Line',
-        config_parameter='arkzayed_18_realestate_development.apply_cents_in_last_line')
+        config_parameter='realestate.apply_cents_in_last_line')
     apply_to_nearer_ten = fields.Boolean(
         string='Apply to Nearer Ten',
-        config_parameter='arkzayed_18_realestate_development.apply_to_nearer_ten'
+        config_parameter='realestate.apply_to_nearer_ten'
     )
     installment_price_tolerance = fields.Float(
         string='Installment Price Tolerance',
-        config_parameter='arkzayed_18_realestate_development.installment_price_tolerance',
+        config_parameter='realestate.installment_price_tolerance',
         default=50.0,
         help="When generating installment or maintenance lines, the last line always absorbs "
              "any rounding difference so the lines total exactly the Final Price / Maintenance "
@@ -162,11 +137,11 @@ class ResConfigSettings(models.TransientModel):
     enable_reservation_expiry_cron = fields.Boolean(
         string="Check Reservation Expiry",
         help="Enable automatic checking and expiring of sale reservations.",
-        config_parameter = 'arkzayed_18_realestate_development.enable_reservation_expiry_cron'
+        config_parameter = 'realestate.enable_reservation_expiry_cron'
     )
 
-    onhold_reservation_expiration_hours = fields.Integer('Allowed Onhold/Initial Reservations Hours',config_parameter='arkzayed_18_realestate_development.onhold_reservation_expiration_hours',default=1)
-    unpaid_reservation_expiration_hours = fields.Integer('Allowed Unpaid Reservations Hours',config_parameter='arkzayed_18_realestate_development.unpaid_reservation_expiration_hours', default=1)
+    onhold_reservation_expiration_hours = fields.Integer('Allowed Onhold/Initial Reservations Hours',config_parameter='realestate.onhold_reservation_expiration_hours',default=1)
+    unpaid_reservation_expiration_hours = fields.Integer('Allowed Unpaid Reservations Hours',config_parameter='realestate.unpaid_reservation_expiration_hours', default=1)
 
     @api.constrains('onhold_reservation_expiration_hours', 'unpaid_reservation_expiration_hours')
     def _check_reservation_expiration_fields(self):

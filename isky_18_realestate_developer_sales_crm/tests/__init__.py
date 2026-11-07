@@ -3,3 +3,7 @@ from . import test_step5_installments_split
 from . import test_s7_approval_settings
 from . import test_ownership_fixes
 from . import test_acl_12_2
+from . import test_lead_approval_defaults
+from . import test_49_lead_stages
+from . import test_phase6_settings
+from . import test_phase7_client_values

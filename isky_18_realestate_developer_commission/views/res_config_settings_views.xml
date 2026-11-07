@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Phase 6: L3 contributes Company Setup and Commission to the shared "Real Estate" tab
+         that L0 declares (decisions log, 2026-11-07, P1/P2). Both headings are declared here
+         because L3 owns the only settings they hold - an L0-only or Mode B database shows
+         neither, rather than showing them empty. -->
+    <record id="res_config_settings_view_form_commission" model="ir.ui.view">
+        <field name="name">res.config.settings.form.inherit.commission</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="76"/>
+        <field name="inherit_id" ref="isky_18_realestate_developer_unit_inventory.res_config_settings_view_form_real_estate"/>
+        <field name="arch" type="xml">
+            <!-- Company Setup: the default commission basis. -->
+            <xpath expr="//div[@id='realestate_company_setup_section']" position="inside">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <label for="commission_basis"/>
+                            <div class="text-muted">
+                                Which document commission is calculated on. A project may override
+                                it, and the choice locks for a project once any commission exists
+                                on it - even if the deal was cancelled.
+                            </div>
+                            <div class="content-group mt16">
+                                <field name="commission_basis"/>
+                            </div>
+                        </div>
+                    </div>
+            </xpath>
+
+            <!-- Commission: the non-sales rates, plus what the plan fixes. -->
+            <xpath expr="//div[@id='realestate_commission_section']" position="inside">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Non-Sales Commission</span>
+                            <div class="text-muted">
+                                The base rate shared among non-sales employees, and the collection
+                                threshold a contract must reach before their claims are generated.
+                            </div>
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label for="non_sales_commission_percentage" class="col-lg-8 o_light_label"/>
+                                    <field name="non_sales_commission_percentage"/>
+                                </div>
+                                <div class="row mt16">
+                                    <label for="non_sales_commission_collection_percentage" class="col-lg-8 o_light_label"/>
+                                    <field name="non_sales_commission_collection_percentage"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- The plan fixes these three, so they are stated rather than made
+                         configurable (decisions log, 2026-11-07, P6; gaps G6-G8). Job levels are
+                         defined as records on job.level; their menu entry arrives with Phase 3c,
+                         which owns this module's 26 views. -->
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Fixed by the product</span>
+                            <div class="text-muted">
+                                Job levels are defined per company as Job Level records, and role
+                                flags are set per level rather than by name.<br/>
+                                The commission split rule is fixed at 100% across the hierarchy.<br/>
+                                Commission timing is fixed at signing.
+                            </div>
+                        </div>
+                    </div>
+            </xpath>
+
+            <!-- Financials: the broker-commission tax rates, which Phase 7 took out of the code. -->
+            <xpath expr="//div[@id='realestate_financials_section']" position="inside">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Broker Commission Taxes</span>
+                            <div class="text-muted">
+                                VAT included in a broker commission, and the withholding tax taken
+                                on the amount excluding VAT.
+                            </div>
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label for="vat_rate" class="col-lg-8 o_light_label"/>
+                                    <field name="vat_rate"/>
+                                </div>
+                                <div class="row mt16">
+                                    <label for="withholding_tax_rate" class="col-lg-8 o_light_label"/>
+                                    <field name="withholding_tax_rate"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

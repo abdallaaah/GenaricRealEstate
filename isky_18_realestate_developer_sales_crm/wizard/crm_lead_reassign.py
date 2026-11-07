@@ -53,7 +53,7 @@ class LeadReassign(models.TransientModel):
 
     def reassign_leads(self):
         leads = self.env['crm.lead'].browse(self.env.context.get('active_ids'))
-        first_stage = self.env.ref('arkzayed_18_realestate_developer_crm.stage_new')
+        first_stage = self.env.ref('isky_18_realestate_developer_sales_crm.stage_new')
 
         for lead in leads:
             # Get the current team to find current sales manager and director

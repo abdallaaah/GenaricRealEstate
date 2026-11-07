@@ -55,3 +55,11 @@ class ResCompany(models.Model):
                         names=', '.join(blocking.mapped('name')[:5]),
                     ))
         return super().write(vals)
+
+
+class ResCompanyRevenueSplit(models.Model):
+    """Phase 7 (D2): the revenue split rows, reached from the Financials settings section."""
+    _inherit = 'res.company'
+
+    revenue_split_line_ids = fields.One2many(
+        'realestate.revenue.split.line', 'company_id', string='Revenue Split')

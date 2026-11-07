@@ -34,7 +34,11 @@ class ConstructionProgress(models.Model):
 
     def _check_can_update(self):
         user = self.env.user
-        if self.env.su or user.has_group('arkzayed_18_realestate_development.group_progress_manager'):
+        # Phase 5: this read used to name the monolith's copy of the group. Backlog #9 moved all
+        # three construction groups into this module's own security.xml, so has_group() answered
+        # False for everyone and a Progress Manager silently lost the bypass the group exists for.
+        if self.env.su or user.has_group(
+                'isky_18_realestate_developer_construction.group_progress_manager'):
             return
         for rec in self:
             engineers = (rec.unit_id.responsible_engineer_id | rec.unit_id.building_id.responsible_engineer_id

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Phase 6: the single "Real Estate" settings tab, holding the plan's five sections.
+
+         L0 declares the tab AND all five section headings, in the plan's order, each wrapping a
+         container with a stable id. Every other module injects its settings into those containers
+         by id and declares no heading of its own.
+
+         Why L0 declares them all (decisions log, 2026-11-07, P1 and the P2 amendment): Financials
+         holds settings from both the L1 bridge and L2, and Sales Setup from both L2 and
+         sales_cheques. Whoever declares a heading owns the container the others xpath into, and L1
+         must not depend on L2 nor L2 on L1 - so only L0, which every layer and bridge depends on,
+         can own them. This also fixes section ORDER here rather than leaving it to module load
+         order, and makes each section name exist exactly once by construction.
+
+         The five allowed names, and no others: Company Setup, Sales Setup, Commission, Financials,
+         Units. `isky_18_realestate_developer_sales_crm/tests/test_phase6_settings.py` enforces that
+         list and the one-section-per-setting rule against the installed views. -->
+    <record id="res_config_settings_view_form_real_estate" model="ir.ui.view">
+        <field name="name">res.config.settings.form.inherit.real.estate</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="70"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <div class="app_settings_block" data-string="Real Estate"
+                     string="Real Estate" data-key="realestate_settings">
+
+                    <h2>Company Setup</h2>
+                    <div class="row mt16 o_settings_container" id="realestate_company_setup_section"/>
+
+                    <h2>Sales Setup</h2>
+                    <div class="row mt16 o_settings_container" id="realestate_sales_setup_section"/>
+
+                    <h2>Commission</h2>
+                    <div class="row mt16 o_settings_container" id="realestate_commission_section"/>
+
+                    <h2>Financials</h2>
+                    <div class="row mt16 o_settings_container" id="realestate_financials_section"/>
+
+                    <h2>Units</h2>
+                    <div class="row mt16 o_settings_container" id="realestate_units_section">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <label for="hierarchy_template_id"/>
+                                <div class="text-muted">
+                                    The middle levels (building, cluster, zone, floor) new
+                                    projects start from, in order. A project may override it,
+                                    and the levels lock once the project has its first unit.
+                                </div>
+                                <div class="content-group mt16">
+                                    <field name="hierarchy_template_id"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -194,9 +194,9 @@ class AccountPayment(models.Model):
             ICP = self.env['ir.config_parameter'].sudo()
 
             if self.overseas_payment_type == 'installment':
-                overseas_account_id = ICP.get_param('arkzayed_18_realestate_development.overseas_installment_account')
+                overseas_account_id = ICP.get_param('realestate.overseas_installment_account')
             elif self.overseas_payment_type == 'maintenance':
-                overseas_account_id = ICP.get_param('arkzayed_18_realestate_development.overseas_maintenance_account')
+                overseas_account_id = ICP.get_param('realestate.overseas_maintenance_account')
             else:
                 overseas_account_id = None
 

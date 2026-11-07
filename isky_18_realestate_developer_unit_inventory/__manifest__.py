@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'iSky 18 Real Estate Developer - Unit Inventory',
-    'version': '1.0',
+    # 1.1: Phase 7 renamed the client-prefixed config parameters; the values are carried over by
+    # migrations/18.0.1.1/pre-migrate.py, which Odoo only runs when the version changes.
+    'version': '1.1',
     'summary': 'Property/unit master data foundation for the real estate developer product (Level 0)',
     'description': """
 Level 0 of the real estate developer product restructuring: property/unit master data with
@@ -29,6 +31,8 @@ real_estate_unit_contract_ext.py and analytic_account_autocreate_ext.py there.
     'data': [
         'security/security.xml',
         'security/ir.model.access.csv',
+        # Phase 6: the shared "Real Estate" settings tab and the Units section
+        'views/res_config_settings_views.xml',
     ],
     'license': 'LGPL-3',
     'installable': True,

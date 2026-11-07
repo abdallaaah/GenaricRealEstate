@@ -14,6 +14,13 @@ from odoo.tools import format_datetime
 ALL_PHONE_FIELDS = ['phone', 'mobile', 'phone1', 'phone2', 'phone3', 'phone4']
 
 
+# #44: the approval-status fields all default to 'pending', and the nine @api.constrains
+# below used to treat ANY truthy value as an approval attempt - so merely creating an
+# opportunity tripped all nine and demanded three approver groups. Validation now fires only
+# on a real decision; 'pending' is the neutral state nobody has to be entitled to.
+APPROVAL_DECISIONS = ('approved', 'rejected')
+
+
 class CrmLead(models.Model):
     # _name is required alongside a list _inherit when extending an existing model:
     # without it Odoo treats the class as a new anonymous model and the inherited
@@ -427,7 +434,7 @@ class CrmLead(models.Model):
     @api.depends('unit_hold_start_date')
     def _compute_unit_hold_expiry(self):
         # Fetch the current duration from settings
-        duration = int(self.env['ir.config_parameter'].sudo().get_param('crm.crm_unit_hold_duration', default=24))
+        duration = int(self.env['ir.config_parameter'].sudo().get_param('realestate.unit_hold_duration', default=24))
         for lead in self:
             if lead.unit_hold_start_date:
                 lead.unit_hold_expiry_date = lead.unit_hold_start_date + timedelta(hours=duration)
@@ -532,9 +539,9 @@ class CrmLead(models.Model):
     def action_set_lost(self, **additional_values):
         """ Lost semantic: probability = 0 or active = False """
         if self.type == 'lead':
-            additional_values['lead_stage_id'] = self.env.ref('arkzayed_18_realestate_developer_crm.stage_unqualified').id
+            additional_values['lead_stage_id'] = self.env.ref('isky_18_realestate_developer_sales_crm.stage_unqualified').id
         if self.type == 'opportunity':
-            additional_values['stage_id'] = self.env.ref('arkzayed_18_realestate_developer_crm.stage_lead6').id
+            additional_values['stage_id'] = self.env.ref('isky_18_realestate_developer_sales_crm.stage_lead6').id
         if additional_values:
             self.write(dict(additional_values))
         return True
@@ -549,7 +556,7 @@ class CrmLead(models.Model):
 
         # If this was an archived lead being restored (activated)
         if self.type == 'lead' and was_archived and self.active:
-            self.write({'lead_stage_id': self.env.ref('arkzayed_18_realestate_developer_crm.stage_new').id})
+            self.write({'lead_stage_id': self.env.ref('isky_18_realestate_developer_sales_crm.stage_new').id})
 
         return result
 
@@ -698,8 +705,8 @@ class CrmLead(models.Model):
         if 'stage_id' in vals:
             has_finance_group = self.env.user.has_group('isky_18_realestate_developer_sales_crm.finance_group')
             stages_allowed_for_finance = [
-                self.env.ref('arkzayed_18_realestate_developer_crm.stage_lead7').id,
-                self.env.ref('arkzayed_18_realestate_developer_crm.stage_lead8').id
+                self.env.ref('isky_18_realestate_developer_sales_crm.stage_lead7').id,
+                self.env.ref('isky_18_realestate_developer_sales_crm.stage_lead8').id
             ]
             if vals.get('stage_id') in stages_allowed_for_finance and not has_finance_group:
                 raise ValidationError("Only finance can move lead to this stage")
@@ -729,24 +736,24 @@ class CrmLead(models.Model):
 
             if vals.get('stage_id') and self.unit_id:
                 stage = self.env['crm.stage'].browse(vals['stage_id'])
-            if vals.get('stage_id') == self.env.ref('arkzayed_18_realestate_developer_crm.stage_lead7').id:
+            if vals.get('stage_id') == self.env.ref('isky_18_realestate_developer_sales_crm.stage_lead7').id:
                 if not self.collected_date and not vals.get('collected_date'):
                     raise ValidationError("Collected date is required")
                 self.get_unit_status()
-            if vals.get('stage_id') == self.env.ref('arkzayed_18_realestate_developer_crm.stage_lead8').id:
+            if vals.get('stage_id') == self.env.ref('isky_18_realestate_developer_sales_crm.stage_lead8').id:
                 if not self.confirmed_date and not vals.get('confirmed_date'):
                     raise ValidationError("Confirmed date is required")
                 self.get_unit_status()
             if self.type == 'opportunity' and vals.get('stage_id') < self.stage_id.id and self.is_restricted_user():
                 # prevent back to previous state
                 raise ValidationError("You cann\'t return back stage")
-            if vals.get('stage_id') in [self.env.ref('arkzayed_18_realestate_developer_crm.stage_lead6').id]:
+            if vals.get('stage_id') in [self.env.ref('isky_18_realestate_developer_sales_crm.stage_lead6').id]:
                 if self.lost_reason_id and 'lost_reason_id' not in vals:
                     raise ValidationError("Reason to cancel is required")
                 self.cancellation_approver = self.env.user.partner_id.id
                 self.unit_id.unit_status = 'available'
             if (self.type == 'opportunity' and not self.reopen_reason and 'reopen_reason' not in vals
-                    and vals.get('stage_id') in [self.env.ref('arkzayed_18_realestate_developer_crm.stage_lead5').id]):
+                    and vals.get('stage_id') in [self.env.ref('isky_18_realestate_developer_sales_crm.stage_lead5').id]):
                 if not has_finance_group:
                     raise ValidationError("Only finance can move lead to this stage")
                 raise ValidationError("Reopen Reason is required")
@@ -754,12 +761,12 @@ class CrmLead(models.Model):
         # Lead stage validations
         if 'lead_stage_id' in vals:
             if not self.env.user.has_group('isky_18_realestate_developer_sales_crm.lead_admin_group') and vals.get(
-                    'lead_stage_id') == self.env.ref('arkzayed_18_realestate_developer_crm.stage_locked').id:
+                    'lead_stage_id') == self.env.ref('isky_18_realestate_developer_sales_crm.stage_locked').id:
                 raise ValidationError("Only admin can lock lead")
-            if vals.get('lead_stage_id') == self.env.ref('arkzayed_18_realestate_developer_crm.stage_qualified').id:
+            if vals.get('lead_stage_id') == self.env.ref('isky_18_realestate_developer_sales_crm.stage_qualified').id:
                 # \
             #         or vals.get('lead_stage_id') == self.env.ref(
-            #     'arkzayed_18_realestate_developer_crm.stage_qualified_limited_budget').id:
+            #     'isky_18_realestate_developer_sales_crm.stage_qualified_limited_budget').id:
                 self.validate_qualified_stage_backend(vals)
         # Lock validations for each record
         for record in self:
@@ -771,7 +778,7 @@ class CrmLead(models.Model):
                 if record.stage_id.is_cancel and 'locked' not in vals:
                     raise UserError('You cannot edit a locked lead')
             if 'lead_stage_id' in vals:
-                if vals.get('lead_stage_id') == self.env.ref('arkzayed_18_realestate_developer_crm.stage_unqualified').id:
+                if vals.get('lead_stage_id') == self.env.ref('isky_18_realestate_developer_sales_crm.stage_unqualified').id:
                     if not record.lost_reason_id and not vals.get('lost_reason_id'):
                         raise ValidationError("Cancel Reason Is Required")
         # self.validate_required_fields(vals)
@@ -935,7 +942,7 @@ class CrmLead(models.Model):
     def state_to_unqualified_state(self):
         self.ensure_one()
         if self.lost_reason_id:
-            self.lead_stage_id = self.env.ref('arkzayed_18_realestate_developer_crm.stage_unqualified').id
+            self.lead_stage_id = self.env.ref('isky_18_realestate_developer_sales_crm.stage_unqualified').id
             return True
 
         # If reason is not provided, open a wizard to collect it
@@ -969,7 +976,7 @@ class CrmLead(models.Model):
 
     def action_no_answer(self):
         for rec in self:
-            rec.lead_stage_id = self.env.ref('arkzayed_18_realestate_developer_crm.stage_no_answer').id
+            rec.lead_stage_id = self.env.ref('isky_18_realestate_developer_sales_crm.stage_no_answer').id
             rec.last_updated_date = fields.Datetime.now()
 
     def action_qualified_lead(self):
@@ -990,7 +997,7 @@ class CrmLead(models.Model):
         # If all required fields are filled, directly qualify the lead
         if required_fields_filled:
             self.write({
-                'lead_stage_id': self.env.ref('arkzayed_18_realestate_developer_crm.stage_qualified').id
+                'lead_stage_id': self.env.ref('isky_18_realestate_developer_sales_crm.stage_qualified').id
             })
             return True
 
@@ -1032,7 +1039,7 @@ class CrmLead(models.Model):
         # If all required fields are filled, directly qualify the lead
         if required_fields_filled:
             self.write({
-                'lead_stage_id': self.env.ref('arkzayed_18_realestate_developer_crm.stage_qualified_limited_budget').id
+                'lead_stage_id': self.env.ref('isky_18_realestate_developer_sales_crm.stage_qualified_limited_budget').id
             })
             return True
 
@@ -1059,18 +1066,18 @@ class CrmLead(models.Model):
 
     def action_follow_up_lead(self):
         for rec in self:
-            rec.lead_stage_id = self.env.ref('arkzayed_18_realestate_developer_crm.stage_follow_up').id
+            rec.lead_stage_id = self.env.ref('isky_18_realestate_developer_sales_crm.stage_follow_up').id
 
     def action_unlock_lead(self):
         for rec in self:
-            rec.lead_stage_id = self.env.ref('arkzayed_18_realestate_developer_crm.stage_new').id
+            rec.lead_stage_id = self.env.ref('isky_18_realestate_developer_sales_crm.stage_new').id
             rec.locked = False
             rec.last_updated_date = fields.Datetime.now()
 
 
     def action_lock_lead(self):
         for rec in self:
-            rec.lead_stage_id = self.env.ref('arkzayed_18_realestate_developer_crm.stage_locked').id
+            rec.lead_stage_id = self.env.ref('isky_18_realestate_developer_sales_crm.stage_locked').id
             rec.locked = True
 
 
@@ -1408,7 +1415,7 @@ class CrmLead(models.Model):
         if lost_reason_id:
             unqualified_values = {
                 'lost_reason_id': int(lost_reason_id),
-                'lead_stage_id': self.env.ref('arkzayed_18_realestate_developer_crm.stage_unqualified').id
+                'lead_stage_id': self.env.ref('isky_18_realestate_developer_sales_crm.stage_unqualified').id
             }
             self.write(unqualified_values)
 
@@ -1419,7 +1426,7 @@ class CrmLead(models.Model):
         if lost_reason_id:
             unqualified_values = {
                 'lost_reason_id': int(lost_reason_id),
-                'stage_id': self.env.ref('arkzayed_18_realestate_developer_crm.stage_lead6').id
+                'stage_id': self.env.ref('isky_18_realestate_developer_sales_crm.stage_lead6').id
             }
             self.write(unqualified_values)
 
@@ -1437,7 +1444,7 @@ class CrmLead(models.Model):
             call_later_values = {
                 'activity_type_id': values.get('activity_type_id'),
                 'activity_date_deadline': values.get('activity_date_deadline'),
-                'lead_stage_id': self.env.ref('arkzayed_18_realestate_developer_crm.stage_call_later').id
+                'lead_stage_id': self.env.ref('isky_18_realestate_developer_sales_crm.stage_call_later').id
             }
             user_activity = lead.sudo().activity_ids.filtered(lambda activity: activity.user_id == self.env.user)[:1]
             if values['activity_date_deadline']:
@@ -1614,7 +1621,7 @@ class CrmLead(models.Model):
                 if duplicate_lead_ids and from_portal == 0 or from_portal == 1:
                     warn_user = 1
                     vals.update({
-                        'lead_stage_id': self.env.ref('arkzayed_18_realestate_developer_crm.stage_locked').id,
+                        'lead_stage_id': self.env.ref('isky_18_realestate_developer_sales_crm.stage_locked').id,
                         'duplicate_number':True,
                         'locked': True,
                         'user_id': duplicity_user_obj.user_id.id if duplicity_user_obj else self.env.user.id,
@@ -1769,21 +1776,21 @@ class CrmLead(models.Model):
     @api.constrains('eoi_status_for_manager')
     def _check_eoi_manager_approval(self):
         for rec in self:
-            if rec.eoi_status_for_manager and self.type == 'opportunity':
+            if rec.eoi_status_for_manager in APPROVAL_DECISIONS and rec.type == 'opportunity':
                 if not self.env.user.has_group('isky_18_realestate_developer_sales_crm.approval_manager_group'):
                     raise UserError('You are not allowed to approve - only Manager can approve')
 
     @api.constrains('eoi_status_for_financial')
     def _check_eoi_financial_approval(self):
         for rec in self:
-            if rec.eoi_status_for_financial and self.type == 'opportunity':
+            if rec.eoi_status_for_financial in APPROVAL_DECISIONS and rec.type == 'opportunity':
                 if not self.env.user.has_group('isky_18_realestate_developer_sales_crm.financial_manager_group'):
                     raise UserError('You are not allowed to approve - only Financial Manager can approve')
 
     @api.constrains('eoi_status_for_operations')
     def _check_eoi_operations_approval(self):
         for rec in self:
-            if rec.eoi_status_for_operations and self.type == 'opportunity':
+            if rec.eoi_status_for_operations in APPROVAL_DECISIONS and rec.type == 'opportunity':
                 if not (self.env.user.has_group('isky_18_realestate_developer_sales_crm.operation_manager_group') ):
                         # or
                         # self.env.user.has_group('isky_18_realestate_developer_sales_crm.operation_executive_group')):
@@ -1792,21 +1799,21 @@ class CrmLead(models.Model):
     @api.constrains('reservation_status_for_manager')
     def _check_reservation_manager_approval(self):
         for rec in self:
-            if rec.reservation_status_for_manager and self.type == 'opportunity':
+            if rec.reservation_status_for_manager in APPROVAL_DECISIONS and rec.type == 'opportunity':
                 if not self.env.user.has_group('isky_18_realestate_developer_sales_crm.approval_manager_group'):
                     raise UserError('You are not allowed to approve - only Manager can approve')
 
     @api.constrains('reservation_status_for_financial')
     def _check_reservation_financial_approval(self):
         for rec in self:
-            if rec.reservation_status_for_financial and self.type == 'opportunity':
+            if rec.reservation_status_for_financial in APPROVAL_DECISIONS and rec.type == 'opportunity':
                 if not self.env.user.has_group('isky_18_realestate_developer_sales_crm.financial_manager_group'):
                     raise UserError('You are not allowed to approve - only Financial Manager can approve')
 
     @api.constrains('reservation_status_for_operations')
     def _check_reservation_operations_approval(self):
         for rec in self:
-            if rec.reservation_status_for_operations and self.type == 'opportunity':
+            if rec.reservation_status_for_operations in APPROVAL_DECISIONS and rec.type == 'opportunity':
                 if not (self.env.user.has_group('isky_18_realestate_developer_sales_crm.operation_manager_group') ):
                         # or
                         # self.env.user.has_group('isky_18_realestate_developer_sales_crm.operation_executive_group')):
@@ -1815,21 +1822,21 @@ class CrmLead(models.Model):
     @api.constrains('contract_status_for_manager')
     def _check_contract_manager_approval(self):
         for rec in self:
-            if rec.contract_status_for_manager and self.type == 'opportunity':
+            if rec.contract_status_for_manager in APPROVAL_DECISIONS and rec.type == 'opportunity':
                 if not self.env.user.has_group('isky_18_realestate_developer_sales_crm.approval_manager_group'):
                     raise UserError('You are not allowed to approve - only Manager can approve')
 
     @api.constrains('contract_status_for_financial')
     def _check_contract_financial_approval(self):
         for rec in self:
-            if rec.contract_status_for_financial and self.type == 'opportunity':
+            if rec.contract_status_for_financial in APPROVAL_DECISIONS and rec.type == 'opportunity':
                 if not self.env.user.has_group('isky_18_realestate_developer_sales_crm.financial_manager_group'):
                     raise UserError('You are not allowed to approve - only Financial Manager can approve')
 
     @api.constrains('contract_status_for_operations')
     def _check_contract_operations_approval(self):
         for rec in self:
-            if rec.contract_status_for_operations and self.type == 'opportunity':
+            if rec.contract_status_for_operations in APPROVAL_DECISIONS and rec.type == 'opportunity':
                 if not (self.env.user.has_group('isky_18_realestate_developer_sales_crm.operation_manager_group')):
                         # or
                         # self.env.user.has_group('isky_18_realestate_developer_sales_crm.operation_executive_group')):
@@ -1997,51 +2004,51 @@ class CrmLead(models.Model):
                     message += 'Maximum price must be greater than zero when qualified.\n'
 
             # 4
-            if record.eoi_status_for_manager and self.type == 'opportunity':
+            if record.eoi_status_for_manager in APPROVAL_DECISIONS and record.type == 'opportunity':
                 if not self.env.user.has_group('isky_18_realestate_developer_sales_crm.approval_manager_group'):
                     message += 'You are not allowed to approve - only Manager can approve\n'
 
             # 5
-            if record.eoi_status_for_financial and self.type == 'opportunity':
+            if record.eoi_status_for_financial in APPROVAL_DECISIONS and record.type == 'opportunity':
                 if not self.env.user.has_group('isky_18_realestate_developer_sales_crm.financial_manager_group'):
                     message += 'You are not allowed to approve - only Financial Manager can approve\n'
 
             #6
-            if record.eoi_status_for_operations and self.type == 'opportunity':
+            if record.eoi_status_for_operations in APPROVAL_DECISIONS and record.type == 'opportunity':
                 if not (self.env.user.has_group('isky_18_realestate_developer_sales_crm.operation_manager_group') ):
                         # or
                         # self.env.user.has_group('isky_18_realestate_developer_sales_crm.operation_executive_group')):
                     message += 'You are not allowed to approve - only Sales Sector Manager can approve\n'
 
             # 7
-            if record.reservation_status_for_manager and self.type == 'opportunity':
+            if record.reservation_status_for_manager in APPROVAL_DECISIONS and record.type == 'opportunity':
                 if not self.env.user.has_group('isky_18_realestate_developer_sales_crm.approval_manager_group'):
                     raise UserError('You are not allowed to approve - only Manager can approve')
 
             # 8
-            if record.reservation_status_for_financial and self.type == 'opportunity':
+            if record.reservation_status_for_financial in APPROVAL_DECISIONS and record.type == 'opportunity':
                 if not self.env.user.has_group('isky_18_realestate_developer_sales_crm.financial_manager_group'):
                     message += 'You are not allowed to approve - only Financial Manager can approve\n'
 
             # 9
-            if record.reservation_status_for_operations and self.type == 'opportunity':
+            if record.reservation_status_for_operations in APPROVAL_DECISIONS and record.type == 'opportunity':
                 if not (self.env.user.has_group('isky_18_realestate_developer_sales_crm.operation_manager_group') ):
                         # or
                         # self.env.user.has_group('isky_18_realestate_developer_sales_crm.operation_executive_group')):
                     message += 'You are not allowed to approve - only Sales Sector Manager can approve\n'
 
             # 10
-            if record.contract_status_for_manager and self.type == 'opportunity':
+            if record.contract_status_for_manager in APPROVAL_DECISIONS and record.type == 'opportunity':
                 if not self.env.user.has_group('isky_18_realestate_developer_sales_crm.approval_manager_group'):
                     message += 'You are not allowed to approve - only Manager can approve\n'
 
             # 11
-            if record.contract_status_for_financial and self.type == 'opportunity':
+            if record.contract_status_for_financial in APPROVAL_DECISIONS and record.type == 'opportunity':
                 if not self.env.user.has_group('isky_18_realestate_developer_sales_crm.financial_manager_group'):
                     message += 'You are not allowed to approve - only Financial Manager can approve\n'
 
             # 12
-            if record.contract_status_for_operations and self.type == 'opportunity':
+            if record.contract_status_for_operations in APPROVAL_DECISIONS and record.type == 'opportunity':
                 if not (self.env.user.has_group('isky_18_realestate_developer_sales_crm.operation_manager_group')):
                         # or
                         # self.env.user.has_group('isky_18_realestate_developer_sales_crm.operation_executive_group')):
@@ -2058,7 +2065,7 @@ class CrmLead(models.Model):
 
     def validate_stage_cancel_reason(self, stage_id):
         if (self.type == 'opportunity' and not self.lost_reason_id
-                and stage_id in [self.env.ref('arkzayed_18_realestate_developer_crm.stage_lead5').id, self.env.ref('arkzayed_18_realestate_developer_crm.stage_lead6').id]):
+                and stage_id in [self.env.ref('isky_18_realestate_developer_sales_crm.stage_lead5').id, self.env.ref('isky_18_realestate_developer_sales_crm.stage_lead6').id]):
             return {'error': "Reason to cancel is required"}
 
     def validate_required_fields_portal(self, stage_id):
@@ -2313,7 +2320,7 @@ class CrmLead(models.Model):
     def action_hold_unit(self):
         self.ensure_one()
 
-        is_enabled = self.env['ir.config_parameter'].sudo().get_param('crm.enable_crm_unit_hold')
+        is_enabled = self.env['ir.config_parameter'].sudo().get_param('realestate.enable_unit_hold')
         if not is_enabled:
             raise UserError(_("The Unit Hold feature is currently disabled in the CRM settings."))
 
@@ -2335,11 +2342,11 @@ class CrmLead(models.Model):
     @api.model
     def _cron_release_held_units(self):
         # 1. Safety check: ensure the feature is enabled in settings
-        is_enabled = self.env['ir.config_parameter'].sudo().get_param('crm.enable_crm_unit_hold')
+        is_enabled = self.env['ir.config_parameter'].sudo().get_param('realestate.enable_unit_hold')
         if not is_enabled:
             return
 
-        duration_hours = int(self.env['ir.config_parameter'].sudo().get_param('crm.crm_unit_hold_duration', default=24))
+        duration_hours = int(self.env['ir.config_parameter'].sudo().get_param('realestate.unit_hold_duration', default=24))
 
         # Calculate the cutoff date (Current Time - Duration)
         # Any hold that started BEFORE this cutoff date has exceeded the allowed time.

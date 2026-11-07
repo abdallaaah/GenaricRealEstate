@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- #49: `lead.stage` is declared by this module (models/core/lead_stage.py) but every row
+         used to live in arkzayed_18_realestate_developer_crm, which this module does not depend
+         on - so on a plain L2 database the whole lead workflow raised "External ID not found".
+         The local xmlid names are the legacy ones; see the decisions log, 2026-11-07.
+
+         noupdate="1": these are seed rows a customer renames and re-sequences, and on a database
+         that adopted its legacy rows they ARE the customer's live stages. Nothing resolves a
+         stage by name - all call sites use the xmlid - so they are seeded once and then left
+         alone. -->
+    <data noupdate="1">
+        <record id="stage_new" model="lead.stage">
+            <field name="name">New</field>
+            <field name="first">True</field>
+            <field name="sequence">1</field>
+        </record>
+        <record id="stage_no_answer" model="lead.stage">
+            <field name="name">No Answer</field>
+            <field name="no_answer">True</field>
+            <field name="sequence">2</field>
+        </record>
+        <record id="stage_call_later" model="lead.stage">
+            <field name="name">Call Later</field>
+            <field name="call_later">True</field>
+            <field name="sequence">3</field>
+        </record>
+        <record id="stage_follow_up" model="lead.stage">
+            <field name="name">Follow Up</field>
+            <field name="follow_up">True</field>
+            <field name="sequence">4</field>
+        </record>
+        <!-- #56: commented out in the legacy data file, while two live call sites resolve it
+             (crm_lead.py, wizard/qualified_stage.py), so the "qualified with limited budget"
+             path has always raised. Created here for the first time. -->
+        <record id="stage_qualified_limited_budget" model="lead.stage">
+            <field name="name">Qualified (Limited Budget)</field>
+            <field name="qualified_limited_budget">True</field>
+            <field name="sequence">5</field>
+        </record>
+        <record id="stage_qualified" model="lead.stage">
+            <field name="name">Qualified</field>
+            <field name="qualified">True</field>
+            <field name="sequence">6</field>
+        </record>
+        <record id="stage_unqualified" model="lead.stage">
+            <field name="name">Unqualified</field>
+            <field name="unqualified">True</field>
+            <field name="sequence">7</field>
+        </record>
+        <record id="stage_locked" model="lead.stage">
+            <field name="name">Locked</field>
+            <field name="locked">True</field>
+            <field name="sequence">8</field>
+        </record>
+    </data>
+</odoo>

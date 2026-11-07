@@ -1,4 +1,4 @@
-from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError, ValidationError
 from odoo.tests.common import TransactionCase, tagged
 
 
@@ -60,36 +60,14 @@ class TestPhase4Commission(TransactionCase):
         self.project = self.env['realestate.project'].create({
             'name': 'P4 Project', 'abbreviation': 'P4P'})
 
-        # A real operator, not the superuser. Odoo tests run as superuser, which bypasses both
-        # ACLs and nothing else - so a mapping test that stayed superuser would prove nothing
-        # about whether an ordinary user can actually produce a commission hierarchy.
-        #
-        # The three approval groups are NOT a workaround. crm.lead's nine approval-status
-        # fields default to 'pending', and each has an @api.constrains that demands the
-        # matching approver group, so by the system's own design the person creating an
-        # opportunity with pending approvals is an approver. Those groups now resolve from
-        # sales_crm (they were moved out of the legacy CRM module on 2026-11-06), so this is
-        # the real flow rather than a field fudge. Backlog #44 covers whether defaulting those
-        # statuses to 'pending' is right in the first place.
-        self.operator = self.env['res.users'].create({
-            'name': 'p4_operator', 'login': 'p4_operator',
-            'email': 'p4_operator@example.com',
-            'company_id': self.company.id, 'company_ids': [(6, 0, [self.company.id])],
-            'groups_id': [(6, 0, [
-                self.env.ref('base.group_user').id,
-                self.env.ref('%s.financial_manager_group' % SCRM).id,
-                self.env.ref('%s.approval_manager_group' % SCRM).id,
-                self.env.ref('%s.operation_manager_group' % SCRM).id,
-                # crm.lead carries core CRM record rules, so creating an opportunity needs a
-                # CRM group. sales_manager_group implies sales_team.group_sale_salesman, so one
-                # realistic group covers it.
-                self.env.ref('%s.sales_manager_group' % SCRM).id,
-                # crm.lead carries core CRM record rules. group_sale_salesman is "own documents
-                # only", and these documents belong to u_sales rather than to the operator, so
-                # the manager group ("all documents") is the right one - which is what a real
-                # sales manager creating records for their team holds.
-                self.env.ref('sales_team.group_sale_manager').id,
-            ])]})
+        # #44: the acting user is a STANDARD Odoo CRM salesperson - base.group_user plus
+        # sales_team.group_sale_salesman, nothing else. No approver groups, no
+        # group_sale_manager. It IS u_sales, so the documents belong to the acting user and
+        # core CRM's own-documents record rule is satisfied without widening any group.
+        self.u_sales.groups_id = [
+            (6, 0, [self.env.ref('base.group_user').id,
+                    self.env.ref('sales_team.group_sale_salesman').id])]
+        self.operator = self.u_sales
 
     def _reservation(self):
         return self.env['real.estate.sale.reservation'].create({
@@ -236,6 +214,38 @@ class TestPhase4Commission(TransactionCase):
         """The engine's participant resolution, which the commission basis does not gate - so
         it is comparable across all four documents at once."""
         return {user.id for user, _label in doc._commission_participants()}
+
+    def test_standard_salesperson_creates_opportunity_but_cannot_approve(self):
+        """#44: a standard Odoo CRM user - base.group_user + sales_team.group_sale_salesman and
+        nothing else - creates an opportunity with the approval statuses at their 'pending'
+        default. Setting a status to an actual decision still requires the approver group."""
+        # asserted as the requirement rather than as an exact set: Odoo's implied-groups
+        # machinery adds technical groups behind base.group_user, so an equality check would
+        # fail for reasons that have nothing to do with #44.
+        self.assertTrue(self.operator.has_group('base.group_user'))
+        self.assertTrue(self.operator.has_group('sales_team.group_sale_salesman'))
+        self.assertFalse(self.operator.has_group('sales_team.group_sale_manager'),
+                         "no manager group: a plain salesperson must suffice")
+        for approver in ('approval_manager_group', 'financial_manager_group',
+                         'operation_manager_group', 'operation_executive_group',
+                         'sales_manager_group'):
+            self.assertFalse(
+                self.operator.has_group('%s.%s' % (SCRM, approver)),
+                "the acting user must hold no approver group (%s)" % approver)
+
+        lead = self._lead()
+        self.assertTrue(lead.id, "a standard salesperson must be able to create an opportunity")
+        for doc in ('eoi', 'contract', 'reservation'):
+            for role in ('manager', 'financial', 'operations'):
+                self.assertEqual(
+                    lead['%s_status_for_%s' % (doc, role)], 'pending',
+                    "the statuses kept their default, so no approval was implied")
+
+        # a real approval decision is still gated
+        with self.assertRaises(UserError):
+            lead.with_user(self.operator).write({'contract_status_for_financial': 'approved'})
+        with self.assertRaises(UserError):
+            lead.with_user(self.operator).write({'eoi_status_for_manager': 'rejected'})
 
     def test_same_manager_mapping_across_documents(self):
         """Criterion C: the same manager mapping across lead, EOI, reservation and contract.

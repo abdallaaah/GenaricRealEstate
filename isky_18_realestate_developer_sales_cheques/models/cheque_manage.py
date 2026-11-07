@@ -5,7 +5,13 @@ _logger = logging.getLogger(__name__)
 
 
 class ChequeManage(models.Model):
-    _inherit = 'cheque.manage'
+    # _name is required alongside a list _inherit when extending an existing model:
+    # without it Odoo treats the class as a new anonymous model and the inherited
+    # Many2many relations collide on their table names (the same lesson crm_lead.py
+    # records; this run re-learned it from
+    # "TypeError: Many2many fields ... use the same table and columns").
+    _name = 'cheque.manage'
+    _inherit = ['cheque.manage', 'realestate.revenue.split.mixin']
 
     eoi_id = fields.Many2one('eoi.eoi', string='EOI')
     installment_line_id = fields.Many2one('installment.lines', string='Installment Line')
@@ -739,63 +745,27 @@ class ChequeManage(models.Model):
         if not self.sale_proposal_id or self.collection_move_id:
             return None
 
-        Parameters = self.env['ir.config_parameter'].sudo()
-
-        debit_account_id = Parameters.get_param('arkzayed_18_realestate_development.collection_debit_account_id')
-        credit_gis_account_id = Parameters.get_param('arkzayed_18_realestate_development.collection_credit_gis_account_id')
-        credit_oaya_account_id = Parameters.get_param('arkzayed_18_realestate_development.collection_credit_oaya_account_id')
-        gis_percentage = float(Parameters.get_param('arkzayed_18_realestate_development.collection_gis_percentage') or 0)
-        oaya_percentage = float(Parameters.get_param('arkzayed_18_realestate_development.collection_oaya_percentage') or 0)
-        journal_id = Parameters.get_param('arkzayed_18_realestate_development.collection_journal_id')
-
-        if not all([debit_account_id, credit_gis_account_id, credit_oaya_account_id, journal_id]):
+        # Phase 7 (D2/D3): business lines are rows, math shared through
+        # realestate.revenue.split.mixin. This path returns quietly when configuration is
+        # missing, as it did before.
+        debit_account_id, journal_id, missing = self._revenue_split_posting_config()
+        if missing:
             return None
 
         total_amount = self.amount
+        split = self._revenue_split_amounts(total_amount)
+        if not split:
+            return None
+        total_credit = sum(amount for _line, amount in split)
 
-        # Calculate amounts based on configured percentages (keep as is)
-        gis_amount = round((total_amount * gis_percentage) / 100, 2)
-        oaya_amount = round((total_amount * oaya_percentage) / 100, 2)
-
-        # Total credit is sum of GIS + OAYA (whatever the percentages are)
-        total_credit = gis_amount + oaya_amount
-
-        # Debit amount matches the total credit to balance the entry
-        debit_amount = total_credit
-
-        line_ids = []
-
-        # Debit line - Collection Expense (matches total credit)
-        line_ids.append((0, 0, {
-            'name': _('Collection Expense - %s') % self.name,
-            'account_id': int(debit_account_id),
-            'partner_id': self.payer.id,
-            'debit': debit_amount,
-            'credit': 0.0,
-        }))
-
-        # Credit line 1 - GIS
-        if gis_amount > 0:
-            line_ids.append((0, 0, {
-                'name': _('GIS Collection (%.2f%%) - %s') % (gis_percentage, self.name),
-                'account_id': int(credit_gis_account_id),
-                'partner_id': self.payer.id,
-                'debit': 0.0,
-                'credit': gis_amount,
-            }))
-
-        # Credit line 2 - OAYA
-        if oaya_amount > 0:
-            line_ids.append((0, 0, {
-                'name': _('OAYA Collection (%.2f%%) - %s') % (oaya_percentage, self.name),
-                'account_id': int(credit_oaya_account_id),
-                'partner_id': self.payer.id,
-                'debit': 0.0,
-                'credit': oaya_amount,
-            }))
+        line_ids = [(0, 0, self._revenue_split_debit_line(
+            debit_account_id, total_credit, self.name, self.payer.id))]
+        for line, amount in split:
+            line_ids.append((0, 0, self._revenue_split_credit_line(
+                line, amount, self.name, self.payer.id)))
 
         move_vals = {
-            'journal_id': int(journal_id),
+            'journal_id': journal_id,
             'date': self.cashed_date or self.cheque_date or fields.Date.today(),
             'ref': _('Collection - %s - %s') % (self.sale_proposal_id.name, self.seq_no),
             'line_ids': line_ids,

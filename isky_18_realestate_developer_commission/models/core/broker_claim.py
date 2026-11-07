@@ -243,9 +243,14 @@ class BrokerClaim(models.Model):
 
             commission_with_vat = unit_price * commission_percent / 100
 
-            commission_without_vat = commission_with_vat / 1.14 if commission_with_vat else 0.0
+            # Phase 7 (D4): these two rates were the literals 1.14 and 0.05. They are company
+            # configuration now, in the Financials section, and default to the same values -
+            # 14% VAT and 5% withholding - so the arithmetic here is unchanged out of the box.
+            company = rec.company_id or self.env.company
+            commission_without_vat = (
+                commission_with_vat / company._vat_divisor() if commission_with_vat else 0.0)
 
-            withholding_tax = commission_without_vat * 0.05
+            withholding_tax = commission_without_vat * (company.withholding_tax_rate or 0.0) / 100.0
 
             if rec.with_withholding_tax:
                 net_commission = commission_with_vat - withholding_tax
@@ -282,9 +287,9 @@ class BrokerClaim(models.Model):
         for record in self:
             # Get configuration using ICP (ir.config_parameter)
             ICP = self.env['ir.config_parameter'].sudo()
-            debit_account_id = int(ICP.get_param('arkzayed_18_realestate_development.commission_debit_account_id', 0))
-            credit_account_id = int(ICP.get_param('arkzayed_18_realestate_development.commission_credit_account_id', 0))
-            journal_id = int(ICP.get_param('arkzayed_18_realestate_development.commission_journal_id', 0))
+            debit_account_id = int(ICP.get_param('realestate.commission_debit_account_id', 0))
+            credit_account_id = int(ICP.get_param('realestate.commission_credit_account_id', 0))
+            journal_id = int(ICP.get_param('realestate.commission_journal_id', 0))
 
             withholding_account = self.env['account.account'].search([('for_withholding_tax', '=', True)], limit=1)
             withholding_account_id = withholding_account.id if withholding_account else False
