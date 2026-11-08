@@ -6,10 +6,10 @@ class DeveloperProject(models.Model):
     _description = "Developer Project"
 
     name = fields.Char(required=True)
-    developer_id = fields.Many2one('res.partner', required=True)
+    developer_id = fields.Many2one('res.partner', required=True , domain="[('is_developer', '=', True)]")
     country_id = fields.Many2one('res.country')
     governorate_id = fields.Many2one('res.country.state', domain="[('country_id', '=', country_id)]")
-    city_id = fields.Many2one('res.country.city')
+    city_id = fields.Many2one('res.country.city',string="District")
     neighborhood_id = fields.Many2one('neighborhood.neighborhood')
     project_commission_ids = fields.One2many('project.commission', 'developer_project_id', string="Project Commissions")
     last_end_date = fields.Date(compute='_compute_last_end_date', store=True)

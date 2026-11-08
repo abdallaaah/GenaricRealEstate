@@ -24,12 +24,27 @@
                     <field name="conflict_tcr_number" widget="statinfo" string="Conflicting TCRs"/>
                 </button>
             </div>
+            <xpath expr="//group[@name='lead_partner']/field[@name='partner_id'][1]" position="replace">
+                <field name="contact" invisible="type == 'opportunity'" placeholder="Select or create a contact..."/>
+            </xpath>
+            <xpath expr="//div[hasclass('oe_title')]/h1/field[@name='name']" position="attributes">
+                <attribute name="invisible">type == 'lead'</attribute>
+            </xpath>
+            <xpath expr="//div[hasclass('oe_title')]/h1/field[@name='name']" position="before">
+                <field name="lead_sequence" class="text-break" invisible="type != 'lead'"/>
+            </xpath>
+            <xpath expr="//div[hasclass('oe_title')]/h1" position="after">
+                <field name="opportunity_sequence" class="text-muted" invisible="type == 'lead'"/>
+            </xpath>
+            <xpath expr="//field[@name='lost_reason_id']" position="before">
+                <field name="lead_country_id"/>
+            </xpath>
             <group name="lead_partner" position="after">
                 <group string="Real Estate">
                     <field name="developer_id" required="type == 'opportunity'"/>
                     <field name="project_id" required="type == 'opportunity'"/>
-                    <field name="unit_id"/>
-                    <field name="unit_number"/>
+                    <field name="unit_id" invisible="type == 'lead'"/>
+                    <field name="unit_number" invisible="type == 'lead'"/>
                     <field name="interested_in"/>
                     <field name="buying_type"/>
                     <field name="unit_type"/>
@@ -117,6 +132,72 @@
                     </group>
                 </page>
             </page>
+        </field>
+    </record>
+
+    <record id="crm_case_tree_view_leads_inherit_broker" model="ir.ui.view">
+        <field name="name">crm.lead.list.lead.inherit.broker</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_tree_view_leads"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="lead_sequence" string="Sequence" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="crm_case_tree_view_oppor_inherit_broker" model="ir.ui.view">
+        <field name="name">crm.lead.list.opportunity.inherit.broker</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_tree_view_oppor"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="opportunity_sequence" string="Sequence" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_crm_lead_kanban_inherit_broker" model="ir.ui.view">
+        <field name="name">crm.lead.kanban.inherit.broker</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.view_crm_lead_kanban"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="lead_sequence" class="text-muted"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="crm_case_kanban_view_leads_inherit_broker" model="ir.ui.view">
+        <field name="name">crm.lead.kanban.opportunity.inherit.broker</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_kanban_view_leads"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="opportunity_sequence" class="text-muted"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_crm_case_leads_filter_inherit_broker" model="ir.ui.view">
+        <field name="name">crm.lead.search.lead.inherit.broker</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.view_crm_case_leads_filter"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="lead_sequence" string="Sequence"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_crm_case_opportunities_filter_inherit_broker" model="ir.ui.view">
+        <field name="name">crm.lead.search.opportunity.inherit.broker</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.view_crm_case_opportunities_filter"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="opportunity_sequence" string="Sequence"/>
+            </field>
         </field>
     </record>
 </odoo>

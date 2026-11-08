@@ -7,6 +7,10 @@
         <field name="arch" type="xml">
             <xpath expr="//app[@name='crm']" position="inside">
                 <block title="iSky Broker" id="isky_20_broker_settings" name="isky_20_broker_settings_container">
+                    <setting id="isky_20_broker_sequence_prefix" string="Lead/Opportunity Sequence Prefix"
+                             help="A 3-letter code prepended to the Lead and Opportunity sequence numbers for this company (e.g. ABC-L/00001, ABC-O/00001). Leave empty to use the default L/ and O/ prefixes. Changing it does not reset the running number.">
+                        <field name="broker_sequence_prefix" placeholder="e.g. ABC"/>
+                    </setting>
                     <setting id="isky_20_broker_approval_rules" string="Approval Workflow"
                              help="Which group must approve each deal phase (EOI/Reservation/Contract) x role (Manager/Financial/Sales/Operations). Configurable per client, instead of a fixed hardcoded matrix.">
                         <button type="action" name="isky_20_broker_crm.broker_approval_rule_action"

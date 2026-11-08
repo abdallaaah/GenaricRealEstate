@@ -16,7 +16,7 @@ iSky Broker - CRM
   the job-level org chart), consumed by the commission module.
 - An in-app notification bell, independent of the native mail inbox.
     """,
-    'depends': ['crm', 'hr', 'isky_20_broker_base', 'isky_20_broker_real_estate'],
+    'depends': ['crm', 'hr', 'phone_validation', 'isky_20_broker_base', 'isky_20_broker_real_estate'],
     'data': [
         'security/isky_20_broker_crm_security.xml',
         'security/ir.access.csv',
@@ -26,11 +26,13 @@ iSky Broker - CRM
         'data/utm_source_data.xml',
         'data/broker_approval_rule_data.xml',
         'views/crm_lead_views.xml',
+        'views/res_company_views.xml',
         'views/crm_stage_views.xml',
         'views/lead_stage_views.xml',
         'views/broker_approval_rule_views.xml',
         'views/qualified_stage_wizard_views.xml',
         'views/crm_lead_unqualified_wizard_views.xml',
+        'views/crm_lead_convert_contact_wizard_views.xml',
         'views/crm_lead_reassign_views.xml',
         'views/res_config_settings_views.xml',
         'views/broker_menus.xml',

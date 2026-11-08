@@ -1,4 +1,5 @@
 from odoo import Command, api, fields, models
+from odoo.addons.phone_validation.tools import phone_validation
 from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.tools import html2plaintext
 
@@ -55,6 +56,15 @@ class CrmLead(models.Model):
     is_confirmed_contract = fields.Boolean(related='stage_id.is_confirmed_contract')
     is_request_to_cancel = fields.Boolean(related='stage_id.is_request_to_cancel')
 
+    # On a Lead there is no matched partner yet, so Contact is just free text; once it
+    # becomes an Opportunity, the stock partner_id field (also labeled "Contact") takes over.
+    contact = fields.Char(string="Contact")
+
+    # Guessed from the phone's dialing code (e.g. +20 -> Egypt), not the destination/property
+    # country -- kept editable since the guess can be wrong (shared numbers, VOIP, typos).
+    lead_country_id = fields.Many2one(
+        'res.country', string="Lead Country", compute='_compute_lead_country_id', store=True, readonly=False)
+
     # Classification
     interested_in = fields.Selection([('buy', "Buy"), ('rent', "Rent"), ('sell', "Sell")])
     buying_type = fields.Selection([('primary', "Primary"), ('resale', "Resale")], tracking=True)
@@ -69,7 +79,9 @@ class CrmLead(models.Model):
     # data). Required-ness for an actual broker deal is enforced at the right stage instead,
     # the same way eoi/reservation/contract attachments already are (validate_required_fields).
     developer_id = fields.Many2one('res.partner', domain="[('is_developer', '=', True)]")
-    project_id = fields.Many2one('developer.project', tracking=True)
+    project_id = fields.Many2one(
+        'developer.project', tracking=True,
+        domain="[('developer_id', '=', developer_id)] if developer_id else []")
     unit_id = fields.Many2one('broker.unit')
     unit_type = fields.Selection(UNIT_TYPE_SELECTION)
     unit_number = fields.Char()
@@ -237,6 +249,16 @@ class CrmLead(models.Model):
             message = lead.message_ids.filtered(lambda m: m.subtype_id.internal is False)[:1]
             lead.last_message = html2plaintext(message.body) if message else self.env._("No Messages")
 
+    @api.depends('phone')
+    def _compute_lead_country_id(self):
+        for lead in self:
+            country = False
+            if lead.phone:
+                code = phone_validation.phone_get_region_data_for_number(lead.phone).get('code')
+                if code:
+                    country = self.env['res.country'].search([('code', '=', code)], limit=1)
+            lead.lead_country_id = country
+
     @api.depends('activity_ids')
     def _compute_meeting_count(self):
         meeting_type = self.env.ref('mail.mail_activity_data_meeting', raise_if_not_found=False)
@@ -248,6 +270,21 @@ class CrmLead(models.Model):
                 lambda a: a.activity_type_id == meeting_type and not a.counted)
             uncounted.counted = True
             lead.meeting_counter = lead.meeting_counter + len(uncounted)
+
+    # ---------------------------------------------------------------- onchange
+
+    @api.onchange('developer_id')
+    def _onchange_developer_id(self):
+        if self.developer_id and self.project_id.developer_id != self.developer_id:
+            self.project_id = False
+
+    @api.onchange('project_id')
+    def _onchange_project_id(self):
+        if self.project_id:
+            self.developer_id = self.project_id.developer_id
+            self.dest_country_id = self.project_id.country_id
+            self.governorate_id = self.project_id.governorate_id
+            self.dest_city_id = self.project_id.city_id
 
     # ---------------------------------------------------------------- actions
 
@@ -323,6 +360,25 @@ class CrmLead(models.Model):
             'view_mode': 'form',
             'target': 'new',
             'context': {'default_lead_id': self.id},
+        }
+
+    def action_convert_to_opportunity(self):
+        self.ensure_one()
+        if self.type == 'opportunity' or self.partner_id:
+            return super().action_convert_to_opportunity()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': self.env._("Create Contact"),
+            'res_model': 'crm.lead.convert.contact.wizard',
+            'view_mode': 'form',
+            'target': 'new',
+            'context': {
+                'default_lead_id': self.id,
+                'default_name': self.contact or self.contact_name or self.name,
+                'default_phone': self.phone,
+                'default_email': self.email_from,
+                'default_company_name': self.partner_name,
+            },
         }
 
     @property
@@ -416,7 +472,18 @@ class CrmLead(models.Model):
         result = super().write(vals)
         if result and vals.get('user_id'):
             self._reset_followers_to_salesperson(vals['user_id'])
+        if result and vals.get('type') == 'opportunity':
+            self._assign_opportunity_sequence()
         return result
+
+    def _assign_opportunity_sequence(self):
+        # Lead -> Opportunity conversion (stock button, mass wizard, or our own convert-contact
+        # wizard) flips `type` via write(), not create(), so it never goes through the
+        # next_by_code() call in create() above -- without this, a converted lead keeps its
+        # lead_sequence and never gets an opportunity_sequence.
+        for lead in self:
+            if not lead.opportunity_sequence:
+                lead.opportunity_sequence = self.env['ir.sequence'].next_by_code('isky_20_broker_crm.opportunity')
 
     def _check_lead_stage_transition(self, vals):
         if 'lead_stage_id' not in vals:

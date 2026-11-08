@@ -9,6 +9,7 @@ access_partner_notification_rel_user,partner.notification.rel.user,partner.notif
 access_qualified_stage_wizard,qualified.stage.wizard,qualified.stage.wizard,base.group_user,crud,
 access_crm_lead_unqualified_wizard,crm.lead.unqualified.wizard,crm.lead.unqualified.wizard,base.group_user,crud,
 access_crm_lead_reassign,crm.lead.reassign,crm.lead.reassign,base.group_user,crud,
+access_crm_lead_convert_contact_wizard,crm.lead.convert.contact.wizard,crm.lead.convert.contact.wizard,base.group_user,crud,
 crm_lead_rule_director_lead_admin_all,CRM Lead: director/lead admin see all,crm.lead,group_director_manager,crud,
 crm_lead_rule_lead_admin_all,CRM Lead: lead admin see all,crm.lead,group_lead_admin,crud,
 crm_lead_rule_split_deal,CRM Lead: split-deal participants,crm.lead,base.group_user,cru,"['|', ('user_id', '=', user.id), ('sales_ids', 'in', user.id)]"
