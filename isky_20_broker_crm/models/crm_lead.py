@@ -1,4 +1,5 @@
 from odoo import Command, api, fields, models
+from odoo.addons.phone_validation.tools import phone_validation
 from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.tools import html2plaintext
 
@@ -55,6 +56,15 @@ class CrmLead(models.Model):
     is_confirmed_contract = fields.Boolean(related='stage_id.is_confirmed_contract')
     is_request_to_cancel = fields.Boolean(related='stage_id.is_request_to_cancel')
 
+    # On a Lead there is no matched partner yet, so Contact is just free text; once it
+    # becomes an Opportunity, the stock partner_id field (also labeled "Contact") takes over.
+    contact = fields.Char(string="Contact")
+
+    # Guessed from the phone's dialing code (e.g. +20 -> Egypt), not the destination/property
+    # country -- kept editable since the guess can be wrong (shared numbers, VOIP, typos).
+    lead_country_id = fields.Many2one(
+        'res.country', string="Lead Country", compute='_compute_lead_country_id', store=True, readonly=False)
+
     # Classification
     interested_in = fields.Selection([('buy', "Buy"), ('rent', "Rent"), ('sell', "Sell")])
     buying_type = fields.Selection([('primary', "Primary"), ('resale', "Resale")], tracking=True)
@@ -68,8 +78,10 @@ class CrmLead(models.Model):
     # (confirmed by a real install failure against stock CRM/website_crm_partner_assign demo
     # data). Required-ness for an actual broker deal is enforced at the right stage instead,
     # the same way eoi/reservation/contract attachments already are (validate_required_fields).
-    developer_id = fields.Many2one('res.partner')
-    project_id = fields.Many2one('developer.project', tracking=True)
+    developer_id = fields.Many2one('res.partner', domain="[('is_developer', '=', True)]")
+    project_id = fields.Many2one(
+        'developer.project', tracking=True,
+        domain="[('developer_id', '=', developer_id)] if developer_id else []")
     unit_id = fields.Many2one('broker.unit')
     unit_type = fields.Selection(UNIT_TYPE_SELECTION)
     unit_number = fields.Char()
@@ -157,16 +169,25 @@ class CrmLead(models.Model):
     duplicate_tcr_number = fields.Integer(compute='_compute_tcr_counts')
     conflict_tcr_number = fields.Integer(compute='_compute_tcr_counts')
     no_answer_count = fields.Integer(default=0)
+    call_later_count = fields.Integer(default=0)
     unqualified_count = fields.Integer(default=0)
 
     meeting_counter = fields.Integer(compute='_compute_meeting_count', store=True)
     last_message = fields.Char(compute='_compute_last_message', store=True, string="Last Activity")
     record_creation = fields.Boolean()
 
+    # Salesperson's reporting chain, shown on both Lead and Opportunity -- same job.level
+    # logic as _get_hierarchy_users, but split by role instead of flattened into one set,
+    # since this is for display, not for building the commission_ids list.
+    team_leader_id = fields.Many2one('res.users', compute='_compute_sales_hierarchy', store=True, readonly=True)
+    sales_manager_id = fields.Many2one('res.users', compute='_compute_sales_hierarchy', store=True, readonly=True)
+    director_id = fields.Many2one('res.users', compute='_compute_sales_hierarchy', store=True, readonly=True)
+
     # Reassignment audit trail
     previous_user_id = fields.Many2one('res.users', readonly=True)
     assigned_by_id = fields.Many2one('res.users', readonly=True)
     reassigned = fields.Boolean()
+    fresh_lead = fields.Boolean(string="Fresh Lead", default=True, copy=False)
 
     # ---------------------------------------------------------------- computes
 
@@ -206,6 +227,29 @@ class CrmLead(models.Model):
             result = user
         return result.filtered(lambda u: u)
 
+    @api.depends('user_id')
+    def _compute_sales_hierarchy(self):
+        Users = self.env['res.users']
+        for lead in self:
+            user = lead.user_id
+            level = user.job_level_id
+            team_leader = sales_manager = director = Users
+            if user and level:
+                if level.is_sales_person:
+                    team = self.env['crm.team.member'].search([('user_id', '=', user.id)], limit=1).crm_team_id
+                    team_leader, sales_manager, director = team.user_id, team.sales_manager_id, team.director_id
+                elif level.is_team_leader:
+                    team = self.env['crm.team'].search([('user_id', '=', user.id)], limit=1)
+                    team_leader, sales_manager, director = user, team.sales_manager_id, team.director_id
+                elif level.is_sales_manager:
+                    team = self.env['crm.team'].search([('sales_manager_id', '=', user.id)], limit=1)
+                    sales_manager, director = user, team.director_id
+                elif level.is_directory:
+                    director = user
+            lead.team_leader_id = team_leader
+            lead.sales_manager_id = sales_manager
+            lead.director_id = director
+
     @api.depends('project_id', 'developer_id', 'type', 'unit_number', 'user_id')
     def _compute_tcr_counts(self):
         for lead in self:
@@ -237,6 +281,16 @@ class CrmLead(models.Model):
             message = lead.message_ids.filtered(lambda m: m.subtype_id.internal is False)[:1]
             lead.last_message = html2plaintext(message.body) if message else self.env._("No Messages")
 
+    @api.depends('phone')
+    def _compute_lead_country_id(self):
+        for lead in self:
+            country = False
+            if lead.phone:
+                code = phone_validation.phone_get_region_data_for_number(lead.phone).get('code')
+                if code:
+                    country = self.env['res.country'].search([('code', '=', code)], limit=1)
+            lead.lead_country_id = country
+
     @api.depends('activity_ids')
     def _compute_meeting_count(self):
         meeting_type = self.env.ref('mail.mail_activity_data_meeting', raise_if_not_found=False)
@@ -248,6 +302,21 @@ class CrmLead(models.Model):
                 lambda a: a.activity_type_id == meeting_type and not a.counted)
             uncounted.counted = True
             lead.meeting_counter = lead.meeting_counter + len(uncounted)
+
+    # ---------------------------------------------------------------- onchange
+
+    @api.onchange('developer_id')
+    def _onchange_developer_id(self):
+        if self.developer_id and self.project_id.developer_id != self.developer_id:
+            self.project_id = False
+
+    @api.onchange('project_id')
+    def _onchange_project_id(self):
+        if self.project_id:
+            self.developer_id = self.project_id.developer_id
+            self.dest_country_id = self.project_id.country_id
+            self.governorate_id = self.project_id.governorate_id
+            self.dest_city_id = self.project_id.city_id
 
     # ---------------------------------------------------------------- actions
 
@@ -282,6 +351,12 @@ class CrmLead(models.Model):
     def action_follow_up(self):
         stage = self.env.ref('isky_20_broker_crm.lead_stage_follow_up')
         self.write({'lead_stage_id': stage.id})
+        self.activity_schedule('mail.mail_activity_data_todo', summary=self.env._("Follow Up"))
+
+    def action_call_later(self):
+        stage = self.env.ref('isky_20_broker_crm.lead_stage_call_later')
+        self.write({'lead_stage_id': stage.id})
+        self.activity_schedule('mail.mail_activity_data_call', summary=self.env._("Call Later"))
 
     def action_lock(self):
         if not self.env.user.has_group('isky_20_broker_crm.group_lead_admin'):
@@ -323,6 +398,25 @@ class CrmLead(models.Model):
             'view_mode': 'form',
             'target': 'new',
             'context': {'default_lead_id': self.id},
+        }
+
+    def action_convert_to_opportunity(self):
+        self.ensure_one()
+        if self.type == 'opportunity' or self.partner_id:
+            return super().action_convert_to_opportunity()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': self.env._("Create Contact"),
+            'res_model': 'crm.lead.convert.contact.wizard',
+            'view_mode': 'form',
+            'target': 'new',
+            'context': {
+                'default_lead_id': self.id,
+                'default_name': self.contact or self.contact_name or self.name,
+                'default_phone': self.phone,
+                'default_email': self.email_from,
+                'default_company_name': self.partner_name,
+            },
         }
 
     @property
@@ -407,6 +501,8 @@ class CrmLead(models.Model):
         return vals, True
 
     def write(self, vals):
+        if vals.get('reassigned'):
+            vals['fresh_lead'] = False
         self._check_restricted_fields(vals)
         self._check_lead_stage_transition(vals)
         self._check_stage_transition(vals)
@@ -416,7 +512,18 @@ class CrmLead(models.Model):
         result = super().write(vals)
         if result and vals.get('user_id'):
             self._reset_followers_to_salesperson(vals['user_id'])
+        if result and vals.get('type') == 'opportunity':
+            self._assign_opportunity_sequence()
         return result
+
+    def _assign_opportunity_sequence(self):
+        # Lead -> Opportunity conversion (stock button, mass wizard, or our own convert-contact
+        # wizard) flips `type` via write(), not create(), so it never goes through the
+        # next_by_code() call in create() above -- without this, a converted lead keeps its
+        # lead_sequence and never gets an opportunity_sequence.
+        for lead in self:
+            if not lead.opportunity_sequence:
+                lead.opportunity_sequence = self.env['ir.sequence'].next_by_code('isky_20_broker_crm.opportunity')
 
     def _check_lead_stage_transition(self, vals):
         if 'lead_stage_id' not in vals:
@@ -430,6 +537,8 @@ class CrmLead(models.Model):
                 raise AccessError(self.env._("Only a lead administrator can lock a lead."))
             if new_stage.no_answer and vals['lead_stage_id'] != lead.lead_stage_id.id:
                 vals['no_answer_count'] = lead.no_answer_count + 1
+            if new_stage.call_later and vals['lead_stage_id'] != lead.lead_stage_id.id:
+                vals['call_later_count'] = lead.call_later_count + 1
             if new_stage.unqualified:
                 if not (lead.lost_reason_id or vals.get('lost_reason_id')):
                     raise ValidationError(self.env._("A lost reason is required to unqualify a lead."))
