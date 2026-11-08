@@ -169,16 +169,25 @@ class CrmLead(models.Model):
     duplicate_tcr_number = fields.Integer(compute='_compute_tcr_counts')
     conflict_tcr_number = fields.Integer(compute='_compute_tcr_counts')
     no_answer_count = fields.Integer(default=0)
+    call_later_count = fields.Integer(default=0)
     unqualified_count = fields.Integer(default=0)
 
     meeting_counter = fields.Integer(compute='_compute_meeting_count', store=True)
     last_message = fields.Char(compute='_compute_last_message', store=True, string="Last Activity")
     record_creation = fields.Boolean()
 
+    # Salesperson's reporting chain, shown on both Lead and Opportunity -- same job.level
+    # logic as _get_hierarchy_users, but split by role instead of flattened into one set,
+    # since this is for display, not for building the commission_ids list.
+    team_leader_id = fields.Many2one('res.users', compute='_compute_sales_hierarchy', store=True, readonly=True)
+    sales_manager_id = fields.Many2one('res.users', compute='_compute_sales_hierarchy', store=True, readonly=True)
+    director_id = fields.Many2one('res.users', compute='_compute_sales_hierarchy', store=True, readonly=True)
+
     # Reassignment audit trail
     previous_user_id = fields.Many2one('res.users', readonly=True)
     assigned_by_id = fields.Many2one('res.users', readonly=True)
     reassigned = fields.Boolean()
+    fresh_lead = fields.Boolean(string="Fresh Lead", default=True, copy=False)
 
     # ---------------------------------------------------------------- computes
 
@@ -217,6 +226,29 @@ class CrmLead(models.Model):
         else:
             result = user
         return result.filtered(lambda u: u)
+
+    @api.depends('user_id')
+    def _compute_sales_hierarchy(self):
+        Users = self.env['res.users']
+        for lead in self:
+            user = lead.user_id
+            level = user.job_level_id
+            team_leader = sales_manager = director = Users
+            if user and level:
+                if level.is_sales_person:
+                    team = self.env['crm.team.member'].search([('user_id', '=', user.id)], limit=1).crm_team_id
+                    team_leader, sales_manager, director = team.user_id, team.sales_manager_id, team.director_id
+                elif level.is_team_leader:
+                    team = self.env['crm.team'].search([('user_id', '=', user.id)], limit=1)
+                    team_leader, sales_manager, director = user, team.sales_manager_id, team.director_id
+                elif level.is_sales_manager:
+                    team = self.env['crm.team'].search([('sales_manager_id', '=', user.id)], limit=1)
+                    sales_manager, director = user, team.director_id
+                elif level.is_directory:
+                    director = user
+            lead.team_leader_id = team_leader
+            lead.sales_manager_id = sales_manager
+            lead.director_id = director
 
     @api.depends('project_id', 'developer_id', 'type', 'unit_number', 'user_id')
     def _compute_tcr_counts(self):
@@ -319,6 +351,12 @@ class CrmLead(models.Model):
     def action_follow_up(self):
         stage = self.env.ref('isky_20_broker_crm.lead_stage_follow_up')
         self.write({'lead_stage_id': stage.id})
+        self.activity_schedule('mail.mail_activity_data_todo', summary=self.env._("Follow Up"))
+
+    def action_call_later(self):
+        stage = self.env.ref('isky_20_broker_crm.lead_stage_call_later')
+        self.write({'lead_stage_id': stage.id})
+        self.activity_schedule('mail.mail_activity_data_call', summary=self.env._("Call Later"))
 
     def action_lock(self):
         if not self.env.user.has_group('isky_20_broker_crm.group_lead_admin'):
@@ -463,6 +501,8 @@ class CrmLead(models.Model):
         return vals, True
 
     def write(self, vals):
+        if vals.get('reassigned'):
+            vals['fresh_lead'] = False
         self._check_restricted_fields(vals)
         self._check_lead_stage_transition(vals)
         self._check_stage_transition(vals)
@@ -497,6 +537,8 @@ class CrmLead(models.Model):
                 raise AccessError(self.env._("Only a lead administrator can lock a lead."))
             if new_stage.no_answer and vals['lead_stage_id'] != lead.lead_stage_id.id:
                 vals['no_answer_count'] = lead.no_answer_count + 1
+            if new_stage.call_later and vals['lead_stage_id'] != lead.lead_stage_id.id:
+                vals['call_later_count'] = lead.call_later_count + 1
             if new_stage.unqualified:
                 if not (lead.lost_reason_id or vals.get('lost_reason_id')):
                     raise ValidationError(self.env._("A lost reason is required to unqualify a lead."))
