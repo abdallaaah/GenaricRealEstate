@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Phase 3c step 1: moved here from arkzayed_18_realestate_development, verbatim and with the same
+         local xmlids. L0 owns these models, so it owns their UI. -->
+         <record id="cluster_tree" model="ir.ui.view">
+            <field name="name">cluster_tree</field>
+            <field name="model">cluster</field>
+            <field name="arch" type="xml">
+                <list string="Cluster">
+                    <field name="name"/>
+                    <field name="abbreviation"/>
+                    <field name="code"/>
+                    <field name="system_code"/>
+                    <field name="company_id"/>
+                </list>
+            </field>
+         </record>
+        <record id="cluster_form" model="ir.ui.view">
+            <field name="name">cluster_form</field>
+            <field name="model">cluster</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="abbreviation"/>
+                            <field name="code"/>
+                            <field name="parent_source_id"/>
+                            <field name="project_type_ids" widget="many2many_tags"
+                               options="{'no_quick_create':True, 'no_create_edit' : True,'no_open': True}"/>
+                            <field name="location" invisible="1"/>
+                            <field name="system_code"/>
+                            <field name="company_id"/>
+                            <field name="project_id" invisible="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="cluster_action">
+            <field name="name">CLuster</field>
+            <field name="res_model">cluster</field>
+            <field name="view_mode">list,form</field>
+        </record>
+</odoo>

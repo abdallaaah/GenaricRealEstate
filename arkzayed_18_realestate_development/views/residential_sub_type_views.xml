@@ -1,61 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <data>
-        <record id="action_residential_apartment_type" model="ir.actions.act_window">
-            <field name="name">Residential Sub Type</field>
-            <field name="res_model">residential.sub.type</field>
-            <field name="view_mode">list,form</field>
-            <field name="domain">[('type', '=', 'apartment')]</field>
-            <field name="context">{'default_type': 'apartment'}</field>
-        </record>
-
-        <record id="action_residential_villa_type" model="ir.actions.act_window">
-            <field name="name">Residential Sub Type</field>
-            <field name="res_model">residential.sub.type</field>
-            <field name="view_mode">list,form</field>
-            <field name="domain">[('type', '=', 'villa')]</field>
-            <field name="context">{'default_type': 'villa'}</field>
-        </record>
-
-        <record id="action_residential_loft_type" model="ir.actions.act_window">
-            <field name="name">Residential Sub Type</field>
-            <field name="res_model">residential.sub.type</field>
-            <field name="view_mode">list,form</field>
-            <field name="domain">[('type', '=', 'loft')]</field>
-            <field name="context">{'default_type': 'loft'}</field>
-        </record>
 
 
-        <record id="residential_sub_type_list" model="ir.ui.view">
-            <field name="name">residential.sub.type.list</field>
-            <field name="model">residential.sub.type</field>
-            <field name="arch" type="xml">
-                <list string="Residential Sub Type">
-                    <field name="name"/>
-                    <field name="type"/>
-                </list>
-            </field>
-        </record>
 
-        <record id="residential_sub_type_form" model="ir.ui.view">
-            <field name="name">residential.sub.type.form</field>
-            <field name="model">residential.sub.type</field>
-            <field name="arch" type="xml">
-                <form string="Residential Sub Type">
-                    <sheet>
-                        <group>
-                            <group>
-                                <field name="name"/>
-                            </group>
-                            <group>
-                                <field name="type" readonly="1"/>
-                                <field name="number_of_slots" />
-                            </group>
-                        </group>
-                    </sheet>
-                </form>
-            </field>
-        </record>
+
+
     </data>
 
 </odoo>

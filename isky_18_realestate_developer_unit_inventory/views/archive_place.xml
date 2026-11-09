@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Phase 3c step 1: moved here from arkzayed_18_realestate_development, verbatim and with the same
+         local xmlids. L0 owns these models, so it owns their UI. -->
+    <record id="view_archive_place_tree" model="ir.ui.view">
+        <field name="name">archive.place.tree</field>
+        <field name="model">archive.place</field>
+        <field name="arch" type="xml">
+            <list string="Archive Places">
+                <field name="name"/>
+                <field name="code"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_archive_place_form" model="ir.ui.view">
+        <field name="name">archive.place.form</field>
+        <field name="model">archive.place</field>
+        <field name="arch" type="xml">
+            <form string="Archive Place">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                    </div>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger" invisible="active == True"/>
+                    <group>
+                        <group>
+                            <field name="name" placeholder="e.g., Cabinet A - Shelf 3 - Box 12"/>
+                        </group>
+                        <group>
+                            <field name="code" placeholder="e.g., CA-S3-B12"/>
+                            <field name="active" invisible="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="description" placeholder="Additional details about this storage location..."/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+    <record id="view_archive_place_search" model="ir.ui.view">
+        <field name="name">archive.place.search</field>
+        <field name="model">archive.place</field>
+        <field name="arch" type="xml">
+            <search string="Archive Places">
+                <field name="name" string="Location"
+                       filter_domain="['|', ('name', 'ilike', self), ('code', 'ilike', self)]"/>
+                <field name="code"/>
+                <filter string="Active" name="active" domain="[('active', '=', True)]"/>
+                <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Active Status" name="group_active" context="{'group_by': 'active'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="action_archive_place" model="ir.actions.act_window">
+        <field name="name">Archive Places</field>
+        <field name="res_model">archive.place</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_active': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first archive location
+            </p>
+            <p>
+                Define physical storage locations for your hard-copy contracts.
+            </p>
+        </field>
+    </record>
+</odoo>

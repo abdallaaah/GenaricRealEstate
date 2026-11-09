@@ -48,6 +48,16 @@ APPROVAL_STAGES = {
         'label': 'Sales Sector Manager Approval',
         'has_python_gate': False,
     },
+    # --- Setting B, continued: the signing step -----------------------------------------
+    # SC-D2 (2026-11-08): the client-signature transition. `signed_client` is the first state
+    # the commission engine treats as eligible (sale_proposal.py:27), so this is the stage that
+    # decides who can start a commission. Gated in sale.proposal.write(), not only on the button.
+    'sign_client': {
+        'field': 'sign_client_group_ids',
+        'default': 'isky_18_realestate_developer_sales_crm.sales_team_lead_group',
+        'label': 'Sign by Client',
+        'has_python_gate': True,
+    },
     # --- Setting C: reservation and discount -------------------------------------------
     'confirm_reservation': {
         'field': 'confirm_reservation_group_ids',
@@ -121,6 +131,10 @@ class ResCompany(models.Model):
         'res.groups', 'company_op_manager_approver_rel', 'company_id', 'group_id',
         string='Sales Sector Manager Approvers',
         default=_default_groups(APPROVAL_STAGES['operation_manager']['default']))
+    sign_client_group_ids = fields.Many2many(
+        'res.groups', 'company_sign_client_rel', 'company_id', 'group_id',
+        string='Can Sign on Behalf of the Client',
+        default=_default_groups(APPROVAL_STAGES['sign_client']['default']))
 
     confirm_reservation_group_ids = fields.Many2many(
         'res.groups', 'company_confirm_reservation_rel', 'company_id', 'group_id',

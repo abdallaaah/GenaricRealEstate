@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Phase 3c step 1: moved here from arkzayed_18_realestate_development, verbatim and with the same
+         local xmlids. L0 owns these models, so it owns their UI. -->
+         <record id="floor_tree" model="ir.ui.view">
+            <field name="name">floor_tree</field>
+            <field name="model">floor</field>
+            <field name="arch" type="xml">
+                <list string="Floor">
+                    <field name="name"/>
+                    <field name="abbreviation"/>
+                    <field name="system_code"/>
+                    <field name="company_id"/>
+                    <field name="floor_area"/>
+                    <field name="unit_count" optional="show"/>
+                    <field name="total_gross_area" optional="show" sum="Total Gross Area"/>
+                    <field name="total_new_gross_area" optional="show" sum="Total New Gross Area"/>
+                </list>
+            </field>
+         </record>
+        <record id="floor_form" model="ir.ui.view">
+            <field name="name">floor_form</field>
+            <field name="model">floor</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="abbreviation"/>
+                            <field name="parent_source_id"/>
+                            <field name="project_type_ids" widget="many2many_tags"
+                               options="{'no_quick_create':True, 'no_create_edit' : True,'no_open': True}"/>
+                            <field name="location" invisible="1"/>
+                            <field name="system_code"/>
+                            <field name="company_id"/>
+                            <field name="project_id" invisible="1"/>
+                            <field name="floor_area"/>
+                        </group>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="floor_action">
+            <field name="name">Floor</field>
+            <field name="res_model">floor</field>
+            <field name="view_mode">list,form</field>
+        </record>
+</odoo>

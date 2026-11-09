@@ -24,6 +24,67 @@ class BrokerUnit(models.Model):
     # abbreviation = fields.Char()
     unit_number = fields.Char()
     unit_code = fields.Char()
+
+    # ----------------------------------------------------------------------------------
+    # Phase 8: the system code on the broker side.
+    #
+    # `system_code` is a plain stored Char, deliberately NOT related= and NOT compute=. The
+    # plan's acceptance is that the broker "reads the code without recalculating it", and three
+    # things follow from that (decisions log, 2026-11-08, D3):
+    #   1. a related or computed field is re-resolved on every read, which is recalculation;
+    #   2. a broker database may hold no developer records at all - the developer hands over a
+    #      code and the broker types it in, which a computed field makes impossible;
+    #   3. if the developer later re-codes their hierarchy, the broker's stored code must not
+    #      change underneath the offers and contracts that quote it. Re-reading is an explicit
+    #      act: action_refresh_system_code().
+    # ----------------------------------------------------------------------------------
+    developer_unit_id = fields.Many2one(
+        'real.estate.unit', string='Developer Unit', ondelete='set null', copy=False,
+        help="The developer's own record for this unit, when this database has it. Linking it "
+             "reads the system code across once; it is not kept in sync automatically.")
+    system_code = fields.Char(
+        string='System Code', copy=False,
+        help="The unit's code as the developer issued it. Stored as given: the broker never "
+             "generates or recalculates it.")
+    system_code_matches_developer = fields.Boolean(
+        string='Code Matches Developer', compute='_compute_system_code_matches_developer',
+        help="Whether the stored code still equals the linked developer unit's code. Computed "
+             "for display only - it never writes the stored code back.")
+
+    @api.depends('system_code', 'developer_unit_id.system_code')
+    def _compute_system_code_matches_developer(self):
+        """A read-only comparison, so a user can see that a developer has re-coded a unit.
+
+        This is the only computed thing near the code, and it computes a *flag*, never the code:
+        the whole point of Phase 8 is that the stored code does not move on its own.
+        """
+        for rec in self:
+            if not rec.developer_unit_id:
+                rec.system_code_matches_developer = False
+            else:
+                rec.system_code_matches_developer = (
+                    bool(rec.system_code)
+                    and rec.system_code == rec.developer_unit_id.system_code)
+
+    def _read_system_code_from_developer(self):
+        """Copy the developer's code across. The single place that writes `system_code` from
+        the developer side, called on create, when the link is set, and by the button."""
+        for rec in self:
+            if rec.developer_unit_id and rec.developer_unit_id.system_code:
+                rec.system_code = rec.developer_unit_id.system_code
+
+    def action_refresh_system_code(self):
+        """Re-read the code from the linked developer unit, on purpose and by hand."""
+        self._read_system_code_from_developer()
+        return True
+
+    @api.onchange('developer_unit_id')
+    def _onchange_developer_unit_id(self):
+        """Fill the code when a user picks a developer unit on the form; typing a code by hand
+        stays possible, and clearing the link leaves the code alone - the broker was still given
+        it."""
+        if self.developer_unit_id and self.developer_unit_id.system_code:
+            self.system_code = self.developer_unit_id.system_code
     unit_area = fields.Float(string='Gross Total Area', compute='_compute_total_gross_area')
     unit_plan = fields.Binary()
     # analytic_account_id = fields.Many2one(comodel_name="account.analytic.account")
@@ -295,7 +356,12 @@ class BrokerUnit(models.Model):
         if vals.get('unit_type') == 'residential' and vals.get('built_up_area') <= 0:
             raise ValidationError("Please Set BUA")
 
-        return super(BrokerUnit, self).create(vals)
+        record = super(BrokerUnit, self).create(vals)
+        # Phase 8: a unit created with a developer link but no code of its own reads the code
+        # across once. A code supplied in vals wins - the broker may have been given one directly.
+        if record.developer_unit_id and not vals.get('system_code'):
+            record._read_system_code_from_developer()
+        return record
 
     @api.depends('parent_source_id')
     def _compute_project_id(self):

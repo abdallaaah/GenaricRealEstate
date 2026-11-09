@@ -26,6 +26,13 @@ def add_months(source_date, months):
 # Contract states in which collections generate sales commission / broker claims
 COMMISSION_EXCLUDED_STATES = ('draft', 'draft_contract', 'pending_approvals', 'approved', 'cancelled', 'terminated')
 
+# SC-D4 (2026-11-08): the states that mean a sale has been signed. Moving into either of them,
+# or setting signed_by_client by hand, needs the `sign_client` approval stage - see write().
+# Deliberately NOT derived from COMMISSION_EXCLUDED_STATES: the two lists answer different
+# questions (which states pay commission vs which states mean signed) and tying them together
+# would make a change to one silently move the other.
+SIGNING_STATES = ('signed_client', 'signed_ceo')
+
 
 class SaleProposal(models.Model):
     _name = 'sale.proposal'
@@ -1995,6 +2002,28 @@ class SaleProposal(models.Model):
                     label=label))
                 if vals.get(field_name):
                     rec._log_approval(stage)
+
+        # SC-D3: the signing gate. `write()` rather than action_sign_by_client(), because the
+        # audit of 2026-11-08 measured a salesperson reaching `signed_client` with a plain
+        # write - the button method is only one of the routes, and this is the one they all
+        # share. `signed_client` is also the first state the commission engine calls eligible,
+        # so this is the gate that decides who can start a commission.
+        signing_now = vals.get('state') in SIGNING_STATES
+        flagging_now = bool(vals.get('signed_by_client'))
+        if signing_now or flagging_now:
+            for rec in self:
+                # Only a record that is actually moving needs the approval: re-writing the
+                # state a contract already holds is not a new signature, and failing it would
+                # block ordinary edits on an already-signed contract.
+                moving = signing_now and rec.state != vals['state']
+                flagging = flagging_now and not rec.signed_by_client
+                if not (moving or flagging):
+                    continue
+                # No custom message: the helper's standard one already names the stage
+                # ("You are not allowed to perform the 'Sign by Client' step."), and keeping
+                # one wording for every stage is what makes the gate recognisable.
+                rec._require_approval('sign_client')
+                rec._log_approval('sign_client')
         # if the contracted_selling_price was updated or changed just edit its value inside the unit
         if 'contracted_selling_price' in vals:
             self.unit_id.contracted_selling_price = vals['contracted_selling_price']
@@ -3636,7 +3665,7 @@ class SaleProposal(models.Model):
         if not self.unit_id.unit_plan:
             raise ValidationError(_("Unit plan for this unit is not found."))
         if self.unit_id.unit_type in ["office", "retail", "medical", "residential"]:
-            return self.env.ref('arkzayed_18_realestate_development.action_print_plan_in_contract').report_action(self,)
+            return self.env.ref('isky_18_realestate_developer_sales_crm.action_print_plan_in_contract').report_action(self,)
 
     def action_get_installment_report(self):
         self.ensure_one()

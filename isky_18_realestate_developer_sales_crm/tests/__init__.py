@@ -7,3 +7,5 @@ from . import test_lead_approval_defaults
 from . import test_49_lead_stages
 from . import test_phase6_settings
 from . import test_phase7_client_values
+from . import test_phase8_broker
+from . import test_sign_client_gate

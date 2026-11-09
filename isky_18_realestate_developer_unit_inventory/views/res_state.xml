@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Phase 3c step 1: moved here from isky_base_modification, verbatim and with the same
+         local xmlids. L0 owns these models, so it owns their UI. -->
+        <record id="neighborhood_neighborhood_form_view" model="ir.ui.view">
+            <field name="name">neighborhood.neighborhood.form.view</field>
+            <field name="model">neighborhood.neighborhood</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="city_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="neighborhood_neighborhood_tree_view" model="ir.ui.view">
+            <field name="name">neighborhood.neighborhood.tree.view</field>
+            <field name="model">neighborhood.neighborhood</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name"/>
+                </list>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="neighborhood_neighborhood_action">
+            <field name="name">Neighborhoods</field>
+            <field name="res_model">neighborhood.neighborhood</field>
+            <field name="view_mode">list,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+</odoo>

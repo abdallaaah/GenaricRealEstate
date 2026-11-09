@@ -1,111 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
                             <!-- List view -->
-    <record id="vendor_commitment_list_view" model="ir.ui.view">
-        <field name="name">vendor.commitment.list</field>
-        <field name="model">vendor.commitment</field>
-        <field name="arch" type="xml">
-            <list string="Vendor Commitments">
-                <field name="vendor_id"/>
-                <field name="commitment_type"/>
-                <field name="building_ids" widget="many2many_tags" optional="show"/>
-                <field name="permit_name" optional="show"/>
-                <field name="start_date"/>
-                <field name="end_date"/>
-                <field name="lg_value" optional="hide"/>
-                <field name="guarantee_checks_percent" optional="hide"/>
-                <field name="is_active"/>
-            </list>
-        </field>
-    </record>
 
                         <!-- Form view -->
-    <record id="vendor_commitment_form_view" model="ir.ui.view">
-        <field name="name">vendor.commitment.form</field>
-        <field name="model">vendor.commitment</field>
-        <field name="arch" type="xml">
-            <form string="Vendor Commitment">
-                <sheet>
-                    <group>
-                        <group>
-                            <field name="vendor_id"/>
-                            <field name="commitment_type"/>
-                            <field name="description"/>
-                        </group>
-                        <group>
-                            <field name="start_date"/>
-                            <field name="end_date"/>
-                        </group>
-                    </group>
-
-                    <group string="Letter of Guarantee Details"
-                           invisible="commitment_type != 'letter_of_guarantee'">
-
-                        <field name="currency_id" invisible="1"/>
-
-                        <group>
-                            <field name="building_ids" widget="many2many_tags"/>
-                            <field name="lg_value"/>
-                            <field name="check_number"/>
-                        </group>
-                        <group>
-                            <field name="beneficiary_bank_id"/>
-                            <field name="issuing_bank_id"/>
-                            <field name="guarantee_checks_percent"/>
-                        </group>
-                    </group>
-
-                    <!-- Permits Details -->
-                    <group string="Permit Details"
-                           invisible="commitment_type != 'permits'">
-                        <group>
-                            <field name="permit_name"/>
-                        </group>
-                    </group>
-
-                </sheet>
-
-                <chatter/>
-            </form>
-        </field>
-    </record>
 
                         <!-- Search view -->
-    <record id="vendor_commitment_search_view" model="ir.ui.view">
-        <field name="name">vendor.commitment.search</field>
-        <field name="model">vendor.commitment</field>
-        <field name="arch" type="xml">
-            <search string="Search Vendor Commitments">
-
-                <field name="vendor_id"/>
-                <field name="commitment_type"/>
-                <field name="building_ids"/>
-                <field name="permit_name"/>
-                <field name="beneficiary_bank_id"/>
-                <field name="issuing_bank_id"/>
-
-                <filter name="active"
-                        string="Active Commitments"
-                        domain="[('is_active','=',True)]"/>
-
-                <filter name="lg"
-                        string="Letter of Guarantee"
-                        domain="[('commitment_type','=','letter_of_guarantee')]"/>
-
-                <filter name="permits"
-                        string="Permits"
-                        domain="[('commitment_type','=','permits')]"/>
-
-            </search>
-        </field>
-    </record>
 
                             <!-- Action-->
-    <record id="action_vendor_commitment" model="ir.actions.act_window">
-        <field name="name">Vendor Commitments</field>
-        <field name="res_model">vendor.commitment</field>
-        <field name="view_mode">list,form</field>
-        <field name="search_view_id" ref="vendor_commitment_search_view"/>
-    </record>
 
 </odoo>

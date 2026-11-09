@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Phase 3c step 2a: moved here from arkzayed_18_realestate_development, verbatim and with the same
+         local xmlids. L2 owns these models, so it owns their UI. -->
+    <record id="eoi_cancellation_report" model="ir.actions.report">
+		<field name="name">EOI Cancellation Form</field>
+		<field name="model">eoi.eoi</field>
+		<field name="report_type">qweb-pdf</field>
+		<field name="report_name">isky_18_realestate_developer_sales_crm.report_cancel_form</field>
+		<field name="report_file">isky_18_realestate_developer_sales_crm.report_cancel_form</field>
+        <field name="print_report_name">"EOI Cancellation Form For %s" % (object.name)</field>
+		<field name="binding_model_id" ref="isky_18_realestate_developer_sales_crm.model_eoi_eoi"/>
+		<field name="binding_type">report</field>
+	</record>
+     <template id="report_cancel_form">
+        <t t-call="web.html_container">
+            <meta charset="utf-8"/>
+            <t t-foreach="docs" t-as="o">
+
+             <div class="page" style="direction: rtl; text-align: right; font-family: 'Cairo', 'Rajawali', 'Almar', sans-serif; padding: 40px 50px; margin: 20px;">
+
+                    <p>
+                        التاريخ:
+                    </p>
+
+                    <h2 style="text-align: center; margin-bottom: 20px;">
+                        استمارة إلغاء حجز مشروع The Arkzayed - التجمع الخامس<br/>
+                        EOI - Cancellation Form
+                    </h2>
+
+                    <br/>
+
+                    <p style="font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 16px;">
+                       أقر أنا
+                    </p>
+
+                    <p>
+                         <span t-esc="o.customer_id.name" style="font-weight:bold;"/>برغبتي و طلبي و موافقتي النهائيه علي إلغاء حجز,
+                         كما أقر بموافقتي على قيام الشركة برد المبالغ أو الشيكات التي سددتها للشركة.
+
+                    </p>
+
+                    <br/>
+
+                    <p>
+                        أقر بأن عنوان المراسلة داخل جمهورية مصر العربية والثابت في هذه الاستمارة هو موطني المختار
+                        الذي يصح عليه قانوناً إخطاري بكافة المراسلات وأتعهد بإخطار الشركة رسميا في حالة تغير هذا الموطن،
+                        وإلا صحت جميع المراسلات التي تم على هذا العنوان وبشرط أن يكون الموطن الجديد داخل جمهورية مصر العربية.
+                        كما يحق للشركة مخاطبتي على البريد الإلكتروني أو برسالة على الهاتف المحمول المذكورين أعلاه.
+                    </p>
+
+                    <br/><br/>
+
+                    <p style="font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 16px;">
+                        العميل
+                    </p>
+                    <table class="table table-md table-bordered"  style="width:100%; margin-top: 40px; line-height:2;">
+                        <tr>
+                            <td>الاسم:</td>
+                        </tr>
+                        <tr>
+                            <td>التوقيع:</td>
+                        </tr>
+                        <tr>
+                            <td>التاريخ:</td>
+                        </tr>
+                    </table>
+
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

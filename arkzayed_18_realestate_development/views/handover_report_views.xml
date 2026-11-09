@@ -1,61 +1,6 @@
 <odoo>
     <data>
-        <record id="handover_report_tree" model="ir.ui.view">
-            <field name="name">handover.report.tree</field>
-            <field name="model">sale.proposal</field>
-            <field name="arch" type="xml">
-                <list string="Handover Report" create="0" delete="0" edit="0"
-                      decoration-success="payment_regularity_state == 'regular'"
-                      decoration-warning="payment_regularity_state in ('installment_regular', 'maintenance_regular')"
-                      decoration-danger="payment_regularity_state == 'irregular'">
-                    <field name="unit_id" string="Unit Code"/>
-                    <field name="building_id" string="Building No"/>
-                    <field name="unit_type" string="Unit Type"/>
-                    <field name="state" string="Contract Status"/>
-                    <field name="contract_issue_date" string="Contract Date"/>
-                    <field name="expected_delivery_date" string="Expected Delivery Date"/>
-                    <field name="expected_after_allowance" string="Expected After Allowance"/>
-                    <field name="extra_period_date" string="Extra Period Date"/>
-                    <field name="contracted_selling_price" string="Contracted Sold Price"/>
-                    <field name="customer_id" string="Customer Name"/>
-                    <field name="payment_regularity_state" string="Payment State"
-                           widget="badge"
-                           decoration-success="payment_regularity_state == 'regular'"
-                           decoration-warning="payment_regularity_state in ('installment_regular', 'maintenance_regular')"
-                           decoration-danger="payment_regularity_state == 'irregular'"/>
-                </list>
-            </field>
-        </record>
 
-        <record id="handover_report_search" model="ir.ui.view">
-            <field name="name">handover.report.search</field>
-            <field name="model">sale.proposal</field>
-            <field name="arch" type="xml">
-                <search string="Search Handover Report">
-                    <field name="unit_id" string="Unit Code"/>
-                    <field name="building_id" string="Building"/>
-                    <field name="customer_id" string="Customer"/>
-                    <field name="customer_id" string="Customer Phone" filter_domain="[('customer_id.phone', 'ilike', self)]"/>
-                    <field name="state" string="Contract Status"/>
-                    <field name="payment_regularity_state" string="Payment State"/>
-                    <filter string="Regular" name="filter_regular"
-                            domain="[('payment_regularity_state', '=', 'regular')]"/>
-                    <filter string="Irregular" name="filter_irregular"
-                            domain="[('payment_regularity_state', '=', 'irregular')]"/>
-                    <separator/>
-                    <filter string="Contract Date" name="filter_contract_date" date="contract_issue_date"/>
-                    <filter string="Expected Delivery Date" name="filter_expected_delivery" date="expected_delivery_date"/>
-                    <filter string="Expected After Allowance" name="filter_expected_after_allowance" date="expected_after_allowance"/>
-                    <group expand="0" string="Group By">
-                        <filter string="Building" name="group_by_building" context="{'group_by': 'building_id'}"/>
-                        <filter string="Unit Type" name="group_by_unit_type" context="{'group_by': 'unit_type'}"/>
-                        <filter string="Contract Status" name="group_by_state" context="{'group_by': 'state'}"/>
-                        <filter string="Payment State" name="group_by_payment_state" context="{'group_by': 'payment_regularity_state'}"/>
-                        <filter string="Customer" name="group_by_customer" context="{'group_by': 'customer_id'}"/>
-                    </group>
-                </search>
-            </field>
-        </record>
 
         <!-- Server Action for Excel Export -->
         <record id="action_export_handover_excel" model="ir.actions.server">
@@ -67,19 +12,6 @@
             <field name="code">action = records.action_export_handover_excel()</field>
         </record>
 
-        <record id="action_handover_report" model="ir.actions.act_window">
-            <field name="name">Handover Report</field>
-            <field name="res_model">sale.proposal</field>
-            <field name="view_mode">list,form</field>
-            <field name="view_id" ref="handover_report_tree"/>
-            <field name="search_view_id" ref="handover_report_search"/>
-            <field name="domain">[('state', 'in', ['draft_contract','pending_approvals','approved', 'signed_client', 'signed_ceo', 'ready_to_deliver', 'delivered'])]</field>
-        </record>
 
-        <menuitem id="menu_handover_report"
-                  name="Handover Report"
-                  parent="menu_reports_root"
-                  action="action_handover_report"
-                  sequence="20"/>
     </data>
 </odoo>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Phase 3c: moved here from arkzayed_18_realestate_development, verbatim and with the same
+         local xmlids. L4 owns these models, so it owns their UI. -->
+    <record id="view_capex_tree" model="ir.ui.view">
+        <field name="name">capex.type.tree</field>
+        <field name="model">capex.scope</field>
+        <field name="arch" type="xml">
+            <list string="capex">
+                <field name="name"/>
+                <field name="company_id"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_capex_form" model="ir.ui.view">
+        <field name="name">capex.type.form</field>
+        <field name="model">capex.scope</field>
+        <field name="arch" type="xml">
+            <form string="Capex Name">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="company_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_capex_type" model="ir.actions.act_window">
+        <field name="name">capex type</field>
+        <field name="res_model">capex.scope</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

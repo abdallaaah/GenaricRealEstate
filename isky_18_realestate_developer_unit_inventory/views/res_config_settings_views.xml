@@ -27,7 +27,22 @@
                      string="Real Estate" data-key="realestate_settings">
 
                     <h2>Company Setup</h2>
-                    <div class="row mt16 o_settings_container" id="realestate_company_setup_section"/>
+                    <div class="row mt16 o_settings_container" id="realestate_company_setup_section">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <label for="realestate_company_type"/>
+                                <div class="text-muted">
+                                    A developer owns its unit hierarchy and generates each unit's
+                                    system code. A broker receives the code from the developer and
+                                    stores it as given.
+                                </div>
+                                <div class="content-group mt16">
+                                    <field name="realestate_company_type"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <h2>Sales Setup</h2>
                     <div class="row mt16 o_settings_container" id="realestate_sales_setup_section"/>

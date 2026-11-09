@@ -1936,7 +1936,7 @@ class SaleContract(models.Model):
         if not self.unit_id.unit_plan:
             raise ValidationError(_("Unit plan for this unit is not found."))
         if self.unit_id.unit_type in ["office", "retail", "medical", "residential"]:
-            return self.env.ref('arkzayed_18_realestate_development.action_print_plan_in_reservation').report_action(self,)
+            return self.env.ref('isky_18_realestate_developer_sales_crm.action_print_plan_in_reservation').report_action(self,)
 
     def action_print_initial_reservation_form(self):
         self.ensure_one()

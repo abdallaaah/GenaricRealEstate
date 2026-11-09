@@ -35,10 +35,5 @@
               parent="menu_reports_root"
               action="action_sales_wizard"
               sequence="54"/>
-    <menuitem id="menu_sales_contracts_analysis"
-              name="Contracts Analysis"
-              parent="menu_reports_root"
-              action="action_sales_contracts"
-              sequence="55"/>
 
 </odoo>

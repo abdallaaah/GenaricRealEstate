@@ -1,35 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
 
-    <record id="project_type_tree" model="ir.ui.view">
-        <field name="name">project.type.tree</field>
-        <field name="model">realestate.project.type</field>
-        <field name="arch" type="xml">
-            <list string="Project Type">
-                <field name="project_type"/>
-                <field name="company_id"/>
-            </list>
-        </field>
-    </record>
 
-    <record id="project_type_form" model="ir.ui.view">
-        <field name="name">project.type.form</field>
-        <field name="model">realestate.project.type</field>
-        <field name="arch" type="xml">
-            <form string="Project Type">
-                <sheet>
-                    <group>
-                        <field name="project_type"/>
-                        <field name="company_id"/>
-                    </group>
-                </sheet>
-            </form>
-        </field>
-    </record>
 
-    <record id="action_project_type" model="ir.actions.act_window">
-        <field name="name">Project Type</field>
-        <field name="res_model">realestate.project.type</field>
-        <field name="view_mode">list,form</field>
-    </record>
 </odoo>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Phase 3c step 3: the Commission business-area section, under the shared root L0 declares.
+         Only actions this module owns are named here, so the tree resolves wherever L3 installs. -->
+
+    <menuitem id="menu_commission_root"
+              name="Commission"
+              parent="isky_18_realestate_developer_unit_inventory.menu_realestate_root"
+              sequence="30"/>
+
+    <menuitem id="menu_commission_claims" name="Claims" parent="menu_commission_root"
+              sequence="10"/>
+    <menuitem id="menu_commission_broker_claims" name="Broker / Ambassador Claims"
+              parent="menu_commission_claims"
+              action="broker_claim_action" sequence="10"/>
+    <menuitem id="menu_commission_non_sales_claims" name="Non-Sales Claims"
+              parent="menu_commission_claims"
+              action="non_sales_claim_action" sequence="20"/>
+    <menuitem id="menu_commission_achievement" name="Commission Achievement"
+              parent="menu_commission_root"
+              action="realestate_commission_achivement" sequence="20"/>
+
+    <menuitem id="menu_commission_brokers" name="Brokers" parent="menu_commission_root"
+              sequence="30"/>
+    <menuitem id="menu_commission_broker_contracts" name="Broker / Ambassador Contracts"
+              parent="menu_commission_brokers"
+              action="broker_contract_action" sequence="10"/>
+    <menuitem id="menu_commission_broker_teams" name="Broker Teams" parent="menu_commission_brokers"
+              action="action_broker_team" sequence="20"/>
+    <menuitem id="menu_commission_broker_visits" name="Broker Visits"
+              parent="menu_commission_brokers"
+              action="action_broker_visit" sequence="30"/>
+
+    <!-- ===================== Commission: configuration ===================== -->
+    <menuitem id="menu_commission_config" name="Configuration" parent="menu_commission_root"
+              sequence="900"/>
+    <menuitem id="menu_commission_config_job_levels" name="Job Levels"
+              parent="menu_commission_config"
+              action="job_level_action" sequence="10"/>
+    <menuitem id="menu_commission_config_categories" name="Commission Categories"
+              parent="menu_commission_config"
+              action="action_commission_category" sequence="20"/>
+    <menuitem id="menu_commission_config_project" name="Project Commission"
+              parent="menu_commission_config"
+              action="project_commission_action" sequence="30"/>
+    <menuitem id="menu_commission_config_project_lines" name="Project Commission Lines"
+              parent="menu_commission_config"
+              action="action_project_commission_lines" sequence="40"/>
+</odoo>

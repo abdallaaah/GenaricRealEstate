@@ -206,7 +206,7 @@
         <field name="view_ids" eval="[(5, 0, 0), (0, 0, {'view_mode': 'list', 'view_id': ref('view_ark_engineer_inventory_medical')})]"/>
     </record>
 
-    <menuitem id="menu_engineer_root" name="Engineer Menu" parent="arkzayed_18_realestate_development.menu_real_estate_root"
+    <menuitem id="menu_engineer_root" name="Engineer Menu" parent="isky_18_realestate_developer_sales_crm.menu_sales_pending_phase9"
               sequence="7" groups="group_engineer_menu"/>
     <menuitem id="menu_engineer_residential" name="Residential" parent="menu_engineer_root"
               action="action_ark_engineer_residential" sequence="1" groups="group_engineer_menu"/>

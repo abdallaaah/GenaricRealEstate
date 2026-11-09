@@ -30,6 +30,8 @@ Enforced by claude/scripts/lint_guard_pattern.py.
         'arkzayed_18_gt_cheque_management',
     ],
     'data': [
+        # Phase 3c step 2a: this bridge's column on L2's installment list
+        'views/l2_view_extensions.xml',
         'views/res_config_settings_views.xml',
     ],
     'license': 'LGPL-3',

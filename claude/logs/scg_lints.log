@@ -1,0 +1,62 @@
+### RUN_ID=20261108-233625-302698
+### START=2026-11-08 23:36:25 EET
+=== lint_guard_pattern.py ===
+Check 1 (compute @api.depends): 63 file(s) across 4 bridge module(s) present -> PASS
+Check 2 (sales_crm group refs reachable): -> PASS
+
+PASS - every compute overridden in a bridge redeclares @api.depends, and every group referenced from sales_crm is reachable.
+### lint_guard_pattern.py EXIT=0
+=== lint_s4_views.py ===
+S4 lint: views and menus
+  modules checked: 7 isky module(s)
+
+  Check 1 (standalone view in owning module)       -> PASS
+  Check 2 (menuitem action resolves)               -> PASS
+  Check 3 (menuitem parent resolves)               -> PASS
+
+  MIGRATION BACKLOG - standalone records a legacy module still holds for an
+  isky-owned model. These MUST MOVE; zero for a layer closes its Phase 3c step:
+        arkzayed_18_realestate_development         -> sales_crm                                       34
+        arkzayed_18_realestate_developer_crm       -> sales_crm                                        5
+        arkzayed_18_realestate_developer_crm       -> commission                                       3
+        arkzayed_18_realestate_development         -> construction                                     3
+        arkzayed_18_realestate_development         -> sales_accounting                                 2
+        arkzayed_18_realestate_development         -> unit_inventory                                   2
+        arkzayed_18_realestate_development         -> commission                                       1
+        isky_contract_template                     -> sales_crm                                        1
+                                                                                                      51 TOTAL
+        per layer: commission=4, construction=3, sales_accounting=2, sales_crm=40, unit_inventory=2
+
+  MAY STAY - inherited views, which S4 allows in any module (a bridge adding
+  its own fields to another layer's form). Not part of the backlog:
+        arkzayed_18_realestate_developer_crm       -> commission                                       8
+        arkzayed_18_realestate_development         -> commission                                       3
+        arkzayed_cost_distribution                 -> unit_inventory                                   3
+        arkzayed_18_realestate_development         -> sales_accounting                                 1
+        arkzayed_contract_npv                      -> sales_crm                                        1
+        isky_contract_template                     -> sales_crm                                        1
+                                                                                                      17 TOTAL
+
+PASS - every new view is in its owning module, and every menu reference resolves.
+### lint_s4_views.py EXIT=0
+=== dep_graph.py ===
+Scanned 28 local modules under /opt/odoo/odoo18/odoo/custom/GenaricRealEstate
+
+No dependency cycles found.
+### dep_graph.py EXIT=0
+=== lint_client_values.py ===
+Check 1 (no client business-line names in isky modules): -> PASS (6 mention(s), all in allowlisted migration maps)
+Check 2 (every config parameter key on the generic prefix): -> PASS
+Check 3 (legacy references only where allowlisted, and never more than before):
+    37 reference(s) across 20 file(s); allowlist budget 41
+    note: these shrank - tighten the allowlist:
+       isky_18_realestate_developer_sales_crm/models/core/sale_proposal.py: 3 allowed, 2 left
+       isky_18_realestate_developer_sales_crm/models/core/sale_reservation.py: 3 allowed, 2 left
+       isky_18_realestate_developer_unit_inventory/models/core/real_estate_unit.py: 3 allowed, 1 left
+    -> PASS
+
+PASS - no client values in the isky modules; legacy references within budget.
+### lint_client_values.py EXIT=0
+### END=2026-11-08 23:36:27 EET
+### EXIT=0
+### RUN_ID=20261108-233625-302698 (end)

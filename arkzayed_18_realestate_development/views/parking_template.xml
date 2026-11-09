@@ -3,40 +3,8 @@
     <data>
 
         <!-- Maintenance Template -->
-        <record id="view_parking_template_tree" model="ir.ui.view">
-            <field name="name">parking.template.tree</field>
-            <field name="model">parking.template</field>
-            <field name="arch" type="xml">
-                <list string="Parking Template">
-                    <field name="name"/>
-                </list>
-            </field>
-        </record>
 
-        <record id="view_parking_template_form" model="ir.ui.view">
-            <field name="name">parking.template.form</field>
-            <field name="model">parking.template</field>
-            <field name="arch" type="xml">
-                <form string="Maintenance Template">
-                    <sheet>
-                        <h1>
-                            <field name="name" default_focus="1" placeholder="Name"/>
-                        </h1>
-                        <br/>
-                    </sheet>
 
-                </form>
-            </field>
-        </record>
-
-        <record id="action_parking_template_form_act_window" model="ir.actions.act_window">
-            <field name="name">Parking Template</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">maintenance.template</field>
-            <field name="view_mode">list,form</field>
-            <field name="context">{'default_type':'parking'}</field>
-            <field name="domain">[('type', '=', 'parking')]</field>
-        </record>
 
 
     </data>

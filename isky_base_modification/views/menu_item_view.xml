@@ -13,7 +13,7 @@
               sequence="3"/>
 
     <menuitem id="neighborhood_neighborhood_menu"
-              action="neighborhood_neighborhood_action"
+              action="isky_18_realestate_developer_unit_inventory.neighborhood_neighborhood_action"
               parent="contacts.menu_localisation"
               name="Neighborhoods"
               sequence="4"/>

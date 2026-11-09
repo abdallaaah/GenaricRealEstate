@@ -58,7 +58,14 @@ class RealEstateUnit(models.Model):
     payment_plan = fields.Binary(string='Payment Plan')
     analytic_account_id = fields.Many2one(comodel_name="account.analytic.account")
     specially_booked = fields.Boolean(string='Specially Booked')
-    customer_id = fields.Many2one('res.partner', domain="[('is_customer','=',True)]")
+    # Phase 3c step 1: the domain [('is_customer','=',True)] was removed. `is_customer` is
+    # declared by arkzayed_18_contact_customization, a legacy module L0 must not require, so the
+    # domain named a field that does not exist in an L0-only database. It never blocked an install
+    # - a Many2one domain resolves at search time - but once L0 ships the unit FORM, view
+    # validation checks the domain and refuses the view. Same class as backlog #63 (Phase 5's
+    # supplier_rank). The narrowing comes back from L2, which depends on that module, through
+    # views/l0_view_extensions.xml. Backlog #73.
+    customer_id = fields.Many2one('res.partner')
     unit_phase = fields.Char(string='Unit Phase')
     project_phase = fields.Many2one('real.estate.project.phase', string='Project Phase')
     unit_purpose = fields.Selection([
@@ -963,7 +970,7 @@ class RealEstateUnit(models.Model):
         if not self.unit_plan:
             raise ValidationError(_("Unit plan is missing. Please upload a unit plan before printing the report."))
 
-        return self.env.ref('arkzayed_18_realestate_development.action_report_unit_plan').report_action(self)
+        return self.env.ref('isky_18_realestate_developer_unit_inventory.action_report_unit_plan').report_action(self)
 
     def _get_unit_documents_images(self):
         self.ensure_one()
@@ -1001,12 +1008,12 @@ class RealEstateUnit(models.Model):
             raise ValidationError(_("No documents are available for this unit yet."))
 
         if self.env.context.get('with_download'):
-            return self.env.ref('arkzayed_18_realestate_development.action_report_unit_documents').report_action(self)
+            return self.env.ref('isky_18_realestate_developer_unit_inventory.action_report_unit_documents').report_action(self)
 
         else:
             return {
                 'type': 'ir.actions.act_url',
-                'url': f'/report/pdf/arkzayed_18_realestate_development.report_unit_documents_document/{self.id}',
+                'url': f'/report/pdf/isky_18_realestate_developer_unit_inventory.report_unit_documents_document/{self.id}',
                 'target': 'new',
             }
 

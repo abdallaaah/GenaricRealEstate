@@ -28,3 +28,4 @@ from . import down_payment_increase
 from . import installment_template
 from . import maintenance_template
 from . import res_config_settings
+from . import company_type

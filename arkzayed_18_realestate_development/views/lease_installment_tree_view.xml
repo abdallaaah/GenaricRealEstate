@@ -1,16 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <record id="lease_installment_search_view" model="ir.ui.view">
-            <field name="name">Lease Installment Search View</field>
-            <field name="model">loan.line</field>
-            <field name="type">search</field>
-            <field name="arch" type="xml">
-                <search string="Lease Installment Search View">
-
-                </search>
-            </field>
-        </record>
         <record id="action_lease_make_invoice" model="ir.actions.server">
             <field name="name">Make Invoice</field>
             <field name="type">ir.actions.server</field>
@@ -23,92 +13,9 @@
             </field>
         </record>
 
-        <record id="lease_installment_tree" model="ir.ui.view">
-            <field name="name">lease_installment_tree</field>
-            <field name="model">loan.line</field>
-            <field name="arch" type="xml">
-                <list default_order="invoice_id,date" create="0">
-                    <field name="date" required="1"/>
-                    <field name="name" required="1"/>
-                    <field name="amount" required="1"/>
-                    <field name="amount_residual"/>
-                    <field name="tax_ids" widget="many2many_tags"/>
-                    <field name="vat_id"/>
-                    <field name="total_amount"/>
-                    <field name="invoice_id" readonly="1"/>
-                    <field name="invoice_state" widget="badge" optional="show"
-                           decoration-success="invoice_state == 'posted'"
-                           decoration-info="invoice_state == 'draft'"/>
-                    <field name="payment_state" widget="badge"
-                           decoration-danger="payment_state == 'not_paid'"
-                           decoration-warning="payment_state in ('partial', 'in_payment')"
-                           decoration-success="payment_state in ('paid', 'reversed')"
-                           invisible="payment_state in 'invoicing_legacy'"/>
-                    <button string="Make Invoice" name="make_invoice" type="object" icon="fa-money"
-                            context="{'proposal_maintenance_invoice': 1}"
-                            invisible="invoice_id != False"/>
-                    <button string="View Invoice" name="view_invoice" type="object"
-                            invisible="invoice_id == False"/>
-                </list>
-            </field>
-        </record>
-
-        <record id="revenue_share_tree" model="ir.ui.view">
-            <field name="name">revenue_share_tree</field>
-            <field name="model">loan.line</field>
-            <field name="arch" type="xml">
-                <list default_order="invoice_id,date" editable="bottom">
-                    <field name="date" readonly="1"/>
-                    <field name="total_amount"/>
-                    <field name="sales_amount"/>
-                    <field name="invoice_revenue1_id" invisible="True"/>
-                    <field name="invoice_revenue2_id" invisible="1"/>
-
-                    <field name="invoice_revenue1_state" widget="badge" optional="show"
-                           decoration-success="invoice_revenue1_state == 'posted'"
-                           decoration-info="invoice_revenue1_state == 'draft'"/>
-                    <field name="invoice_revenue2_state" widget="badge" optional="show"
-                           decoration-success="invoice_revenue2_state == 'posted'"
-                           decoration-info="invoice_revenue2_state == 'draft'"/>
 
 
-                    <button string="Make Inv Rev1" name="make_invoice" type="object" icon="fa-money"
-                            context="{'proposal_revenue_share1_invoice': 1}"
-                            invisible="invoice_revenue1_id != False"/>
-                    <button string="Make Inv Rev2" name="make_invoice" type="object" icon="fa-money"
-                            context="{'proposal_revenue_share2_invoice': 1}"
-                            invisible="invoice_revenue2_id != False"/>
-                    <button string="View Inv Rev1" name="view_invoice" type="object"
-                            invisible="invoice_revenue1_id == False" context="{'revenue_share1_type': 1}"/>
-                    <button string="View Inv Rev2" name="view_invoice" type="object"
-                            invisible="invoice_revenue2_id == False" context="{'revenue_share2_type': 1}"/>
-                </list>
-            </field>
-        </record>
 
-        <record id="action_view_lease_installment_tree" model="ir.actions.act_window">
-            <field name="name">Lease Installment</field>
-            <field name="res_model">loan.line</field>
-            <field name="view_mode">list</field>
-            <field name="search_view_id" ref="lease_installment_search_view"/>
-            <field name="domain">[('state','in', ('contract_approved', 'delivered')),('type', '=', 'installment')]
-            </field>
-            <field name="view_ids" eval="[(5, 0, 0),
-                (0, 0, {'view_mode': 'list', 'view_id': ref('lease_installment_tree')}),
-              ]"/>
-        </record>
-
-        <record id="action_view_revenue_share_tree" model="ir.actions.act_window">
-            <field name="name">Revenue Share</field>
-            <field name="res_model">loan.line</field>
-            <field name="view_mode">list</field>
-            <!--            <field name="search_view_id" ref="lease_installment_search_view"/>-->
-            <field name="domain">[('state','in', ('contract_approved', 'delivered')),('type','=','share_revenue')]
-            </field>
-            <field name="view_ids" eval="[(5, 0, 0),
-                (0, 0, {'view_mode': 'list', 'view_id': ref('revenue_share_tree')}),
-              ]"/>
-        </record>
         <record id="revenue_share1_action_make_invoice" model="ir.actions.server">
             <field name="name">Make revenue share1 invoice</field>
             <field name="model_id" ref="isky_18_realestate_developer_sales_crm.model_loan_line"/>
@@ -130,107 +37,14 @@
             </field>
         </record>
 
-        <record id="service_charge_line_tree" model="ir.ui.view">
-            <field name="name">service_charge_line_tree</field>
-            <field name="model">loan.line</field>
-            <field name="arch" type="xml">
-                <list default_order="date" create="0">
-                    <field name="date" required="1"/>
-                    <field name="name" required="1"/>
-                    <field name="amount" required="1"/>
-                    <field name="amount_residual"/>
-                    <field name="tax_ids" widget="many2many_tags"/>
-                    <field name="vat_id"/>
-                    <field name="total_amount"/>
-                    <field name="invoice_id" readonly="1"/>
-                    <field name="invoice_state" widget="badge" optional="show"
-                           decoration-success="invoice_state == 'posted'"
-                           decoration-info="invoice_state == 'draft'"/>
-                    <field name="payment_state" widget="badge"
-                           decoration-danger="payment_state == 'not_paid'"
-                           decoration-warning="payment_state in ('partial', 'in_payment')"
-                           decoration-success="payment_state in ('paid', 'reversed')"
-                           invisible="payment_state in 'invoicing_legacy'"/>
-                </list>
-            </field>
-        </record>
-        <record id="parking_fees_contract_tree" model="ir.ui.view">
-            <field name="name">parking_fees_contract_tree</field>
-            <field name="model">loan.line</field>
-            <field name="arch" type="xml">
-                <list default_order="date" create="0">
-                    <field name="date" required="1"/>
-                    <field name="name" required="1"/>
-                    <field name="amount" required="1"/>
-                    <field name="amount_residual"/>
-                    <field name="tax_ids" widget="many2many_tags"/>
-                    <field name="vat_id"/>
-                    <field name="total_amount"/>
-                    <field name="invoice_id" readonly="1"/>
-                    <field name="invoice_state" widget="badge" optional="show"
-                           decoration-success="invoice_state == 'posted'"
-                           decoration-info="invoice_state == 'draft'"/>
-                    <field name="payment_state" widget="badge"
-                           decoration-danger="payment_state == 'not_paid'"
-                           decoration-warning="payment_state in ('partial', 'in_payment')"
-                           decoration-success="payment_state in ('paid', 'reversed')"
-                           invisible="payment_state in 'invoicing_legacy'"/>
-                </list>
-            </field>
-        </record>
-        <record id="marketing_fees_line_tree" model="ir.ui.view">
-            <field name="name">marketing_fees_line_tree</field>
-            <field name="model">loan.line</field>
-            <field name="arch" type="xml">
-                <list default_order="date" create="0">
-                    <field name="date" required="1"/>
-                    <field name="name" required="1"/>
-                    <field name="amount" required="1"/>
-                    <field name="amount_residual"/>
-                    <field name="tax_ids" widget="many2many_tags"/>
-                    <field name="vat_id"/>
-                    <field name="total_amount"/>
-                    <field name="invoice_id" readonly="1"/>
-                    <field name="invoice_state" widget="badge" optional="show"
-                           decoration-success="invoice_state == 'posted'"
-                           decoration-info="invoice_state == 'draft'"/>
-                    <field name="payment_state" widget="badge"
-                           decoration-danger="payment_state == 'not_paid'"
-                           decoration-warning="payment_state in ('partial', 'in_payment')"
-                           decoration-success="payment_state in ('paid', 'reversed')"
-                           invisible="payment_state in 'invoicing_legacy'"/>
-                </list>
-            </field>
-        </record>
 
-        <record id="action_view_marketing_fees_line_tree" model="ir.actions.act_window">
-            <field name="name">Marketing Fees</field>
-            <field name="res_model">loan.line</field>
-            <field name="view_mode">list</field>
-            <field name="domain">[('state','in', ('contract_approved', 'delivered')),('type','=', 'marketing_fees')]</field>
-            <field name="view_ids" eval="[(5, 0, 0), (0, 0, {'view_mode': 'list', 'view_id': ref('marketing_fees_line_tree')})]"/>
-        </record>
-        <record id="action_view_parking_fees_contract_tree" model="ir.actions.act_window">
-            <field name="name">Parking Fees</field>
-            <field name="res_model">loan.line</field>
-            <field name="view_mode">list</field>
-            <field name="domain">[('state','in', ('contract_approved', 'delivered')),('type','=', 'parking_fees')]</field>
-            <field name="view_ids" eval="[(5, 0, 0), (0, 0, {'view_mode': 'list', 'view_id': ref('parking_fees_contract_tree')})]"/>
-        </record>
-        <record id="action_view_service_charge_line_tree" model="ir.actions.act_window">
-            <field name="name">Service Charges</field>
-            <field name="res_model">loan.line</field>
-            <field name="view_mode">list</field>
-            <field name="domain">[('state','in', ('contract_approved', 'delivered')),('type','=', 'service_charge')]</field>
-            <field name="view_ids" eval="[(5, 0, 0), (0, 0, {'view_mode': 'list', 'view_id': ref('service_charge_line_tree')})]"/>
-        </record>
 
 <!--        <menuitem id="menu_lease_installment" name="Lease Installments" parent="menu_lease_root"-->
-<!--                  action="action_view_lease_installment_tree"/>-->
+<!--                  action="isky_18_realestate_developer_sales_crm.action_view_lease_installment_tree"/>-->
 <!--        <menuitem id="menu_share_revenue" name="Revenue Shares" parent="menu_lease_root"-->
-<!--                  action="action_view_revenue_share_tree" groups="arkzayed_18_realestate_development.group_share_revenue_user"/>-->
-<!--        <menuitem id="menu_service_charge_line" name="Service Charges" parent="menu_lease_root" action="action_view_service_charge_line_tree"/>-->
-<!--        <menuitem id="menu_parking_fees_contract" name="Parking Fees" parent="menu_lease_root" action="action_view_parking_fees_contract_tree"/>-->
-<!--        <menuitem id="menu_marketing_fees_line" name="Marketing Fees" parent="menu_lease_root" action="action_view_marketing_fees_line_tree"/>-->
+<!--                  action="isky_18_realestate_developer_sales_crm.action_view_revenue_share_tree" groups="arkzayed_18_realestate_development.group_share_revenue_user"/>-->
+<!---->
+<!---->
+<!---->
     </data>
 </odoo>

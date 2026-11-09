@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Phase 3c step 1: L2's fields on L0's forms.
+
+         L0's own views moved out of the monolith in step 1 and were stripped of four fields L2
+         adds to L0 models - `archive.place.contract_count` (backlog #4 moved that link to L2) and
+         the unit's contract/reservation counters. A standalone view may only name fields its own
+         layer has, or L0 cannot install alone; an *inherited* view may live anywhere, which is
+         what S4 says and what this file is. -->
+
+    <record id="view_archive_place_tree_sales" model="ir.ui.view">
+        <field name="name">archive.place.tree.sales</field>
+        <field name="model">archive.place</field>
+        <field name="inherit_id" ref="isky_18_realestate_developer_unit_inventory.view_archive_place_tree"/>
+        <field name="arch" type="xml">
+            <field name="code" position="after">
+                <field name="contract_count" string="Contracts"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_archive_place_form_sales" model="ir.ui.view">
+        <field name="name">archive.place.form.sales</field>
+        <field name="model">archive.place</field>
+        <field name="inherit_id" ref="isky_18_realestate_developer_unit_inventory.view_archive_place_form"/>
+        <field name="arch" type="xml">
+            <field name="code" position="after">
+                <field name="contract_count" string="Contracts"/>
+            </field>
+            <!-- action_view_contracts() lives in archive_place_ext.py, in this layer -->
+            <div name="button_box" position="inside">
+                <button name="action_view_contracts"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-folder-open">
+                </button>
+            </div>
+        </field>
+    </record>
+
+    <record id="view_archive_place_search_sales" model="ir.ui.view">
+        <field name="name">archive.place.search.sales</field>
+        <field name="model">archive.place</field>
+        <field name="inherit_id" ref="isky_18_realestate_developer_unit_inventory.view_archive_place_search"/>
+        <field name="arch" type="xml">
+            <!-- the two filters search on contract_count, which only this layer adds -->
+            <filter name="inactive" position="after">
+                <separator/>
+                <filter string="Has Contracts" name="has_contracts"
+                        domain="[('contract_count', '&gt;', 0)]"/>
+                <filter string="Empty" name="empty" domain="[('contract_count', '=', 0)]"/>
+            </filter>
+        </field>
+    </record>
+
+    <!-- Phase 3 step 5 deferred two UI pieces to Phase 3c. This is the first: the project's
+         installments override on the project form, which now lives in L0 (step 1). The field is
+         L2's on an L0 model, so an inherited view is its home. The second piece - hiding the
+         installment tabs and buttons when the flag is off - sits on the contract and reservation
+         forms, which are step 2b (decisions log, 2026-11-08, S2-D1/S2-D2). -->
+    <record id="view_real_estate_project_form_sales" model="ir.ui.view">
+        <field name="name">realestate.project.form.sales</field>
+        <field name="model">realestate.project</field>
+        <field name="inherit_id" ref="isky_18_realestate_developer_unit_inventory.main_project_type_form"/>
+        <field name="arch" type="xml">
+            <field name="company_id" position="after">
+                <field name="installments_mode"/>
+                <field name="installments_effective" invisible="installments_mode != 'inherit'"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_real_estate_unit_form_sales" model="ir.ui.view">
+        <field name="name">real.estate.unit.form.sales</field>
+        <field name="model">real.estate.unit</field>
+        <field name="inherit_id" ref="isky_18_realestate_developer_unit_inventory.view_real_estate_unit_form"/>
+        <field name="arch" type="xml">
+            <field name="unit_status" position="after">
+                <field name="contract_count" invisible="1"/>
+                <field name="reservation_count" invisible="1"/>
+            </field>
+            <!-- the customer picker's narrowing: `is_customer` comes from the contact module
+                 this layer depends on and L0 does not, so L0 ships the field without a domain
+                 (backlog #73) and it is restored here -->
+            <field name="customer_id" position="attributes">
+                <attribute name="domain">[('is_customer', '=', True)]</attribute>
+            </field>
+            <!-- the two stat buttons call methods that live in this layer
+                 (real_estate_unit_contract_ext.py), so they come back with it -->
+            <div name="button_box" position="inside">
+                <button name="action_view_reservations" type="object"
+                        class="oe_stat_button" icon="fa-bookmark"
+                        invisible="reservation_count == 0">
+                </button>
+                <button name="action_view_contracts" type="object"
+                        class="oe_stat_button" icon="fa-file-text-o"
+                        invisible="contract_count == 0">
+                </button>
+            </div>
+        </field>
+    </record>
+</odoo>

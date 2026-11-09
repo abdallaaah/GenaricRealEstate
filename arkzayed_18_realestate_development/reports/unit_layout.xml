@@ -1,32 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <record id="action_report_unit_plan" model="ir.actions.report">
-        <field name="name">Unit Plan Report</field>
-        <field name="model">real.estate.unit</field>
-        <field name="report_type">qweb-pdf</field>
-        <field name="report_name">arkzayed_18_realestate_development.report_unit_plan_document</field>
-        <field name="report_file">arkzayed_18_realestate_development.report_unit_plan_document</field>
-        <field name="binding_model_id" ref="isky_18_realestate_developer_unit_inventory.model_real_estate_unit"/>
-        <field name="binding_type">report</field>
-        <field name="paperformat_id" ref="base.paperformat_euro"/>
-    </record>
 
-    <template id="report_unit_plan_document">
-        <t t-call="web.html_container">
-            <t t-foreach="docs" t-as="o">
-                <t t-call="web.external_layout">
-                    <t t-call="arkzayed_18_realestate_development.unit_plan_styles"/>
-
-                    <t t-set="unit" t-value="o"/>
-                    <t t-set="has_building" t-value="bool(o.building_id)"/>
-                    <t t-set="has_floor" t-value="bool(o.floor_id)"/>
-
-                    <t t-call="arkzayed_18_realestate_development.unit_plan_first_page"/>
-                    <t t-if="o.unit_type == 'residential'" t-call="arkzayed_18_realestate_development.unit_plan_second_page"/>
-                </t>
-            </t>
-        </t>
-    </template>
 
 </odoo>

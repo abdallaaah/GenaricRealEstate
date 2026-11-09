@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Phase 3c step 1 (S1-D6): the shared root menu, and the Units business-area section.
+
+         The root lives in L0 because L0 is the only module every layer and bridge depends on -
+         the same reasoning Phase 6 used for the settings tab. Each later step of Phase 3c adds
+         its own business-area section under this root: Sales (step 2), Commission (step 3),
+         Construction (step 4), and the bridges' own entries (step 5).
+
+         The monolith's `menu_real_estate_root` and the legacy CRM's `menu_broker_root` are left
+         alone here, so a database with those modules installed shows more than one root until
+         step 6 retires them. That is what backlog #42 predicted and what the plan's acceptance
+         defers to step 6.
+
+         Every action named here lives in this module, so the menu tree resolves with L0 alone
+         installed - which is the other half of step 1's acceptance. -->
+
+    <menuitem id="menu_realestate_root"
+              name="Real Estate"
+              sequence="10"/>
+
+    <!-- ============================ Units ============================ -->
+    <menuitem id="menu_units_root"
+              name="Units"
+              parent="menu_realestate_root"
+              sequence="10"/>
+
+    <!-- the hierarchy, in the order the plan defines its levels -->
+    <menuitem id="menu_units_projects" name="Projects" parent="menu_units_root"
+              action="action_main_project" sequence="10"/>
+    <menuitem id="menu_units_zones" name="Zones" parent="menu_units_root"
+              action="zone_action" sequence="20"/>
+    <menuitem id="menu_units_clusters" name="Clusters" parent="menu_units_root"
+              action="cluster_action" sequence="30"/>
+    <menuitem id="menu_units_buildings" name="Buildings" parent="menu_units_root"
+              action="action_real_estate_building" sequence="40"/>
+    <menuitem id="menu_units_floors" name="Floors" parent="menu_units_root"
+              action="floor_action" sequence="50"/>
+    <menuitem id="menu_units_floor_areas" name="Floor Areas" parent="menu_units_root"
+              action="floor_area_action" sequence="60"/>
+
+    <!-- units, with the status views the monolith's menu offered -->
+    <menuitem id="menu_units_units" name="Units" parent="menu_units_root" sequence="70"/>
+    <menuitem id="menu_units_all" name="All Units" parent="menu_units_units"
+              action="action_real_estate_unit" sequence="10"/>
+    <menuitem id="menu_units_available_for_sale" name="Available for Sale" parent="menu_units_units"
+              action="action_real_estate_unit_available_for_sale" sequence="20"/>
+    <menuitem id="menu_units_available" name="Available" parent="menu_units_units"
+              action="action_real_estate_unit_available" sequence="30"/>
+    <menuitem id="menu_units_reserved" name="Reserved" parent="menu_units_units"
+              action="action_real_estate_unit_reserved" sequence="40"/>
+    <menuitem id="menu_units_sold" name="Sold" parent="menu_units_units"
+              action="action_real_estate_unit_sold" sequence="50"/>
+    <menuitem id="menu_units_expired_reservation" name="Expired Reservations"
+              parent="menu_units_units"
+              action="action_real_estate_unit_expired_reservation" sequence="60"/>
+    <menuitem id="menu_units_onhold_expired" name="On-hold Expired Reservations"
+              parent="menu_units_units"
+              action="action_real_estate_unit_onhold_expired_reservation" sequence="70"/>
+
+    <!-- ===================== Units: configuration ===================== -->
+    <menuitem id="menu_units_config" name="Configuration" parent="menu_units_root"
+              sequence="900"/>
+
+    <menuitem id="menu_units_config_project_type" name="Project Types" parent="menu_units_config"
+              action="action_project_type" sequence="10"/>
+    <menuitem id="menu_units_config_project_phase" name="Project Phases" parent="menu_units_config"
+              action="project_phase_action" sequence="20"/>
+    <menuitem id="menu_units_config_unit_type" name="Unit Types" parent="menu_units_config"
+              action="action_unit_type_configuration" sequence="30"/>
+    <menuitem id="menu_units_config_unit_design" name="Unit Designs" parent="menu_units_config"
+              action="action_unit_design" sequence="40"/>
+    <menuitem id="menu_units_config_residential_sub_type" name="Residential Sub Types"
+              parent="menu_units_config"
+              action="action_residential_apartment_type" sequence="50"/>
+    <menuitem id="menu_units_config_office_type" name="Office Types" parent="menu_units_config"
+              action="action_office_type" sequence="60"/>
+    <menuitem id="menu_units_config_medical_type" name="Medical Types" parent="menu_units_config"
+              action="action_medical_type" sequence="70"/>
+    <menuitem id="menu_units_config_facility" name="Facilities" parent="menu_units_config"
+              action="action_real_estate_facility" sequence="80"/>
+    <menuitem id="menu_units_config_feature" name="Features" parent="menu_units_config"
+              action="action_real_estate_feature" sequence="90"/>
+    <menuitem id="menu_units_config_nearby" name="Nearby Connectivity" parent="menu_units_config"
+              action="action_real_estate_nearby_connectivity" sequence="100"/>
+    <menuitem id="menu_units_config_block_reason" name="Block Reasons" parent="menu_units_config"
+              action="action_unit_block_reason" sequence="110"/>
+    <menuitem id="menu_units_config_archive_place" name="Archive Places" parent="menu_units_config"
+              action="action_archive_place" sequence="120"/>
+    <menuitem id="menu_units_config_estimate_delivery" name="Estimated Delivery Years"
+              parent="menu_units_config"
+              action="unit_estimate_delivery_action" sequence="130"/>
+    <menuitem id="menu_units_config_premiums" name="Premiums" parent="menu_units_config"
+              action="premiums_view_action" sequence="140"/>
+    <menuitem id="menu_units_config_price_increase" name="Price Increase Plans"
+              parent="menu_units_config"
+              action="action_price_increase" sequence="150"/>
+    <menuitem id="menu_units_config_parking_area" name="Parking Area Configuration"
+              parent="menu_units_config"
+              action="parking_area_configuration_action" sequence="160"/>
+    <menuitem id="menu_units_config_parking_template" name="Parking Templates"
+              parent="menu_units_config"
+              action="action_parking_template_form_act_window" sequence="170"/>
+    <menuitem id="menu_units_config_installment_template" name="Installment Templates"
+              parent="menu_units_config"
+              action="action_installment_template_form_act_window" sequence="180"/>
+    <menuitem id="menu_units_config_maintenance_template" name="Maintenance Templates"
+              parent="menu_units_config"
+              action="action_maintenance_template_form_act_window" sequence="190"/>
+    <menuitem id="menu_units_config_developer_project" name="Developer Projects"
+              parent="menu_units_config"
+              action="action_developer_project" sequence="200"/>
+    <menuitem id="menu_units_config_neighborhood" name="Neighborhoods" parent="menu_units_config"
+              action="neighborhood_neighborhood_action" sequence="210"/>
+    <menuitem id="menu_units_config_city" name="Districts" parent="menu_units_config"
+              action="action_couuntry_city" sequence="220"/>
+</odoo>

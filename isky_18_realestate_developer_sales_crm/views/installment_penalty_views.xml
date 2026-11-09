@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Phase 3c step 2a: moved here from arkzayed_18_realestate_development, verbatim and with the same
+         local xmlids. L2 owns these models, so it owns their UI. -->
+    <record id="installment_penalty_view_list" model="ir.ui.view">
+        <field name="name">installment.penalty.view.list</field>
+        <field name="model">installment.penalty</field>
+        <field name="arch" type="xml">
+            <list string="Installment Penalties" create="0" decoration-success="state == 'applied'" decoration-muted="state == 'cancelled'">
+                <field name="name"/>
+                <field name="sale_proposal_id"/>
+                <field name="customer_id"/>
+                <field name="installment_due_date"/>
+                <field name="installment_amount" sum="Total Installment"/>
+                <field name="delay_penalty_rate"/>
+                <field name="number_of_periods"/>
+                <field name="penalty_amount" sum="Total Penalty"/>
+                <field name="state" widget="badge" decoration-info="state == 'draft'" decoration-success="state == 'applied'" decoration-muted="state == 'cancelled'"/>
+            </list>
+        </field>
+    </record>
+    <record id="installment_penalty_view_form" model="ir.ui.view">
+        <field name="name">installment.penalty.view.form</field>
+        <field name="model">installment.penalty</field>
+        <field name="arch" type="xml">
+            <form string="Installment Penalty" create="0">
+                <header>
+                    <button name="action_open_penalty_wizard" string="Apply Penalty" type="object"
+                            class="btn-primary" invisible="state != 'draft' or move_id"/>
+                    <button name="action_cancel" string="Cancel" type="object"
+                            class="btn-secondary" confirm="Are you sure you want to cancel this penalty?"
+                            invisible="state == 'cancelled' or move_state == 'posted'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,applied"/>
+                </header>
+                <sheet>
+                    <field name="move_state" invisible="1"/>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_journal_entry" type="object"
+                                class="oe_stat_button" icon="fa-book"
+                                invisible="not move_id">
+                            <span class="o_stat_text">Journal Entry</span>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Contract Information">
+                            <field name="sale_proposal_id" readonly="1"/>
+                            <field name="customer_id"/>
+                            <field name="unit_id"/>
+                            <field name="last_calculation_date" readonly="1" />
+                        </group>
+                        <group string="Installment Details">
+                            <field name="installment_line_id" readonly="1" options="{'no_open': True}"
+                                   domain="[('sale_proposal_id', '=', sale_proposal_id)]"/>
+                            <field name="installment_due_date" readonly="1"/>
+                            <field name="installment_amount" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+    <record id="installment_penalty_view_search" model="ir.ui.view">
+        <field name="name">installment.penalty.view.search</field>
+        <field name="model">installment.penalty</field>
+        <field name="arch" type="xml">
+            <search string="Search Penalties">
+                <field name="name"/>
+                <field name="sale_proposal_id"/>
+                <field name="customer_id"/>
+                <field name="unit_id"/>
+                <filter name="draft" string="Draft" domain="[('state', '=', 'draft')]"/>
+                <filter name="applied" string="Applied" domain="[('state', '=', 'applied')]"/>
+                <filter name="cancelled" string="Cancelled" domain="[('state', '=', 'cancelled')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_customer" string="Customer" context="{'group_by': 'customer_id'}"/>
+                    <filter name="group_by_contract" string="Contract" context="{'group_by': 'sale_proposal_id'}"/>
+                    <filter name="group_by_unit" string="Unit" context="{'group_by': 'unit_id'}"/>
+                    <filter name="group_by_state" string="State" context="{'group_by': 'state'}"/>
+                    <filter name="group_by_due_date" string="Due Date" context="{'group_by': 'installment_due_date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="action_installment_penalty" model="ir.actions.act_window">
+        <field name="name">Installment Penalties</field>
+        <field name="res_model">installment.penalty</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No penalties found
+            </p>
+        </field>
+    </record>
+</odoo>

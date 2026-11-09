@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Phase 3c step 2a: this bridge's field on L2's installment list.
+
+         `installment.lines.cheque_state` is added by this bridge (Phase 3 step 3 moved the whole
+         cheque coupling here). L2's list had to be stripped of it so L2 installs without any
+         cheque module; an inherited view is where it belongs, and it appears only when this
+         bridge is installed. -->
+    <record id="view_sale_installment_tree_cheques" model="ir.ui.view">
+        <field name="name">installment.lines.tree.cheques</field>
+        <field name="model">installment.lines</field>
+        <field name="inherit_id" ref="isky_18_realestate_developer_sales_crm.sale_installment_tree"/>
+        <field name="arch" type="xml">
+            <field name="contract_state" position="after">
+                <field name="cheque_state" widget="badge" string="Cheque State"
+                       decoration-warning="cheque_state == 'draft'"
+                       decoration-info="cheque_state == 'collect'"
+                       decoration-success="cheque_state == 'done'"/>
+            </field>
+        </field>
+    </record>
+</odoo>

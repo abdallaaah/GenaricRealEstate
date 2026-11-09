@@ -42,7 +42,22 @@ Both kept, separately, as project_commission.py / project_commission_crm.py.
     ],
     'data': [
         'security/ir.model.access.csv',
+        # Phase 3c: the UI for this layer's own models, moved out of the legacy modules.
+        # Views and reports before menus, because a menuitem needs its action to exist.
+        'views/broker_claim.xml',
+        'views/broker_contract.xml',
+        'views/broker_team_view.xml',
+        'views/broker_visit_views.xml',
+        'views/commission_category_views.xml',
+        'views/job_level.xml',
+        'views/project_commission_view.xml',
+        'views/project_commission_views.xml',
+        'views/realestate_commission_achievement.xml',
+        'views/menus.xml',
         # Phase 6: the Company Setup and Commission sections of the shared settings tab
+        # Phase 3c step 1: this layer's fields added back onto L0's own views, which
+        # had to be stripped of them so L0 installs alone.
+        'views/l0_view_extensions.xml',
         'views/res_config_settings_views.xml',
     ],
     'license': 'LGPL-3',

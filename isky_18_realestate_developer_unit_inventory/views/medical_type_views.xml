@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Phase 3c step 1: moved here from arkzayed_18_realestate_development, verbatim and with the same
+         local xmlids. L0 owns these models, so it owns their UI. -->
+        <record id="action_medical_type" model="ir.actions.act_window">
+            <field name="name">Medical Types</field>
+            <field name="res_model">medical.type</field>
+            <field name="view_mode">list,form</field>
+        </record>
+</odoo>

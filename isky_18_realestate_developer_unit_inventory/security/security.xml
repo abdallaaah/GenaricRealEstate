@@ -4,6 +4,17 @@
         <record id="module_category_real_state_project_assigned" model="ir.module.category">
             <field name="name">Real State Project</field>
         </record>
+
+        <!-- Phase 3c step 1 (S1-D4): this group gates the Net area group on the UNIT form, so it
+             belongs to the module owning the unit - the same rule backlog #9 and Phase 3 steps 1
+             and 2a applied. The unit form moved here in step 1, and a `groups=` xmlid that does
+             not resolve is a hard ParseError, so the group has to resolve from L0. The monolith
+             keeps its own copy, still used by its sale_proposal view, until step 2 moves that; in
+             a database with both installed, members must be re-assigned (backlog #72). -->
+        <record id="group_restrict_net_area_visibility" model="res.groups">
+            <field name="name">Restrict Net Area Visibility</field>
+            <field name="category_id" ref="module_category_real_state_project_assigned"/>
+        </record>
         <record id="real_estate_facility_company_rule" model="ir.rule">
             <field name="name">real_estate_facility_company_rule</field>
             <field name="model_id" ref="model_real_estate_facility"/>

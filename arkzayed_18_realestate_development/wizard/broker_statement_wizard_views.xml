@@ -43,7 +43,7 @@
 
     <menuitem id="menu_broker_claim_statement"
               name="Commission Statement"
-              parent="menu_broker_root"
+              parent="isky_18_realestate_developer_sales_crm.menu_sales_pending_phase9"
               action="action_broker_claim_statement_wizard"
               sequence="5"/>
 
@@ -51,7 +51,7 @@
     <record id="view_broker_claim_tree_statement" model="ir.ui.view">
         <field name="name">broker.claim.tree.statement</field>
         <field name="model">broker.claim</field>
-        <field name="inherit_id" ref="view_broker_claim_tree"/>
+        <field name="inherit_id" ref="isky_18_realestate_developer_commission.view_broker_claim_tree"/>
         <field name="arch" type="xml">
             <xpath expr="//list" position="inside">
                 <header>
@@ -65,7 +65,7 @@
     <record id="view_broker_claim_form_statement" model="ir.ui.view">
         <field name="name">broker.claim.form.statement</field>
         <field name="model">broker.claim</field>
-        <field name="inherit_id" ref="view_broker_claim_form"/>
+        <field name="inherit_id" ref="isky_18_realestate_developer_commission.view_broker_claim_form"/>
         <field name="arch" type="xml">
             <xpath expr="//header" position="inside">
                 <button name="%(action_broker_claim_statement_wizard)d" type="action" string="Broker Statement"

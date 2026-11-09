@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Phase 3c step 1: moved here from arkzayed_18_realestate_development, verbatim and with the same
+         local xmlids. L0 owns these models, so it owns their UI. -->
+    <record id="view_real_estate_building_tree" model="ir.ui.view">
+        <field name="name">view.real.estate.building.tree</field>
+        <field name="model">real.estate.building</field>
+        <field name="arch" type="xml">
+            <list string="Buildings">
+                <field name="name"/>
+                <field name="abbreviation"/>
+                <field name="project_type_ids" widget="many2many_tags"/>
+                <field name="bua"/>
+                <field name="main_gates"/>
+                <field name="parking_gates"/>
+                <field name="system_code"/>
+                <field name="company_id"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_real_estate_building_form" model="ir.ui.view">
+        <field name="name">view.real.estate.building.form</field>
+        <field name="model">real.estate.building</field>
+        <field name="arch" type="xml">
+            <form string="Building">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="abbreviation"/>
+                        <field name="main_gates"/>
+                        <field name="parking_gates"/>
+                        <field name="bua"/>
+                        <field name="parent_source_id"/>
+                        <field name="project_type_ids" widget="many2many_tags"
+                               options="{'no_quick_create':True, 'no_create_edit' : True,'no_open': True}"/>
+                        <field name="location" invisible="1"/>
+                        <field name="system_code"/>
+                        <field name="company_id"/>
+                        <field name="project_id" invisible="1"/>
+                        <field name="building_plan"/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+    <record id="action_real_estate_building" model="ir.actions.act_window">
+        <field name="name">Buildings</field>
+        <field name="res_model">real.estate.building</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

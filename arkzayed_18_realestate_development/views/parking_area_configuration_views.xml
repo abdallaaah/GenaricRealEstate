@@ -1,64 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="parking_area_configuration_tree" model="ir.ui.view">
-        <field name="name">parking.area.configuration.tree</field>
-        <field name="model">parking.area.configuration</field>
-        <field name="arch" type="xml">
-            <list>
-                <field name="name"/>
-                <field name="unit_type"/>
-                <field name="area_per_slot"/>
-            </list>
-        </field>
-    </record>
 
-    <record id="parking_area_configuration_form" model="ir.ui.view">
-        <field name="name">parking.area.configuration.form</field>
-        <field name="model">parking.area.configuration</field>
-        <field name="arch" type="xml">
-            <form>
-                <sheet>
-                    <group>
-                        <group string="Configuration">
-                            <field name="name"/>
-                            <field name="unit_type"/>
-                        </group>
-                        <group string="Parking Calculation">
-                            <field name="area_per_slot"/>
-                        </group>
-                    </group>
-                </sheet>
-            </form>
-        </field>
-    </record>
 
-    <record id="parking_area_configuration_search" model="ir.ui.view">
-        <field name="name">parking.area.configuration.search</field>
-        <field name="model">parking.area.configuration</field>
-        <field name="arch" type="xml">
-            <search>
-                <field name="name"/>
-                <field name="unit_type"/>
-                <filter name="group_unit_type" string="Unit Type" context="{'group_by': 'unit_type'}"/>
-            </search>
-        </field>
-    </record>
 
-    <record id="parking_area_configuration_action" model="ir.actions.act_window">
-        <field name="name">Parking Area Configuration</field>
-        <field name="res_model">parking.area.configuration</field>
-        <field name="view_mode">list,form</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Create your first parking area configuration
-            </p>
-        </field>
-    </record>
 
-    <menuitem id="menu_parking_area_configuration"
-              name="Parking Area Configuration"
-              parent="menu_unit_config_root"
-              action="parking_area_configuration_action"
-              sequence="25"/>
 </odoo>
 

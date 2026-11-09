@@ -1,0 +1,1622 @@
+### RUN_ID=20261108-012156-159471
+### START=2026-11-08 01:21:56 EET
+### DB=p8_l0
+### ARGS=-i isky_18_realestate_developer_unit_inventory --test-enable --test-tags /isky_18_realestate_developer_unit_inventory --log-level=test
+2026-11-07 23:21:58,147 159489 INFO ? odoo: Odoo version 18.0 
+2026-11-07 23:21:58,148 159489 INFO ? odoo: Using configuration file at /tmp/claude-1000/-opt-odoo-odoo18-odoo-custom-GenaricRealEstate/3a43631c-c4f2-4b42-8ba2-4fc748bfb694/scratchpad/gre_test.conf 
+2026-11-07 23:21:58,148 159489 INFO ? odoo: addons paths: ['/opt/odoo/odoo18/odoo/odoo/addons', '/home/isky/.local/share/Odoo/addons/18.0', '/opt/odoo/odoo18/odoo/enterprise', '/opt/odoo/odoo18/odoo/addons', '/opt/odoo/odoo18/odoo/custom/GenaricRealEstate'] 
+2026-11-07 23:21:58,148 159489 INFO ? odoo: database: odoo18@localhost:5432 
+2026-11-07 23:21:58,349 159489 INFO ? odoo.addons.base.models.ir_actions_report: Will use the Wkhtmltopdf binary at /usr/local/bin/wkhtmltopdf 
+2026-11-07 23:21:58,356 159489 INFO ? odoo.addons.base.models.ir_actions_report: Will use the Wkhtmltoimage binary at /usr/local/bin/wkhtmltoimage 
+2026-11-07 23:21:58,545 159489 INFO ? odoo.service.server: HTTP service (werkzeug) running on isky-Latitude-7490:8069 
+2026-11-07 23:21:58,556 159489 INFO p8_l0 odoo.tests.common: Importing test framework 
+2026-11-07 23:21:58,570 159489 INFO p8_l0 odoo.modules.loading: init db 
+2026-11-07 23:21:58,858 159489 WARNING p8_l0 odoo.modules.module: Missing `license` key in manifest for 'arkzayed_18_contact_customization', defaulting to LGPL-3 
+2026-11-07 23:21:58,865 159489 WARNING p8_l0 odoo.modules.module: Missing `license` key in manifest for 'arkzayed_18_realestate_developer_crm', defaulting to LGPL-3 
+2026-11-07 23:21:58,871 159489 WARNING p8_l0 odoo.modules.module: Missing `license` key in manifest for 'arkzayed_18_realestate_development', defaulting to LGPL-3 
+2026-11-07 23:21:59,382 159489 WARNING p8_l0 odoo.modules.module: Missing `license` key in manifest for 'isky_contract_template', defaulting to LGPL-3 
+2026-11-07 23:21:59,387 159489 WARNING p8_l0 odoo.modules.module: Missing `license` key in manifest for 'isky_hr_egypt_allowances_application_contract', defaulting to LGPL-3 
+2026-11-07 23:22:02,002 159489 INFO p8_l0 odoo.modules.loading: loading 1 modules... 
+2026-11-07 23:22:02,002 159489 INFO p8_l0 odoo.modules.loading: Loading module base (1/1) 
+2026-11-07 23:22:02,032 159489 INFO p8_l0 odoo.modules.registry: module base: creating or updating database tables 
+2026-11-07 23:22:02,734 159489 INFO p8_l0 odoo.models: Prepare computation of ir.module.module.menus_by_module 
+2026-11-07 23:22:02,734 159489 INFO p8_l0 odoo.models: Prepare computation of ir.module.module.reports_by_module 
+2026-11-07 23:22:02,735 159489 INFO p8_l0 odoo.models: Prepare computation of ir.module.module.views_by_module 
+2026-11-07 23:22:02,966 159489 INFO p8_l0 odoo.models: Prepare computation of res.partner.user_id 
+2026-11-07 23:22:02,966 159489 INFO p8_l0 odoo.models: Prepare computation of res.partner.commercial_partner_id 
+2026-11-07 23:22:02,966 159489 INFO p8_l0 odoo.models: Prepare computation of res.partner.complete_name 
+2026-11-07 23:22:02,967 159489 INFO p8_l0 odoo.models: Prepare computation of res.partner.company_registry 
+2026-11-07 23:22:02,967 159489 INFO p8_l0 odoo.models: Prepare computation of res.partner.commercial_company_name 
+2026-11-07 23:22:02,967 159489 INFO p8_l0 odoo.models: Prepare computation of res.partner.partner_share 
+2026-11-07 23:22:03,028 159489 INFO p8_l0 odoo.models: Prepare computation of res.currency.decimal_places 
+2026-11-07 23:22:03,104 159489 INFO p8_l0 odoo.models: Prepare computation of res.company.uses_default_logo 
+2026-11-07 23:22:03,104 159489 INFO p8_l0 odoo.models: Prepare computation of res.company.logo_web 
+2026-11-07 23:22:03,108 159489 INFO p8_l0 odoo.models: Computing parent_path for table res_company... 
+2026-11-07 23:22:03,152 159489 INFO p8_l0 odoo.models: Prepare computation of res.users.signature 
+2026-11-07 23:22:03,153 159489 INFO p8_l0 odoo.models: Prepare computation of res.users.share 
+2026-11-07 23:22:05,487 159489 INFO p8_l0 odoo.modules.loading: loading base/data/res_bank.xml 
+2026-11-07 23:22:05,495 159489 INFO p8_l0 odoo.modules.loading: loading base/data/res.lang.csv 
+2026-11-07 23:22:05,539 159489 INFO p8_l0 odoo.modules.loading: loading base/data/res_lang_data.xml 
+2026-11-07 23:22:05,579 159489 INFO p8_l0 odoo.modules.loading: loading base/data/res_partner_data.xml 
+2026-11-07 23:22:05,648 159489 INFO p8_l0 odoo.modules.loading: loading base/data/res_currency_data.xml 
+2026-11-07 23:22:06,278 159489 INFO p8_l0 odoo.modules.loading: loading base/data/res_company_data.xml 
+2026-11-07 23:22:06,287 159489 INFO p8_l0 odoo.modules.loading: loading base/data/res_users_data.xml 
+2026-11-07 23:22:07,374 159489 INFO p8_l0 odoo.modules.loading: loading base/data/report_paperformat_data.xml 
+2026-11-07 23:22:07,382 159489 INFO p8_l0 odoo.modules.loading: loading base/data/res_country_data.xml 
+2026-11-07 23:22:07,907 159489 INFO p8_l0 odoo.modules.loading: loading base/data/ir_demo_data.xml 
+2026-11-07 23:22:07,921 159489 INFO p8_l0 odoo.modules.loading: loading base/security/base_groups.xml 
+2026-11-07 23:22:08,236 159489 INFO p8_l0 odoo.modules.loading: loading base/security/base_security.xml 
+2026-11-07 23:22:08,492 159489 INFO p8_l0 odoo.modules.loading: loading base/views/base_menus.xml 
+2026-11-07 23:22:08,591 159489 INFO p8_l0 odoo.modules.loading: loading base/views/decimal_precision_views.xml 
+2026-11-07 23:22:08,615 159489 INFO p8_l0 odoo.modules.loading: loading base/views/res_config_views.xml 
+2026-11-07 23:22:08,621 159489 INFO p8_l0 odoo.modules.loading: loading base/data/res.country.state.csv 
+2026-11-07 23:22:09,511 159489 INFO p8_l0 odoo.modules.loading: loading base/views/ir_actions_views.xml 
+2026-11-07 23:22:09,727 159489 INFO p8_l0 odoo.modules.loading: loading base/views/ir_asset_views.xml 
+2026-11-07 23:22:09,754 159489 INFO p8_l0 odoo.modules.loading: loading base/views/ir_config_parameter_views.xml 
+2026-11-07 23:22:09,781 159489 INFO p8_l0 odoo.modules.loading: loading base/views/ir_cron_views.xml 
+2026-11-07 23:22:09,826 159489 INFO p8_l0 odoo.modules.loading: loading base/views/ir_cron_trigger_views.xml 
+2026-11-07 23:22:09,852 159489 INFO p8_l0 odoo.modules.loading: loading base/views/ir_filters_views.xml 
+2026-11-07 23:22:09,882 159489 INFO p8_l0 odoo.modules.loading: loading base/views/ir_mail_server_views.xml 
+2026-11-07 23:22:09,914 159489 INFO p8_l0 odoo.modules.loading: loading base/views/ir_model_views.xml 
+2026-11-07 23:22:10,144 159489 INFO p8_l0 odoo.modules.loading: loading base/views/ir_attachment_views.xml 
+2026-11-07 23:22:10,177 159489 INFO p8_l0 odoo.modules.loading: loading base/views/ir_rule_views.xml 
+2026-11-07 23:22:10,205 159489 INFO p8_l0 odoo.modules.loading: loading base/views/ir_sequence_views.xml 
+2026-11-07 23:22:10,231 159489 INFO p8_l0 odoo.modules.loading: loading base/views/ir_ui_menu_views.xml 
+2026-11-07 23:22:10,254 159489 INFO p8_l0 odoo.modules.loading: loading base/views/ir_ui_view_views.xml 
+2026-11-07 23:22:10,313 159489 INFO p8_l0 odoo.modules.loading: loading base/views/ir_default_views.xml 
+2026-11-07 23:22:10,338 159489 INFO p8_l0 odoo.modules.loading: loading base/data/ir_config_parameter_data.xml 
+2026-11-07 23:22:10,341 159489 INFO p8_l0 odoo.modules.loading: loading base/data/ir_cron_data.xml 
+2026-11-07 23:22:10,354 159489 INFO p8_l0 odoo.modules.loading: loading base/report/ir_model_report.xml 
+2026-11-07 23:22:10,360 159489 INFO p8_l0 odoo.modules.loading: loading base/report/ir_model_templates.xml 
+2026-11-07 23:22:10,369 159489 INFO p8_l0 odoo.modules.loading: loading base/views/ir_logging_views.xml 
+2026-11-07 23:22:10,396 159489 INFO p8_l0 odoo.modules.loading: loading base/views/ir_qweb_widget_templates.xml 
+2026-11-07 23:22:10,412 159489 INFO p8_l0 odoo.modules.loading: loading base/views/ir_module_views.xml 
+2026-11-07 23:22:10,475 159489 INFO p8_l0 odoo.modules.loading: loading base/data/ir_module_category_data.xml 
+2026-11-07 23:22:10,561 159489 INFO p8_l0 odoo.modules.loading: loading base/data/ir_module_module.xml 
+2026-11-07 23:22:10,604 159489 INFO p8_l0 odoo.modules.loading: loading base/report/ir_module_reports.xml 
+2026-11-07 23:22:10,610 159489 INFO p8_l0 odoo.modules.loading: loading base/report/ir_module_report_templates.xml 
+2026-11-07 23:22:10,616 159489 INFO p8_l0 odoo.modules.loading: loading base/wizard/base_module_update_views.xml 
+2026-11-07 23:22:10,636 159489 INFO p8_l0 odoo.modules.loading: loading base/wizard/base_language_install_views.xml 
+2026-11-07 23:22:10,651 159489 INFO p8_l0 odoo.modules.loading: loading base/wizard/base_import_language_views.xml 
+2026-11-07 23:22:10,666 159489 INFO p8_l0 odoo.modules.loading: loading base/wizard/base_module_upgrade_views.xml 
+2026-11-07 23:22:10,690 159489 INFO p8_l0 odoo.modules.loading: loading base/wizard/base_module_uninstall_views.xml 
+2026-11-07 23:22:10,702 159489 INFO p8_l0 odoo.modules.loading: loading base/wizard/base_export_language_views.xml 
+2026-11-07 23:22:10,720 159489 INFO p8_l0 odoo.modules.loading: loading base/wizard/base_partner_merge_views.xml 
+2026-11-07 23:22:10,738 159489 INFO p8_l0 odoo.modules.loading: loading base/data/ir_demo_failure_data.xml 
+2026-11-07 23:22:10,759 159489 INFO p8_l0 odoo.modules.loading: loading base/views/ir_profile_views.xml 
+2026-11-07 23:22:10,786 159489 INFO p8_l0 odoo.modules.loading: loading base/views/res_company_views.xml 
+2026-11-07 23:22:10,813 159489 INFO p8_l0 odoo.modules.loading: loading base/views/res_lang_views.xml 
+2026-11-07 23:22:10,841 159489 INFO p8_l0 odoo.modules.loading: loading base/views/res_partner_views.xml 
+2026-11-07 23:22:10,968 159489 INFO p8_l0 odoo.modules.loading: loading base/views/res_bank_views.xml 
+2026-11-07 23:22:11,007 159489 INFO p8_l0 odoo.modules.loading: loading base/views/res_country_views.xml 
+2026-11-07 23:22:11,075 159489 INFO p8_l0 odoo.modules.loading: loading base/views/res_currency_views.xml 
+2026-11-07 23:22:11,125 159489 INFO p8_l0 odoo.modules.loading: loading base/views/res_users_views.xml 
+2026-11-07 23:22:11,292 159489 INFO p8_l0 odoo.modules.loading: loading base/views/res_device_views.xml 
+2026-11-07 23:22:11,320 159489 INFO p8_l0 odoo.modules.loading: loading base/views/res_users_identitycheck_views.xml 
+2026-11-07 23:22:11,330 159489 INFO p8_l0 odoo.modules.loading: loading base/views/res_config_settings_views.xml 
+2026-11-07 23:22:11,339 159489 INFO p8_l0 odoo.modules.loading: loading base/views/report_paperformat_views.xml 
+2026-11-07 23:22:11,370 159489 INFO p8_l0 odoo.modules.loading: loading base/security/ir.model.access.csv 
+2026-11-07 23:22:11,603 159489 INFO p8_l0 odoo.modules.loading: Module base loaded in 9.60s, 8167 queries (+8167 other) 
+2026-11-07 23:22:11,604 159489 INFO p8_l0 odoo.modules.loading: 1 modules loaded in 9.60s, 8167 queries (+8167 extra) 
+2026-11-07 23:22:11,628 159489 INFO p8_l0 odoo.modules.loading: updating modules list 
+2026-11-07 23:22:11,629 159489 INFO p8_l0 odoo.addons.base.models.ir_module: ALLOW access to module.update_list on [] to user __system__ #1 via n/a 
+2026-11-07 23:22:13,714 159489 INFO p8_l0 odoo.addons.base.models.ir_module: ALLOW access to module.button_install on ['iSky 18 Real Estate Developer - Unit Inventory'] to user __system__ #1 via n/a 
+2026-11-07 23:22:13,840 159489 INFO p8_l0 odoo.modules.loading: loading 38 modules... 
+2026-11-07 23:22:13,840 159489 INFO p8_l0 odoo.modules.loading: Loading module uom (2/38) 
+2026-11-07 23:22:13,864 159489 INFO p8_l0 odoo.modules.registry: module uom: creating or updating database tables 
+2026-11-07 23:22:13,935 159489 INFO p8_l0 odoo.modules.loading: loading uom/data/uom_data.xml 
+2026-11-07 23:22:14,022 159489 INFO p8_l0 odoo.modules.loading: loading uom/security/uom_security.xml 
+2026-11-07 23:22:14,044 159489 INFO p8_l0 odoo.modules.loading: loading uom/security/ir.model.access.csv 
+2026-11-07 23:22:14,058 159489 INFO p8_l0 odoo.modules.loading: loading uom/views/uom_uom_views.xml 
+2026-11-07 23:22:14,115 159489 INFO p8_l0 odoo.modules.loading: Module uom loaded in 0.27s, 305 queries (+305 other) 
+2026-11-07 23:22:14,116 159489 INFO p8_l0 odoo.modules.loading: Loading module web (3/38) 
+2026-11-07 23:22:14,152 159489 INFO p8_l0 odoo.modules.registry: module web: creating or updating database tables 
+2026-11-07 23:22:14,988 159489 INFO p8_l0 odoo.modules.loading: loading web/security/ir.model.access.csv 
+2026-11-07 23:22:14,998 159489 INFO p8_l0 odoo.modules.loading: loading web/views/webclient_templates.xml 
+2026-11-07 23:22:15,061 159489 INFO p8_l0 odoo.modules.loading: loading web/views/report_templates.xml 
+2026-11-07 23:22:15,169 159489 INFO p8_l0 odoo.modules.loading: loading web/views/base_document_layout_views.xml 
+2026-11-07 23:22:15,185 159489 INFO p8_l0 odoo.modules.loading: loading web/views/partner_view.xml 
+2026-11-07 23:22:15,191 159489 INFO p8_l0 odoo.modules.loading: loading web/views/speedscope_template.xml 
+2026-11-07 23:22:15,196 159489 INFO p8_l0 odoo.modules.loading: loading web/views/neutralize_views.xml 
+2026-11-07 23:22:15,202 159489 INFO p8_l0 odoo.modules.loading: loading web/data/ir_attachment.xml 
+2026-11-07 23:22:15,209 159489 INFO p8_l0 odoo.modules.loading: loading web/data/report_layout.xml 
+2026-11-07 23:22:15,382 159489 INFO p8_l0 odoo.modules.loading: Module web loaded in 1.27s, 1126 queries (+1126 other) 
+2026-11-07 23:22:15,382 159489 INFO p8_l0 odoo.modules.loading: Loading module auth_totp (4/38) 
+2026-11-07 23:22:15,418 159489 INFO p8_l0 odoo.modules.registry: module auth_totp: creating or updating database tables 
+2026-11-07 23:22:15,499 159489 INFO p8_l0 odoo.modules.loading: loading auth_totp/security/security.xml 
+2026-11-07 23:22:15,530 159489 INFO p8_l0 odoo.modules.loading: loading auth_totp/security/ir.model.access.csv 
+2026-11-07 23:22:15,541 159489 INFO p8_l0 odoo.modules.loading: loading auth_totp/data/ir_action_data.xml 
+2026-11-07 23:22:15,549 159489 INFO p8_l0 odoo.modules.loading: loading auth_totp/views/res_users_views.xml 
+2026-11-07 23:22:15,587 159489 INFO p8_l0 odoo.modules.loading: loading auth_totp/views/templates.xml 
+2026-11-07 23:22:15,594 159489 INFO p8_l0 odoo.modules.loading: loading auth_totp/wizard/auth_totp_wizard_views.xml 
+2026-11-07 23:22:15,624 159489 INFO p8_l0 odoo.modules.loading: Module auth_totp loaded in 0.24s, 188 queries (+188 other) 
+2026-11-07 23:22:15,625 159489 INFO p8_l0 odoo.modules.loading: Loading module base_import (5/38) 
+2026-11-07 23:22:15,858 159489 INFO p8_l0 odoo.modules.registry: module base_import: creating or updating database tables 
+2026-11-07 23:22:16,722 159489 INFO p8_l0 odoo.modules.loading: loading base_import/security/ir.model.access.csv 
+2026-11-07 23:22:16,750 159489 INFO p8_l0 odoo.modules.loading: Module base_import loaded in 1.13s, 903 queries (+903 other) 
+2026-11-07 23:22:16,750 159489 INFO p8_l0 odoo.modules.loading: Loading module base_import_module (6/38) 
+2026-11-07 23:22:16,782 159489 INFO p8_l0 odoo.modules.registry: module base_import_module: creating or updating database tables 
+2026-11-07 23:22:16,881 159489 INFO p8_l0 odoo.modules.loading: loading base_import_module/security/ir.model.access.csv 
+2026-11-07 23:22:16,891 159489 INFO p8_l0 odoo.modules.loading: loading base_import_module/views/base_import_module_view.xml 
+2026-11-07 23:22:16,921 159489 INFO p8_l0 odoo.modules.loading: loading base_import_module/views/ir_module_views.xml 
+2026-11-07 23:22:16,982 159489 INFO p8_l0 odoo.modules.loading: Module base_import_module loaded in 0.23s, 164 queries (+164 other) 
+2026-11-07 23:22:16,982 159489 INFO p8_l0 odoo.modules.loading: Loading module base_setup (7/38) 
+2026-11-07 23:22:17,012 159489 INFO p8_l0 odoo.modules.registry: module base_setup: creating or updating database tables 
+2026-11-07 23:22:17,082 159489 INFO p8_l0 odoo.modules.loading: loading base_setup/data/base_setup_data.xml 
+2026-11-07 23:22:17,089 159489 INFO p8_l0 odoo.modules.loading: loading base_setup/views/res_config_settings_views.xml 
+2026-11-07 23:22:17,128 159489 INFO p8_l0 odoo.modules.loading: loading base_setup/views/res_partner_views.xml 
+2026-11-07 23:22:17,154 159489 INFO p8_l0 odoo.modules.loading: Module base_setup loaded in 0.17s, 154 queries (+154 other) 
+2026-11-07 23:22:17,154 159489 INFO p8_l0 odoo.modules.loading: Loading module bus (8/38) 
+2026-11-07 23:22:17,182 159489 INFO p8_l0 odoo.modules.registry: module bus: creating or updating database tables 
+2026-11-07 23:22:17,342 159489 INFO p8_l0 odoo.modules.loading: loading bus/security/ir.model.access.csv 
+2026-11-07 23:22:17,369 159489 INFO p8_l0 odoo.modules.loading: Module bus loaded in 0.21s, 168 queries (+168 other) 
+2026-11-07 23:22:17,369 159489 INFO p8_l0 odoo.modules.loading: Loading module web_cohort (9/38) 
+2026-11-07 23:22:17,414 159489 INFO p8_l0 odoo.modules.registry: module web_cohort: creating or updating database tables 
+2026-11-07 23:22:18,238 159489 INFO p8_l0 odoo.modules.loading: Module web_cohort loaded in 0.87s, 895 queries (+895 other) 
+2026-11-07 23:22:18,239 159489 INFO p8_l0 odoo.modules.loading: Loading module web_gantt (10/38) 
+2026-11-07 23:22:18,278 159489 INFO p8_l0 odoo.modules.registry: module web_gantt: creating or updating database tables 
+2026-11-07 23:22:19,153 159489 INFO p8_l0 odoo.modules.loading: Module web_gantt loaded in 0.91s, 889 queries (+889 other) 
+2026-11-07 23:22:19,153 159489 INFO p8_l0 odoo.modules.loading: Loading module web_grid (11/38) 
+2026-11-07 23:22:19,196 159489 INFO p8_l0 odoo.modules.registry: module web_grid: creating or updating database tables 
+2026-11-07 23:22:20,079 159489 INFO p8_l0 odoo.modules.loading: Module web_grid loaded in 0.93s, 889 queries (+889 other) 
+2026-11-07 23:22:20,079 159489 INFO p8_l0 odoo.modules.loading: Loading module web_tour (12/38) 
+2026-11-07 23:22:20,110 159489 INFO p8_l0 odoo.modules.registry: module web_tour: creating or updating database tables 
+2026-11-07 23:22:20,116 159489 INFO p8_l0 odoo.models: Prepare computation of res.users.tour_enabled 
+2026-11-07 23:22:20,226 159489 INFO p8_l0 odoo.modules.loading: loading web_tour/security/ir.model.access.csv 
+2026-11-07 23:22:20,238 159489 INFO p8_l0 odoo.modules.loading: loading web_tour/views/tour_views.xml 
+2026-11-07 23:22:20,275 159489 INFO p8_l0 odoo.modules.loading: loading web_tour/views/res_users_views.xml 
+2026-11-07 23:22:20,310 159489 INFO p8_l0 odoo.modules.loading: Module web_tour loaded in 0.23s, 188 queries (+188 other) 
+2026-11-07 23:22:20,310 159489 INFO p8_l0 odoo.modules.loading: Loading module html_editor (13/38) 
+2026-11-07 23:22:20,341 159489 INFO p8_l0 odoo.modules.registry: module html_editor: creating or updating database tables 
+2026-11-07 23:22:20,393 159489 INFO p8_l0 odoo.modules.loading: Module html_editor loaded in 0.08s, 46 queries (+46 other) 
+2026-11-07 23:22:20,393 159489 INFO p8_l0 odoo.modules.loading: Loading module iap (14/38) 
+2026-11-07 23:22:20,422 159489 INFO p8_l0 odoo.modules.registry: module iap: creating or updating database tables 
+2026-11-07 23:22:20,534 159489 INFO p8_l0 odoo.modules.loading: loading iap/data/services.xml 
+2026-11-07 23:22:20,543 159489 INFO p8_l0 odoo.modules.loading: loading iap/security/ir.model.access.csv 
+2026-11-07 23:22:20,557 159489 INFO p8_l0 odoo.modules.loading: loading iap/security/ir_rule.xml 
+2026-11-07 23:22:20,566 159489 INFO p8_l0 odoo.modules.loading: loading iap/views/iap_views.xml 
+2026-11-07 23:22:20,596 159489 INFO p8_l0 odoo.modules.loading: loading iap/views/res_config_settings.xml 
+2026-11-07 23:22:20,630 159489 INFO p8_l0 odoo.modules.loading: Module iap loaded in 0.24s, 183 queries (+183 other) 
+2026-11-07 23:22:20,630 159489 INFO p8_l0 odoo.modules.loading: Loading module web_enterprise (15/38) 
+2026-11-07 23:22:20,663 159489 INFO p8_l0 odoo.modules.registry: module web_enterprise: creating or updating database tables 
+2026-11-07 23:22:20,699 159489 INFO p8_l0 odoo.modules.loading: loading web_enterprise/views/webclient_templates.xml 
+2026-11-07 23:22:20,728 159489 INFO p8_l0 odoo.modules.loading: Module web_enterprise loaded in 0.10s, 60 queries (+60 other) 
+2026-11-07 23:22:20,728 159489 INFO p8_l0 odoo.modules.loading: Loading module web_map (16/38) 
+2026-11-07 23:22:20,778 159489 INFO p8_l0 odoo.modules.registry: module web_map: creating or updating database tables 
+2026-11-07 23:22:20,794 159489 INFO p8_l0 odoo.models: Prepare computation of res.partner.contact_address_complete 
+2026-11-07 23:22:21,719 159489 INFO p8_l0 odoo.modules.loading: loading web_map/views/res_config_settings.xml 
+2026-11-07 23:22:21,737 159489 INFO p8_l0 odoo.modules.loading: loading web_map/views/res_partner_views.xml 
+2026-11-07 23:22:21,769 159489 INFO p8_l0 odoo.modules.loading: Module web_map loaded in 1.04s, 978 queries (+978 other) 
+2026-11-07 23:22:21,769 159489 INFO p8_l0 odoo.modules.loading: Loading module mail (17/38) 
+2026-11-07 23:22:21,841 159489 INFO p8_l0 odoo.modules.registry: module mail: creating or updating database tables 
+2026-11-07 23:22:22,309 159489 INFO p8_l0 odoo.models: Prepare computation of ir.actions.server.partner_ids 
+2026-11-07 23:22:22,309 159489 INFO p8_l0 odoo.models: Prepare computation of ir.actions.server.template_id 
+2026-11-07 23:22:22,309 159489 INFO p8_l0 odoo.models: Prepare computation of ir.actions.server.activity_type_id 
+2026-11-07 23:22:22,309 159489 INFO p8_l0 odoo.models: Prepare computation of ir.actions.server.activity_date_deadline_range 
+2026-11-07 23:22:22,310 159489 INFO p8_l0 odoo.models: Prepare computation of ir.actions.server.activity_user_id 
+2026-11-07 23:22:22,310 159489 INFO p8_l0 odoo.models: Prepare computation of ir.actions.server.mail_post_method 
+2026-11-07 23:22:22,310 159489 INFO p8_l0 odoo.models: Prepare computation of ir.actions.server.activity_summary 
+2026-11-07 23:22:22,310 159489 INFO p8_l0 odoo.models: Prepare computation of ir.actions.server.activity_date_deadline_range_type 
+2026-11-07 23:22:22,310 159489 INFO p8_l0 odoo.models: Prepare computation of ir.actions.server.activity_user_type 
+2026-11-07 23:22:22,310 159489 INFO p8_l0 odoo.models: Prepare computation of ir.actions.server.activity_user_field_name 
+2026-11-07 23:22:22,310 159489 INFO p8_l0 odoo.models: Prepare computation of ir.actions.server.activity_note 
+2026-11-07 23:22:22,310 159489 INFO p8_l0 odoo.models: Prepare computation of ir.actions.server.mail_post_autofollow 
+2026-11-07 23:22:22,375 159489 INFO p8_l0 odoo.models: Prepare computation of res.company.email_primary_color 
+2026-11-07 23:22:22,375 159489 INFO p8_l0 odoo.models: Prepare computation of res.company.email_secondary_color 
+2026-11-07 23:22:22,393 159489 INFO p8_l0 odoo.models: Prepare computation of res.users.notification_type 
+2026-11-07 23:22:22,516 159489 INFO p8_l0 odoo.models: Prepare computation of res.partner.email_normalized 
+<string>:38: (ERROR/3) Unexpected indentation.
+<string>:43: (WARNING/2) Block quote ends without a blank line; unexpected unindent.
+2026-11-07 23:22:25,364 159489 INFO p8_l0 odoo.modules.loading: loading mail/data/mail_groups.xml 
+2026-11-07 23:22:25,477 159489 INFO p8_l0 odoo.modules.loading: loading mail/wizard/mail_activity_schedule_views.xml 
+2026-11-07 23:22:25,490 159489 INFO p8_l0 odoo.modules.loading: loading mail/wizard/mail_blacklist_remove_views.xml 
+2026-11-07 23:22:25,497 159489 INFO p8_l0 odoo.modules.loading: loading mail/wizard/mail_compose_message_views.xml 
+2026-11-07 23:22:25,518 159489 INFO p8_l0 odoo.modules.loading: loading mail/wizard/mail_resend_message_views.xml 
+2026-11-07 23:22:25,532 159489 INFO p8_l0 odoo.modules.loading: loading mail/wizard/mail_resend_partner_views.xml 
+2026-11-07 23:22:25,543 159489 INFO p8_l0 odoo.modules.loading: loading mail/wizard/mail_template_preview_views.xml 
+2026-11-07 23:22:25,554 159489 INFO p8_l0 odoo.modules.loading: loading mail/wizard/mail_wizard_invite_views.xml 
+2026-11-07 23:22:25,563 159489 INFO p8_l0 odoo.modules.loading: loading mail/wizard/mail_template_reset_views.xml 
+2026-11-07 23:22:25,575 159489 INFO p8_l0 odoo.modules.loading: loading mail/views/fetchmail_views.xml 
+2026-11-07 23:22:25,598 159489 INFO p8_l0 odoo.modules.loading: loading mail/views/mail_message_subtype_views.xml 
+2026-11-07 23:22:25,619 159489 INFO p8_l0 odoo.modules.loading: loading mail/views/mail_tracking_value_views.xml 
+2026-11-07 23:22:25,637 159489 INFO p8_l0 odoo.modules.loading: loading mail/views/mail_notification_views.xml 
+2026-11-07 23:22:25,655 159489 INFO p8_l0 odoo.modules.loading: loading mail/views/mail_message_views.xml 
+2026-11-07 23:22:25,692 159489 INFO p8_l0 odoo.modules.loading: loading mail/views/mail_message_schedule_views.xml 
+2026-11-07 23:22:25,710 159489 INFO p8_l0 odoo.modules.loading: loading mail/views/mail_mail_views.xml 
+2026-11-07 23:22:25,740 159489 INFO p8_l0 odoo.modules.loading: loading mail/views/mail_followers_views.xml 
+2026-11-07 23:22:25,754 159489 INFO p8_l0 odoo.modules.loading: loading mail/views/mail_ice_server_views.xml 
+2026-11-07 23:22:25,769 159489 INFO p8_l0 odoo.modules.loading: loading mail/views/discuss_channel_member_views.xml 
+2026-11-07 23:22:25,784 159489 INFO p8_l0 odoo.modules.loading: loading mail/views/discuss_channel_rtc_session_views.xml 
+2026-11-07 23:22:25,804 159489 INFO p8_l0 odoo.modules.loading: loading mail/views/mail_link_preview_views.xml 
+2026-11-07 23:22:25,819 159489 INFO p8_l0 odoo.modules.loading: loading mail/views/discuss/discuss_gif_favorite_views.xml 
+2026-11-07 23:22:25,834 159489 INFO p8_l0 odoo.modules.loading: loading mail/views/discuss_channel_views.xml 
+2026-11-07 23:22:25,869 159489 INFO p8_l0 odoo.modules.loading: loading mail/views/mail_canned_response_views.xml 
+2026-11-07 23:22:25,889 159489 INFO p8_l0 odoo.modules.loading: loading mail/views/mail_activity_views.xml 
+2026-11-07 23:22:26,373 159489 INFO p8_l0 odoo.modules.loading: loading mail/views/mail_activity_plan_views.xml 
+2026-11-07 23:22:26,416 159489 INFO p8_l0 odoo.modules.loading: loading mail/views/mail_activity_plan_template_views.xml 
+2026-11-07 23:22:26,429 159489 INFO p8_l0 odoo.modules.loading: loading mail/views/res_config_settings_views.xml 
+2026-11-07 23:22:26,458 159489 INFO p8_l0 odoo.modules.loading: loading mail/data/ir_config_parameter_data.xml 
+2026-11-07 23:22:26,465 159489 INFO p8_l0 odoo.modules.loading: loading mail/data/res_partner_data.xml 
+2026-11-07 23:22:26,543 159489 INFO p8_l0 odoo.modules.loading: loading mail/data/mail_message_subtype_data.xml 
+2026-11-07 23:22:26,553 159489 INFO p8_l0 odoo.modules.loading: loading mail/data/mail_templates_chatter.xml 
+2026-11-07 23:22:26,573 159489 INFO p8_l0 odoo.modules.loading: loading mail/data/mail_templates_email_layouts.xml 
+2026-11-07 23:22:26,595 159489 INFO p8_l0 odoo.modules.loading: loading mail/data/mail_templates_mailgateway.xml 
+2026-11-07 23:22:26,612 159489 INFO p8_l0 odoo.modules.loading: loading mail/data/discuss_channel_data.xml 
+2026-11-07 23:22:26,660 159489 INFO p8_l0 odoo.modules.loading: loading mail/data/mail_activity_data.xml 
+2026-11-07 23:22:26,675 159489 INFO p8_l0 odoo.modules.loading: loading mail/data/security_notifications_templates.xml 
+2026-11-07 23:22:26,681 159489 INFO p8_l0 odoo.modules.loading: loading mail/data/ir_cron_data.xml 
+2026-11-07 23:22:26,735 159489 INFO p8_l0 odoo.modules.loading: loading mail/data/ir_actions_client.xml 
+2026-11-07 23:22:26,743 159489 INFO p8_l0 odoo.modules.loading: loading mail/security/mail_security.xml 
+2026-11-07 23:22:26,910 159489 INFO p8_l0 odoo.modules.loading: loading mail/security/ir.model.access.csv 
+2026-11-07 23:22:26,991 159489 INFO p8_l0 odoo.modules.loading: loading mail/views/discuss_public_templates.xml 
+2026-11-07 23:22:26,997 159489 INFO p8_l0 odoo.modules.loading: loading mail/views/mail_alias_domain_views.xml 
+2026-11-07 23:22:27,015 159489 INFO p8_l0 odoo.modules.loading: loading mail/views/mail_alias_views.xml 
+2026-11-07 23:22:27,040 159489 INFO p8_l0 odoo.modules.loading: loading mail/views/mail_gateway_allowed_views.xml 
+2026-11-07 23:22:27,054 159489 INFO p8_l0 odoo.modules.loading: loading mail/views/mail_guest_views.xml 
+2026-11-07 23:22:27,068 159489 INFO p8_l0 odoo.modules.loading: loading mail/views/mail_message_reaction_views.xml 
+2026-11-07 23:22:27,083 159489 INFO p8_l0 odoo.modules.loading: loading mail/views/mail_templates_public.xml 
+2026-11-07 23:22:27,094 159489 INFO p8_l0 odoo.modules.loading: loading mail/views/res_users_views.xml 
+2026-11-07 23:22:27,119 159489 INFO p8_l0 odoo.modules.loading: loading mail/views/res_users_settings_views.xml 
+2026-11-07 23:22:27,138 159489 INFO p8_l0 odoo.modules.loading: loading mail/views/mail_template_views.xml 
+2026-11-07 23:22:27,169 159489 INFO p8_l0 odoo.modules.loading: loading mail/views/ir_actions_server_views.xml 
+2026-11-07 23:22:27,183 159489 INFO p8_l0 odoo.modules.loading: loading mail/views/ir_model_views.xml 
+2026-11-07 23:22:27,217 159489 INFO p8_l0 odoo.modules.loading: loading mail/views/res_partner_views.xml 
+2026-11-07 23:22:27,275 159489 INFO p8_l0 odoo.modules.loading: loading mail/views/mail_blacklist_views.xml 
+2026-11-07 23:22:27,300 159489 INFO p8_l0 odoo.modules.loading: loading mail/views/mail_menus.xml 
+2026-11-07 23:22:27,472 159489 INFO p8_l0 odoo.modules.loading: loading mail/views/res_company_views.xml 
+2026-11-07 23:22:27,483 159489 INFO p8_l0 odoo.modules.loading: loading mail/views/mail_scheduled_message_views.xml 
+2026-11-07 23:22:27,493 159489 INFO p8_l0 odoo.modules.loading: loading mail/data/mail_canned_response_data.xml 
+2026-11-07 23:22:27,500 159489 INFO p8_l0 odoo.modules.loading: loading mail/data/mail_templates_invite.xml 
+2026-11-07 23:22:27,509 159489 INFO p8_l0 odoo.modules.loading: loading mail/data/web_tour_tour.xml 
+2026-11-07 23:22:27,599 159489 INFO p8_l0 odoo.modules.loading: Module mail loaded in 5.83s, 4484 queries (+4485 other) 
+2026-11-07 23:22:27,599 159489 INFO p8_l0 odoo.modules.loading: Loading module web_editor (18/38) 
+2026-11-07 23:22:27,687 159489 INFO p8_l0 odoo.modules.registry: module web_editor: creating or updating database tables 
+2026-11-07 23:22:29,283 159489 INFO p8_l0 odoo.modules.loading: loading web_editor/security/ir.model.access.csv 
+2026-11-07 23:22:29,298 159489 INFO p8_l0 odoo.modules.loading: loading web_editor/data/editor_assets.xml 
+2026-11-07 23:22:29,304 159489 INFO p8_l0 odoo.modules.loading: loading web_editor/views/editor.xml 
+2026-11-07 23:22:29,323 159489 INFO p8_l0 odoo.modules.loading: loading web_editor/views/snippets.xml 
+2026-11-07 23:22:29,397 159489 INFO p8_l0 odoo.modules.loading: Module web_editor loaded in 1.80s, 1404 queries (+1404 other) 
+2026-11-07 23:22:29,397 159489 INFO p8_l0 odoo.modules.loading: Loading module web_mobile (19/38) 
+2026-11-07 23:22:29,449 159489 INFO p8_l0 odoo.modules.registry: module web_mobile: creating or updating database tables 
+2026-11-07 23:22:29,533 159489 INFO p8_l0 odoo.modules.loading: loading web_mobile/views/views.xml 
+2026-11-07 23:22:29,576 159489 INFO p8_l0 odoo.modules.loading: Module web_mobile loaded in 0.18s, 99 queries (+99 other) 
+2026-11-07 23:22:29,576 159489 INFO p8_l0 odoo.modules.loading: Loading module analytic (20/38) 
+2026-11-07 23:22:29,634 159489 INFO p8_l0 odoo.modules.registry: module analytic: creating or updating database tables 
+2026-11-07 23:22:29,976 159489 INFO p8_l0 odoo.modules.loading: loading analytic/security/analytic_security.xml 
+2026-11-07 23:22:30,025 159489 INFO p8_l0 odoo.modules.loading: loading analytic/security/ir.model.access.csv 
+2026-11-07 23:22:30,051 159489 INFO p8_l0 odoo.modules.loading: loading analytic/views/analytic_line_views.xml 
+2026-11-07 23:22:30,104 159489 INFO p8_l0 odoo.modules.loading: loading analytic/views/analytic_account_views.xml 
+2026-11-07 23:22:30,136 159489 INFO p8_l0 odoo.modules.loading: loading analytic/views/analytic_plan_views.xml 
+2026-11-07 23:22:30,159 159489 INFO p8_l0 odoo.modules.loading: loading analytic/views/analytic_distribution_model_views.xml 
+2026-11-07 23:22:30,174 159489 INFO p8_l0 odoo.modules.loading: loading analytic/data/analytic_data.xml 
+2026-11-07 23:22:30,265 159489 INFO p8_l0 odoo.modules.loading: Module analytic loaded in 0.69s, 438 queries (+438 other) 
+2026-11-07 23:22:30,265 159489 INFO p8_l0 odoo.modules.loading: Loading module auth_signup (21/38) 
+2026-11-07 23:22:30,315 159489 INFO p8_l0 odoo.modules.registry: module auth_signup: creating or updating database tables 
+2026-11-07 23:22:30,428 159489 INFO p8_l0 odoo.modules.loading: loading auth_signup/data/ir_config_parameter_data.xml 
+2026-11-07 23:22:30,434 159489 INFO p8_l0 odoo.modules.loading: loading auth_signup/data/ir_cron_data.xml 
+2026-11-07 23:22:30,445 159489 INFO p8_l0 odoo.modules.loading: loading auth_signup/data/mail_template_data.xml 
+2026-11-07 23:22:30,466 159489 INFO p8_l0 odoo.modules.loading: loading auth_signup/views/res_config_settings_views.xml 
+2026-11-07 23:22:30,488 159489 INFO p8_l0 odoo.modules.loading: loading auth_signup/views/res_users_views.xml 
+2026-11-07 23:22:30,517 159489 INFO p8_l0 odoo.modules.loading: loading auth_signup/views/auth_signup_login_templates.xml 
+2026-11-07 23:22:30,543 159489 INFO p8_l0 odoo.modules.loading: loading auth_signup/views/auth_signup_templates_email.xml 
+2026-11-07 23:22:30,557 159489 INFO p8_l0 odoo.modules.loading: loading auth_signup/views/webclient_templates.xml 
+2026-11-07 23:22:30,588 159489 INFO p8_l0 odoo.modules.loading: Module auth_signup loaded in 0.32s, 207 queries (+207 other) 
+2026-11-07 23:22:30,588 159489 INFO p8_l0 odoo.modules.loading: Loading module auth_totp_mail (22/38) 
+2026-11-07 23:22:30,639 159489 INFO p8_l0 odoo.modules.registry: module auth_totp_mail: creating or updating database tables 
+2026-11-07 23:22:30,686 159489 INFO p8_l0 odoo.modules.loading: loading auth_totp_mail/data/ir_action_data.xml 
+2026-11-07 23:22:30,706 159489 INFO p8_l0 odoo.modules.loading: loading auth_totp_mail/data/mail_template_data.xml 
+2026-11-07 23:22:30,716 159489 INFO p8_l0 odoo.modules.loading: loading auth_totp_mail/data/security_notifications_template.xml 
+2026-11-07 23:22:30,725 159489 INFO p8_l0 odoo.modules.loading: loading auth_totp_mail/views/res_users_views.xml 
+2026-11-07 23:22:30,776 159489 INFO p8_l0 odoo.modules.loading: Module auth_totp_mail loaded in 0.19s, 121 queries (+121 other) 
+2026-11-07 23:22:30,776 159489 INFO p8_l0 odoo.modules.loading: Loading module base_install_request (23/38) 
+2026-11-07 23:22:30,833 159489 INFO p8_l0 odoo.modules.registry: module base_install_request: creating or updating database tables 
+2026-11-07 23:22:30,929 159489 INFO p8_l0 odoo.modules.loading: loading base_install_request/security/ir.model.access.csv 
+2026-11-07 23:22:30,945 159489 INFO p8_l0 odoo.modules.loading: loading base_install_request/wizard/base_module_install_request_views.xml 
+2026-11-07 23:22:30,969 159489 INFO p8_l0 odoo.modules.loading: loading base_install_request/data/mail_template_data.xml 
+2026-11-07 23:22:30,978 159489 INFO p8_l0 odoo.modules.loading: loading base_install_request/data/mail_templates_module_install.xml 
+2026-11-07 23:22:30,984 159489 INFO p8_l0 odoo.modules.loading: loading base_install_request/views/ir_module_module_views.xml 
+2026-11-07 23:22:31,019 159489 INFO p8_l0 odoo.modules.loading: Module base_install_request loaded in 0.24s, 153 queries (+153 other) 
+2026-11-07 23:22:31,019 159489 INFO p8_l0 odoo.modules.loading: Loading module google_gmail (24/38) 
+2026-11-07 23:22:31,077 159489 INFO p8_l0 odoo.modules.registry: module google_gmail: creating or updating database tables 
+2026-11-07 23:22:31,148 159489 INFO p8_l0 odoo.modules.loading: loading google_gmail/views/fetchmail_server_views.xml 
+2026-11-07 23:22:31,166 159489 INFO p8_l0 odoo.modules.loading: loading google_gmail/views/ir_mail_server_views.xml 
+2026-11-07 23:22:31,179 159489 INFO p8_l0 odoo.modules.loading: loading google_gmail/views/res_config_settings_views.xml 
+2026-11-07 23:22:31,217 159489 INFO p8_l0 odoo.modules.loading: Module google_gmail loaded in 0.20s, 124 queries (+124 other) 
+2026-11-07 23:22:31,217 159489 INFO p8_l0 odoo.modules.loading: Loading module iap_mail (25/38) 
+2026-11-07 23:22:31,269 159489 INFO p8_l0 odoo.modules.registry: module iap_mail: creating or updating database tables 
+2026-11-07 23:22:31,311 159489 INFO p8_l0 odoo.modules.loading: loading iap_mail/data/mail_templates.xml 
+2026-11-07 23:22:31,333 159489 INFO p8_l0 odoo.modules.loading: loading iap_mail/views/iap_views.xml 
+2026-11-07 23:22:31,359 159489 INFO p8_l0 odoo.modules.loading: Module iap_mail loaded in 0.14s, 70 queries (+70 other) 
+2026-11-07 23:22:31,359 159489 INFO p8_l0 odoo.modules.loading: Loading module mail_bot (26/38) 
+2026-11-07 23:22:31,413 159489 INFO p8_l0 odoo.modules.registry: module mail_bot: creating or updating database tables 
+2026-11-07 23:22:31,569 159489 INFO p8_l0 odoo.modules.loading: loading mail_bot/views/res_users_views.xml 
+2026-11-07 23:22:31,607 159489 INFO p8_l0 odoo.modules.loading: loading mail_bot/data/mailbot_data.xml 
+2026-11-07 23:22:31,629 159489 INFO p8_l0 odoo.modules.loading: Module mail_bot loaded in 0.27s, 127 queries (+127 other) 
+2026-11-07 23:22:31,629 159489 INFO p8_l0 odoo.modules.loading: Loading module mail_enterprise (27/38) 
+2026-11-07 23:22:31,684 159489 INFO p8_l0 odoo.modules.registry: module mail_enterprise: creating or updating database tables 
+2026-11-07 23:22:31,717 159489 INFO p8_l0 odoo.modules.loading: Module mail_enterprise loaded in 0.09s, 18 queries (+18 other) 
+2026-11-07 23:22:31,717 159489 INFO p8_l0 odoo.modules.loading: Loading module phone_validation (28/38) 
+2026-11-07 23:22:31,799 159489 INFO p8_l0 odoo.modules.registry: module phone_validation: creating or updating database tables 
+2026-11-07 23:22:33,455 159489 INFO p8_l0 odoo.modules.loading: loading phone_validation/security/ir.model.access.csv 
+2026-11-07 23:22:33,469 159489 INFO p8_l0 odoo.modules.loading: loading phone_validation/views/phone_blacklist_views.xml 
+2026-11-07 23:22:33,503 159489 INFO p8_l0 odoo.modules.loading: loading phone_validation/wizard/phone_blacklist_remove_view.xml 
+2026-11-07 23:22:33,527 159489 INFO p8_l0 odoo.modules.loading: Module phone_validation loaded in 1.81s, 1480 queries (+1480 other) 
+2026-11-07 23:22:33,527 159489 INFO p8_l0 odoo.modules.loading: Loading module privacy_lookup (29/38) 
+2026-11-07 23:22:33,585 159489 INFO p8_l0 odoo.modules.registry: module privacy_lookup: creating or updating database tables 
+2026-11-07 23:22:33,753 159489 INFO p8_l0 odoo.modules.loading: loading privacy_lookup/wizard/privacy_lookup_wizard_views.xml 
+2026-11-07 23:22:33,794 159489 INFO p8_l0 odoo.modules.loading: loading privacy_lookup/views/privacy_log_views.xml 
+2026-11-07 23:22:33,820 159489 INFO p8_l0 odoo.modules.loading: loading privacy_lookup/security/ir.model.access.csv 
+2026-11-07 23:22:33,843 159489 INFO p8_l0 odoo.modules.loading: loading privacy_lookup/data/ir_actions_server_data.xml 
+2026-11-07 23:22:33,868 159489 INFO p8_l0 odoo.modules.loading: Module privacy_lookup loaded in 0.34s, 247 queries (+247 other) 
+2026-11-07 23:22:33,868 159489 INFO p8_l0 odoo.modules.loading: Loading module product (30/38) 
+2026-11-07 23:22:33,955 159489 INFO p8_l0 odoo.modules.registry: module product: creating or updating database tables 
+2026-11-07 23:22:35,066 159489 INFO p8_l0 odoo.modules.loading: loading product/data/product_data.xml 
+2026-11-07 23:22:35,110 159489 INFO p8_l0 odoo.modules.loading: loading product/security/product_security.xml 
+2026-11-07 23:22:35,352 159489 INFO p8_l0 odoo.modules.loading: loading product/security/ir.model.access.csv 
+2026-11-07 23:22:35,395 159489 INFO p8_l0 odoo.modules.loading: loading product/wizard/product_label_layout_views.xml 
+2026-11-07 23:22:35,414 159489 INFO p8_l0 odoo.modules.loading: loading product/wizard/update_product_attribute_value_views.xml 
+2026-11-07 23:22:35,423 159489 INFO p8_l0 odoo.modules.loading: loading product/views/product_tag_views.xml 
+2026-11-07 23:22:35,437 159489 INFO p8_l0 odoo.modules.loading: loading product/views/product_views.xml 
+2026-11-07 23:22:35,556 159489 INFO p8_l0 odoo.modules.loading: loading product/views/res_config_settings_views.xml 
+2026-11-07 23:22:35,583 159489 INFO p8_l0 odoo.modules.loading: loading product/views/product_attribute_views.xml 
+2026-11-07 23:22:35,633 159489 INFO p8_l0 odoo.modules.loading: loading product/views/product_attribute_value_views.xml 
+2026-11-07 23:22:35,640 159489 INFO p8_l0 odoo.modules.loading: loading product/views/product_category_views.xml 
+2026-11-07 23:22:35,660 159489 INFO p8_l0 odoo.modules.loading: loading product/views/product_combo_views.xml 
+2026-11-07 23:22:35,676 159489 INFO p8_l0 odoo.modules.loading: loading product/views/product_document_views.xml 
+2026-11-07 23:22:35,699 159489 INFO p8_l0 odoo.modules.loading: loading product/views/product_packaging_views.xml 
+2026-11-07 23:22:35,730 159489 INFO p8_l0 odoo.modules.loading: loading product/views/product_pricelist_item_views.xml 
+2026-11-07 23:22:35,761 159489 INFO p8_l0 odoo.modules.loading: loading product/views/product_pricelist_views.xml 
+2026-11-07 23:22:35,791 159489 INFO p8_l0 odoo.modules.loading: loading product/views/product_supplierinfo_views.xml 
+2026-11-07 23:22:35,823 159489 INFO p8_l0 odoo.modules.loading: loading product/views/product_template_attribute_line_views.xml 
+2026-11-07 23:22:35,831 159489 INFO p8_l0 odoo.modules.loading: loading product/views/product_template_views.xml 
+2026-11-07 23:22:35,877 159489 INFO p8_l0 odoo.modules.loading: loading product/views/res_country_group_views.xml 
+2026-11-07 23:22:35,888 159489 INFO p8_l0 odoo.modules.loading: loading product/views/res_partner_views.xml 
+2026-11-07 23:22:35,912 159489 INFO p8_l0 odoo.modules.loading: loading product/report/product_reports.xml 
+2026-11-07 23:22:35,953 159489 INFO p8_l0 odoo.modules.loading: loading product/report/product_product_templates.xml 
+2026-11-07 23:22:35,985 159489 INFO p8_l0 odoo.modules.loading: loading product/report/product_template_templates.xml 
+2026-11-07 23:22:36,009 159489 INFO p8_l0 odoo.modules.loading: loading product/report/product_packaging.xml 
+2026-11-07 23:22:36,015 159489 INFO p8_l0 odoo.modules.loading: loading product/report/product_pricelist_report_templates.xml 
+2026-11-07 23:22:36,069 159489 INFO p8_l0 odoo.modules.loading: Module product loaded in 2.20s, 1763 queries (+1763 other) 
+2026-11-07 23:22:36,069 159489 INFO p8_l0 odoo.modules.loading: Loading module web_unsplash (31/38) 
+2026-11-07 23:22:36,143 159489 INFO p8_l0 odoo.modules.registry: module web_unsplash: creating or updating database tables 
+2026-11-07 23:22:36,227 159489 INFO p8_l0 odoo.modules.loading: loading web_unsplash/views/res_config_settings_view.xml 
+2026-11-07 23:22:36,273 159489 INFO p8_l0 odoo.modules.loading: Module web_unsplash loaded in 0.20s, 100 queries (+100 other) 
+2026-11-07 23:22:36,273 159489 INFO p8_l0 odoo.modules.loading: Loading module iap_extract (32/38) 
+2026-11-07 23:22:36,343 159489 INFO p8_l0 odoo.modules.registry: module iap_extract: creating or updating database tables 
+2026-11-07 23:22:36,465 159489 INFO p8_l0 odoo.modules.loading: loading iap_extract/data/config_parameter_endpoint.xml 
+2026-11-07 23:22:36,473 159489 INFO p8_l0 odoo.modules.loading: loading iap_extract/data/iap_service_data.xml 
+2026-11-07 23:22:36,479 159489 INFO p8_l0 odoo.modules.loading: loading iap_extract/data/mail_template_data.xml 
+2026-11-07 23:22:36,504 159489 INFO p8_l0 odoo.modules.loading: Module iap_extract loaded in 0.23s, 49 queries (+49 other) 
+2026-11-07 23:22:36,505 159489 INFO p8_l0 odoo.modules.loading: Loading module isky_18_realestate_developer_unit_inventory (33/38) 
+2026-11-07 23:22:36,534 159489 WARNING p8_l0 odoo.tools.translate: no translation language detected, skipping translation <frame at 0x72f611dedfc0, file '/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/core/real_estate_unit.py', line 1039, code RealEstateUnit> 
+Stack (most recent call last):
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 186, in load_module_graph
+    load_openerp_module(package.name)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/module.py", line 384, in load_openerp_module
+    __import__(qualname)
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/__init__.py", line 1, in <module>
+    from . import models
+  File "<frozen importlib._bootstrap>", line 1415, in _handle_fromlist
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/__init__.py", line 3, in <module>
+    from . import core
+  File "<frozen importlib._bootstrap>", line 1415, in _handle_fromlist
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/core/__init__.py", line 8, in <module>
+    from . import real_estate_unit
+  File "<frozen importlib._bootstrap>", line 1415, in _handle_fromlist
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/core/real_estate_unit.py", line 27, in <module>
+    class RealEstateUnit(models.Model):
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/core/real_estate_unit.py", line 1039, in RealEstateUnit
+    ('monthly_installment', 1, _("Monthly")),
+  File "/opt/odoo/odoo18/odoo/odoo/tools/translate.py", line 634, in get_text_alias
+    module, lang = _get_translation_source(1)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/translate.py", line 623, in _get_translation_source
+    lang = lang or _get_lang(frame, default_lang)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/translate.py", line 614, in _get_lang
+    _logger.log(log_level, 'no translation language detected, skipping translation %s', frame, stack_info=True)
+2026-11-07 23:22:36,535 159489 WARNING p8_l0 odoo.tools.translate: no translation language detected, skipping translation <frame at 0x72f611dedfc0, file '/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/core/real_estate_unit.py', line 1040, code RealEstateUnit> 
+Stack (most recent call last):
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 186, in load_module_graph
+    load_openerp_module(package.name)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/module.py", line 384, in load_openerp_module
+    __import__(qualname)
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/__init__.py", line 1, in <module>
+    from . import models
+  File "<frozen importlib._bootstrap>", line 1415, in _handle_fromlist
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/__init__.py", line 3, in <module>
+    from . import core
+  File "<frozen importlib._bootstrap>", line 1415, in _handle_fromlist
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/core/__init__.py", line 8, in <module>
+    from . import real_estate_unit
+  File "<frozen importlib._bootstrap>", line 1415, in _handle_fromlist
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/core/real_estate_unit.py", line 27, in <module>
+    class RealEstateUnit(models.Model):
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/core/real_estate_unit.py", line 1040, in RealEstateUnit
+    ('quarterly_installment', 3, _("Quarterly")),
+  File "/opt/odoo/odoo18/odoo/odoo/tools/translate.py", line 634, in get_text_alias
+    module, lang = _get_translation_source(1)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/translate.py", line 623, in _get_translation_source
+    lang = lang or _get_lang(frame, default_lang)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/translate.py", line 614, in _get_lang
+    _logger.log(log_level, 'no translation language detected, skipping translation %s', frame, stack_info=True)
+2026-11-07 23:22:36,535 159489 WARNING p8_l0 odoo.tools.translate: no translation language detected, skipping translation <frame at 0x72f611dedfc0, file '/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/core/real_estate_unit.py', line 1041, code RealEstateUnit> 
+Stack (most recent call last):
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 186, in load_module_graph
+    load_openerp_module(package.name)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/module.py", line 384, in load_openerp_module
+    __import__(qualname)
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/__init__.py", line 1, in <module>
+    from . import models
+  File "<frozen importlib._bootstrap>", line 1415, in _handle_fromlist
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/__init__.py", line 3, in <module>
+    from . import core
+  File "<frozen importlib._bootstrap>", line 1415, in _handle_fromlist
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/core/__init__.py", line 8, in <module>
+    from . import real_estate_unit
+  File "<frozen importlib._bootstrap>", line 1415, in _handle_fromlist
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/core/real_estate_unit.py", line 27, in <module>
+    class RealEstateUnit(models.Model):
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/core/real_estate_unit.py", line 1041, in RealEstateUnit
+    ('semi_annual_installment', 6, _("Semi Annual")),
+  File "/opt/odoo/odoo18/odoo/odoo/tools/translate.py", line 634, in get_text_alias
+    module, lang = _get_translation_source(1)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/translate.py", line 623, in _get_translation_source
+    lang = lang or _get_lang(frame, default_lang)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/translate.py", line 614, in _get_lang
+    _logger.log(log_level, 'no translation language detected, skipping translation %s', frame, stack_info=True)
+2026-11-07 23:22:36,536 159489 WARNING p8_l0 odoo.tools.translate: no translation language detected, skipping translation <frame at 0x72f611dedfc0, file '/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/core/real_estate_unit.py', line 1042, code RealEstateUnit> 
+Stack (most recent call last):
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 186, in load_module_graph
+    load_openerp_module(package.name)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/module.py", line 384, in load_openerp_module
+    __import__(qualname)
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/__init__.py", line 1, in <module>
+    from . import models
+  File "<frozen importlib._bootstrap>", line 1415, in _handle_fromlist
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/__init__.py", line 3, in <module>
+    from . import core
+  File "<frozen importlib._bootstrap>", line 1415, in _handle_fromlist
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/core/__init__.py", line 8, in <module>
+    from . import real_estate_unit
+  File "<frozen importlib._bootstrap>", line 1415, in _handle_fromlist
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/core/real_estate_unit.py", line 27, in <module>
+    class RealEstateUnit(models.Model):
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/core/real_estate_unit.py", line 1042, in RealEstateUnit
+    ('annual_installment', 12, _("Annual")),
+  File "/opt/odoo/odoo18/odoo/odoo/tools/translate.py", line 634, in get_text_alias
+    module, lang = _get_translation_source(1)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/translate.py", line 623, in _get_translation_source
+    lang = lang or _get_lang(frame, default_lang)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/translate.py", line 614, in _get_lang
+    _logger.log(log_level, 'no translation language detected, skipping translation %s', frame, stack_info=True)
+2026-11-07 23:22:36,541 159489 WARNING p8_l0 odoo.models: The model realestate.project.type has no _description 
+2026-11-07 23:22:36,541 159489 WARNING p8_l0 odoo.models: The model real.estate.project.phase has no _description 
+2026-11-07 23:22:36,541 159489 WARNING p8_l0 odoo.models: The model unit.design has no _description 
+2026-11-07 23:22:36,541 159489 WARNING p8_l0 odoo.models: The model parking.template has no _description 
+2026-11-07 23:22:36,542 159489 WARNING p8_l0 odoo.models: The model premiums.premiums has no _description 
+2026-11-07 23:22:36,542 159489 WARNING p8_l0 odoo.models: The model price.plan.line has no _description 
+2026-11-07 23:22:36,542 159489 WARNING p8_l0 odoo.models: The model real.estate.facility has no _description 
+2026-11-07 23:22:36,542 159489 WARNING p8_l0 odoo.models: The model real.estate.feature has no _description 
+2026-11-07 23:22:36,542 159489 WARNING p8_l0 odoo.models: The model real.estate.nearby.connectivity has no _description 
+2026-11-07 23:22:36,542 159489 WARNING p8_l0 odoo.models: The model developer.project has no _description 
+2026-11-07 23:22:36,543 159489 WARNING p8_l0 odoo.models: The model neighborhood.neighborhood has no _description 
+2026-11-07 23:22:36,543 159489 WARNING p8_l0 odoo.models: The model res.country.city has no _description 
+2026-11-07 23:22:36,544 159489 WARNING p8_l0 odoo.models: The model blocked.unit.reason has no _description 
+2026-11-07 23:22:36,608 159489 WARNING p8_l0 odoo.fields: Field business.unit.type.name: unknown parameter 'unique', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-07 23:22:36,612 159489 WARNING p8_l0 py.warnings: /opt/odoo/odoo18/odoo/odoo/fields.py:542: UserWarning: Property cluster.parent_source_id.required should be a boolean (1).
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 205, in load_module_graph
+    registry.setup_models(env.cr)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 341, in setup_models
+    model._setup_fields()
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 3725, in _setup_fields
+    field.setup(self)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 542, in setup
+    warnings.warn(f'Property {self}.required should be a boolean ({self.required}).')
+ 
+2026-11-07 23:22:36,613 159489 WARNING p8_l0 py.warnings: /opt/odoo/odoo18/odoo/odoo/fields.py:542: UserWarning: Property floor.area.parent_source_id.required should be a boolean (1).
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 205, in load_module_graph
+    registry.setup_models(env.cr)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 341, in setup_models
+    model._setup_fields()
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 3725, in _setup_fields
+    field.setup(self)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 542, in setup
+    warnings.warn(f'Property {self}.required should be a boolean ({self.required}).')
+ 
+2026-11-07 23:22:36,613 159489 WARNING p8_l0 py.warnings: /opt/odoo/odoo18/odoo/odoo/fields.py:542: UserWarning: Property real.estate.building.parent_source_id.required should be a boolean (1).
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 205, in load_module_graph
+    registry.setup_models(env.cr)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 341, in setup_models
+    model._setup_fields()
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 3725, in _setup_fields
+    field.setup(self)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 542, in setup
+    warnings.warn(f'Property {self}.required should be a boolean ({self.required}).')
+ 
+2026-11-07 23:22:36,629 159489 INFO p8_l0 odoo.modules.registry: module isky_18_realestate_developer_unit_inventory: creating or updating database tables 
+2026-11-07 23:22:37,317 159489 WARNING p8_l0 odoo.addons.base.models.ir_model: Two fields (project_id, parent_id) of zone() have the same label: Project. [Modules: isky_18_realestate_developer_unit_inventory and isky_18_realestate_developer_unit_inventory] 
+2026-11-07 23:22:38,425 159489 INFO p8_l0 odoo.modules.loading: loading isky_18_realestate_developer_unit_inventory/security/security.xml 
+2026-11-07 23:22:38,654 159489 INFO p8_l0 odoo.modules.loading: loading isky_18_realestate_developer_unit_inventory/security/ir.model.access.csv 
+2026-11-07 23:22:38,717 159489 WARNING p8_l0 odoo.addons.base.models.ir_model: Rule access.real.estate.project has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-07 23:22:38,717 159489 WARNING p8_l0 odoo.addons.base.models.ir_model: Rule access.real.estate.unit.model has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-07 23:22:38,717 159489 WARNING p8_l0 odoo.addons.base.models.ir_model: Rule access.cluster has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-07 23:22:38,717 159489 WARNING p8_l0 odoo.addons.base.models.ir_model: Rule access.floor has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-07 23:22:38,717 159489 WARNING p8_l0 odoo.addons.base.models.ir_model: Rule access.floor.area has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-07 23:22:38,717 159489 WARNING p8_l0 odoo.addons.base.models.ir_model: Rule access.zone has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-07 23:22:38,717 159489 WARNING p8_l0 odoo.addons.base.models.ir_model: Rule access_price_plan_line has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-07 23:22:38,717 159489 WARNING p8_l0 odoo.addons.base.models.ir_model: Rule access_counter_counter has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-07 23:22:38,717 159489 WARNING p8_l0 odoo.addons.base.models.ir_model: Rule access_gas_counter_counter has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-07 23:22:38,717 159489 WARNING p8_l0 odoo.addons.base.models.ir_model: Rule access_water_counter_counter has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-07 23:22:38,717 159489 WARNING p8_l0 odoo.addons.base.models.ir_model: Rule access_landline_counter has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-07 23:22:38,717 159489 WARNING p8_l0 odoo.addons.base.models.ir_model: Rule access_internet has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-07 23:22:38,717 159489 WARNING p8_l0 odoo.addons.base.models.ir_model: Rule access.parking.template has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-07 23:22:38,717 159489 WARNING p8_l0 odoo.addons.base.models.ir_model: Rule access.block.unit.wizard has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-07 23:22:38,717 159489 WARNING p8_l0 odoo.addons.base.models.ir_model: Rule access_residential_sub_type has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-07 23:22:38,717 159489 WARNING p8_l0 odoo.addons.base.models.ir_model: Rule access_premiums_premiums has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-07 23:22:38,718 159489 WARNING p8_l0 odoo.addons.base.models.ir_model: Rule access_archive_place has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-07 23:22:38,718 159489 WARNING p8_l0 odoo.addons.base.models.ir_model: Rule access_unit_type_configuration has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-07 23:22:38,718 159489 WARNING p8_l0 odoo.addons.base.models.ir_model: Rule access_office_type has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-07 23:22:38,718 159489 WARNING p8_l0 odoo.addons.base.models.ir_model: Rule access_parking_area_configuration has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-07 23:22:38,718 159489 WARNING p8_l0 odoo.addons.base.models.ir_model: Rule access.business.unit.type has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-07 23:22:38,718 159489 WARNING p8_l0 odoo.addons.base.models.ir_model: Rule access.unit.estimate.delivery has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-07 23:22:38,718 159489 WARNING p8_l0 odoo.addons.base.models.ir_model: Rule access.developer.project has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-07 23:22:38,718 159489 WARNING p8_l0 odoo.addons.base.models.ir_model: Rule access.neighborhood.neighborhood has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-07 23:22:38,718 159489 WARNING p8_l0 odoo.addons.base.models.ir_model: Rule access.res.country.city has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-07 23:22:38,718 159489 WARNING p8_l0 odoo.addons.base.models.ir_model: Rule access_down_payment_increase has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-07 23:22:38,718 159489 WARNING p8_l0 odoo.addons.base.models.ir_model: Rule access_installment_template has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-07 23:22:38,718 159489 WARNING p8_l0 odoo.addons.base.models.ir_model: Rule access_maintenance_template has no group, this is a deprecated feature. Every access-granting rule should specify a group. 
+2026-11-07 23:22:38,738 159489 INFO p8_l0 odoo.modules.loading: loading isky_18_realestate_developer_unit_inventory/views/res_config_settings_views.xml 
+2026-11-07 23:22:38,796 159489 INFO p8_l0 odoo.modules.loading: Module isky_18_realestate_developer_unit_inventory loaded in 2.29s, 1477 queries (+1477 other) 
+2026-11-07 23:22:38,796 159489 INFO p8_l0 odoo.modules.loading: Loading module mail_mobile (34/38) 
+2026-11-07 23:22:38,800 159489 WARNING p8_l0 odoo.models: The model blocked.unit.reason has no _description 
+2026-11-07 23:22:38,880 159489 WARNING p8_l0 odoo.fields: Field business.unit.type.name: unknown parameter 'unique', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-07 23:22:38,882 159489 WARNING p8_l0 py.warnings: /opt/odoo/odoo18/odoo/odoo/fields.py:542: UserWarning: Property cluster.parent_source_id.required should be a boolean (1).
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 205, in load_module_graph
+    registry.setup_models(env.cr)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 341, in setup_models
+    model._setup_fields()
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 3725, in _setup_fields
+    field.setup(self)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 542, in setup
+    warnings.warn(f'Property {self}.required should be a boolean ({self.required}).')
+ 
+2026-11-07 23:22:38,883 159489 WARNING p8_l0 py.warnings: /opt/odoo/odoo18/odoo/odoo/fields.py:542: UserWarning: Property floor.area.parent_source_id.required should be a boolean (1).
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 205, in load_module_graph
+    registry.setup_models(env.cr)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 341, in setup_models
+    model._setup_fields()
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 3725, in _setup_fields
+    field.setup(self)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 542, in setup
+    warnings.warn(f'Property {self}.required should be a boolean ({self.required}).')
+ 
+2026-11-07 23:22:38,883 159489 WARNING p8_l0 py.warnings: /opt/odoo/odoo18/odoo/odoo/fields.py:542: UserWarning: Property real.estate.building.parent_source_id.required should be a boolean (1).
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 205, in load_module_graph
+    registry.setup_models(env.cr)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 341, in setup_models
+    model._setup_fields()
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 3725, in _setup_fields
+    field.setup(self)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 542, in setup
+    warnings.warn(f'Property {self}.required should be a boolean ({self.required}).')
+ 
+2026-11-07 23:22:38,898 159489 INFO p8_l0 odoo.modules.registry: module mail_mobile: creating or updating database tables 
+2026-11-07 23:22:39,042 159489 WARNING p8_l0 odoo.addons.base.models.ir_model: Two fields (project_id, parent_id) of zone() have the same label: Project. [Modules: isky_18_realestate_developer_unit_inventory and isky_18_realestate_developer_unit_inventory] 
+2026-11-07 23:22:39,361 159489 INFO p8_l0 odoo.modules.loading: loading mail_mobile/data/mail_mobile_data.xml 
+2026-11-07 23:22:39,367 159489 INFO p8_l0 odoo.modules.loading: loading mail_mobile/views/res_config_settings_views.xml 
+2026-11-07 23:22:39,411 159489 INFO p8_l0 odoo.modules.loading: Module mail_mobile loaded in 0.61s, 306 queries (+306 other) 
+2026-11-07 23:22:39,411 159489 INFO p8_l0 odoo.modules.loading: Loading module partner_autocomplete (35/38) 
+2026-11-07 23:22:39,480 159489 WARNING p8_l0 odoo.fields: Field business.unit.type.name: unknown parameter 'unique', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-07 23:22:39,482 159489 WARNING p8_l0 py.warnings: /opt/odoo/odoo18/odoo/odoo/fields.py:542: UserWarning: Property cluster.parent_source_id.required should be a boolean (1).
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 205, in load_module_graph
+    registry.setup_models(env.cr)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 341, in setup_models
+    model._setup_fields()
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 3725, in _setup_fields
+    field.setup(self)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 542, in setup
+    warnings.warn(f'Property {self}.required should be a boolean ({self.required}).')
+ 
+2026-11-07 23:22:39,483 159489 WARNING p8_l0 py.warnings: /opt/odoo/odoo18/odoo/odoo/fields.py:542: UserWarning: Property floor.area.parent_source_id.required should be a boolean (1).
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 205, in load_module_graph
+    registry.setup_models(env.cr)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 341, in setup_models
+    model._setup_fields()
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 3725, in _setup_fields
+    field.setup(self)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 542, in setup
+    warnings.warn(f'Property {self}.required should be a boolean ({self.required}).')
+ 
+2026-11-07 23:22:39,483 159489 WARNING p8_l0 py.warnings: /opt/odoo/odoo18/odoo/odoo/fields.py:542: UserWarning: Property real.estate.building.parent_source_id.required should be a boolean (1).
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 205, in load_module_graph
+    registry.setup_models(env.cr)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 341, in setup_models
+    model._setup_fields()
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 3725, in _setup_fields
+    field.setup(self)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 542, in setup
+    warnings.warn(f'Property {self}.required should be a boolean ({self.required}).')
+ 
+2026-11-07 23:22:39,496 159489 INFO p8_l0 odoo.modules.registry: module partner_autocomplete: creating or updating database tables 
+2026-11-07 23:22:39,704 159489 INFO p8_l0 odoo.modules.loading: loading partner_autocomplete/security/ir.model.access.csv 
+2026-11-07 23:22:39,719 159489 INFO p8_l0 odoo.modules.loading: loading partner_autocomplete/views/res_partner_views.xml 
+2026-11-07 23:22:39,749 159489 INFO p8_l0 odoo.modules.loading: loading partner_autocomplete/views/res_company_views.xml 
+2026-11-07 23:22:39,764 159489 INFO p8_l0 odoo.modules.loading: loading partner_autocomplete/views/res_config_settings_views.xml 
+2026-11-07 23:22:39,784 159489 INFO p8_l0 odoo.modules.loading: loading partner_autocomplete/data/cron.xml 
+2026-11-07 23:22:39,799 159489 INFO p8_l0 odoo.modules.loading: loading partner_autocomplete/data/iap_service_data.xml 
+2026-11-07 23:22:39,826 159489 INFO p8_l0 odoo.modules.loading: Module partner_autocomplete loaded in 0.42s, 209 queries (+209 other) 
+2026-11-07 23:22:39,827 159489 INFO p8_l0 odoo.modules.loading: Loading module product_barcodelookup (36/38) 
+2026-11-07 23:22:39,907 159489 WARNING p8_l0 odoo.fields: Field business.unit.type.name: unknown parameter 'unique', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-07 23:22:39,909 159489 WARNING p8_l0 py.warnings: /opt/odoo/odoo18/odoo/odoo/fields.py:542: UserWarning: Property cluster.parent_source_id.required should be a boolean (1).
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 205, in load_module_graph
+    registry.setup_models(env.cr)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 341, in setup_models
+    model._setup_fields()
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 3725, in _setup_fields
+    field.setup(self)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 542, in setup
+    warnings.warn(f'Property {self}.required should be a boolean ({self.required}).')
+ 
+2026-11-07 23:22:39,909 159489 WARNING p8_l0 py.warnings: /opt/odoo/odoo18/odoo/odoo/fields.py:542: UserWarning: Property floor.area.parent_source_id.required should be a boolean (1).
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 205, in load_module_graph
+    registry.setup_models(env.cr)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 341, in setup_models
+    model._setup_fields()
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 3725, in _setup_fields
+    field.setup(self)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 542, in setup
+    warnings.warn(f'Property {self}.required should be a boolean ({self.required}).')
+ 
+2026-11-07 23:22:39,910 159489 WARNING p8_l0 py.warnings: /opt/odoo/odoo18/odoo/odoo/fields.py:542: UserWarning: Property real.estate.building.parent_source_id.required should be a boolean (1).
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 205, in load_module_graph
+    registry.setup_models(env.cr)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 341, in setup_models
+    model._setup_fields()
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 3725, in _setup_fields
+    field.setup(self)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 542, in setup
+    warnings.warn(f'Property {self}.required should be a boolean ({self.required}).')
+ 
+2026-11-07 23:22:39,923 159489 INFO p8_l0 odoo.modules.registry: module product_barcodelookup: creating or updating database tables 
+2026-11-07 23:22:40,010 159489 INFO p8_l0 odoo.modules.loading: loading product_barcodelookup/data/product_data.xml 
+2026-11-07 23:22:40,032 159489 INFO p8_l0 odoo.modules.loading: loading product_barcodelookup/views/product_product_views.xml 
+2026-11-07 23:22:40,053 159489 INFO p8_l0 odoo.modules.loading: loading product_barcodelookup/views/res_config_settings_views.xml 
+2026-11-07 23:22:40,095 159489 INFO p8_l0 odoo.modules.loading: Module product_barcodelookup loaded in 0.27s, 117 queries (+117 other) 
+2026-11-07 23:22:40,095 159489 INFO p8_l0 odoo.modules.loading: Loading module sms (37/38) 
+2026-11-07 23:22:40,110 159489 WARNING p8_l0 odoo.models: The model blocked.unit.reason has no _description 
+2026-11-07 23:22:40,113 159489 WARNING p8_l0 odoo.models: The model blocked.unit.reason has no _description 
+2026-11-07 23:22:40,114 159489 WARNING p8_l0 odoo.models: The model blocked.unit.reason has no _description 
+2026-11-07 23:22:40,115 159489 WARNING p8_l0 odoo.models: The model realestate.project.type has no _description 
+2026-11-07 23:22:40,115 159489 WARNING p8_l0 odoo.models: The model real.estate.project.phase has no _description 
+2026-11-07 23:22:40,115 159489 WARNING p8_l0 odoo.models: The model unit.design has no _description 
+2026-11-07 23:22:40,115 159489 WARNING p8_l0 odoo.models: The model parking.template has no _description 
+2026-11-07 23:22:40,115 159489 WARNING p8_l0 odoo.models: The model premiums.premiums has no _description 
+2026-11-07 23:22:40,115 159489 WARNING p8_l0 odoo.models: The model price.plan.line has no _description 
+2026-11-07 23:22:40,115 159489 WARNING p8_l0 odoo.models: The model real.estate.facility has no _description 
+2026-11-07 23:22:40,115 159489 WARNING p8_l0 odoo.models: The model real.estate.feature has no _description 
+2026-11-07 23:22:40,115 159489 WARNING p8_l0 odoo.models: The model real.estate.nearby.connectivity has no _description 
+2026-11-07 23:22:40,115 159489 WARNING p8_l0 odoo.models: The model developer.project has no _description 
+2026-11-07 23:22:40,115 159489 WARNING p8_l0 odoo.models: The model neighborhood.neighborhood has no _description 
+2026-11-07 23:22:40,115 159489 WARNING p8_l0 odoo.models: The model res.country.city has no _description 
+2026-11-07 23:22:40,116 159489 WARNING p8_l0 odoo.models: The model blocked.unit.reason has no _description 
+2026-11-07 23:22:40,240 159489 WARNING p8_l0 odoo.fields: Field business.unit.type.name: unknown parameter 'unique', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-07 23:22:40,242 159489 WARNING p8_l0 py.warnings: /opt/odoo/odoo18/odoo/odoo/fields.py:542: UserWarning: Property cluster.parent_source_id.required should be a boolean (1).
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 205, in load_module_graph
+    registry.setup_models(env.cr)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 341, in setup_models
+    model._setup_fields()
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 3725, in _setup_fields
+    field.setup(self)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 542, in setup
+    warnings.warn(f'Property {self}.required should be a boolean ({self.required}).')
+ 
+2026-11-07 23:22:40,242 159489 WARNING p8_l0 py.warnings: /opt/odoo/odoo18/odoo/odoo/fields.py:542: UserWarning: Property floor.area.parent_source_id.required should be a boolean (1).
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 205, in load_module_graph
+    registry.setup_models(env.cr)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 341, in setup_models
+    model._setup_fields()
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 3725, in _setup_fields
+    field.setup(self)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 542, in setup
+    warnings.warn(f'Property {self}.required should be a boolean ({self.required}).')
+ 
+2026-11-07 23:22:40,243 159489 WARNING p8_l0 py.warnings: /opt/odoo/odoo18/odoo/odoo/fields.py:542: UserWarning: Property real.estate.building.parent_source_id.required should be a boolean (1).
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 205, in load_module_graph
+    registry.setup_models(env.cr)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 341, in setup_models
+    model._setup_fields()
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 3725, in _setup_fields
+    field.setup(self)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 542, in setup
+    warnings.warn(f'Property {self}.required should be a boolean ({self.required}).')
+ 
+2026-11-07 23:22:40,259 159489 INFO p8_l0 odoo.modules.registry: module sms: creating or updating database tables 
+2026-11-07 23:22:40,274 159489 INFO p8_l0 odoo.models: Prepare computation of ir.actions.server.sms_template_id 
+2026-11-07 23:22:40,274 159489 INFO p8_l0 odoo.models: Prepare computation of ir.actions.server.sms_method 
+2026-11-07 23:22:40,312 159489 INFO p8_l0 odoo.models: Prepare computation of res.partner.phone_sanitized 
+2026-11-07 23:22:41,328 159489 WARNING p8_l0 odoo.addons.base.models.ir_model: Two fields (project_id, parent_id) of zone() have the same label: Project. [Modules: isky_18_realestate_developer_unit_inventory and isky_18_realestate_developer_unit_inventory] 
+2026-11-07 23:22:43,095 159489 INFO p8_l0 odoo.modules.loading: loading sms/data/iap_service_data.xml 
+2026-11-07 23:22:43,101 159489 INFO p8_l0 odoo.modules.loading: loading sms/data/ir_cron_data.xml 
+2026-11-07 23:22:43,111 159489 INFO p8_l0 odoo.modules.loading: loading sms/wizard/sms_account_code_views.xml 
+2026-11-07 23:22:43,126 159489 INFO p8_l0 odoo.modules.loading: loading sms/wizard/sms_account_phone_views.xml 
+2026-11-07 23:22:43,134 159489 INFO p8_l0 odoo.modules.loading: loading sms/wizard/sms_account_sender_views.xml 
+2026-11-07 23:22:43,142 159489 INFO p8_l0 odoo.modules.loading: loading sms/wizard/sms_composer_views.xml 
+2026-11-07 23:22:43,156 159489 INFO p8_l0 odoo.modules.loading: loading sms/wizard/sms_template_preview_views.xml 
+2026-11-07 23:22:43,169 159489 INFO p8_l0 odoo.modules.loading: loading sms/wizard/sms_resend_views.xml 
+2026-11-07 23:22:43,186 159489 INFO p8_l0 odoo.modules.loading: loading sms/wizard/sms_template_reset_views.xml 
+2026-11-07 23:22:43,199 159489 INFO p8_l0 odoo.modules.loading: loading sms/views/ir_actions_server_views.xml 
+2026-11-07 23:22:43,215 159489 INFO p8_l0 odoo.modules.loading: loading sms/views/mail_notification_views.xml 
+2026-11-07 23:22:43,234 159489 INFO p8_l0 odoo.modules.loading: loading sms/views/res_config_settings_views.xml 
+2026-11-07 23:22:43,254 159489 INFO p8_l0 odoo.modules.loading: loading sms/views/res_partner_views.xml 
+2026-11-07 23:22:43,298 159489 INFO p8_l0 odoo.modules.loading: loading sms/views/iap_account_views.xml 
+2026-11-07 23:22:43,313 159489 INFO p8_l0 odoo.modules.loading: loading sms/views/sms_sms_views.xml 
+2026-11-07 23:22:43,347 159489 INFO p8_l0 odoo.modules.loading: loading sms/views/sms_template_views.xml 
+2026-11-07 23:22:43,376 159489 INFO p8_l0 odoo.modules.loading: loading sms/security/ir.model.access.csv 
+2026-11-07 23:22:43,412 159489 INFO p8_l0 odoo.modules.loading: loading sms/security/sms_security.xml 
+2026-11-07 23:22:43,444 159489 INFO p8_l0 odoo.modules.loading: Module sms loaded in 3.35s, 2399 queries (+2399 other) 
+2026-11-07 23:22:43,444 159489 INFO p8_l0 odoo.modules.loading: Loading module snailmail (38/38) 
+2026-11-07 23:22:43,451 159489 WARNING p8_l0 odoo.models: The model blocked.unit.reason has no _description 
+2026-11-07 23:22:43,521 159489 WARNING p8_l0 odoo.fields: Field business.unit.type.name: unknown parameter 'unique', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-07 23:22:43,523 159489 WARNING p8_l0 py.warnings: /opt/odoo/odoo18/odoo/odoo/fields.py:542: UserWarning: Property cluster.parent_source_id.required should be a boolean (1).
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 205, in load_module_graph
+    registry.setup_models(env.cr)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 341, in setup_models
+    model._setup_fields()
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 3725, in _setup_fields
+    field.setup(self)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 542, in setup
+    warnings.warn(f'Property {self}.required should be a boolean ({self.required}).')
+ 
+2026-11-07 23:22:43,524 159489 WARNING p8_l0 py.warnings: /opt/odoo/odoo18/odoo/odoo/fields.py:542: UserWarning: Property floor.area.parent_source_id.required should be a boolean (1).
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 205, in load_module_graph
+    registry.setup_models(env.cr)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 341, in setup_models
+    model._setup_fields()
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 3725, in _setup_fields
+    field.setup(self)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 542, in setup
+    warnings.warn(f'Property {self}.required should be a boolean ({self.required}).')
+ 
+2026-11-07 23:22:43,524 159489 WARNING p8_l0 py.warnings: /opt/odoo/odoo18/odoo/odoo/fields.py:542: UserWarning: Property real.estate.building.parent_source_id.required should be a boolean (1).
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 205, in load_module_graph
+    registry.setup_models(env.cr)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 341, in setup_models
+    model._setup_fields()
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 3725, in _setup_fields
+    field.setup(self)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 542, in setup
+    warnings.warn(f'Property {self}.required should be a boolean ({self.required}).')
+ 
+2026-11-07 23:22:43,540 159489 INFO p8_l0 odoo.modules.registry: module snailmail: creating or updating database tables 
+2026-11-07 23:22:43,710 159489 WARNING p8_l0 odoo.addons.base.models.ir_model: Two fields (project_id, parent_id) of zone() have the same label: Project. [Modules: isky_18_realestate_developer_unit_inventory and isky_18_realestate_developer_unit_inventory] 
+2026-11-07 23:22:44,120 159489 INFO p8_l0 odoo.modules.loading: loading snailmail/data/iap_service_data.xml 
+2026-11-07 23:22:44,125 159489 INFO p8_l0 odoo.modules.loading: loading snailmail/data/snailmail_data.xml 
+2026-11-07 23:22:44,137 159489 INFO p8_l0 odoo.modules.loading: loading snailmail/views/report_assets.xml 
+2026-11-07 23:22:44,152 159489 INFO p8_l0 odoo.modules.loading: loading snailmail/views/snailmail_views.xml 
+2026-11-07 23:22:44,179 159489 INFO p8_l0 odoo.modules.loading: loading snailmail/wizard/snailmail_letter_format_error_views.xml 
+2026-11-07 23:22:44,192 159489 INFO p8_l0 odoo.modules.loading: loading snailmail/wizard/snailmail_letter_missing_required_fields_views.xml 
+2026-11-07 23:22:44,208 159489 INFO p8_l0 odoo.modules.loading: loading snailmail/security/ir.model.access.csv 
+2026-11-07 23:22:44,249 159489 INFO p8_l0 odoo.modules.loading: Module snailmail loaded in 0.80s, 558 queries (+558 other) 
+2026-11-07 23:22:44,249 159489 INFO p8_l0 odoo.modules.loading: 38 modules loaded in 30.41s, 23086 queries (+23087 extra) 
+2026-11-07 23:22:44,317 159489 WARNING p8_l0 odoo.fields: Field business.unit.type.name: unknown parameter 'unique', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-07 23:22:44,319 159489 WARNING p8_l0 py.warnings: /opt/odoo/odoo18/odoo/odoo/fields.py:542: UserWarning: Property cluster.parent_source_id.required should be a boolean (1).
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 497, in load_modules
+    registry.setup_models(cr)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 341, in setup_models
+    model._setup_fields()
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 3725, in _setup_fields
+    field.setup(self)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 542, in setup
+    warnings.warn(f'Property {self}.required should be a boolean ({self.required}).')
+ 
+2026-11-07 23:22:44,320 159489 WARNING p8_l0 py.warnings: /opt/odoo/odoo18/odoo/odoo/fields.py:542: UserWarning: Property floor.area.parent_source_id.required should be a boolean (1).
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 497, in load_modules
+    registry.setup_models(cr)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 341, in setup_models
+    model._setup_fields()
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 3725, in _setup_fields
+    field.setup(self)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 542, in setup
+    warnings.warn(f'Property {self}.required should be a boolean ({self.required}).')
+ 
+2026-11-07 23:22:44,320 159489 WARNING p8_l0 py.warnings: /opt/odoo/odoo18/odoo/odoo/fields.py:542: UserWarning: Property real.estate.building.parent_source_id.required should be a boolean (1).
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 182, in run
+    main(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1478, in start
+    rc = server.run(preload, stop)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "/opt/odoo/odoo18/odoo/odoo/service/server.py", line 1382, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 497, in load_modules
+    registry.setup_models(cr)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 341, in setup_models
+    model._setup_fields()
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 3725, in _setup_fields
+    field.setup(self)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 542, in setup
+    warnings.warn(f'Property {self}.required should be a boolean ({self.required}).')
+ 
+2026-11-07 23:22:44,402 159489 WARNING p8_l0 odoo.fields: Field business.unit.type.name: unknown parameter 'unique', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-07 23:22:45,010 159489 INFO p8_l0 odoo.modules.loading: Modules loaded. 
+2026-11-07 23:22:45,017 159489 INFO p8_l0 odoo.modules.registry: Registry changed, signaling through the database 
+2026-11-07 23:22:45,019 159489 INFO p8_l0 odoo.modules.registry: Registry loaded in 46.473s 
+2026-11-07 23:22:45,019 159489 INFO p8_l0 odoo.service.server: Starting post tests 
+2026-11-07 23:22:45,054 159489 INFO p8_l0 odoo.addons.isky_18_realestate_developer_unit_inventory.tests.test_hierarchy: Starting TestHierarchy.test_cluster_zone_system_code_no_code_change ... 
+2026-11-07 23:22:45,113 159489 INFO p8_l0 odoo.addons.isky_18_realestate_developer_unit_inventory.tests.test_hierarchy: Starting TestHierarchy.test_duplicate_code_under_same_parent_rejected ... 
+2026-11-07 23:22:45,137 159489 INFO p8_l0 odoo.addons.isky_18_realestate_developer_unit_inventory.tests.test_hierarchy: Starting TestHierarchy.test_level_definition_locks_after_first_unit ... 
+2026-11-07 23:22:45,208 159489 INFO p8_l0 odoo.addons.isky_18_realestate_developer_unit_inventory.tests.test_hierarchy: Starting TestHierarchy.test_two_level_system_code ... 
+2026-11-07 23:22:45,234 159489 INFO p8_l0 odoo.addons.base.models.ir_attachment: filestore gc 0 checked, 0 removed 
+2026-11-07 23:22:45,245 159489 INFO p8_l0 odoo.addons.isky_18_realestate_developer_unit_inventory.tests.test_phase6_units_section: Starting TestPhase6UnitsSection.test_l0_declares_the_tab_and_the_five_sections ... 
+2026-11-07 23:22:45,251 159489 INFO p8_l0 odoo.addons.isky_18_realestate_developer_unit_inventory.tests.test_phase6_units_section: Starting TestPhase6UnitsSection.test_the_setting_writes_through_to_the_company ... 
+2026-11-07 23:22:45,252 159489 INFO p8_l0 odoo.addons.isky_18_realestate_developer_unit_inventory.tests.test_phase6_units_section: skipped TestPhase6UnitsSection.test_the_setting_writes_through_to_the_company : no hierarchy template in this database 
+2026-11-07 23:22:45,257 159489 INFO p8_l0 odoo.addons.isky_18_realestate_developer_unit_inventory.tests.test_phase6_units_section: Starting TestPhase6UnitsSection.test_units_section_holds_the_hierarchy_template ... 
+2026-11-07 23:22:45,282 159489 INFO p8_l0 odoo.addons.base.models.ir_attachment: filestore gc 0 checked, 0 removed 
+2026-11-07 23:22:45,293 159489 INFO p8_l0 odoo.addons.isky_18_realestate_developer_unit_inventory.tests.test_phase8_company_type: Starting TestPhase8CompanyType.test_it_is_required_so_no_company_is_undecided ... 
+2026-11-07 23:22:45,296 159489 INFO p8_l0 odoo.addons.isky_18_realestate_developer_unit_inventory.tests.test_phase8_company_type: Starting TestPhase8CompanyType.test_the_broker_helper_answers_for_both_types ... 
+2026-11-07 23:22:45,431 159489 INFO p8_l0 odoo.addons.isky_18_realestate_developer_unit_inventory.tests.test_phase8_company_type: Starting TestPhase8CompanyType.test_the_two_types_and_the_default ... 
+2026-11-07 23:22:45,544 159489 INFO p8_l0 odoo.addons.base.models.ir_attachment: filestore gc 0 checked, 0 removed 
+2026-11-07 23:22:45,552 159489 INFO p8_l0 odoo.service.server: 10 post-tests in 0.53s, 378 queries 
+2026-11-07 23:22:45,553 159489 INFO p8_l0 odoo.tests.stats: isky_18_realestate_developer_unit_inventory: 16 tests 0.50s 378 queries 
+2026-11-07 23:22:45,553 159489 INFO p8_l0 odoo.tests.result: 0 failed, 0 error(s) of 10 tests when loading database 'p8_l0' 
+2026-11-07 23:22:45,553 159489 INFO p8_l0 odoo.service.server: Initiating shutdown 
+2026-11-07 23:22:45,553 159489 INFO p8_l0 odoo.service.server: Hit CTRL-C again or send a second signal to force the shutdown. 
+2026-11-07 23:22:45,842 159489 INFO p8_l0 odoo.sql_db: ConnectionPool(read/write;used=0/count=0/max=64): Closed 1 connections  
+### END=2026-11-08 01:22:46 EET
+### EXIT=0
+### RUN_ID=20261108-012156-159471 (end)

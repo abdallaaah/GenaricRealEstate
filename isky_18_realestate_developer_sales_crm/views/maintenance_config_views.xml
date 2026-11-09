@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Phase 3c step 2a: moved here from arkzayed_18_realestate_development, verbatim and with the same
+         local xmlids. L2 owns these models, so it owns their UI. -->
+    <record id="view_maintenance_config_form" model="ir.ui.view">
+        <field name="name">maintenance.config.form</field>
+        <field name="model">maintenance.config</field>
+        <field name="arch" type="xml">
+            <form string="Maintenance Configuration" create="0" delete="0">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>Maintenance Default Values Configuration</h1>
+                    </div>
+                    <group>
+                        <group string="Default Settings">
+                            <field name="maintenance_default"/>
+                            <field name="maintenance_price_method_default" widget="radio"/>
+                            <field name="maintenance_percentage_default" invisible="maintenance_price_method_default != 'percentage'"/>
+                            <field name="maintenance_amount_default" invisible="maintenance_price_method_default != 'fixed_amount'"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

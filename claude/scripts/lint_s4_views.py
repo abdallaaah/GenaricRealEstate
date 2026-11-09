@@ -26,6 +26,18 @@ from collections import defaultdict
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 PREFIX = 'isky_18_realestate_developer_'
 
+# Narrow exceptions to check 1, each one a standalone view of ANOTHER layer's model, allowed
+# because every field it renders belongs to the declaring module - so the view cannot live in the
+# model's own layer (which has not got the fields) and it is not a legacy module holding our UI,
+# which is what check 1 exists to catch. Phase 3c step 6 (S6-D3). This list may only shrink.
+CHECK1_EXCEPTIONS = {
+    # the construction-progress lists: progress columns only, on L0's unit and building
+    ('isky_18_realestate_developer_construction/views/unit_building_progress_views.xml',
+     'real.estate.unit'),
+    ('isky_18_realestate_developer_construction/views/unit_building_progress_views.xml',
+     'real.estate.building'),
+}
+
 
 def module_dirs():
     for name in sorted(os.listdir(ROOT)):
@@ -41,9 +53,41 @@ def read_manifest(path):
         return {}
 
 
+def _class_name_and_inherit(node):
+    """(_name, [_inherit...]) for one class body."""
+    name, inherit = None, []
+    for st in node.body:
+        if not isinstance(st, ast.Assign):
+            continue
+        for t in st.targets:
+            if not isinstance(t, ast.Name):
+                continue
+            if t.id == '_name' and isinstance(st.value, ast.Constant):
+                name = st.value.value
+            elif t.id == '_inherit':
+                if isinstance(st.value, ast.Constant):
+                    inherit = [st.value.value]
+                elif isinstance(st.value, (ast.List, ast.Tuple)):
+                    inherit = [e.value for e in st.value.elts
+                               if isinstance(e, ast.Constant)]
+    return name, inherit
+
+
 def model_owners(mods):
-    """model name -> module declaring its _name"""
-    owners = {}
+    """model name -> the module that DEFINES it.
+
+    A class may carry both `_name` and `_inherit` - this repo uses that pattern to extend a model
+    while keeping its name (crm_lead.py explains why: without `_name`, a list `_inherit` makes Odoo
+    treat the class as a new anonymous model). Such a class is an **extension**, not the owner, and
+    it is told apart by its own name appearing in its `_inherit`.
+
+    Before Phase 3c step 2 this function took the first module alphabetically, which credited
+    `sale.proposal`, `eoi.eoi` and `real.estate.sale.reservation` to `commission` - whose classes
+    extend them - instead of `sales_crm`, which defines them. That mis-stated the per-layer
+    migration backlog and could have let check 1 pass on a misplaced view.
+    """
+    definers = defaultdict(set)
+    extenders = defaultdict(set)
     for name, path in mods.items():
         for dp, _, fs in os.walk(path):
             if '__pycache__' in dp:
@@ -58,12 +102,23 @@ def model_owners(mods):
                 for node in ast.walk(tree):
                     if not isinstance(node, ast.ClassDef):
                         continue
-                    for st in node.body:
-                        if isinstance(st, ast.Assign):
-                            for t in st.targets:
-                                if isinstance(t, ast.Name) and t.id == '_name' \
-                                        and isinstance(st.value, ast.Constant):
-                                    owners.setdefault(st.value.value, name)
+                    model, inherit = _class_name_and_inherit(node)
+                    if not model:
+                        continue
+                    if model in inherit:
+                        extenders[model].add(name)
+                    else:
+                        definers[model].add(name)
+
+    owners = {}
+    for model, mods_defining in definers.items():
+        real = sorted(mods_defining)
+        # a module that only extends never owns; when more than one module defines the same
+        # model, prefer an isky module - the legacy copies are what this refactor is removing
+        isky = [m for m in real if m.startswith(PREFIX)]
+        owners[model] = (isky or real)[0]
+    for model, mods_extending in extenders.items():
+        owners.setdefault(model, sorted(mods_extending)[0])
     return owners
 
 
@@ -133,7 +188,7 @@ def main():
                     continue
                 model = mm.group(1)
                 own = owners.get(model)
-                if own != mod:
+                if own != mod and (rel, model) not in CHECK1_EXCEPTIONS:
                     fail_view.append(
                         "%s: standalone view for '%s' (owned by %s)"
                         % (rel, model, own or 'a non-isky module'))
@@ -151,16 +206,32 @@ def main():
                         bucket.append("%s: menuitem '%s' %s=\"%s\" does not resolve"
                                       % (rel, mid.group(1) if mid else '?', attr, ref))
 
-    # informational: legacy UI still owning isky models
+    # informational: legacy UI still holding records for isky-owned models.
+    #
+    # Phase 3c step 1 (decisions log 2026-11-08, S1-D2) splits this into the two numbers that
+    # mean different things. MUST MOVE: a standalone record - a view with no inherit_id, a window
+    # action, a report - which S4 says belongs to the module owning the model. MAY STAY: an
+    # inherited view, which S4 explicitly allows to live anywhere, because adding your own fields
+    # to someone else's form is what a bridge is for. A phase's acceptance is the first number
+    # reaching zero for the layer being migrated; the second is printed so nothing is hidden.
     legacy_hits = defaultdict(int)
+    may_stay = defaultdict(int)
     for mod in sorted(mods):
         if mod.startswith(PREFIX):
             continue
         for f in xml_files(mods[mod]):
             s = open(f, encoding='utf-8', errors='ignore').read()
-            for m in re.finditer(r'<field name="model">([a-z0-9_.]+)</field>', s):
-                own = owners.get(m.group(1))
-                if own and own.startswith(PREFIX):
+            for m in re.finditer(r'<record\b(?:(?!</record>).)*?</record>', s, re.S):
+                body = m.group(0)
+                mm = re.search(r'<field name="(?:model|res_model)">([a-z0-9_.]+)</field>', body)
+                if not mm:
+                    continue
+                own = owners.get(mm.group(1))
+                if not own or not own.startswith(PREFIX):
+                    continue
+                if 'inherit_id' in body:
+                    may_stay[(mod, own)] += 1
+                else:
                     legacy_hits[(mod, own)] += 1
 
     print("S4 lint: views and menus")
@@ -174,15 +245,29 @@ def main():
         for line in bucket:
             print("        " + line)
 
-    if legacy_hits:
+    if legacy_hits or may_stay:
         print()
-        print("  INFORMATIONAL - legacy UI still holding views for isky-owned models")
-        print("  (the migration backlog; not a failure until that phase runs):")
+        print("  MIGRATION BACKLOG - standalone records a legacy module still holds for an")
+        print("  isky-owned model. These MUST MOVE; zero for a layer closes its Phase 3c step:")
         total = 0
         for (legacy, own), n in sorted(legacy_hits.items(), key=lambda kv: -kv[1]):
             print("        %-42s -> %-46s %3d" % (legacy, own.replace(PREFIX, ''), n))
             total += n
         print("        %-42s    %-46s %3d TOTAL" % ('', '', total))
+        per_layer = defaultdict(int)
+        for (_legacy, own), n in legacy_hits.items():
+            per_layer[own] += n
+        print("        per layer: %s" % (', '.join(
+            '%s=%d' % (k.replace(PREFIX, ''), v) for k, v in sorted(per_layer.items())) or 'none'))
+        if may_stay:
+            print()
+            print("  MAY STAY - inherited views, which S4 allows in any module (a bridge adding")
+            print("  its own fields to another layer's form). Not part of the backlog:")
+            stay_total = 0
+            for (legacy, own), n in sorted(may_stay.items(), key=lambda kv: -kv[1]):
+                print("        %-42s -> %-46s %3d" % (legacy, own.replace(PREFIX, ''), n))
+                stay_total += n
+            print("        %-42s    %-46s %3d TOTAL" % ('', '', stay_total))
 
     failed = fail_view or fail_action or fail_parent
     print()

@@ -1,0 +1,1234 @@
+### RUN_ID=20261108-152430-268504
+### START=2026-11-08 15:24:30 EET
+### DB=cf_modeb (reused, rolled back)
+### ARGS=shell --no-http < _cf_probe3.py
+2026-11-08 13:24:31,617 268509 WARNING cf_modeb odoo.modules.module: Missing `license` key in manifest for 'arkzayed_18_contact_customization', defaulting to LGPL-3 
+2026-11-08 13:24:31,653 268509 WARNING cf_modeb odoo.addons.attachment_indexation.models.ir_attachment: Attachment indexation of PDF documents is unavailable because the 'pdfminer' Python library cannot be found on the system. You may install it from https://pypi.org/project/pdfminer.six/ (e.g. `pip3 install pdfminer.six`) 
+2026-11-08 13:24:32,128 268509 WARNING cf_modeb odoo.tools.translate: no translation language detected, skipping translation <frame at 0x7cec3658edc0, file '/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/core/real_estate_unit.py', line 1046, code RealEstateUnit> 
+Stack (most recent call last):
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 130, in run
+    self.shell(config['db_name'])
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 112, in shell
+    registry = Registry(dbname)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 94, in __new__
+    return cls.new(db_name)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 485, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 186, in load_module_graph
+    load_openerp_module(package.name)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/module.py", line 384, in load_openerp_module
+    __import__(qualname)
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/__init__.py", line 1, in <module>
+    from . import models
+  File "<frozen importlib._bootstrap>", line 1415, in _handle_fromlist
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/__init__.py", line 3, in <module>
+    from . import core
+  File "<frozen importlib._bootstrap>", line 1415, in _handle_fromlist
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/core/__init__.py", line 8, in <module>
+    from . import real_estate_unit
+  File "<frozen importlib._bootstrap>", line 1415, in _handle_fromlist
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/core/real_estate_unit.py", line 27, in <module>
+    class RealEstateUnit(models.Model):
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/core/real_estate_unit.py", line 1046, in RealEstateUnit
+    ('monthly_installment', 1, _("Monthly")),
+  File "/opt/odoo/odoo18/odoo/odoo/tools/translate.py", line 634, in get_text_alias
+    module, lang = _get_translation_source(1)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/translate.py", line 623, in _get_translation_source
+    lang = lang or _get_lang(frame, default_lang)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/translate.py", line 614, in _get_lang
+    _logger.log(log_level, 'no translation language detected, skipping translation %s', frame, stack_info=True)
+2026-11-08 13:24:32,128 268509 WARNING cf_modeb odoo.tools.translate: no translation language detected, skipping translation <frame at 0x7cec3658edc0, file '/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/core/real_estate_unit.py', line 1047, code RealEstateUnit> 
+Stack (most recent call last):
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 130, in run
+    self.shell(config['db_name'])
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 112, in shell
+    registry = Registry(dbname)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 94, in __new__
+    return cls.new(db_name)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 485, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 186, in load_module_graph
+    load_openerp_module(package.name)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/module.py", line 384, in load_openerp_module
+    __import__(qualname)
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/__init__.py", line 1, in <module>
+    from . import models
+  File "<frozen importlib._bootstrap>", line 1415, in _handle_fromlist
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/__init__.py", line 3, in <module>
+    from . import core
+  File "<frozen importlib._bootstrap>", line 1415, in _handle_fromlist
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/core/__init__.py", line 8, in <module>
+    from . import real_estate_unit
+  File "<frozen importlib._bootstrap>", line 1415, in _handle_fromlist
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/core/real_estate_unit.py", line 27, in <module>
+    class RealEstateUnit(models.Model):
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/core/real_estate_unit.py", line 1047, in RealEstateUnit
+    ('quarterly_installment', 3, _("Quarterly")),
+  File "/opt/odoo/odoo18/odoo/odoo/tools/translate.py", line 634, in get_text_alias
+    module, lang = _get_translation_source(1)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/translate.py", line 623, in _get_translation_source
+    lang = lang or _get_lang(frame, default_lang)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/translate.py", line 614, in _get_lang
+    _logger.log(log_level, 'no translation language detected, skipping translation %s', frame, stack_info=True)
+2026-11-08 13:24:32,129 268509 WARNING cf_modeb odoo.tools.translate: no translation language detected, skipping translation <frame at 0x7cec3658edc0, file '/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/core/real_estate_unit.py', line 1048, code RealEstateUnit> 
+Stack (most recent call last):
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 130, in run
+    self.shell(config['db_name'])
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 112, in shell
+    registry = Registry(dbname)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 94, in __new__
+    return cls.new(db_name)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 485, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 186, in load_module_graph
+    load_openerp_module(package.name)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/module.py", line 384, in load_openerp_module
+    __import__(qualname)
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/__init__.py", line 1, in <module>
+    from . import models
+  File "<frozen importlib._bootstrap>", line 1415, in _handle_fromlist
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/__init__.py", line 3, in <module>
+    from . import core
+  File "<frozen importlib._bootstrap>", line 1415, in _handle_fromlist
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/core/__init__.py", line 8, in <module>
+    from . import real_estate_unit
+  File "<frozen importlib._bootstrap>", line 1415, in _handle_fromlist
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/core/real_estate_unit.py", line 27, in <module>
+    class RealEstateUnit(models.Model):
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/core/real_estate_unit.py", line 1048, in RealEstateUnit
+    ('semi_annual_installment', 6, _("Semi Annual")),
+  File "/opt/odoo/odoo18/odoo/odoo/tools/translate.py", line 634, in get_text_alias
+    module, lang = _get_translation_source(1)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/translate.py", line 623, in _get_translation_source
+    lang = lang or _get_lang(frame, default_lang)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/translate.py", line 614, in _get_lang
+    _logger.log(log_level, 'no translation language detected, skipping translation %s', frame, stack_info=True)
+2026-11-08 13:24:32,129 268509 WARNING cf_modeb odoo.tools.translate: no translation language detected, skipping translation <frame at 0x7cec3658edc0, file '/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/core/real_estate_unit.py', line 1049, code RealEstateUnit> 
+Stack (most recent call last):
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 130, in run
+    self.shell(config['db_name'])
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 112, in shell
+    registry = Registry(dbname)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 94, in __new__
+    return cls.new(db_name)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 485, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 186, in load_module_graph
+    load_openerp_module(package.name)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/module.py", line 384, in load_openerp_module
+    __import__(qualname)
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/__init__.py", line 1, in <module>
+    from . import models
+  File "<frozen importlib._bootstrap>", line 1415, in _handle_fromlist
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/__init__.py", line 3, in <module>
+    from . import core
+  File "<frozen importlib._bootstrap>", line 1415, in _handle_fromlist
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/core/__init__.py", line 8, in <module>
+    from . import real_estate_unit
+  File "<frozen importlib._bootstrap>", line 1415, in _handle_fromlist
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/core/real_estate_unit.py", line 27, in <module>
+    class RealEstateUnit(models.Model):
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_unit_inventory/models/core/real_estate_unit.py", line 1049, in RealEstateUnit
+    ('annual_installment', 12, _("Annual")),
+  File "/opt/odoo/odoo18/odoo/odoo/tools/translate.py", line 634, in get_text_alias
+    module, lang = _get_translation_source(1)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/translate.py", line 623, in _get_translation_source
+    lang = lang or _get_lang(frame, default_lang)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/translate.py", line 614, in _get_lang
+    _logger.log(log_level, 'no translation language detected, skipping translation %s', frame, stack_info=True)
+2026-11-08 13:24:32,133 268509 WARNING cf_modeb odoo.models: The model realestate.project.type has no _description 
+2026-11-08 13:24:32,133 268509 WARNING cf_modeb odoo.models: The model real.estate.project.phase has no _description 
+2026-11-08 13:24:32,133 268509 WARNING cf_modeb odoo.models: The model unit.design has no _description 
+2026-11-08 13:24:32,134 268509 WARNING cf_modeb odoo.models: The model parking.template has no _description 
+2026-11-08 13:24:32,134 268509 WARNING cf_modeb odoo.models: The model premiums.premiums has no _description 
+2026-11-08 13:24:32,134 268509 WARNING cf_modeb odoo.models: The model price.plan.line has no _description 
+2026-11-08 13:24:32,134 268509 WARNING cf_modeb odoo.models: The model real.estate.facility has no _description 
+2026-11-08 13:24:32,134 268509 WARNING cf_modeb odoo.models: The model real.estate.feature has no _description 
+2026-11-08 13:24:32,134 268509 WARNING cf_modeb odoo.models: The model real.estate.nearby.connectivity has no _description 
+2026-11-08 13:24:32,135 268509 WARNING cf_modeb odoo.models: The model developer.project has no _description 
+2026-11-08 13:24:32,135 268509 WARNING cf_modeb odoo.models: The model neighborhood.neighborhood has no _description 
+2026-11-08 13:24:32,135 268509 WARNING cf_modeb odoo.models: The model res.country.city has no _description 
+2026-11-08 13:24:32,136 268509 WARNING cf_modeb odoo.models: The model blocked.unit.reason has no _description 
+2026-11-08 13:24:32,138 268509 WARNING cf_modeb odoo.models: The model blocked.unit.reason has no _description 
+2026-11-08 13:24:32,142 268509 WARNING cf_modeb odoo.models: The model blocked.unit.reason has no _description 
+2026-11-08 13:24:32,155 268509 WARNING cf_modeb odoo.models: The model blocked.unit.reason has no _description 
+2026-11-08 13:24:32,157 268509 WARNING cf_modeb odoo.models: The model blocked.unit.reason has no _description 
+2026-11-08 13:24:32,157 268509 WARNING cf_modeb odoo.models: The model blocked.unit.reason has no _description 
+2026-11-08 13:24:32,158 268509 WARNING cf_modeb odoo.models: The model realestate.project.type has no _description 
+2026-11-08 13:24:32,158 268509 WARNING cf_modeb odoo.models: The model real.estate.project.phase has no _description 
+2026-11-08 13:24:32,158 268509 WARNING cf_modeb odoo.models: The model unit.design has no _description 
+2026-11-08 13:24:32,158 268509 WARNING cf_modeb odoo.models: The model parking.template has no _description 
+2026-11-08 13:24:32,158 268509 WARNING cf_modeb odoo.models: The model premiums.premiums has no _description 
+2026-11-08 13:24:32,158 268509 WARNING cf_modeb odoo.models: The model price.plan.line has no _description 
+2026-11-08 13:24:32,158 268509 WARNING cf_modeb odoo.models: The model real.estate.facility has no _description 
+2026-11-08 13:24:32,158 268509 WARNING cf_modeb odoo.models: The model real.estate.feature has no _description 
+2026-11-08 13:24:32,158 268509 WARNING cf_modeb odoo.models: The model real.estate.nearby.connectivity has no _description 
+2026-11-08 13:24:32,158 268509 WARNING cf_modeb odoo.models: The model developer.project has no _description 
+2026-11-08 13:24:32,158 268509 WARNING cf_modeb odoo.models: The model neighborhood.neighborhood has no _description 
+2026-11-08 13:24:32,158 268509 WARNING cf_modeb odoo.models: The model res.country.city has no _description 
+2026-11-08 13:24:32,158 268509 WARNING cf_modeb odoo.models: The model blocked.unit.reason has no _description 
+2026-11-08 13:24:32,165 268509 WARNING cf_modeb odoo.models: The model blocked.unit.reason has no _description 
+2026-11-08 13:24:32,187 268509 WARNING cf_modeb odoo.models: The model blocked.unit.reason has no _description 
+2026-11-08 13:24:32,302 268509 WARNING cf_modeb odoo.models: The model blocked.unit.reason has no _description 
+2026-11-08 13:24:32,302 268509 WARNING cf_modeb odoo.models: The model blocked.unit.reason has no _description 
+2026-11-08 13:24:32,303 268509 WARNING cf_modeb odoo.models: The model realestate.project.type has no _description 
+2026-11-08 13:24:32,303 268509 WARNING cf_modeb odoo.models: The model real.estate.project.phase has no _description 
+2026-11-08 13:24:32,303 268509 WARNING cf_modeb odoo.models: The model unit.design has no _description 
+2026-11-08 13:24:32,303 268509 WARNING cf_modeb odoo.models: The model parking.template has no _description 
+2026-11-08 13:24:32,303 268509 WARNING cf_modeb odoo.models: The model premiums.premiums has no _description 
+2026-11-08 13:24:32,303 268509 WARNING cf_modeb odoo.models: The model price.plan.line has no _description 
+2026-11-08 13:24:32,303 268509 WARNING cf_modeb odoo.models: The model real.estate.facility has no _description 
+2026-11-08 13:24:32,303 268509 WARNING cf_modeb odoo.models: The model real.estate.feature has no _description 
+2026-11-08 13:24:32,303 268509 WARNING cf_modeb odoo.models: The model real.estate.nearby.connectivity has no _description 
+2026-11-08 13:24:32,303 268509 WARNING cf_modeb odoo.models: The model developer.project has no _description 
+2026-11-08 13:24:32,304 268509 WARNING cf_modeb odoo.models: The model neighborhood.neighborhood has no _description 
+2026-11-08 13:24:32,304 268509 WARNING cf_modeb odoo.models: The model res.country.city has no _description 
+2026-11-08 13:24:32,304 268509 WARNING cf_modeb odoo.models: The model blocked.unit.reason has no _description 
+2026-11-08 13:24:32,357 268509 WARNING cf_modeb odoo.models: The model blocked.unit.reason has no _description 
+2026-11-08 13:24:32,358 268509 WARNING cf_modeb odoo.models: The model blocked.unit.reason has no _description 
+2026-11-08 13:24:32,359 268509 WARNING cf_modeb odoo.models: The model realestate.project.type has no _description 
+2026-11-08 13:24:32,359 268509 WARNING cf_modeb odoo.models: The model real.estate.project.phase has no _description 
+2026-11-08 13:24:32,359 268509 WARNING cf_modeb odoo.models: The model unit.design has no _description 
+2026-11-08 13:24:32,359 268509 WARNING cf_modeb odoo.models: The model parking.template has no _description 
+2026-11-08 13:24:32,359 268509 WARNING cf_modeb odoo.models: The model premiums.premiums has no _description 
+2026-11-08 13:24:32,359 268509 WARNING cf_modeb odoo.models: The model price.plan.line has no _description 
+2026-11-08 13:24:32,359 268509 WARNING cf_modeb odoo.models: The model real.estate.facility has no _description 
+2026-11-08 13:24:32,359 268509 WARNING cf_modeb odoo.models: The model real.estate.feature has no _description 
+2026-11-08 13:24:32,359 268509 WARNING cf_modeb odoo.models: The model real.estate.nearby.connectivity has no _description 
+2026-11-08 13:24:32,359 268509 WARNING cf_modeb odoo.models: The model developer.project has no _description 
+2026-11-08 13:24:32,359 268509 WARNING cf_modeb odoo.models: The model neighborhood.neighborhood has no _description 
+2026-11-08 13:24:32,359 268509 WARNING cf_modeb odoo.models: The model res.country.city has no _description 
+2026-11-08 13:24:32,359 268509 WARNING cf_modeb odoo.models: The model blocked.unit.reason has no _description 
+2026-11-08 13:24:32,527 268509 WARNING cf_modeb odoo.models: The model blocked.unit.reason has no _description 
+2026-11-08 13:24:32,531 268509 WARNING cf_modeb odoo.models: The model blocked.unit.reason has no _description 
+2026-11-08 13:24:32,532 268509 WARNING cf_modeb odoo.models: The model blocked.unit.reason has no _description 
+2026-11-08 13:24:32,534 268509 WARNING cf_modeb odoo.models: The model realestate.project.type has no _description 
+2026-11-08 13:24:32,534 268509 WARNING cf_modeb odoo.models: The model real.estate.project.phase has no _description 
+2026-11-08 13:24:32,534 268509 WARNING cf_modeb odoo.models: The model unit.design has no _description 
+2026-11-08 13:24:32,534 268509 WARNING cf_modeb odoo.models: The model parking.template has no _description 
+2026-11-08 13:24:32,534 268509 WARNING cf_modeb odoo.models: The model premiums.premiums has no _description 
+2026-11-08 13:24:32,534 268509 WARNING cf_modeb odoo.models: The model price.plan.line has no _description 
+2026-11-08 13:24:32,534 268509 WARNING cf_modeb odoo.models: The model real.estate.facility has no _description 
+2026-11-08 13:24:32,534 268509 WARNING cf_modeb odoo.models: The model real.estate.feature has no _description 
+2026-11-08 13:24:32,534 268509 WARNING cf_modeb odoo.models: The model real.estate.nearby.connectivity has no _description 
+2026-11-08 13:24:32,534 268509 WARNING cf_modeb odoo.models: The model developer.project has no _description 
+2026-11-08 13:24:32,534 268509 WARNING cf_modeb odoo.models: The model neighborhood.neighborhood has no _description 
+2026-11-08 13:24:32,534 268509 WARNING cf_modeb odoo.models: The model res.country.city has no _description 
+2026-11-08 13:24:32,535 268509 WARNING cf_modeb odoo.models: The model blocked.unit.reason has no _description 
+2026-11-08 13:24:32,541 268509 WARNING cf_modeb odoo.models: The model blocked.unit.reason has no _description 
+2026-11-08 13:24:32,542 268509 WARNING cf_modeb odoo.models: The model blocked.unit.reason has no _description 
+2026-11-08 13:24:32,543 268509 WARNING cf_modeb odoo.models: The model realestate.project.type has no _description 
+2026-11-08 13:24:32,544 268509 WARNING cf_modeb odoo.models: The model real.estate.project.phase has no _description 
+2026-11-08 13:24:32,544 268509 WARNING cf_modeb odoo.models: The model unit.design has no _description 
+2026-11-08 13:24:32,544 268509 WARNING cf_modeb odoo.models: The model parking.template has no _description 
+2026-11-08 13:24:32,544 268509 WARNING cf_modeb odoo.models: The model premiums.premiums has no _description 
+2026-11-08 13:24:32,544 268509 WARNING cf_modeb odoo.models: The model price.plan.line has no _description 
+2026-11-08 13:24:32,544 268509 WARNING cf_modeb odoo.models: The model real.estate.facility has no _description 
+2026-11-08 13:24:32,544 268509 WARNING cf_modeb odoo.models: The model real.estate.feature has no _description 
+2026-11-08 13:24:32,544 268509 WARNING cf_modeb odoo.models: The model real.estate.nearby.connectivity has no _description 
+2026-11-08 13:24:32,544 268509 WARNING cf_modeb odoo.models: The model developer.project has no _description 
+2026-11-08 13:24:32,544 268509 WARNING cf_modeb odoo.models: The model neighborhood.neighborhood has no _description 
+2026-11-08 13:24:32,544 268509 WARNING cf_modeb odoo.models: The model res.country.city has no _description 
+2026-11-08 13:24:32,544 268509 WARNING cf_modeb odoo.models: The model blocked.unit.reason has no _description 
+2026-11-08 13:24:32,552 268509 WARNING cf_modeb odoo.models: The model blocked.unit.reason has no _description 
+2026-11-08 13:24:32,553 268509 WARNING cf_modeb odoo.models: The model blocked.unit.reason has no _description 
+2026-11-08 13:24:32,554 268509 WARNING cf_modeb odoo.models: The model realestate.project.type has no _description 
+2026-11-08 13:24:32,555 268509 WARNING cf_modeb odoo.models: The model real.estate.project.phase has no _description 
+2026-11-08 13:24:32,555 268509 WARNING cf_modeb odoo.models: The model unit.design has no _description 
+2026-11-08 13:24:32,555 268509 WARNING cf_modeb odoo.models: The model parking.template has no _description 
+2026-11-08 13:24:32,555 268509 WARNING cf_modeb odoo.models: The model premiums.premiums has no _description 
+2026-11-08 13:24:32,555 268509 WARNING cf_modeb odoo.models: The model price.plan.line has no _description 
+2026-11-08 13:24:32,555 268509 WARNING cf_modeb odoo.models: The model real.estate.facility has no _description 
+2026-11-08 13:24:32,555 268509 WARNING cf_modeb odoo.models: The model real.estate.feature has no _description 
+2026-11-08 13:24:32,555 268509 WARNING cf_modeb odoo.models: The model real.estate.nearby.connectivity has no _description 
+2026-11-08 13:24:32,555 268509 WARNING cf_modeb odoo.models: The model developer.project has no _description 
+2026-11-08 13:24:32,555 268509 WARNING cf_modeb odoo.models: The model neighborhood.neighborhood has no _description 
+2026-11-08 13:24:32,555 268509 WARNING cf_modeb odoo.models: The model res.country.city has no _description 
+2026-11-08 13:24:32,555 268509 WARNING cf_modeb odoo.models: The model blocked.unit.reason has no _description 
+2026-11-08 13:24:32,665 268509 WARNING cf_modeb py.warnings: /opt/odoo/odoo18/odoo/odoo/api.py:484: DeprecationWarning: The model odoo.addons.isky_18_realestate_developer_sales_crm.models.core.eoi is not overriding the create method in batch
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 130, in run
+    self.shell(config['db_name'])
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 112, in shell
+    registry = Registry(dbname)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 94, in __new__
+    return cls.new(db_name)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 485, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 186, in load_module_graph
+    load_openerp_module(package.name)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/module.py", line 384, in load_openerp_module
+    __import__(qualname)
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_sales_crm/__init__.py", line 1, in <module>
+    from . import models
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_sales_crm/models/__init__.py", line 1, in <module>
+    from . import core
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_sales_crm/models/core/__init__.py", line 19, in <module>
+    from . import eoi
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_sales_crm/models/core/eoi.py", line 19, in <module>
+    class Eoi(models.Model):
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_sales_crm/models/core/eoi.py", line 335, in Eoi
+    @api.model
+  File "/opt/odoo/odoo18/odoo/odoo/api.py", line 431, in model
+    return model_create_single(method)
+  File "/opt/odoo/odoo18/odoo/odoo/api.py", line 484, in model_create_single
+    warnings.warn(
+ 
+2026-11-08 13:24:32,669 268509 WARNING cf_modeb py.warnings: /opt/odoo/odoo18/odoo/odoo/api.py:484: DeprecationWarning: The model odoo.addons.isky_18_realestate_developer_sales_crm.models.core.sale_reservation is not overriding the create method in batch
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 130, in run
+    self.shell(config['db_name'])
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 112, in shell
+    registry = Registry(dbname)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 94, in __new__
+    return cls.new(db_name)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 485, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 186, in load_module_graph
+    load_openerp_module(package.name)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/module.py", line 384, in load_openerp_module
+    __import__(qualname)
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_sales_crm/__init__.py", line 1, in <module>
+    from . import models
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_sales_crm/models/__init__.py", line 1, in <module>
+    from . import core
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_sales_crm/models/core/__init__.py", line 21, in <module>
+    from . import sale_reservation
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_sales_crm/models/core/sale_reservation.py", line 24, in <module>
+    class SaleContract(models.Model):
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_sales_crm/models/core/sale_reservation.py", line 899, in SaleContract
+    @api.model
+  File "/opt/odoo/odoo18/odoo/odoo/api.py", line 431, in model
+    return model_create_single(method)
+  File "/opt/odoo/odoo18/odoo/odoo/api.py", line 484, in model_create_single
+    warnings.warn(
+ 
+2026-11-08 13:24:32,674 268509 WARNING cf_modeb py.warnings: /opt/odoo/odoo18/odoo/odoo/api.py:484: DeprecationWarning: The model odoo.addons.isky_18_realestate_developer_sales_crm.models.core.sale_proposal is not overriding the create method in batch
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 130, in run
+    self.shell(config['db_name'])
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 112, in shell
+    registry = Registry(dbname)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 94, in __new__
+    return cls.new(db_name)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 485, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 186, in load_module_graph
+    load_openerp_module(package.name)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/module.py", line 384, in load_openerp_module
+    __import__(qualname)
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_sales_crm/__init__.py", line 1, in <module>
+    from . import models
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_sales_crm/models/__init__.py", line 1, in <module>
+    from . import core
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_sales_crm/models/core/__init__.py", line 23, in <module>
+    from . import sale_proposal
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_sales_crm/models/core/sale_proposal.py", line 30, in <module>
+    class SaleProposal(models.Model):
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_sales_crm/models/core/sale_proposal.py", line 1966, in SaleProposal
+    @api.model
+  File "/opt/odoo/odoo18/odoo/odoo/api.py", line 431, in model
+    return model_create_single(method)
+  File "/opt/odoo/odoo18/odoo/odoo/api.py", line 484, in model_create_single
+    warnings.warn(
+ 
+2026-11-08 13:24:32,677 268509 WARNING cf_modeb py.warnings: /opt/odoo/odoo18/odoo/odoo/api.py:484: DeprecationWarning: The model odoo.addons.isky_18_realestate_developer_sales_crm.models.core.sale_proposal_crm_ext is not overriding the create method in batch
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 130, in run
+    self.shell(config['db_name'])
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 112, in shell
+    registry = Registry(dbname)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 94, in __new__
+    return cls.new(db_name)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 485, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 186, in load_module_graph
+    load_openerp_module(package.name)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/module.py", line 384, in load_openerp_module
+    __import__(qualname)
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_sales_crm/__init__.py", line 1, in <module>
+    from . import models
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_sales_crm/models/__init__.py", line 1, in <module>
+    from . import core
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_sales_crm/models/core/__init__.py", line 24, in <module>
+    from . import sale_proposal_crm_ext
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_sales_crm/models/core/sale_proposal_crm_ext.py", line 3, in <module>
+    class SalesProposal(models.Model):
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_sales_crm/models/core/sale_proposal_crm_ext.py", line 8, in SalesProposal
+    @api.model
+  File "/opt/odoo/odoo18/odoo/odoo/api.py", line 431, in model
+    return model_create_single(method)
+  File "/opt/odoo/odoo18/odoo/odoo/api.py", line 484, in model_create_single
+    warnings.warn(
+ 
+2026-11-08 13:24:32,681 268509 WARNING cf_modeb py.warnings: /opt/odoo/odoo18/odoo/odoo/api.py:484: DeprecationWarning: The model odoo.addons.isky_18_realestate_developer_sales_crm.models.core.installment_penalty is not overriding the create method in batch
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 130, in run
+    self.shell(config['db_name'])
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 112, in shell
+    registry = Registry(dbname)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 94, in __new__
+    return cls.new(db_name)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 485, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 186, in load_module_graph
+    load_openerp_module(package.name)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/module.py", line 384, in load_openerp_module
+    __import__(qualname)
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_sales_crm/__init__.py", line 1, in <module>
+    from . import models
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_sales_crm/models/__init__.py", line 1, in <module>
+    from . import core
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_sales_crm/models/core/__init__.py", line 32, in <module>
+    from . import installment_penalty
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_sales_crm/models/core/installment_penalty.py", line 5, in <module>
+    class InstallmentPenalty(models.Model):
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_sales_crm/models/core/installment_penalty.py", line 30, in InstallmentPenalty
+    @api.model
+  File "/opt/odoo/odoo18/odoo/odoo/api.py", line 431, in model
+    return model_create_single(method)
+  File "/opt/odoo/odoo18/odoo/odoo/api.py", line 484, in model_create_single
+    warnings.warn(
+ 
+2026-11-08 13:24:32,684 268509 WARNING cf_modeb py.warnings: /opt/odoo/odoo18/odoo/odoo/api.py:484: DeprecationWarning: The model odoo.addons.isky_18_realestate_developer_sales_crm.models.core.account_payment is not overriding the create method in batch
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 130, in run
+    self.shell(config['db_name'])
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 112, in shell
+    registry = Registry(dbname)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 94, in __new__
+    return cls.new(db_name)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 485, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 186, in load_module_graph
+    load_openerp_module(package.name)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/module.py", line 384, in load_openerp_module
+    __import__(qualname)
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_sales_crm/__init__.py", line 1, in <module>
+    from . import models
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_sales_crm/models/__init__.py", line 1, in <module>
+    from . import core
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_sales_crm/models/core/__init__.py", line 35, in <module>
+    from . import account_payment
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_sales_crm/models/core/account_payment.py", line 8, in <module>
+    class AccountPayment(models.Model):
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_sales_crm/models/core/account_payment.py", line 254, in AccountPayment
+    @api.model
+  File "/opt/odoo/odoo18/odoo/odoo/api.py", line 431, in model
+    return model_create_single(method)
+  File "/opt/odoo/odoo18/odoo/odoo/api.py", line 484, in model_create_single
+    warnings.warn(
+ 
+2026-11-08 13:24:32,686 268509 WARNING cf_modeb py.warnings: /opt/odoo/odoo18/odoo/odoo/api.py:484: DeprecationWarning: The model odoo.addons.isky_18_realestate_developer_sales_crm.models.core.broker_unit is not overriding the create method in batch
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 130, in run
+    self.shell(config['db_name'])
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 112, in shell
+    registry = Registry(dbname)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 94, in __new__
+    return cls.new(db_name)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 485, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 186, in load_module_graph
+    load_openerp_module(package.name)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/module.py", line 384, in load_openerp_module
+    __import__(qualname)
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_sales_crm/__init__.py", line 1, in <module>
+    from . import models
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_sales_crm/models/__init__.py", line 1, in <module>
+    from . import core
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_sales_crm/models/core/__init__.py", line 36, in <module>
+    from . import broker_unit
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_sales_crm/models/core/broker_unit.py", line 11, in <module>
+    class BrokerUnit(models.Model):
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_sales_crm/models/core/broker_unit.py", line 336, in BrokerUnit
+    @api.model
+  File "/opt/odoo/odoo18/odoo/odoo/api.py", line 431, in model
+    return model_create_single(method)
+  File "/opt/odoo/odoo18/odoo/odoo/api.py", line 484, in model_create_single
+    warnings.warn(
+ 
+2026-11-08 13:24:32,691 268509 WARNING cf_modeb py.warnings: /opt/odoo/odoo18/odoo/odoo/api.py:484: DeprecationWarning: The model odoo.addons.isky_18_realestate_developer_sales_crm.models.core.crm_lead is not overriding the create method in batch
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 130, in run
+    self.shell(config['db_name'])
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 112, in shell
+    registry = Registry(dbname)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 94, in __new__
+    return cls.new(db_name)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 485, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 186, in load_module_graph
+    load_openerp_module(package.name)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/module.py", line 384, in load_openerp_module
+    __import__(qualname)
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_sales_crm/__init__.py", line 1, in <module>
+    from . import models
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_sales_crm/models/__init__.py", line 1, in <module>
+    from . import core
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_sales_crm/models/core/__init__.py", line 42, in <module>
+    from . import crm_lead
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_sales_crm/models/core/crm_lead.py", line 24, in <module>
+    class CrmLead(models.Model):
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_sales_crm/models/core/crm_lead.py", line 842, in CrmLead
+    @api.model
+  File "/opt/odoo/odoo18/odoo/odoo/api.py", line 431, in model
+    return model_create_single(method)
+  File "/opt/odoo/odoo18/odoo/odoo/api.py", line 484, in model_create_single
+    warnings.warn(
+ 
+2026-11-08 13:24:32,695 268509 WARNING cf_modeb py.warnings: /opt/odoo/odoo18/odoo/odoo/api.py:484: DeprecationWarning: The model odoo.addons.isky_18_realestate_developer_sales_crm.models.core.mail_message is not overriding the create method in batch
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 130, in run
+    self.shell(config['db_name'])
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 112, in shell
+    registry = Registry(dbname)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 94, in __new__
+    return cls.new(db_name)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 485, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 186, in load_module_graph
+    load_openerp_module(package.name)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/module.py", line 384, in load_openerp_module
+    __import__(qualname)
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_sales_crm/__init__.py", line 1, in <module>
+    from . import models
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_sales_crm/models/__init__.py", line 1, in <module>
+    from . import core
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_sales_crm/models/core/__init__.py", line 48, in <module>
+    from . import mail_message
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_sales_crm/models/core/mail_message.py", line 4, in <module>
+    class MailMessageInherit(models.Model):
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_sales_crm/models/core/mail_message.py", line 7, in MailMessageInherit
+    @api.model
+  File "/opt/odoo/odoo18/odoo/odoo/api.py", line 431, in model
+    return model_create_single(method)
+  File "/opt/odoo/odoo18/odoo/odoo/api.py", line 484, in model_create_single
+    warnings.warn(
+ 
+2026-11-08 13:24:32,702 268509 WARNING cf_modeb odoo.models: The model eoi.eoi has no _description 
+2026-11-08 13:24:32,703 268509 WARNING cf_modeb odoo.models: The model real.estate.sale.reservation has no _description 
+2026-11-08 13:24:32,703 268509 WARNING cf_modeb odoo.models: The model reservation.payment has no _description 
+2026-11-08 13:24:32,703 268509 WARNING cf_modeb odoo.models: The model customer.ownership has no _description 
+2026-11-08 13:24:32,703 268509 WARNING cf_modeb odoo.models: The model revenue.share2 has no _description 
+2026-11-08 13:24:32,704 268509 WARNING cf_modeb odoo.models: The model counter.counter has no _description 
+2026-11-08 13:24:32,704 268509 WARNING cf_modeb odoo.models: The model gas.counter has no _description 
+2026-11-08 13:24:32,704 268509 WARNING cf_modeb odoo.models: The model water.counter has no _description 
+2026-11-08 13:24:32,704 268509 WARNING cf_modeb odoo.models: The model landline.counter has no _description 
+2026-11-08 13:24:32,704 268509 WARNING cf_modeb odoo.models: The model internet has no _description 
+2026-11-08 13:24:32,704 268509 WARNING cf_modeb odoo.models: The model attachment.type has no _description 
+2026-11-08 13:24:32,704 268509 WARNING cf_modeb odoo.models: The model attachment.type.line has no _description 
+2026-11-08 13:24:32,704 268509 WARNING cf_modeb odoo.models: The model project.sale.phase has no _description 
+2026-11-08 13:24:32,704 268509 WARNING cf_modeb odoo.models: The model commission.commission has no _description 
+2026-11-08 13:24:32,705 268509 WARNING cf_modeb odoo.models: The model user.notification has no _description 
+2026-11-08 13:24:32,705 268509 WARNING cf_modeb odoo.models: The model partner.notification.rel has no _description 
+2026-11-08 13:24:32,723 268509 WARNING cf_modeb py.warnings: /opt/odoo/odoo18/odoo/odoo/api.py:484: DeprecationWarning: The model odoo.addons.isky_18_realestate_developer_commission.models.core.broker_contract is not overriding the create method in batch
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 130, in run
+    self.shell(config['db_name'])
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 112, in shell
+    registry = Registry(dbname)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 94, in __new__
+    return cls.new(db_name)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 485, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 186, in load_module_graph
+    load_openerp_module(package.name)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/module.py", line 384, in load_openerp_module
+    __import__(qualname)
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_commission/__init__.py", line 1, in <module>
+    from . import models
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_commission/models/__init__.py", line 1, in <module>
+    from . import core
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_commission/models/core/__init__.py", line 5, in <module>
+    from . import broker_contract
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_commission/models/core/broker_contract.py", line 4, in <module>
+    class BrokerContract(models.Model):
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_commission/models/core/broker_contract.py", line 49, in BrokerContract
+    @api.model
+  File "/opt/odoo/odoo18/odoo/odoo/api.py", line 431, in model
+    return model_create_single(method)
+  File "/opt/odoo/odoo18/odoo/odoo/api.py", line 484, in model_create_single
+    warnings.warn(
+ 
+2026-11-08 13:24:32,726 268509 WARNING cf_modeb py.warnings: /opt/odoo/odoo18/odoo/odoo/api.py:484: DeprecationWarning: The model odoo.addons.isky_18_realestate_developer_commission.models.core.broker_claim is not overriding the create method in batch
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 130, in run
+    self.shell(config['db_name'])
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 112, in shell
+    registry = Registry(dbname)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 94, in __new__
+    return cls.new(db_name)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 485, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 186, in load_module_graph
+    load_openerp_module(package.name)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/module.py", line 384, in load_openerp_module
+    __import__(qualname)
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_commission/__init__.py", line 1, in <module>
+    from . import models
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_commission/models/__init__.py", line 1, in <module>
+    from . import core
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_commission/models/core/__init__.py", line 8, in <module>
+    from . import broker_claim
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_commission/models/core/broker_claim.py", line 7, in <module>
+    class BrokerClaim(models.Model):
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_commission/models/core/broker_claim.py", line 279, in BrokerClaim
+    @api.model
+  File "/opt/odoo/odoo18/odoo/odoo/api.py", line 431, in model
+    return model_create_single(method)
+  File "/opt/odoo/odoo18/odoo/odoo/api.py", line 484, in model_create_single
+    warnings.warn(
+ 
+2026-11-08 13:24:32,730 268509 WARNING cf_modeb py.warnings: /opt/odoo/odoo18/odoo/odoo/fields.py:1537: DeprecationWarning: Since Odoo 18, 'group_operator' is deprecated, use 'aggregator' instead
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 130, in run
+    self.shell(config['db_name'])
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 112, in shell
+    registry = Registry(dbname)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 94, in __new__
+    return cls.new(db_name)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 485, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 186, in load_module_graph
+    load_openerp_module(package.name)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/module.py", line 384, in load_openerp_module
+    __import__(qualname)
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_commission/__init__.py", line 1, in <module>
+    from . import models
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_commission/models/__init__.py", line 1, in <module>
+    from . import core
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_commission/models/core/__init__.py", line 13, in <module>
+    from . import realestate_commission_achievement
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_commission/models/core/realestate_commission_achievement.py", line 5, in <module>
+    class RealEstateCommissionAchievement(models.Model):
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 252, in __new__
+    return super().__new__(meta, name, bases, attrs)
+  File "/opt/odoo/odoo18/odoo/odoo/api.py", line 131, in __new__
+    return type.__new__(meta, name, bases, attrs)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 401, in __set_name__
+    self._setup_attrs(owner, name)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 490, in _setup_attrs
+    attrs = self._get_attrs(model_class, name)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 1537, in _get_attrs
+    res = super()._get_attrs(model_class, name)
+ 
+2026-11-08 13:24:32,730 268509 WARNING cf_modeb py.warnings: /opt/odoo/odoo18/odoo/odoo/fields.py:490: DeprecationWarning: Since Odoo 18, 'group_operator' is deprecated, use 'aggregator' instead
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 130, in run
+    self.shell(config['db_name'])
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 112, in shell
+    registry = Registry(dbname)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 94, in __new__
+    return cls.new(db_name)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 485, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 186, in load_module_graph
+    load_openerp_module(package.name)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/module.py", line 384, in load_openerp_module
+    __import__(qualname)
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_commission/__init__.py", line 1, in <module>
+    from . import models
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_commission/models/__init__.py", line 1, in <module>
+    from . import core
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_commission/models/core/__init__.py", line 13, in <module>
+    from . import realestate_commission_achievement
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_commission/models/core/realestate_commission_achievement.py", line 5, in <module>
+    class RealEstateCommissionAchievement(models.Model):
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 252, in __new__
+    return super().__new__(meta, name, bases, attrs)
+  File "/opt/odoo/odoo18/odoo/odoo/api.py", line 131, in __new__
+    return type.__new__(meta, name, bases, attrs)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 401, in __set_name__
+    self._setup_attrs(owner, name)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 490, in _setup_attrs
+    attrs = self._get_attrs(model_class, name)
+ 
+2026-11-08 13:24:32,732 268509 WARNING cf_modeb py.warnings: /opt/odoo/odoo18/odoo/odoo/api.py:484: DeprecationWarning: The model odoo.addons.isky_18_realestate_developer_commission.models.core.project_commission_crm is not overriding the create method in batch
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 130, in run
+    self.shell(config['db_name'])
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 112, in shell
+    registry = Registry(dbname)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 94, in __new__
+    return cls.new(db_name)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 485, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 186, in load_module_graph
+    load_openerp_module(package.name)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/module.py", line 384, in load_openerp_module
+    __import__(qualname)
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_commission/__init__.py", line 1, in <module>
+    from . import models
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_commission/models/__init__.py", line 1, in <module>
+    from . import core
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_commission/models/core/__init__.py", line 16, in <module>
+    from . import project_commission_crm
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_commission/models/core/project_commission_crm.py", line 6, in <module>
+    class ProjectCommission(models.Model):
+  File "/opt/odoo/odoo18/odoo/custom/GenaricRealEstate/isky_18_realestate_developer_commission/models/core/project_commission_crm.py", line 57, in ProjectCommission
+    @api.model
+  File "/opt/odoo/odoo18/odoo/odoo/api.py", line 431, in model
+    return model_create_single(method)
+  File "/opt/odoo/odoo18/odoo/odoo/api.py", line 484, in model_create_single
+    warnings.warn(
+ 
+2026-11-08 13:24:32,735 268509 WARNING cf_modeb odoo.models: The model broker.contract has no _description 
+2026-11-08 13:24:32,736 268509 WARNING cf_modeb odoo.models: The model broker.contract.line has no _description 
+2026-11-08 13:24:32,736 268509 WARNING cf_modeb odoo.models: The model broker.team has no _description 
+2026-11-08 13:24:32,736 268509 WARNING cf_modeb odoo.models: The model broker.team.member has no _description 
+2026-11-08 13:24:32,736 268509 WARNING cf_modeb odoo.models: The model eoi.eoi has no _description 
+2026-11-08 13:24:32,736 268509 WARNING cf_modeb odoo.models: The model real.estate.sale.reservation has no _description 
+2026-11-08 13:24:32,736 268509 WARNING cf_modeb odoo.models: The model developer.project has no _description 
+2026-11-08 13:24:32,908 268509 WARNING cf_modeb odoo.fields: crm.lead.priority: selection=[('', ''), ('0', 'Very Low'), ('1', 'Not Interested'), ('2', 'Hesitate'), ('3', 'Hot')] overrides existing selection; use selection_add instead 
+2026-11-08 13:24:32,908 268509 WARNING cf_modeb odoo.fields: crm.lead.unit_type: selection=[('retail', 'Retail'), ('office', 'Admin'), ('medical', 'Medical'), ('residential', 'Residential'), ('entertainment', 'Entertainment'), ('industrial', 'Industrial'), ('parking', 'Parking'), ('gate', 'Gate'), ('storage', 'Storage'), ('public_area', 'Public Area'), ('roof', 'Roof')] overrides existing selection; use selection_add instead 
+2026-11-08 13:24:32,977 268509 WARNING cf_modeb odoo.fields: Field business.unit.type.name: unknown parameter 'unique', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-08 13:24:32,979 268509 WARNING cf_modeb py.warnings: /opt/odoo/odoo18/odoo/odoo/fields.py:542: UserWarning: Property cluster.parent_source_id.required should be a boolean (1).
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 130, in run
+    self.shell(config['db_name'])
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 112, in shell
+    registry = Registry(dbname)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 94, in __new__
+    return cls.new(db_name)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 511, in load_modules
+    registry.setup_models(cr)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 341, in setup_models
+    model._setup_fields()
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 3725, in _setup_fields
+    field.setup(self)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 542, in setup
+    warnings.warn(f'Property {self}.required should be a boolean ({self.required}).')
+ 
+2026-11-08 13:24:32,980 268509 WARNING cf_modeb py.warnings: /opt/odoo/odoo18/odoo/odoo/fields.py:542: UserWarning: Property floor.area.parent_source_id.required should be a boolean (1).
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 130, in run
+    self.shell(config['db_name'])
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 112, in shell
+    registry = Registry(dbname)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 94, in __new__
+    return cls.new(db_name)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 511, in load_modules
+    registry.setup_models(cr)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 341, in setup_models
+    model._setup_fields()
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 3725, in _setup_fields
+    field.setup(self)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 542, in setup
+    warnings.warn(f'Property {self}.required should be a boolean ({self.required}).')
+ 
+2026-11-08 13:24:32,980 268509 WARNING cf_modeb py.warnings: /opt/odoo/odoo18/odoo/odoo/fields.py:542: UserWarning: Property real.estate.building.parent_source_id.required should be a boolean (1).
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 130, in run
+    self.shell(config['db_name'])
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 112, in shell
+    registry = Registry(dbname)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 94, in __new__
+    return cls.new(db_name)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 511, in load_modules
+    registry.setup_models(cr)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 341, in setup_models
+    model._setup_fields()
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 3725, in _setup_fields
+    field.setup(self)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 542, in setup
+    warnings.warn(f'Property {self}.required should be a boolean ({self.required}).')
+ 
+2026-11-08 13:24:32,993 268509 WARNING cf_modeb py.warnings: /opt/odoo/odoo18/odoo/odoo/fields.py:542: UserWarning: Property crm.lead.user_id.required should be a boolean (1).
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 130, in run
+    self.shell(config['db_name'])
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 112, in shell
+    registry = Registry(dbname)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 94, in __new__
+    return cls.new(db_name)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 511, in load_modules
+    registry.setup_models(cr)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 341, in setup_models
+    model._setup_fields()
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 3725, in _setup_fields
+    field.setup(self)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 542, in setup
+    warnings.warn(f'Property {self}.required should be a boolean ({self.required}).')
+ 
+2026-11-08 13:24:32,994 268509 WARNING cf_modeb py.warnings: /opt/odoo/odoo18/odoo/odoo/fields.py:545: UserWarning: Property crm.lead.ninja_count.readonly should be a boolean (1).
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 130, in run
+    self.shell(config['db_name'])
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 112, in shell
+    registry = Registry(dbname)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 94, in __new__
+    return cls.new(db_name)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 115, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/loading.py", line 511, in load_modules
+    registry.setup_models(cr)
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 341, in setup_models
+    model._setup_fields()
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 3725, in _setup_fields
+    field.setup(self)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 545, in setup
+    warnings.warn(f'Property {self}.readonly should be a boolean ({self.readonly}).')
+ 
+2026-11-08 13:24:33,010 268509 WARNING cf_modeb odoo.fields: Field loan.line.reservation_id with unknown comodel_name 'real.estate.lease.reservation' 
+2026-11-08 13:24:33,010 268509 WARNING cf_modeb odoo.fields: Field loan.line.installment_contract_id with unknown comodel_name 'real.estate.lease.contract' 
+2026-11-08 13:24:33,010 268509 WARNING cf_modeb odoo.fields: Field loan.line.maintenance_contract_id with unknown comodel_name 'real.estate.lease.contract' 
+2026-11-08 13:24:33,010 268509 WARNING cf_modeb odoo.fields: Field loan.line.parking_fees_contract_id with unknown comodel_name 'real.estate.lease.contract' 
+2026-11-08 13:24:33,010 268509 WARNING cf_modeb odoo.fields: Field loan.line.installments_parking_contract_id with unknown comodel_name 'sale.contract' 
+2026-11-08 13:24:33,013 268509 WARNING cf_modeb odoo.fields: Field sale.proposal.residential_type: unknown parameter 'readlonly', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-08 13:24:33,014 268509 WARNING cf_modeb odoo.fields: Field sale.proposal.lg_required: unknown parameter 'deafult', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-08 13:24:33,016 268509 WARNING cf_modeb odoo.fields: Field broker.unit.seller_client_name: unknown parameter 'domain', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-08 13:24:33,017 268509 WARNING cf_modeb odoo.fields: Field broker.unit.built_up_area: unknown parameter 'requied', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-08 13:24:33,019 268509 WARNING cf_modeb odoo.fields: Field broker.team.line_ids: unknown parameter 'tracking', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-08 13:24:33,019 268509 WARNING cf_modeb odoo.fields: Field broker.contract.line.start_date: unknown parameter 'tracking', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-08 13:24:33,019 268509 WARNING cf_modeb odoo.fields: Field broker.contract.line.end_date: unknown parameter 'tracking', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-08 13:24:33,019 268509 WARNING cf_modeb odoo.fields: Field broker.contract.line.commission: unknown parameter 'tracking', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-08 13:24:33,019 268509 WARNING cf_modeb odoo.fields: Field broker.team.broker_id: unknown parameter 'tracking', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-11-08 13:24:33,089 268509 WARNING cf_modeb py.warnings: /opt/odoo/odoo18/odoo/odoo/modules/registry.py:379: UserWarning: sale.proposal: inconsistent 'compute_sudo' for computed fields booking_amount, booking_amount_words. Either set 'compute_sudo' to the same value on all those fields, or use distinct compute methods for sudoed and non-sudoed fields.
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 130, in run
+    self.shell(config['db_name'])
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 115, in shell
+    ctx = odoo.api.Environment(cr, uid, {})['res.users'].context_get()
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/cache.py", line 110, in lookup
+    value = d[key] = self.method(*args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/addons/base/models/res_users.py", line 868, in context_get
+    values = user.read(list(name_to_key), load=False)[0]
+  File "/opt/odoo/odoo18/odoo/odoo/addons/base/models/res_users.py", line 2083, in read
+    res = super(UsersView, self).read(other_fields, load=load)
+  File "/opt/odoo/odoo18/odoo/odoo/addons/base/models/res_users.py", line 676, in read
+    return super(Users, self).read(fields=fields, load=load)
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 3863, in read
+    return self._read_format(fnames=fields, load=load)
+  File "/opt/odoo/odoo18/odoo/odoo/addons/base/models/res_users.py", line 2042, in _read_format
+    return super()._read_format(valid_fields, load)
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 4094, in _read_format
+    vals[name] = convert(record[name], record, use_display_name)
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 7083, in __getitem__
+    return self._fields[key].__get__(self)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 1311, in __get__
+    self.compute_value(recs)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 1480, in compute_value
+    fields = records.pool.field_computed[self]
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 42, in __get__
+    value = self.fget(obj)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 379, in field_computed
+    warnings.warn(
+ 
+2026-11-08 13:24:33,090 268509 WARNING cf_modeb py.warnings: /opt/odoo/odoo18/odoo/odoo/modules/registry.py:394: UserWarning: sale.proposal: inconsistent 'store' for computed fields, accessing booking_amount may recompute and update booking_amount_words. Use distinct compute methods for stored and non-stored fields.
+  File "/opt/odoo/odoo18/odoo/odoo-bin", line 8, in <module>
+    odoo.cli.main()
+  File "/opt/odoo/odoo18/odoo/odoo/cli/command.py", line 76, in main
+    o.run(args)
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 130, in run
+    self.shell(config['db_name'])
+  File "/opt/odoo/odoo18/odoo/odoo/cli/shell.py", line 115, in shell
+    ctx = odoo.api.Environment(cr, uid, {})['res.users'].context_get()
+  File "/opt/odoo/odoo18/venv18/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "/opt/odoo/odoo18/odoo/odoo/tools/cache.py", line 110, in lookup
+    value = d[key] = self.method(*args, **kwargs)
+  File "/opt/odoo/odoo18/odoo/odoo/addons/base/models/res_users.py", line 868, in context_get
+    values = user.read(list(name_to_key), load=False)[0]
+  File "/opt/odoo/odoo18/odoo/odoo/addons/base/models/res_users.py", line 2083, in read
+    res = super(UsersView, self).read(other_fields, load=load)
+  File "/opt/odoo/odoo18/odoo/odoo/addons/base/models/res_users.py", line 676, in read
+    return super(Users, self).read(fields=fields, load=load)
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 3863, in read
+    return self._read_format(fnames=fields, load=load)
+  File "/opt/odoo/odoo18/odoo/odoo/addons/base/models/res_users.py", line 2042, in _read_format
+    return super()._read_format(valid_fields, load)
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 4094, in _read_format
+    vals[name] = convert(record[name], record, use_display_name)
+  File "/opt/odoo/odoo18/odoo/odoo/models.py", line 7083, in __getitem__
+    return self._fields[key].__get__(self)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 1311, in __get__
+    self.compute_value(recs)
+  File "/opt/odoo/odoo18/odoo/odoo/fields.py", line 1480, in compute_value
+    fields = records.pool.field_computed[self]
+  File "/opt/odoo/odoo18/odoo/odoo/tools/func.py", line 42, in __get__
+    value = self.fget(obj)
+  File "/opt/odoo/odoo18/odoo/odoo/modules/registry.py", line 394, in field_computed
+    warnings.warn(
+ 
+
+=== before any sudo() in this transaction ===
+  ordinary user, attempt 1                     -> AccessError
+  ordinary user, attempt 2                     -> AccessError
+
+=== now run the SAME search once as sudo() ===
+  sudo() search -> P3 Plan
+
+=== and retry as the ordinary user, same environment ===
+  ordinary user, after a sudo() search         -> AccessError
+  ordinary user, again                         -> AccessError
+
+=== a brand new environment for the same user ===
+  fresh env for same user -> AccessError
+
+rolled back
+### END=2026-11-08 15:24:33 EET
+### EXIT=0
+### RUN_ID=20261108-152430-268504 (end)

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Phase 3c step 4: the Construction business-area section, under the shared root L0 declares.
+
+         The two progress entries moved here from the monolith with their actions (S6-D1); their
+         old parent, the monolith's own `menu_construction_progress_root`, is gone with step 6. -->
+
+    <menuitem id="menu_construction_root"
+              name="Construction"
+              parent="isky_18_realestate_developer_unit_inventory.menu_realestate_root"
+              sequence="40"/>
+
+    <menuitem id="menu_construction_progress" name="Progress" parent="menu_construction_root"
+              sequence="10"/>
+    <menuitem id="menu_construction_update_units" name="Update Units"
+              parent="menu_construction_progress"
+              action="action_progress_update_units" sequence="10"/>
+    <menuitem id="menu_construction_update_buildings" name="Update Buildings"
+              parent="menu_construction_progress"
+              action="action_progress_update_buildings" sequence="20"/>
+    <menuitem id="menu_construction_progress_log" name="Update History"
+              parent="menu_construction_progress"
+              action="action_progress_log" sequence="30"/>
+
+
+    <!-- moved out of unit_building_progress_views.xml: a menuitem needs its parent to
+         exist already, and the view files load before this one. -->
+    <menuitem id="menu_units_progress" name="Units Progress" parent="menu_construction_progress"
+              action="action_units_progress" sequence="10"/>
+    <menuitem id="menu_buildings_progress" name="Buildings Progress" parent="menu_construction_progress"
+              action="action_buildings_progress" sequence="20"/>
+
+    <menuitem id="menu_construction_commitments" name="Vendor Commitments"
+              parent="menu_construction_root"
+              action="action_vendor_commitment" sequence="20"/>
+
+    <!-- ===================== Construction: configuration ===================== -->
+    <menuitem id="menu_construction_config" name="Configuration" parent="menu_construction_root"
+              sequence="900"/>
+    <menuitem id="menu_construction_config_capex" name="Capex Types"
+              parent="menu_construction_config"
+              action="action_capex_type" sequence="10"/>
+</odoo>

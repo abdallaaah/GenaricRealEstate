@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Phase 3c step 1: L3's fields on L0's developer-project form.
+
+         `developer.project` is an L0 config model, and L3 adds the commission fields to it. Its
+         form moved into L0 in step 1 and was stripped of those three; an inherited view is where
+         they belong, because only L3 has them. -->
+
+    <record id="view_developer_project_form_commission" model="ir.ui.view">
+        <field name="name">developer.project.form.commission</field>
+        <field name="model">developer.project</field>
+        <field name="inherit_id" ref="isky_18_realestate_developer_unit_inventory.view_developer_project_form"/>
+        <field name="arch" type="xml">
+            <field name="neighborhood_id" position="after">
+                <field name="half_commission"/>
+                <field name="double_commission"/>
+            </field>
+        </field>
+    </record>
+</odoo>

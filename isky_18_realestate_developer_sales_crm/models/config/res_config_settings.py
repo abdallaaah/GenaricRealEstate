@@ -32,6 +32,10 @@ class ResConfigSettings(models.TransientModel):
     operation_manager_approver_group_ids = fields.Many2many(
         related='company_id.operation_manager_approver_group_ids', readonly=False,
         string='Sales Sector Manager Approvers')
+    # SC-D2: the signing stage, configurable beside the rest of the contract chain.
+    sign_client_group_ids = fields.Many2many(
+        related='company_id.sign_client_group_ids', readonly=False,
+        string='Can Sign on Behalf of the Client')
 
     confirm_reservation_group_ids = fields.Many2many(
         related='company_id.confirm_reservation_group_ids', readonly=False,
@@ -48,6 +52,7 @@ class ResConfigSettings(models.TransientModel):
 
     @api.onchange('finance_approver_group_ids', 'finance_two_approver_group_ids',
                   'manager_approver_group_ids', 'operation_manager_approver_group_ids',
+                  'sign_client_group_ids',
                   'confirm_reservation_group_ids', 'show_discount_group_ids',
                   'edit_discount_group_ids', 'manual_paid_group_ids')
     def _onchange_warn_memberless_approver_groups(self):
@@ -57,6 +62,7 @@ class ResConfigSettings(models.TransientModel):
         empty = []
         for field in ('finance_approver_group_ids', 'finance_two_approver_group_ids',
                       'manager_approver_group_ids', 'operation_manager_approver_group_ids',
+                      'sign_client_group_ids',
                       'confirm_reservation_group_ids', 'show_discount_group_ids',
                       'edit_discount_group_ids', 'manual_paid_group_ids'):
             for group in self[field]:

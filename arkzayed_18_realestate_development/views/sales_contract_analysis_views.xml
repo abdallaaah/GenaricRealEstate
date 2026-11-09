@@ -1,66 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <record id="view_sales_contract_list" model="ir.ui.view">
-        <field name="name">sale.proposal.sales.analysis.list</field>
-        <field name="model">sale.proposal</field>
-        <field name="arch" type="xml">
-            <list string="Contracts" create="0" edit="0" delete="0" default_order="contract_issue_date desc, id desc">
-                <field name="name"/>
-                <field name="customer_id"/>
-                <field name="unit_id"/>
-                <field name="contract_type"/>
-                <field name="contract_issue_date"/>
-                <field name="state" widget="badge"/>
-                <field name="price_after_discount" sum="Total" string="Price After Discount"/>
-            </list>
-        </field>
-    </record>
 
-    <record id="view_sales_contract_pivot" model="ir.ui.view">
-        <field name="name">sale.proposal.sales.analysis.pivot</field>
-        <field name="model">sale.proposal</field>
-        <field name="arch" type="xml">
-            <pivot string="Sales Analysis">
-                <field name="contract_issue_date" type="row" interval="year"/>
-                <field name="contract_type" type="col"/>
-                <field name="price_after_discount" type="measure" string="Sales Value"/>
-            </pivot>
-        </field>
-    </record>
 
-    <record id="view_sales_contract_search" model="ir.ui.view">
-        <field name="name">sale.proposal.sales.analysis.search</field>
-        <field name="model">sale.proposal</field>
-        <field name="arch" type="xml">
-            <search string="Contracts">
-                <field name="name"/>
-                <field name="customer_id"/>
-                <field name="unit_id"/>
-                <filter name="domestic" string="Domestic" domain="[('contract_type', '=', 'domestic')]"/>
-                <filter name="overseas" string="Overseas" domain="[('contract_type', '=', 'overseas')]"/>
-                <filter name="no_type" string="Type not specified" domain="[('contract_type', '=', False)]"/>
-                <separator/>
-                <filter name="no_issue_date" string="No issue date" domain="[('contract_issue_date', '=', False)]"/>
-                <group expand="0" string="Group By">
-                    <filter name="group_year" string="Issue Year" context="{'group_by': 'contract_issue_date:year'}"/>
-                    <filter name="group_month" string="Issue Month" context="{'group_by': 'contract_issue_date:month'}"/>
-                    <filter name="group_type" string="Domestic / Overseas" context="{'group_by': 'contract_type'}"/>
-                    <filter name="group_state" string="Status" context="{'group_by': 'state'}"/>
-                    <filter name="group_unit_type" string="Unit Type" context="{'group_by': 'unit_type'}"/>
-                    <filter name="group_customer" string="Client" context="{'group_by': 'customer_id'}"/>
-                </group>
-            </search>
-        </field>
-    </record>
 
-    <record id="action_sales_contracts" model="ir.actions.act_window">
-        <field name="name">Contracts Analysis</field>
-        <field name="res_model">sale.proposal</field>
-        <field name="view_mode">list,pivot</field>
-        <field name="search_view_id" ref="view_sales_contract_search"/>
-        <field name="domain">[('state', 'not in', ['draft', 'draft_contract', 'cancelled', 'terminated'])]</field>
-        <field name="context">{'search_default_group_year': 1}</field>
-    </record>
 
 </odoo>

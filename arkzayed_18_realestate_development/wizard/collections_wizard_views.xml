@@ -35,10 +35,5 @@
               parent="menu_reports_root"
               action="action_collections_wizard"
               sequence="52"/>
-    <menuitem id="menu_collections_installments"
-              name="Overdue Installments"
-              parent="menu_reports_root"
-              action="action_collections_installments"
-              sequence="53"/>
 
 </odoo>

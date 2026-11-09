@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Phase 3c: moved here from arkzayed_18_realestate_development, verbatim and with the same
+         local xmlids. L4 owns these models, so it owns their UI. -->
+    <record id="view_progress_report_wizard_form" model="ir.ui.view">
+        <field name="name">arkzayed.progress.report.wizard.form</field>
+        <field name="model">arkzayed.progress.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Construction Progress Report">
+                <p class="text-muted">
+                    Executive summary of construction progress: overall, by building, by engineer,
+                    and the units that need attention. Leave the filters empty to include everything.
+                </p>
+                <group>
+                    <field name="project_id" options="{'no_create': True}"/>
+                    <field name="building_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                </group>
+                <footer>
+                    <button name="action_print" type="object" string="Print Report" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_progress_report_wizard" model="ir.actions.act_window">
+        <field name="name">Progress Report</field>
+        <field name="res_model">arkzayed.progress.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

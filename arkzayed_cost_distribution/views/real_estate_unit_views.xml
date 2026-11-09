@@ -4,7 +4,7 @@
     <record id="view_real_estate_unit_form_cost_inherit" model="ir.ui.view">
         <field name="name">real.estate.unit.form.cost.inherit</field>
         <field name="model">real.estate.unit</field>
-        <field name="inherit_id" ref="arkzayed_18_realestate_development.view_real_estate_unit_form"/>
+        <field name="inherit_id" ref="isky_18_realestate_developer_unit_inventory.view_real_estate_unit_form"/>
         <field name="arch" type="xml">
             <notebook position="inside">
                 <page string="Cost">

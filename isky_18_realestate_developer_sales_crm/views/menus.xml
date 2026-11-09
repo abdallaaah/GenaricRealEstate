@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Phase 3c step 2a: the Sales business-area section, under the shared root L0 declares.
+
+         Only actions this module owns are named here, so the tree resolves in Mode B - L2 with no
+         bridge and no legacy module present. The three document sections (EOI, Reservations and
+         the contract form itself) are deliberately absent: their views are step 2b, which waits on
+         the owner's decision about ten monolith security groups (decisions log, 2026-11-08, S2-D1).
+
+         The monolith's own menu tree is untouched and still works; step 6 retires it. -->
+
+    <menuitem id="menu_sales_root"
+              name="Sales"
+              parent="isky_18_realestate_developer_unit_inventory.menu_realestate_root"
+              sequence="20"/>
+
+    <!-- ===================== contracts and documents ===================== -->
+    <!-- The three contract list entries (All, Cancelled, Terminated) are NOT here: their window
+         actions reference the contract form, which is step 2b, so the actions went back to the
+         monolith with it. They arrive with the form. -->
+    <menuitem id="menu_sales_contracts" name="Contracts" parent="menu_sales_root" sequence="10"/>
+    <menuitem id="menu_sales_contracts_analysis" name="Contracts Analysis"
+              parent="menu_sales_contracts"
+              action="action_sales_contracts" sequence="40"/>
+    <menuitem id="menu_sales_handover" name="Handover Report" parent="menu_sales_contracts"
+              action="action_handover_report" sequence="50"/>
+
+    <menuitem id="menu_sales_offers" name="Offers" parent="menu_sales_root"
+              action="action_offer_offer" sequence="20"/>
+    <menuitem id="menu_sales_requests" name="Sale Requests" parent="menu_sales_root"
+              action="action_sale_request" sequence="30"/>
+    <menuitem id="menu_sales_ownership" name="Customer Ownership" parent="menu_sales_root"
+              action="customer_ownership_action" sequence="40"/>
+
+    <!-- ===================== money: installments and collections ===================== -->
+    <menuitem id="menu_sales_installments" name="Installments" parent="menu_sales_root"
+              sequence="50"/>
+    <menuitem id="menu_sales_installments_all" name="Sales Installments"
+              parent="menu_sales_installments"
+              action="action_view_sales_installment_tree" sequence="10"/>
+    <menuitem id="menu_sales_installments_report" name="Installments Report"
+              parent="menu_sales_installments"
+              action="action_installment_report" sequence="20"/>
+    <menuitem id="menu_sales_installments_overdue" name="Overdue Installments"
+              parent="menu_sales_installments"
+              action="action_collections_installments" sequence="30"/>
+    <menuitem id="menu_sales_installments_penalties" name="Installment Penalties"
+              parent="menu_sales_installments"
+              action="action_installment_penalty" sequence="40"/>
+    <menuitem id="menu_sales_maintenance_report" name="Maintenance Report"
+              parent="menu_sales_installments"
+              action="action_maintenance_report" sequence="50"/>
+
+    <menuitem id="menu_sales_leasing" name="Leasing" parent="menu_sales_root" sequence="60"/>
+    <menuitem id="menu_sales_leasing_installments" name="Lease Installments"
+              parent="menu_sales_leasing"
+              action="action_view_lease_installment_tree" sequence="10"/>
+    <menuitem id="menu_sales_leasing_service_charges" name="Service Charges"
+              parent="menu_sales_leasing"
+              action="action_view_service_charge_line_tree" sequence="20"/>
+    <menuitem id="menu_sales_leasing_marketing_fees" name="Marketing Fees"
+              parent="menu_sales_leasing"
+              action="action_view_marketing_fees_line_tree" sequence="30"/>
+    <menuitem id="menu_sales_leasing_parking_fees" name="Parking Fees"
+              parent="menu_sales_leasing"
+              action="action_view_parking_fees_contract_tree" sequence="40"/>
+    <menuitem id="menu_sales_leasing_revenue_share" name="Revenue Share"
+              parent="menu_sales_leasing"
+              action="action_view_revenue_share_tree" sequence="50"/>
+
+    <!-- ===================== discounts ===================== -->
+    <menuitem id="menu_sales_discounts" name="Discounts" parent="menu_sales_root" sequence="70"/>
+    <menuitem id="menu_sales_discount_requests" name="Discount Requests"
+              parent="menu_sales_discounts"
+              action="action_discount_request" sequence="10"/>
+    <menuitem id="menu_sales_discount_approvals" name="Discount Approvals"
+              parent="menu_sales_discounts"
+              action="action_discount_approval" sequence="20"/>
+
+    <!-- ===================== brokerage and CRM support ===================== -->
+    <menuitem id="menu_sales_broker_units" name="Broker Units" parent="menu_sales_root"
+              sequence="80"/>
+    <menuitem id="menu_sales_broker_primary" name="Primary Units" parent="menu_sales_broker_units"
+              action="action_broker_primary_unit" sequence="10"/>
+    <menuitem id="menu_sales_broker_resale" name="Resale Units" parent="menu_sales_broker_units"
+              action="action_broker_resale_unit" sequence="20"/>
+    <menuitem id="menu_sales_meetings" name="Meetings" parent="menu_sales_root"
+              action="action_crm_meeting_report" sequence="90"/>
+    <menuitem id="menu_sales_achievement" name="Sales Achievement" parent="menu_sales_root"
+              action="action_sales_achievement_report_wizard" sequence="100"/>
+
+    <!-- ===================== still held by the monolith ===================== -->
+    <!-- Phase 3c step 6: the monolith keeps the contract, reservation and EOI forms, nine reports
+         and its own wizards until Phase 9 (owner decision, 2026-11-08). Its root menu is gone, so
+         those entries hang here - one section, honestly labelled, rather than a second root. The
+         section disappears when Phase 9 takes the rest. -->
+    <menuitem id="menu_sales_pending_phase9" name="Documents and Reports"
+              parent="menu_sales_root" sequence="800"/>
+
+    <!-- ===================== Sales: configuration ===================== -->
+    <menuitem id="menu_sales_config" name="Configuration" parent="menu_sales_root"
+              sequence="900"/>
+    <menuitem id="menu_sales_config_lead_stages" name="Lead Stages" parent="menu_sales_config"
+              action="lead_stage_action" sequence="10"/>
+    <menuitem id="menu_sales_config_sale_phases" name="Project Sale Phases"
+              parent="menu_sales_config"
+              action="action_project_sale_phase" sequence="20"/>
+    <menuitem id="menu_sales_config_discount" name="Discount Configuration"
+              parent="menu_sales_config"
+              action="action_discount_config" sequence="30"/>
+    <menuitem id="menu_sales_config_attachment_type" name="Attachment Types"
+              parent="menu_sales_config"
+              action="attachment_type_view_action" sequence="40"/>
+    <menuitem id="menu_sales_config_revenue_share2" name="Revenue Share Lines"
+              parent="menu_sales_config"
+              action="revenue_share2_action" sequence="50"/>
+</odoo>
