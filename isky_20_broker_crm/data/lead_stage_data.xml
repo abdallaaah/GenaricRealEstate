@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="lead_stage_new" model="lead.stage">
+        <field name="name">New</field>
+        <field name="sequence">0</field>
+        <field name="first">True</field>
+    </record>
+    <record id="lead_stage_no_answer" model="lead.stage">
+        <field name="name">No Answer</field>
+        <field name="sequence">10</field>
+        <field name="no_answer">True</field>
+    </record>
+    <record id="lead_stage_call_later" model="lead.stage">
+        <field name="name">Call Later</field>
+        <field name="sequence">20</field>
+        <field name="call_later">True</field>
+    </record>
+    <record id="lead_stage_follow_up" model="lead.stage">
+        <field name="name">Follow Up</field>
+        <field name="sequence">30</field>
+        <field name="follow_up">True</field>
+    </record>
+    <record id="lead_stage_qualified_limited_budget" model="lead.stage">
+        <field name="name">Qualified (Limited Budget)</field>
+        <field name="sequence">40</field>
+        <field name="qualified_limited_budget">True</field>
+    </record>
+    <record id="lead_stage_qualified" model="lead.stage">
+        <field name="name">Qualified</field>
+        <field name="sequence">50</field>
+        <field name="qualified">True</field>
+    </record>
+    <record id="lead_stage_unqualified" model="lead.stage">
+        <field name="name">Unqualified</field>
+        <field name="sequence">60</field>
+        <field name="unqualified">True</field>
+    </record>
+    <record id="lead_stage_locked" model="lead.stage">
+        <field name="name">Locked</field>
+        <field name="sequence">70</field>
+        <field name="locked">True</field>
+    </record>
+</odoo>

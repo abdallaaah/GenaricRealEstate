@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.isky.broker.crm</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="crm.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//app[@name='crm']" position="inside">
+                <block title="iSky Broker" id="isky_20_broker_settings" name="isky_20_broker_settings_container">
+                    <setting id="isky_20_broker_sequence_prefix" string="Lead/Opportunity Sequence Prefix"
+                             help="A 3-letter code prepended to the Lead and Opportunity sequence numbers for this company (e.g. ABC-L/00001, ABC-O/00001). Leave empty to use the default L/ and O/ prefixes. Changing it does not reset the running number.">
+                        <field name="broker_sequence_prefix" placeholder="e.g. ABC"/>
+                    </setting>
+                    <setting id="isky_20_broker_approval_rules" string="Approval Workflow"
+                             help="Which group must approve each deal phase (EOI/Reservation/Contract) x role (Manager/Financial/Sales/Operations). Configurable per client, instead of a fixed hardcoded matrix.">
+                        <button type="action" name="isky_20_broker_crm.broker_approval_rule_action"
+                                string="Configure Approval Rules" icon="east" class="btn-link"/>
+                    </setting>
+                    <setting id="isky_20_broker_lead_stages" string="Lead Pre-Qualification Pipeline"
+                              help="The pre-qualification stages a lead moves through before becoming a qualified opportunity (New, No Answer, Call Later, Follow Up, Qualified, Unqualified, Locked).">
+                        <button type="action" name="isky_20_broker_crm.lead_stage_action"
+                                string="Configure Lead Stages" icon="east" class="btn-link"/>
+                    </setting>
+                    <setting id="isky_20_broker_job_levels" string="Sales Hierarchy"
+                              help="The job-level roles (Salesperson/Team Leader/Sales Manager/Director/Operations) used to compute the commission hierarchy on a deal.">
+                        <button type="action" name="isky_20_broker_base.job_level_action"
+                                string="Configure Job Levels" icon="east" class="btn-link"/>
+                    </setting>
+                    <setting id="isky_20_broker_portal_features" string="Portal Features"
+                              help="Enable or disable individual portal pages (units, permission requests, ...) without uninstalling the module that provides them.">
+                        <button type="action" name="isky_20_broker_base.broker_feature_flag_action"
+                                string="Configure Portal Feature Flags" icon="east" class="btn-link"/>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+</odoo>

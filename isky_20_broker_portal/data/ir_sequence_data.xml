@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="permission_request_sequence" model="ir.sequence">
+        <field name="name">Permission Request</field>
+        <field name="code">permission.request</field>
+        <field name="prefix">PR/</field>
+        <field name="padding">5</field>
+    </record>
+</odoo>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="demo_hr_job_salesperson" model="hr.job">
+        <field name="name">Real Estate Salesperson</field>
+    </record>
+    <record id="demo_employee_salesperson" model="hr.employee">
+        <field name="name">Ahmed Fathy Rashad</field>
+        <field name="user_id" ref="isky_20_broker_base.demo_user_salesperson"/>
+        <field name="job_id" ref="demo_hr_job_salesperson"/>
+    </record>
+    <record id="demo_employee_salesperson_2" model="hr.employee">
+        <field name="name">Sara Mostafa Gaber</field>
+        <field name="user_id" ref="isky_20_broker_base.demo_user_salesperson_2"/>
+        <field name="job_id" ref="demo_hr_job_salesperson"/>
+    </record>
+    <record id="demo_employee_salesperson_3" model="hr.employee">
+        <field name="name">Omar Youssef Hamdy</field>
+        <field name="user_id" ref="isky_20_broker_base.demo_user_salesperson_3"/>
+        <field name="job_id" ref="demo_hr_job_salesperson"/>
+    </record>
+    <record id="demo_employee_team_leader" model="hr.employee">
+        <field name="name">Tarek El-Sherif Mahmoud</field>
+        <field name="user_id" ref="isky_20_broker_base.demo_user_team_leader"/>
+    </record>
+    <record id="demo_employee_sales_manager" model="hr.employee">
+        <field name="name">Nourhan Khalil Abdallah</field>
+        <field name="user_id" ref="isky_20_broker_base.demo_user_sales_manager"/>
+    </record>
+    <record id="demo_employee_director" model="hr.employee">
+        <field name="name">Mahmoud Abdel Aziz</field>
+        <field name="user_id" ref="isky_20_broker_base.demo_user_director"/>
+    </record>
+
+    <record id="demo_commission_plan_target" model="sale.commission.plan">
+        <field name="name">Salesperson Target Plan - FY</field>
+        <field name="type">target</field>
+        <field name="user_type">person</field>
+        <field name="realestate_commission">True</field>
+        <field name="job_position_id" ref="demo_hr_job_salesperson"/>
+        <field name="date_from" eval="(DateTime.today() - relativedelta(years=1)).strftime('%Y-%m-%d')"/>
+        <field name="date_to" eval="(DateTime.today() + relativedelta(years=1)).strftime('%Y-%m-%d')"/>
+        <field name="state">approved</field>
+        <field name="target_ids" eval="[(0, 0, {
+            'name': 'Current Period',
+            'date_from': (DateTime.today() - relativedelta(years=1)).strftime('%Y-%m-%d'),
+            'date_to': (DateTime.today() + relativedelta(years=1)).strftime('%Y-%m-%d'),
+            'amount': 5000000,
+        })]"/>
+        <field name="target_commission_ids" eval="[
+            (0, 0, {'target_rate': 0, 'amount_rate': 0, 'amount': 0}),
+            (0, 0, {'target_rate': 0.5, 'amount_rate': 0.5, 'amount': 3000}),
+            (0, 0, {'target_rate': 1.0, 'amount_rate': 1.0, 'amount': 5000}),
+        ]"/>
+    </record>
+
+    <record id="demo_commission_plan_achieve_team_leader" model="sale.commission.plan">
+        <field name="name">Team Leader Override Plan</field>
+        <field name="type">achieve</field>
+        <field name="user_type">person</field>
+        <field name="realestate_commission">True</field>
+        <field name="job_level_id" ref="isky_20_broker_base.job_level_team_leader"/>
+        <field name="commission_amount">1000</field>
+        <field name="date_from" eval="(DateTime.today() - relativedelta(years=1)).strftime('%Y-%m-%d')"/>
+        <field name="date_to" eval="(DateTime.today() + relativedelta(years=1)).strftime('%Y-%m-%d')"/>
+        <field name="state">approved</field>
+    </record>
+    <record id="demo_commission_plan_achieve_sales_manager" model="sale.commission.plan">
+        <field name="name">Sales Manager Override Plan</field>
+        <field name="type">achieve</field>
+        <field name="user_type">person</field>
+        <field name="realestate_commission">True</field>
+        <field name="job_level_id" ref="isky_20_broker_base.job_level_sales_manager"/>
+        <field name="commission_amount">800</field>
+        <field name="date_from" eval="(DateTime.today() - relativedelta(years=1)).strftime('%Y-%m-%d')"/>
+        <field name="date_to" eval="(DateTime.today() + relativedelta(years=1)).strftime('%Y-%m-%d')"/>
+        <field name="state">approved</field>
+    </record>
+
+    <!-- Achievement for isky_20_broker_crm.demo_opp_confirmed. Created directly (not via the
+         live write() hook) because demo data loads as the superuser, who does not hold
+         isky_20_broker_crm.group_finance, the group the real write()-time hook requires
+         to move a deal into the Confirmed Contract stage. Numbers are hand-calculated to
+         match what create_from_lead() would compute for this scenario. -->
+    <record id="demo_achievement_confirmed" model="realestate.commission.achievement">
+        <field name="opportunity_id" ref="isky_20_broker_crm.demo_opp_confirmed"/>
+        <field name="user_id" ref="isky_20_broker_base.demo_user_salesperson_2"/>
+        <field name="commission_plan_id" ref="demo_commission_plan_target"/>
+        <field name="sales_volume">12000000</field>
+        <field name="commission_percentage">100.0</field>
+        <field name="commission_amount">60000</field>
+    </record>
+</odoo>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="realestate_achievement_report_view_list" model="ir.ui.view">
+        <field name="name">realestate.achievement.report.view.list</field>
+        <field name="model">realestate.achievement.report</field>
+        <field name="arch" type="xml">
+            <list create="0" edit="0">
+                <field name="user_id"/>
+                <field name="team_id"/>
+                <field name="commission_plan_id"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="target_amount"/>
+                <field name="achieved"/>
+                <field name="achieved_rate" widget="percentage"/>
+                <field name="tcr_count"/>
+                <field name="currency_id" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="realestate_achievement_report_action" model="ir.actions.act_window">
+        <field name="name">Achievement Report</field>
+        <field name="res_model">realestate.achievement.report</field>
+        <field name="view_mode">list,pivot</field>
+    </record>
+</odoo>

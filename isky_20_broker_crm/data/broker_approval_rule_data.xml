@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="approval_rule_eoi_manager" model="broker.approval.rule">
+        <field name="phase">eoi</field>
+        <field name="role">manager</field>
+        <field name="group_id" ref="group_approval_manager"/>
+    </record>
+    <record id="approval_rule_eoi_financial" model="broker.approval.rule">
+        <field name="phase">eoi</field>
+        <field name="role">financial</field>
+        <field name="group_id" ref="group_financial_manager"/>
+    </record>
+    <record id="approval_rule_eoi_sales" model="broker.approval.rule">
+        <field name="phase">eoi</field>
+        <field name="role">sales</field>
+        <field name="group_id" ref="sales_team.group_sale_salesman"/>
+    </record>
+    <record id="approval_rule_eoi_operations" model="broker.approval.rule">
+        <field name="phase">eoi</field>
+        <field name="role">operations</field>
+        <field name="group_id" ref="group_operation_manager"/>
+    </record>
+    <record id="approval_rule_reservation_manager" model="broker.approval.rule">
+        <field name="phase">reservation</field>
+        <field name="role">manager</field>
+        <field name="group_id" ref="group_approval_manager"/>
+    </record>
+    <record id="approval_rule_reservation_financial" model="broker.approval.rule">
+        <field name="phase">reservation</field>
+        <field name="role">financial</field>
+        <field name="group_id" ref="group_financial_manager"/>
+    </record>
+    <record id="approval_rule_reservation_sales" model="broker.approval.rule">
+        <field name="phase">reservation</field>
+        <field name="role">sales</field>
+        <field name="group_id" ref="sales_team.group_sale_salesman"/>
+    </record>
+    <record id="approval_rule_reservation_operations" model="broker.approval.rule">
+        <field name="phase">reservation</field>
+        <field name="role">operations</field>
+        <field name="group_id" ref="group_operation_manager"/>
+    </record>
+    <record id="approval_rule_contract_manager" model="broker.approval.rule">
+        <field name="phase">contract</field>
+        <field name="role">manager</field>
+        <field name="group_id" ref="group_approval_manager"/>
+    </record>
+    <record id="approval_rule_contract_financial" model="broker.approval.rule">
+        <field name="phase">contract</field>
+        <field name="role">financial</field>
+        <field name="group_id" ref="group_financial_manager"/>
+    </record>
+    <record id="approval_rule_contract_sales" model="broker.approval.rule">
+        <field name="phase">contract</field>
+        <field name="role">sales</field>
+        <field name="group_id" ref="sales_team.group_sale_salesman"/>
+    </record>
+    <record id="approval_rule_contract_operations" model="broker.approval.rule">
+        <field name="phase">contract</field>
+        <field name="role">operations</field>
+        <field name="group_id" ref="group_operation_manager"/>
+    </record>
+</odoo>

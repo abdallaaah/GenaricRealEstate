@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- Developers -->
+    <record id="demo_partner_developer" model="res.partner">
+        <field name="name">Talaat Moustafa Group</field>
+        <field name="is_developer">True</field>
+        <field name="is_company">True</field>
+        <field name="phone">+20 2 2461 9000</field>
+        <field name="email">info@tmg.example</field>
+    </record>
+    <record id="demo_partner_developer_2" model="res.partner">
+        <field name="name">Palm Hills Developments</field>
+        <field name="is_developer">True</field>
+        <field name="is_company">True</field>
+        <field name="phone">+20 2 3537 2000</field>
+        <field name="email">info@palmhills.example</field>
+    </record>
+    <record id="demo_partner_developer_3" model="res.partner">
+        <field name="name">SODIC</field>
+        <field name="is_developer">True</field>
+        <field name="is_company">True</field>
+        <field name="phone">+20 2 2759 9900</field>
+        <field name="email">info@sodic.example</field>
+    </record>
+
+    <!-- Customers -->
+    <record id="demo_partner_customer_1" model="res.partner">
+        <field name="name">Ahmed Mahmoud Hassan</field>
+        <field name="is_customer">True</field>
+        <field name="phone">+20 100 123 4567</field>
+        <field name="email">ahmed.hassan@example.com</field>
+    </record>
+    <record id="demo_partner_customer_2" model="res.partner">
+        <field name="name">Mona Ibrahim El-Sayed</field>
+        <field name="is_customer">True</field>
+        <field name="phone">+20 101 234 5678</field>
+        <field name="email">mona.elsayed@example.com</field>
+    </record>
+    <record id="demo_partner_customer_3" model="res.partner">
+        <field name="name">Khaled Abdel Rahman</field>
+        <field name="is_customer">True</field>
+        <field name="phone">+20 111 345 6789</field>
+        <field name="email">khaled.abdelrahman@example.com</field>
+    </record>
+    <record id="demo_partner_customer_4" model="res.partner">
+        <field name="name">Yasmine Farouk Aly</field>
+        <field name="is_customer">True</field>
+        <field name="phone">+20 122 456 7890</field>
+        <field name="email">yasmine.farouk@example.com</field>
+    </record>
+    <record id="demo_partner_customer_5" model="res.partner">
+        <field name="name">Mohamed Samir Fathy</field>
+        <field name="is_customer">True</field>
+        <field name="phone">+20 109 567 8901</field>
+        <field name="email">mohamed.fathy@example.com</field>
+    </record>
+
+    <!-- Outside broker / ambassador / resale seller -->
+    <record id="demo_partner_broker" model="res.partner">
+        <field name="name">Cairo Gate Real Estate Brokers</field>
+        <field name="is_broker">True</field>
+        <field name="is_company">True</field>
+        <field name="phone">+20 2 2690 1234</field>
+    </record>
+    <record id="demo_partner_ambassador" model="res.partner">
+        <field name="name">Hoda Kamal Wahba</field>
+        <field name="is_ambassador">True</field>
+        <field name="phone">+20 106 678 9012</field>
+    </record>
+    <record id="demo_partner_resale_seller" model="res.partner">
+        <field name="name">Karim Adel Moussa</field>
+        <field name="is_resale_seller">True</field>
+        <field name="phone">+20 112 789 0123</field>
+    </record>
+    <record id="demo_partner_resale_seller_2" model="res.partner">
+        <field name="name">Dina Ashraf Lotfy</field>
+        <field name="is_resale_seller">True</field>
+        <field name="phone">+20 115 890 1234</field>
+    </record>
+</odoo>

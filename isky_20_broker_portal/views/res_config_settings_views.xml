@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.isky.broker.portal</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="isky_20_broker_crm.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <block id="isky_20_broker_settings" position="inside">
+                <setting id="isky_20_broker_portal_chatter" string="Portal Chatter Privacy"
+                         help="A portal salesperson/broker sharing a lead with colleagues only sees their own chatter messages (plus system messages), never a colleague's. They can still post a new message. Internal users always see everything.">
+                    <field name="restrict_portal_chatter_to_own_messages"/>
+                </setting>
+                <setting id="isky_20_broker_portal_crm_feature" string="Portal: Leads &amp; Opportunities Page"
+                         help="Lets salespeople manage their leads and opportunities from the portal, without uninstalling the module.">
+                    <field name="portal_feature_crm_enabled"/>
+                </setting>
+                <setting id="isky_20_broker_portal_units_feature" string="Portal: Units Page"
+                         help="Lets resale-seller salespeople manage their listed units from the portal, without uninstalling the module.">
+                    <field name="portal_feature_units_enabled"/>
+                </setting>
+                <setting id="isky_20_broker_portal_permission_requests_feature" string="Portal: Permission Requests Page"
+                         help="Lets salespeople request permission to claim a lead or unit from the portal, without uninstalling the module.">
+                    <field name="portal_feature_permission_requests_enabled"/>
+                </setting>
+            </block>
+        </field>
+    </record>
+</odoo>

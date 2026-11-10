@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- noupdate: once an admin sets a per-company prefix (res.company.broker_sequence_prefix),
+         a later module upgrade must not stomp on it by reloading these defaults. company_id=False
+         so next_by_code() resolves a sequence for every company, not just whichever one was active
+         when this data first loaded. -->
+    <data noupdate="1">
+        <record id="lead_sequence" model="ir.sequence">
+            <field name="name">Broker Lead</field>
+            <field name="code">isky_20_broker_crm.lead</field>
+            <field name="prefix">L/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="opportunity_sequence" model="ir.sequence">
+            <field name="name">Broker Opportunity</field>
+            <field name="code">isky_20_broker_crm.opportunity</field>
+            <field name="prefix">O/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

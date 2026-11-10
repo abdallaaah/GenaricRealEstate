@@ -1,0 +1,15 @@
+id,name,model_id,group_id/id,operation,domain
+access_lead_stage_user,lead.stage.user,lead.stage,base.group_user,r,
+access_lead_stage_admin,lead.stage.admin,lead.stage,isky_20_broker_base.group_broker_admin,crud,
+access_broker_approval_rule_admin,broker.approval.rule.admin,broker.approval.rule,isky_20_broker_base.group_broker_admin,crud,
+access_commission_commission_user,commission.commission.user,commission.commission,base.group_user,r,
+access_commission_commission_manager,commission.commission.manager,commission.commission,sales_team.group_sale_manager,crud,
+access_user_notification_user,user.notification.user,user.notification,base.group_user,crud,
+access_partner_notification_rel_user,partner.notification.rel.user,partner.notification.rel,base.group_user,crud,
+access_qualified_stage_wizard,qualified.stage.wizard,qualified.stage.wizard,base.group_user,crud,
+access_crm_lead_unqualified_wizard,crm.lead.unqualified.wizard,crm.lead.unqualified.wizard,base.group_user,crud,
+access_crm_lead_reassign,crm.lead.reassign,crm.lead.reassign,base.group_user,crud,
+access_crm_lead_convert_contact_wizard,crm.lead.convert.contact.wizard,crm.lead.convert.contact.wizard,base.group_user,crud,
+crm_lead_rule_director_lead_admin_all,CRM Lead: director/lead admin see all,crm.lead,group_director_manager,crud,
+crm_lead_rule_lead_admin_all,CRM Lead: lead admin see all,crm.lead,group_lead_admin,crud,
+crm_lead_rule_split_deal,CRM Lead: split-deal participants,crm.lead,base.group_user,cru,"['|', ('user_id', '=', user.id), ('sales_ids', 'in', user.id)]"

@@ -1,0 +1,9 @@
+id,name,model_id,group_id/id,operation,domain
+access_developer_project_user,developer.project.user,developer.project,base.group_user,crud,
+access_project_sale_phase_user,project.sale.phase.user,project.sale.phase,base.group_user,crud,
+access_neighborhood_user,neighborhood.neighborhood.user,neighborhood.neighborhood,base.group_user,crud,
+access_res_country_city_user,res.country.city.user,res.country.city,base.group_user,crud,
+access_broker_unit_user,broker.unit.user,broker.unit,base.group_user,crud,
+access_broker_unit_counter_user,broker.unit.counter.user,broker.unit.counter,base.group_user,crud,
+access_project_commission_user,project.commission.user,project.commission,base.group_user,r,
+access_project_commission_admin,project.commission.admin,project.commission,isky_20_broker_base.group_broker_admin,crud,

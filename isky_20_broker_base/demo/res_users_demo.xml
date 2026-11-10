@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="demo_user_director" model="res.users">
+        <field name="name">Mahmoud Abdel Aziz</field>
+        <field name="login">demo.director</field>
+        <field name="email">mahmoud.abdelaziz@isky-broker.example</field>
+        <field name="job_level_id" ref="job_level_director"/>
+        <field name="company_id" ref="main_broker_company"/>
+        <field name="company_ids" eval="[(6, 0, [ref('main_broker_company')])]"/>
+        <field name="group_ids" eval="[(4, ref('base.group_user')), (4, ref('sales_team.group_sale_manager'))]"/>
+    </record>
+    <record id="demo_user_sales_manager" model="res.users">
+        <field name="name">Nourhan Khalil Abdallah</field>
+        <field name="login">demo.sales.manager</field>
+        <field name="email">nourhan.khalil@isky-broker.example</field>
+        <field name="job_level_id" ref="job_level_sales_manager"/>
+        <field name="company_id" ref="main_broker_company"/>
+        <field name="company_ids" eval="[(6, 0, [ref('main_broker_company')])]"/>
+        <field name="group_ids" eval="[(4, ref('base.group_user')), (4, ref('sales_team.group_sale_manager'))]"/>
+    </record>
+    <record id="demo_user_team_leader" model="res.users">
+        <field name="name">Tarek El-Sherif Mahmoud</field>
+        <field name="login">demo.team.leader</field>
+        <field name="email">tarek.elsherif@isky-broker.example</field>
+        <field name="job_level_id" ref="job_level_team_leader"/>
+        <field name="company_id" ref="main_broker_company"/>
+        <field name="company_ids" eval="[(6, 0, [ref('main_broker_company')])]"/>
+        <field name="group_ids" eval="[(4, ref('base.group_user')), (4, ref('sales_team.group_sale_salesman_all_leads'))]"/>
+    </record>
+    <record id="demo_user_salesperson" model="res.users">
+        <field name="name">Ahmed Fathy Rashad</field>
+        <field name="login">demo.salesperson</field>
+        <field name="email">ahmed.fathy@isky-broker.example</field>
+        <field name="job_level_id" ref="job_level_sales_person"/>
+        <field name="company_id" ref="main_broker_company"/>
+        <field name="company_ids" eval="[(6, 0, [ref('main_broker_company')])]"/>
+        <field name="group_ids" eval="[(4, ref('base.group_user')), (4, ref('sales_team.group_sale_salesman'))]"/>
+    </record>
+    <record id="demo_user_salesperson_2" model="res.users">
+        <field name="name">Sara Mostafa Gaber</field>
+        <field name="login">demo.salesperson2</field>
+        <field name="email">sara.mostafa@isky-broker.example</field>
+        <field name="job_level_id" ref="job_level_sales_person"/>
+        <field name="company_id" ref="main_broker_company"/>
+        <field name="company_ids" eval="[(6, 0, [ref('main_broker_company')])]"/>
+        <field name="group_ids" eval="[(4, ref('base.group_user')), (4, ref('sales_team.group_sale_salesman'))]"/>
+    </record>
+    <record id="demo_user_salesperson_3" model="res.users">
+        <field name="name">Omar Youssef Hamdy</field>
+        <field name="login">demo.salesperson3</field>
+        <field name="email">omar.youssef@isky-broker.example</field>
+        <field name="job_level_id" ref="job_level_sales_person"/>
+        <field name="company_id" ref="main_broker_company"/>
+        <field name="company_ids" eval="[(6, 0, [ref('main_broker_company')])]"/>
+        <field name="group_ids" eval="[(4, ref('base.group_user')), (4, ref('sales_team.group_sale_salesman'))]"/>
+    </record>
+    <record id="demo_user_operations" model="res.users">
+        <field name="name">Yara Ibrahim Zaki</field>
+        <field name="login">demo.operations</field>
+        <field name="email">yara.ibrahim@isky-broker.example</field>
+        <field name="job_level_id" ref="job_level_operations"/>
+        <field name="company_id" ref="main_broker_company"/>
+        <field name="company_ids" eval="[(6, 0, [ref('main_broker_company')])]"/>
+        <field name="group_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+</odoo>

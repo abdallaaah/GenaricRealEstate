@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="demo_permission_request_1" model="permission.request">
+        <field name="requester_id" ref="isky_20_broker_base.demo_user_salesperson"/>
+        <field name="request_type">lead</field>
+        <field name="client_name">Ahmed Mahmoud Hassan</field>
+        <field name="client_number">+20 100 123 4567</field>
+        <field name="request_details">Requesting permission to follow up on this lead directly.</field>
+        <field name="approval_status">pending</field>
+    </record>
+    <record id="demo_permission_request_2" model="permission.request">
+        <field name="requester_id" ref="isky_20_broker_base.demo_user_salesperson_3"/>
+        <field name="request_type">unit</field>
+        <field name="client_name">Rania Samy Hosny</field>
+        <field name="client_number">+20 100 999 1111</field>
+        <field name="request_details">Requesting permission to list this client's villa for resale.</field>
+        <field name="approval_status">approved</field>
+        <field name="operations_feedback">Approved - go ahead and list it.</field>
+    </record>
+</odoo>

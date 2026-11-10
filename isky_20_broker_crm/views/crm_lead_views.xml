@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="crm_lead_view_form_inherit_broker" model="ir.ui.view">
+        <field name="name">crm.lead.view.form.inherit.broker</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_convert_to_opportunity']" position="attributes">
+                <attribute name="invisible">type == 'opportunity' or not active or not is_qualified</attribute>
+            </xpath>
+            <header position="inside">
+                <field name="lead_stage_id" widget="statusbar" invisible="type == 'opportunity'"/>
+                <button name="action_qualify" string="Qualify" type="object"
+                        invisible="type == 'opportunity' or is_qualified"/>
+                <button name="action_no_answer" string="No Answer" type="object"
+                        invisible="type == 'opportunity'"/>
+                <button name="action_follow_up" string="Follow Up" type="object"
+                        invisible="type == 'opportunity' or follow_up"/>
+                <button name="action_call_later" string="Call Later" type="object"
+                        invisible="type == 'opportunity' or call_later"/>
+                <button name="action_unqualify" string="Unqualify" type="object"
+                        invisible="type == 'opportunity' or unqualified"/>
+            </header>
+            <div name="button_box" position="inside">
+                <button name="action_duplicate_tcr" type="object" class="oe_stat_button" icon="fa-clone"
+                        invisible="not duplicate_tcr_number">
+                    <field name="duplicate_tcr_number" widget="statinfo" string="Duplicate TCRs"/>
+                </button>
+                <button name="action_conflict_tcr" type="object" class="oe_stat_button" icon="fa-exclamation-triangle"
+                        invisible="not conflict_tcr_number">
+                    <field name="conflict_tcr_number" widget="statinfo" string="Conflicting TCRs"/>
+                </button>
+                <div class="o_stat_info" invisible="type == 'opportunity'">
+                    <field name="meeting_counter" class="o_stat_value"/>
+                    <span class="o_stat_text">Meetings</span>
+                </div>
+                <div class="o_stat_info" invisible="type == 'opportunity'">
+                    <field name="no_answer_count" class="o_stat_value"/>
+                    <span class="o_stat_text">No Answer</span>
+                </div>
+                <div class="o_stat_info" invisible="type == 'opportunity'">
+                    <field name="call_later_count" class="o_stat_value"/>
+                    <span class="o_stat_text">Call Later</span>
+                </div>
+            </div>
+            <xpath expr="//group[@name='lead_partner']/field[@name='partner_id'][1]" position="replace">
+                <field name="contact" invisible="type == 'opportunity'" placeholder="Select or create a contact..."/>
+            </xpath>
+            <xpath expr="//div[hasclass('oe_title')]/h1/field[@name='name']" position="attributes">
+                <attribute name="invisible">type == 'lead'</attribute>
+            </xpath>
+            <xpath expr="//div[hasclass('oe_title')]/h1/field[@name='name']" position="before">
+                <field name="lead_sequence" class="text-break" invisible="type != 'lead'"/>
+            </xpath>
+            <xpath expr="//div[hasclass('oe_title')]/h1" position="after">
+                <field name="opportunity_sequence" class="text-muted" invisible="type == 'lead'"/>
+            </xpath>
+            <xpath expr="//field[@name='lost_reason_id']" position="before">
+                <field name="lead_country_id"/>
+            </xpath>
+            <xpath expr="//field[@name='tag_ids']" position="after">
+                <field name="team_leader_id"/>
+                <field name="sales_manager_id"/>
+                <field name="director_id"/>
+            </xpath>
+            <group name="lead_partner" position="after">
+                <group string="Real Estate">
+                    <field name="fresh_lead" readonly="1" invisible="type == 'opportunity'"/>
+                    <field name="developer_id" required="type == 'opportunity'"/>
+                    <field name="project_id" required="type == 'opportunity'"/>
+                    <field name="unit_id" invisible="type == 'lead'"/>
+                    <field name="unit_number" invisible="type == 'lead'"/>
+                    <field name="interested_in"/>
+                    <field name="buying_type"/>
+                    <field name="unit_type"/>
+                    <field name="finish_type"/>
+                </group>
+                <group string="Destination">
+                    <field name="dest_country_id" required="type == 'opportunity'"/>
+                    <field name="governorate_id" required="type == 'opportunity'"/>
+                    <field name="dest_city_id" required="type == 'opportunity'"/>
+                    <field name="neighborhood_id"/>
+                </group>
+                <group string="Budget and Area">
+                    <field name="min_area"/>
+                    <field name="max_area"/>
+                    <field name="min_price"/>
+                    <field name="max_price"/>
+                    <field name="qualified_comment"/>
+                </group>
+            </group>
+            <page name="extra" position="after">
+                <page name="broker_deal" string="Deal" invisible="type == 'lead'">
+                    <group>
+                        <group string="Dates and Prices">
+                            <field name="reserved_date"/>
+                            <field name="reservation_price"/>
+                            <field name="contracted_date"/>
+                            <field name="contract_price"/>
+                            <field name="collected_date"/>
+                            <field name="confirmed_date"/>
+                            <field name="achievement_date" readonly="1"/>
+                        </group>
+                        <group string="Attachments">
+                            <field name="eoi_attachment" filename="opportunity_sequence"/>
+                            <field name="reservation_attachment" filename="opportunity_sequence"/>
+                            <field name="contract_attachment" filename="opportunity_sequence"/>
+                        </group>
+                    </group>
+                    <group string="Split Deal">
+                        <field name="split_deal"/>
+                        <field name="sales_ids" invisible="not split_deal"/>
+                        <field name="broker_ids"/>
+                        <field name="ambassador_ids"/>
+                    </group>
+                    <group string="Commission Hierarchy">
+                        <field name="commission_ids" nolabel="1">
+                            <list>
+                                <field name="employee_id"/>
+                                <field name="job_level_id"/>
+                                <field name="is_tcr_sales_person"/>
+                                <field name="commission"/>
+                            </list>
+                        </field>
+                    </group>
+                </page>
+                <page name="broker_approvals" string="Approvals" invisible="type == 'lead'">
+                    <group string="EOI">
+                        <field name="eoi_status_for_manager"/>
+                        <field name="eoi_rejection_reason_for_manager" invisible="eoi_status_for_manager != 'rejected'"/>
+                        <field name="eoi_status_for_financial"/>
+                        <field name="eoi_rejection_reason_for_financial" invisible="eoi_status_for_financial != 'rejected'"/>
+                        <field name="eoi_status_for_sales"/>
+                        <field name="eoi_rejection_reason_for_sales" invisible="eoi_status_for_sales != 'rejected'"/>
+                        <field name="eoi_status_for_operations"/>
+                        <field name="eoi_rejection_reason_for_operations" invisible="eoi_status_for_operations != 'rejected'"/>
+                    </group>
+                    <group string="Reservation">
+                        <field name="reservation_status_for_manager"/>
+                        <field name="reservation_rejection_reason_for_manager" invisible="reservation_status_for_manager != 'rejected'"/>
+                        <field name="reservation_status_for_financial"/>
+                        <field name="reservation_rejection_reason_for_financial" invisible="reservation_status_for_financial != 'rejected'"/>
+                        <field name="reservation_status_for_sales"/>
+                        <field name="reservation_rejection_reason_for_sales" invisible="reservation_status_for_sales != 'rejected'"/>
+                        <field name="reservation_status_for_operations"/>
+                        <field name="reservation_rejection_reason_for_operations" invisible="reservation_status_for_operations != 'rejected'"/>
+                    </group>
+                    <group string="Contract">
+                        <field name="contract_status_for_manager"/>
+                        <field name="contract_rejection_reason_for_manager" invisible="contract_status_for_manager != 'rejected'"/>
+                        <field name="contract_status_for_financial"/>
+                        <field name="contract_rejection_reason_for_financial" invisible="contract_status_for_financial != 'rejected'"/>
+                        <field name="contract_status_for_sales"/>
+                        <field name="contract_rejection_reason_for_sales" invisible="contract_status_for_sales != 'rejected'"/>
+                        <field name="contract_status_for_operations"/>
+                        <field name="contract_rejection_reason_for_operations" invisible="contract_status_for_operations != 'rejected'"/>
+                    </group>
+                </page>
+            </page>
+        </field>
+    </record>
+
+    <record id="crm_case_tree_view_leads_inherit_broker" model="ir.ui.view">
+        <field name="name">crm.lead.list.lead.inherit.broker</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_tree_view_leads"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="lead_sequence" string="Sequence" optional="show"/>
+                <field name="fresh_lead" string="Fresh Lead" optional="show"/>
+            </field>
+            <field name="priority" position="after">
+                <field name="meeting_counter" string="Meetings" optional="show"/>
+                <field name="no_answer_count" string="No Answer" optional="show"/>
+                <field name="call_later_count" string="Call Later" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="crm_case_tree_view_oppor_inherit_broker" model="ir.ui.view">
+        <field name="name">crm.lead.list.opportunity.inherit.broker</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_tree_view_oppor"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="opportunity_sequence" string="Sequence" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_crm_lead_kanban_inherit_broker" model="ir.ui.view">
+        <field name="name">crm.lead.kanban.inherit.broker</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.view_crm_lead_kanban"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="lead_sequence" class="text-muted"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="crm_case_kanban_view_leads_inherit_broker" model="ir.ui.view">
+        <field name="name">crm.lead.kanban.opportunity.inherit.broker</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_kanban_view_leads"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="opportunity_sequence" class="text-muted"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_crm_case_leads_filter_inherit_broker" model="ir.ui.view">
+        <field name="name">crm.lead.search.lead.inherit.broker</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.view_crm_case_leads_filter"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="lead_sequence" string="Sequence"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_crm_case_opportunities_filter_inherit_broker" model="ir.ui.view">
+        <field name="name">crm.lead.search.opportunity.inherit.broker</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.view_crm_case_opportunities_filter"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="opportunity_sequence" string="Sequence"/>
+            </field>
+        </field>
+    </record>
+</odoo>

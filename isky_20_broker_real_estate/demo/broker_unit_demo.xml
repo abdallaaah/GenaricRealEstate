@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="demo_unit_1" model="broker.unit">
+        <field name="unit_sale_type">primary</field>
+        <field name="unit_number">A-101</field>
+        <field name="project_id" ref="demo_developer_project"/>
+        <field name="unit_purpose">to_sale</field>
+        <field name="unit_type">residential</field>
+        <field name="residential_type">apartment</field>
+        <field name="sale_price">3500000</field>
+        <field name="number_of_rooms">3</field>
+        <field name="number_of_bathrooms">2</field>
+        <field name="indoor_gross_area">180</field>
+    </record>
+    <record id="demo_unit_2" model="broker.unit">
+        <field name="unit_sale_type">primary</field>
+        <field name="unit_number">A-102</field>
+        <field name="project_id" ref="demo_developer_project"/>
+        <field name="unit_purpose">sale_or_rent</field>
+        <field name="unit_type">residential</field>
+        <field name="residential_type">duplex</field>
+        <field name="sale_price">5200000</field>
+        <field name="rent_price">25000</field>
+        <field name="number_of_rooms">4</field>
+        <field name="number_of_bathrooms">3</field>
+        <field name="indoor_gross_area">260</field>
+    </record>
+    <record id="demo_unit_3" model="broker.unit">
+        <field name="unit_sale_type">primary</field>
+        <field name="unit_number">B-205</field>
+        <field name="project_id" ref="demo_developer_project_2"/>
+        <field name="unit_purpose">to_sale</field>
+        <field name="unit_type">residential</field>
+        <field name="residential_type">standalone_villa</field>
+        <field name="sale_price">12000000</field>
+        <field name="number_of_rooms">5</field>
+        <field name="number_of_bathrooms">4</field>
+        <field name="indoor_gross_area">420</field>
+        <field name="has_garden">True</field>
+        <field name="garden_area">300</field>
+        <field name="has_pool">True</field>
+    </record>
+    <record id="demo_unit_4" model="broker.unit">
+        <field name="unit_sale_type">primary</field>
+        <field name="unit_number">C-310</field>
+        <field name="project_id" ref="demo_developer_project_3"/>
+        <field name="unit_purpose">to_sale</field>
+        <field name="unit_type">residential</field>
+        <field name="residential_type">town_house</field>
+        <field name="sale_price">8750000</field>
+        <field name="number_of_rooms">4</field>
+        <field name="number_of_bathrooms">3</field>
+        <field name="indoor_gross_area">320</field>
+    </record>
+    <record id="demo_unit_office_1" model="broker.unit">
+        <field name="unit_sale_type">primary</field>
+        <field name="unit_number">OFF-12</field>
+        <field name="project_id" ref="demo_developer_project_3"/>
+        <field name="unit_purpose">to_rent</field>
+        <field name="unit_type">office</field>
+        <field name="office_type">private_office</field>
+        <field name="rent_price">45000</field>
+        <field name="indoor_gross_area">150</field>
+    </record>
+    <record id="demo_unit_resale" model="broker.unit">
+        <field name="unit_sale_type">resale</field>
+        <field name="unit_number">B-201</field>
+        <field name="project_id" ref="demo_developer_project"/>
+        <field name="unit_purpose">to_sale</field>
+        <field name="unit_type">residential</field>
+        <field name="residential_type">apartment</field>
+        <field name="sale_price">4100000</field>
+        <field name="seller_client_id" ref="isky_20_broker_base.demo_partner_resale_seller"/>
+        <field name="seller_sales_person" ref="isky_20_broker_base.demo_user_salesperson"/>
+    </record>
+    <record id="demo_unit_resale_2" model="broker.unit">
+        <field name="unit_sale_type">resale</field>
+        <field name="unit_number">D-404</field>
+        <field name="project_id" ref="demo_developer_project_2"/>
+        <field name="unit_purpose">sale_or_rent</field>
+        <field name="unit_type">residential</field>
+        <field name="residential_type">duplex</field>
+        <field name="sale_price">6300000</field>
+        <field name="rent_price">30000</field>
+        <field name="seller_client_id" ref="isky_20_broker_base.demo_partner_resale_seller_2"/>
+        <field name="seller_sales_person" ref="isky_20_broker_base.demo_user_salesperson_2"/>
+    </record>
+</odoo>
