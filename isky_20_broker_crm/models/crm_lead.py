@@ -188,6 +188,9 @@ class CrmLead(models.Model):
     assigned_by_id = fields.Many2one('res.users', readonly=True)
     reassigned = fields.Boolean()
     fresh_lead = fields.Boolean(string="Fresh Lead", default=True, copy=False)
+    name = fields.Char(
+        'Opportunity', index='trigram', required=False,
+        compute='_compute_name', readonly=False, store=True)
 
     # ---------------------------------------------------------------- computes
 
