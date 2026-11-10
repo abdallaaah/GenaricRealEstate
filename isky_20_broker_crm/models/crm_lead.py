@@ -424,7 +424,8 @@ class CrmLead(models.Model):
         return self.env.user.has_group('sales_team.group_sale_salesman_all_leads') \
             or self.env.user.has_group('sales_team.group_sale_manager') \
             or self.env.user.has_group('isky_20_broker_crm.group_director_manager') \
-            or self.env.user.has_group('isky_20_broker_crm.group_operation_manager')
+            or self.env.user.has_group('isky_20_broker_crm.group_operation_manager') \
+            or self.env.user.has_group('isky_20_broker_crm.group_lead_admin')
 
     def is_restricted_user(self):
         return not self.has_reassign_auth
@@ -506,6 +507,7 @@ class CrmLead(models.Model):
         self._check_restricted_fields(vals)
         self._check_lead_stage_transition(vals)
         self._check_stage_transition(vals)
+        self._check_sales_checkpoint(vals)
         self._set_achievement_date(vals)
         self._check_locked(vals)
         self.validate_required_fields(vals)
@@ -515,6 +517,44 @@ class CrmLead(models.Model):
         if result and vals.get('type') == 'opportunity':
             self._assign_opportunity_sequence()
         return result
+
+    def _check_sales_checkpoint(self, vals):
+        """D4: the 'sales' approval checkpoint is the deal's own salesperson signing off,
+        not anyone who happens to be in the configured sales group. Group membership is
+        checked by _check_approval_rights; this adds the identity requirement.
+
+        Enforced here in write() rather than in that constraint, because the constraint
+        re-validates every non-pending approval field whenever any of them changes --
+        it cannot tell which field this write is actually setting, and checking identity
+        retroactively would make the manager's later approval fail on the salesperson's
+        earlier one.
+        """
+        if self.env.su:
+            return
+        sales_fields_in_vals = [
+            field_name for field_name, _phase, role in APPROVAL_FIELDS
+            if role == 'sales' and vals.get(field_name) and vals[field_name] != 'pending'
+        ]
+        if not sales_fields_in_vals:
+            return
+        for lead in self:
+            if self.env.user != lead.user_id and self.env.user not in lead.sales_ids:
+                raise AccessError(self.env._(
+                    "Only this deal's salesperson (or a split-deal participant) can give the "
+                    "sales approval -- being in the sales approval group is not enough."))
+
+    def unlink(self):
+        """D3: nobody deletes a lead in daily use -- leads are archived or cancelled.
+        Delete exists only for the Lead Administrator, because the merge wizard deletes
+        the duplicates it folds in. Enforced here as a guard because the stock ir.access
+        row (crm_rule_all_lead) grants delete to every sales manager, and stock rows are
+        not edited in place.
+        """
+        if not self.env.su and not self.env.user.has_group('isky_20_broker_crm.group_lead_admin'):
+            raise AccessError(self.env._(
+                "Leads are never deleted in daily use -- archive or cancel instead. "
+                "Only a Lead Administrator can delete (e.g. when merging duplicates)."))
+        return super().unlink()
 
     def _assign_opportunity_sequence(self):
         # Lead -> Opportunity conversion (stock button, mass wizard, or our own convert-contact
@@ -569,10 +609,13 @@ class CrmLead(models.Model):
                     raise ValidationError(self.env._("A lost reason is required to cancel a deal."))
                 vals['cancellation_approver'] = self.env.user.partner_id.id
                 if lead.unit_id:
-                    lead.unit_id.unit_status = 'available'
+                    # System consequence of the cancellation, not a user editing the unit --
+                    # sudo past the Inventory-Manager-only guard on unit_status.
+                    lead.unit_id.sudo().unit_status = 'available'
             if new_stage.id == self.env.ref('isky_20_broker_crm.stage_reopen').id:
-                if not self.env.user.has_group(finance_group):
-                    raise AccessError(self.env._("Only finance can reopen a deal."))
+                if not (self.env.user.has_group(finance_group)
+                        or self.env.user.has_group('isky_20_broker_crm.group_operation_manager')):
+                    raise AccessError(self.env._("Only finance or an operations manager can reopen a deal."))
                 if not (lead.reopen_reason or vals.get('reopen_reason')):
                     raise ValidationError(self.env._("A reopen reason is required."))
 

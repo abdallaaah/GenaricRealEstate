@@ -6,6 +6,7 @@ class DeveloperProject(models.Model):
     _description = "Developer Project"
 
     name = fields.Char(required=True)
+    active = fields.Boolean(default=True)
     developer_id = fields.Many2one('res.partner', required=True , domain="[('is_developer', '=', True)]")
     country_id = fields.Many2one('res.country')
     governorate_id = fields.Many2one('res.country.state', domain="[('country_id', '=', country_id)]")

@@ -9,6 +9,10 @@ class UserNotification(models.Model):
     model = fields.Char(related='mail_message_id.model')
     res_id = fields.Many2oneReference(string="Related Document ID", model_field='model')
     title = fields.Char(required=True)
+    # Inverse of partner.notification.rel.notification_id. Exists so the access row can
+    # scope notifications to their recipients by field path:
+    # [('partner_rel_ids.partner_id', '=', user.partner_id.id)].
+    partner_rel_ids = fields.One2many('partner.notification.rel', 'notification_id')
 
     @api.model
     def get_user_messages(self):

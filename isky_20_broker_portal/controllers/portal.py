@@ -1,6 +1,15 @@
 from odoo.http import request
 from odoo.addons.website_crm_partner_assign.controllers.main import WebsiteAccount
 
+
+def check_portal_feature_http(code):
+    """D8: a route whose feature is off does not exist -- 404, not an access error.
+    An AccessError would confirm the page exists and render an error page; while the
+    portal decision is pending, the routes simply are not there."""
+    if not request.env['broker.feature.flag'].is_portal_feature_enabled(code):
+        raise request.not_found()
+
+
 from ..models.portal_feature_codes import (
     PORTAL_FEATURE_CRM, PORTAL_FEATURE_PERMISSION_REQUESTS, PORTAL_FEATURE_UNITS,
 )
@@ -15,19 +24,19 @@ class BrokerPortalAccount(WebsiteAccount):
     """
 
     def portal_my_leads(self, *args, **kwargs):
-        request.env['broker.feature.flag']._check_portal_feature(PORTAL_FEATURE_CRM)
+        check_portal_feature_http(PORTAL_FEATURE_CRM)
         return super().portal_my_leads(*args, **kwargs)
 
     def portal_my_opportunities(self, *args, **kwargs):
-        request.env['broker.feature.flag']._check_portal_feature(PORTAL_FEATURE_CRM)
+        check_portal_feature_http(PORTAL_FEATURE_CRM)
         return super().portal_my_opportunities(*args, **kwargs)
 
     def portal_my_lead(self, *args, **kwargs):
-        request.env['broker.feature.flag']._check_portal_feature(PORTAL_FEATURE_CRM)
+        check_portal_feature_http(PORTAL_FEATURE_CRM)
         return super().portal_my_lead(*args, **kwargs)
 
     def portal_my_opportunity(self, *args, **kwargs):
-        request.env['broker.feature.flag']._check_portal_feature(PORTAL_FEATURE_CRM)
+        check_portal_feature_http(PORTAL_FEATURE_CRM)
         return super().portal_my_opportunity(*args, **kwargs)
 
     def get_domain_my_lead(self, user):

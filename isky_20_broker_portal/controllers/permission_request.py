@@ -3,7 +3,7 @@ from odoo.exceptions import AccessError, MissingError
 from odoo.http import request
 from odoo.addons.portal.controllers.portal import CustomerPortal, pager as portal_pager
 
-from .portal import PORTAL_FEATURE_PERMISSION_REQUESTS
+from .portal import check_portal_feature_http, PORTAL_FEATURE_PERMISSION_REQUESTS
 
 
 class PermissionRequestPortal(CustomerPortal):
@@ -11,7 +11,7 @@ class PermissionRequestPortal(CustomerPortal):
     @http.route(['/my/permission-requests', '/my/permission-requests/page/<int:page>'],
                 type='http', auth="user", website=True)
     def portal_my_permission_requests(self, page=1, sortby=None, filterby=None, **kw):
-        request.env['broker.feature.flag']._check_portal_feature(PORTAL_FEATURE_PERMISSION_REQUESTS)
+        check_portal_feature_http(PORTAL_FEATURE_PERMISSION_REQUESTS)
         values = self._prepare_portal_layout_values()
         PermissionRequest = request.env['permission.request']
         domain = [('requester_id', '=', request.env.user.id)]
@@ -54,7 +54,7 @@ class PermissionRequestPortal(CustomerPortal):
 
     @http.route(['/my/permission-request/<int:permission_request_id>'], type='http', auth="user", website=True)
     def portal_my_permission_request(self, permission_request_id, **kw):
-        request.env['broker.feature.flag']._check_portal_feature(PORTAL_FEATURE_PERMISSION_REQUESTS)
+        check_portal_feature_http(PORTAL_FEATURE_PERMISSION_REQUESTS)
         try:
             permission_request_sudo = self._document_check_access('permission.request', permission_request_id)
         except (AccessError, MissingError):
@@ -67,7 +67,7 @@ class PermissionRequestPortal(CustomerPortal):
 
     @http.route(['/my/permission-request/create'], type='http', methods=['GET', 'POST'], auth="user", website=True)
     def portal_create_permission_request(self, **post):
-        request.env['broker.feature.flag']._check_portal_feature(PORTAL_FEATURE_PERMISSION_REQUESTS)
+        check_portal_feature_http(PORTAL_FEATURE_PERMISSION_REQUESTS)
         if post and request.httprequest.method == 'POST':
             request.env['permission.request'].create({
                 'request_type': post.get('request_type'),

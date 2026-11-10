@@ -11,6 +11,12 @@ class ResCompany(models.Model):
     _inherit = 'res.company'
 
     broker_sequence_prefix = fields.Char(string="Broker Sequence Prefix", size=3)
+    broker_unassigned_leads_visible_to_all = fields.Boolean(
+        string="Unassigned Leads Visible To All Salespeople",
+        help="On: every salesperson in this company sees the pool of leads with no salesperson "
+             "(stock Odoo behaviour). Off (default): unassigned leads are visible only to the "
+             "team leader of the lead's team, sales managers, directors, operations, and lead "
+             "administrators.")
 
     def _register_hook(self):
         super()._register_hook()
@@ -59,6 +65,13 @@ class ResCompany(models.Model):
         return companies
 
     def write(self, vals):
+        if 'broker_unassigned_leads_visible_to_all' in vals:
+            # The unassigned-pool access restriction reads this flag through a field path
+            # (company_id.broker_unassigned_leads_visible_to_all), which Postgres evaluates at
+            # query time -- so the cached access domain stays correct by construction. The
+            # explicit clear is belt and braces for anything already computed in this
+            # transaction and for the per-(uid, companies) domain cache.
+            self.env['ir.access']._clear_caches()
         if vals.get('broker_sequence_prefix'):
             vals['broker_sequence_prefix'] = vals['broker_sequence_prefix'].upper()
         result = super().write(vals)

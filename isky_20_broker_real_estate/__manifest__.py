@@ -16,6 +16,7 @@ iSky Broker - Real Estate
     """,
     'depends': ['isky_20_broker_base', 'base_geolocalize', 'sales_team'],
     'data': [
+        'security/isky_20_broker_real_estate_security.xml',
         'security/ir.access.csv',
         'data/ir_sequence_data.xml',
         'views/developer_project_views.xml',

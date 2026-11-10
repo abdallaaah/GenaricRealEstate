@@ -6,4 +6,5 @@ class ProjectSalePhase(models.Model):
     _description = "Project Sale Phase"
 
     name = fields.Char(required=True)
+    active = fields.Boolean(default=True)
     project_id = fields.Many2one('developer.project', string="Project")

@@ -13,19 +13,20 @@ class BrokerApprovalRule(models.Model):
     """
     _name = 'broker.approval.rule'
     _description = "Broker Approval Rule"
+    _inherit = ['mail.thread']
     _rec_name = 'group_id'
 
     phase = fields.Selection([
         ('eoi', "EOI"),
         ('reservation', "Reservation"),
         ('contract', "Contract"),
-    ], required=True)
+    ], required=True, tracking=True)
     role = fields.Selection([
         ('manager', "Manager"),
         ('financial', "Financial"),
         ('sales', "Sales"),
         ('operations', "Operations"),
-    ], required=True)
-    group_id = fields.Many2one('res.groups', required=True)
+    ], required=True, tracking=True)
+    group_id = fields.Many2one('res.groups', required=True, tracking=True)
 
     _unique_phase_role = models.UniqueIndex('(phase, role)')

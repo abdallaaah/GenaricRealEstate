@@ -9,6 +9,12 @@
         <field name="category_id" ref="module_category_broker"/>
     </record>
 
+    <record id="group_permission_approver" model="res.groups">
+        <field name="name">Permission Request Approver</field>
+        <field name="privilege_id" ref="res_groups_privilege_broker"/>
+        <field name="comment">May approve or reject permission requests (but never their own).</field>
+    </record>
+
     <record id="group_broker_admin" model="res.groups">
         <field name="name">Broker Administrator</field>
         <field name="privilege_id" ref="res_groups_privilege_broker"/>

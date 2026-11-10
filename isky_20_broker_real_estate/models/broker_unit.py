@@ -1,5 +1,5 @@
 from odoo import api, fields, models
-from odoo.exceptions import ValidationError
+from odoo.exceptions import AccessError, ValidationError
 
 
 class BrokerUnit(models.Model):
@@ -135,8 +135,42 @@ class BrokerUnit(models.Model):
     seller_client_extra_phone = fields.Char(string="Seller Extra Phone", related='seller_client_id.phone1')
 
     counter_ids = fields.One2many('broker.unit.counter', 'unit_id')
+    # D7/P7: prices and status stay readable by everyone (so no groups= on the fields,
+    # which would hide them from reading); writing them is the Inventory Manager's.
+    # The views make them readonly for everyone else via this compute, and write()
+    # enforces it server-side.
+    can_edit_protected_fields = fields.Boolean(compute='_compute_can_edit_protected_fields')
     unit_image = fields.Binary()
     unit_attachment_image_ids = fields.Many2many('ir.attachment')
+
+
+    # Changing a price or the status after the fact is an inventory-management act; the
+    # initial values at create() stay with whoever lists the unit (the price constraint
+    # requires them at creation).
+    PROTECTED_UNIT_FIELDS = (
+        'unit_status',
+        'sale_price', 'sale_maintenance_price', 'down_payment_percentage',
+        'rent_price', 'rent_maintenance_price',
+        'sale_price_per_meter', 'rent_price_per_meter', 'maintenance_price_per_meter',
+        'maintenance_percentage',
+        'seller_purpose_sale_price', 'seller_purpose_rent_price',
+    )
+
+    def _compute_can_edit_protected_fields(self):
+        can_edit = self.env.su or self.env.user.has_group(
+            'isky_20_broker_real_estate.group_broker_unit_manager')
+        for unit in self:
+            unit.can_edit_protected_fields = can_edit
+
+    def write(self, vals):
+        if not self.env.su and not self.env.user.has_group(
+                'isky_20_broker_real_estate.group_broker_unit_manager'):
+            touched = sorted(set(vals) & set(self.PROTECTED_UNIT_FIELDS))
+            if touched:
+                raise AccessError(self.env._(
+                    "Only an Inventory Manager can change a unit's price or status (%s).",
+                    ", ".join(touched)))
+        return super().write(vals)
 
     @api.depends('indoor_gross_area', 'outdoor_gross_area', 'indoor_net_area', 'outdoor_net_area')
     def _compute_total_area(self):

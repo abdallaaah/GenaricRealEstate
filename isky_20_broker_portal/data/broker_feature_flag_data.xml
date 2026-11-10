@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- D8: portal access is switched off pending the business decision on who the portal users
+     are and what permission.request is for. Explicit global seed rows (company_id unset),
+     because is_portal_feature_enabled fails open when no record exists. noupdate so a later
+     per-company decision made in Settings survives module upgrades. -->
+<odoo noupdate="1">
+    <record id="feature_flag_portal_crm" model="broker.feature.flag">
+        <field name="code">crm_leads</field>
+        <field name="name">Portal: Leads &amp; Opportunities</field>
+        <field name="category">portal</field>
+        <field name="company_id" eval="False"/>
+        <field name="enabled" eval="False"/>
+    </record>
+    <record id="feature_flag_portal_units" model="broker.feature.flag">
+        <field name="code">real_estate_units</field>
+        <field name="name">Portal: Units</field>
+        <field name="category">portal</field>
+        <field name="company_id" eval="False"/>
+        <field name="enabled" eval="False"/>
+    </record>
+    <record id="feature_flag_portal_permission_requests" model="broker.feature.flag">
+        <field name="code">permission_requests</field>
+        <field name="name">Portal: Permission Requests</field>
+        <field name="category">portal</field>
+        <field name="company_id" eval="False"/>
+        <field name="enabled" eval="False"/>
+    </record>
+</odoo>

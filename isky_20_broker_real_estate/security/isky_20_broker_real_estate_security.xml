@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- D7: master data (projects, phases) and unit prices/status are curated by one role,
+         instead of every internal user holding CRUD on the whole inventory. -->
+    <record id="group_broker_unit_manager" model="res.groups">
+        <field name="name">Inventory Manager</field>
+        <field name="privilege_id" ref="isky_20_broker_base.res_groups_privilege_broker"/>
+        <field name="comment">Manages projects, sale phases, and the unit inventory, including unit prices and status.</field>
+    </record>
+
+    <!-- Additive (4) so this stays a one-way implication added by this module to our own
+         base group; no stock record is touched. -->
+    <record id="isky_20_broker_base.group_broker_admin" model="res.groups">
+        <field name="implied_ids" eval="[(4, ref('group_broker_unit_manager'))]"/>
+    </record>
+</odoo>

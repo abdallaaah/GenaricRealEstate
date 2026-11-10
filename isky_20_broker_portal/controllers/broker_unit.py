@@ -3,14 +3,14 @@ from odoo.exceptions import AccessError, MissingError
 from odoo.http import request
 from odoo.addons.portal.controllers.portal import CustomerPortal, pager as portal_pager
 
-from .portal import PORTAL_FEATURE_UNITS
+from .portal import check_portal_feature_http, PORTAL_FEATURE_UNITS
 
 
 class BrokerUnitPortal(CustomerPortal):
 
     @http.route(['/my/units', '/my/units/page/<int:page>'], type='http', auth='user', website=True)
     def portal_my_units(self, page=1, sortby=None, **kw):
-        request.env['broker.feature.flag']._check_portal_feature(PORTAL_FEATURE_UNITS)
+        check_portal_feature_http(PORTAL_FEATURE_UNITS)
         BrokerUnit = request.env['broker.unit']
         domain = [('seller_sales_person', '=', request.env.user.id)]
         searchbar_sortings = {
@@ -38,7 +38,7 @@ class BrokerUnitPortal(CustomerPortal):
 
     @http.route(['/my/unit/<int:unit_id>'], type='http', auth='user', website=True)
     def portal_my_unit(self, unit_id, **kw):
-        request.env['broker.feature.flag']._check_portal_feature(PORTAL_FEATURE_UNITS)
+        check_portal_feature_http(PORTAL_FEATURE_UNITS)
         try:
             unit_sudo = self._document_check_access('broker.unit', unit_id)
         except (AccessError, MissingError):
@@ -50,7 +50,7 @@ class BrokerUnitPortal(CustomerPortal):
 
     @http.route(['/my/unit/create'], type='http', methods=['GET', 'POST'], auth='user', website=True)
     def portal_create_unit(self, **post):
-        request.env['broker.feature.flag']._check_portal_feature(PORTAL_FEATURE_UNITS)
+        check_portal_feature_http(PORTAL_FEATURE_UNITS)
         if post and request.httprequest.method == 'POST':
             vals = {
                 'unit_sale_type': 'resale',

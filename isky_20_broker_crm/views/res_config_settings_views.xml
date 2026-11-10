@@ -11,6 +11,10 @@
                              help="A 3-letter code prepended to the Lead and Opportunity sequence numbers for this company (e.g. ABC-L/00001, ABC-O/00001). Leave empty to use the default L/ and O/ prefixes. Changing it does not reset the running number.">
                         <field name="broker_sequence_prefix" placeholder="e.g. ABC"/>
                     </setting>
+                    <setting id="isky_20_broker_unassigned_pool" string="Unassigned Lead Pool"
+                             help="On: every salesperson in this company sees leads that have no salesperson yet (stock Odoo behaviour). Off: only the team leader of the lead's team, sales managers, directors, operations, and lead administrators see them. Takes effect immediately, per company.">
+                        <field name="broker_unassigned_leads_visible_to_all"/>
+                    </setting>
                     <setting id="isky_20_broker_approval_rules" string="Approval Workflow"
                              help="Which group must approve each deal phase (EOI/Reservation/Contract) x role (Manager/Financial/Sales/Operations). Configurable per client, instead of a fixed hardcoded matrix.">
                         <button type="action" name="isky_20_broker_crm.broker_approval_rule_action"
@@ -26,10 +30,10 @@
                         <button type="action" name="isky_20_broker_base.job_level_action"
                                 string="Configure Job Levels" icon="east" class="btn-link"/>
                     </setting>
-                    <setting id="isky_20_broker_portal_features" string="Portal Features"
-                              help="Enable or disable individual portal pages (units, permission requests, ...) without uninstalling the module that provides them.">
+                    <setting id="isky_20_broker_portal_features" string="Feature Flags"
+                              help="Enable or disable individual optional features -- portal pages (units, permission requests, ...) and commission behaviours (segmentation, retroactive effect, team rollup) -- without uninstalling the module that provides them.">
                         <button type="action" name="isky_20_broker_base.broker_feature_flag_action"
-                                string="Configure Portal Feature Flags" icon="east" class="btn-link"/>
+                                string="Configure Feature Flags" icon="east" class="btn-link"/>
                     </setting>
                 </block>
             </xpath>

@@ -23,6 +23,7 @@ Portal feature codes used here: 'real_estate_units', 'permission_requests'.
     'data': [
         'security/ir.access.csv',
         'data/ir_sequence_data.xml',
+        'data/broker_feature_flag_data.xml',
         'data/portal_entry_data.xml',
         'views/permission_request_templates.xml',
         'views/broker_unit_templates.xml',

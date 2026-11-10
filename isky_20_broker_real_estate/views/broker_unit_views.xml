@@ -23,7 +23,9 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <field name="unit_status" widget="statusbar" statusbar_visible="available,sold,rented"/>
+                    <field name="can_edit_protected_fields" invisible="1"/>
+                    <field name="unit_status" widget="statusbar" statusbar_visible="available,sold,rented"
+                           readonly="not can_edit_protected_fields"/>
                 </header>
                 <sheet>
                     <group>
@@ -99,19 +101,19 @@
                         <page name="pricing" string="Pricing">
                             <group>
                                 <group string="Sale">
-                                    <field name="sale_price"/>
-                                    <field name="sale_maintenance_price"/>
-                                    <field name="sale_price_per_meter"/>
-                                    <field name="down_payment_percentage"/>
+                                    <field name="sale_price" readonly="not can_edit_protected_fields"/>
+                                    <field name="sale_maintenance_price" readonly="not can_edit_protected_fields"/>
+                                    <field name="sale_price_per_meter" readonly="not can_edit_protected_fields"/>
+                                    <field name="down_payment_percentage" readonly="not can_edit_protected_fields"/>
                                 </group>
                                 <group string="Rent">
-                                    <field name="rent_price"/>
+                                    <field name="rent_price" readonly="not can_edit_protected_fields"/>
                                     <field name="rent_period"/>
-                                    <field name="rent_maintenance_price"/>
+                                    <field name="rent_maintenance_price" readonly="not can_edit_protected_fields"/>
                                     <field name="maintenance_period"/>
-                                    <field name="rent_price_per_meter"/>
-                                    <field name="maintenance_price_per_meter"/>
-                                    <field name="maintenance_percentage"/>
+                                    <field name="rent_price_per_meter" readonly="not can_edit_protected_fields"/>
+                                    <field name="maintenance_price_per_meter" readonly="not can_edit_protected_fields"/>
+                                    <field name="maintenance_percentage" readonly="not can_edit_protected_fields"/>
                                 </group>
                             </group>
                         </page>
@@ -135,8 +137,8 @@
                                 <field name="seller_team_leader" readonly="1"/>
                                 <field name="seller_sales_manager" readonly="1"/>
                                 <field name="seller_sales_director" readonly="1"/>
-                                <field name="seller_purpose_sale_price"/>
-                                <field name="seller_purpose_rent_price"/>
+                                <field name="seller_purpose_sale_price" readonly="not can_edit_protected_fields"/>
+                                <field name="seller_purpose_rent_price" readonly="not can_edit_protected_fields"/>
                             </group>
                         </page>
                         <page name="utilities" string="Utilities">

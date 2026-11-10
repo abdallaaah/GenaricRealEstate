@@ -13,14 +13,22 @@
         <field name="privilege_id" ref="isky_20_broker_base.res_groups_privilege_broker"/>
         <field name="implied_ids" eval="[(4, ref('sales_team.group_sale_manager'))]"/>
     </record>
-    <record id="group_operation_manager" model="res.groups">
-        <field name="name">Operations Manager</field>
-        <field name="privilege_id" ref="isky_20_broker_base.res_groups_privilege_broker"/>
-        <field name="implied_ids" eval="[(4, ref('group_director_manager'))]"/>
-    </record>
     <record id="group_operation_executive" model="res.groups">
         <field name="name">Operations Executive</field>
         <field name="privilege_id" ref="isky_20_broker_base.res_groups_privilege_broker"/>
+        <!-- Mirrors sales_team.group_sale_salesman implying base.group_user: being granted the
+             operations track alone must still make the account an internal user. -->
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+    <!-- D1: Operations is its own track, not a superset of the sales track. Operations Manager
+         stops implying Director (which dragged in sales_team.group_sale_manager and with it
+         all-leads CRUD, team and tag administration). What the operations flow actually needs
+         is granted back explicitly in ir.access.csv and listed in the access-run report.
+         A user who genuinely works both tracks gets both groups on their user form. -->
+    <record id="group_operation_manager" model="res.groups">
+        <field name="name">Operations Manager</field>
+        <field name="privilege_id" ref="isky_20_broker_base.res_groups_privilege_broker"/>
+        <field name="implied_ids" eval="[(3, ref('group_director_manager')), (4, ref('group_operation_executive')), (4, ref('isky_20_broker_base.group_permission_approver'))]"/>
     </record>
     <record id="group_lead_admin" model="res.groups">
         <field name="name">Lead Administrator</field>
