@@ -22,6 +22,7 @@ class BrokerFeatureFlag(models.Model):
     name = fields.Char(required=True)
     category = fields.Selection([
         ('portal', "Portal"),
+        ('crm', "CRM"),
         ('commission', "Commission"),
     ], default='portal', required=True,
         help="Which area of the platform this flag belongs to. Used only to group the list.")

@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<!-- noupdate: these 12 rows are a starting configuration, and the whole point of
+     broker.approval.rule is that each client rewires or deletes them in the UI. Without
+     noupdate, every module upgrade silently re-created deleted rows and overwrote edited
+     ones, undoing the client's approval setup. -->
+<odoo noupdate="1">
     <record id="approval_rule_eoi_manager" model="broker.approval.rule">
         <field name="phase">eoi</field>
         <field name="role">manager</field>

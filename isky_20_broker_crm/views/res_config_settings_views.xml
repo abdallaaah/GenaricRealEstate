@@ -15,6 +15,10 @@
                              help="On: every salesperson in this company sees leads that have no salesperson yet (stock Odoo behaviour). Off: only the team leader of the lead's team, sales managers, directors, operations, and lead administrators see them. Takes effect immediately, per company.">
                         <field name="broker_unassigned_leads_visible_to_all"/>
                     </setting>
+                    <setting id="isky_20_broker_finance_gate" string="Finance Stage Gates"
+                             help="On (default): only Deal Finance moves a deal to Collected or Confirmed Contract, and only Finance or an Operations Manager reopens a cancelled deal. Off: anyone who can edit the deal may do so -- required dates, attachments, and reasons still apply.">
+                        <field name="crm_finance_stage_gate_enabled"/>
+                    </setting>
                     <setting id="isky_20_broker_approval_rules" string="Approval Workflow"
                              help="Which group must approve each deal phase (EOI/Reservation/Contract) x role (Manager/Financial/Sales/Operations). Configurable per client, instead of a fixed hardcoded matrix.">
                         <button type="action" name="isky_20_broker_crm.broker_approval_rule_action"

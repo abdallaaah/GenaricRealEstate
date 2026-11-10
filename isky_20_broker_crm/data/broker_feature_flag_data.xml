@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Seeded ON, globally (no company), because the gate is today's behaviour and upgrading
+     must change nothing. A client that does not want finance-only stage gates switches the
+     flag off in Settings or per company in the Feature Flags list. noupdate so that choice
+     survives module upgrades. -->
+<odoo noupdate="1">
+    <record id="feature_flag_crm_finance_stage_gate" model="broker.feature.flag">
+        <field name="code">crm_finance_stage_gate</field>
+        <field name="name">CRM: Finance Stage Gates</field>
+        <field name="category">crm</field>
+        <field name="company_id" eval="False"/>
+        <field name="enabled" eval="True"/>
+    </record>
+</odoo>

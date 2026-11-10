@@ -25,6 +25,7 @@ iSky Broker - CRM
         'data/crm_stage_data.xml',
         'data/utm_source_data.xml',
         'data/broker_approval_rule_data.xml',
+        'data/broker_feature_flag_data.xml',
         'views/crm_lead_views.xml',
         'views/res_company_views.xml',
         'views/crm_stage_views.xml',

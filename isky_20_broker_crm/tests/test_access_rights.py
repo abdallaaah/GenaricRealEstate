@@ -168,6 +168,20 @@ class TestBrokerLeadAccess(TransactionCase):
             'stage_id': stage.id, 'collected_date': '2026-11-10'})
         self.assertEqual(self.own_lead.stage_id, stage)
 
+    def test_finance_gate_flag_off_opens_the_stage(self):
+        """The finance gate is a feature flag: switched off, a non-finance user who can
+        edit the deal may enter Collected -- the date requirement still applies."""
+        self.env['broker.feature.flag']._set_flag(
+            'crm_finance_stage_gate', "CRM: Finance Stage Gates", False, category='crm')
+        try:
+            stage = self.env.ref('isky_20_broker_crm.stage_collected')
+            self.own_lead.with_user(self.sales_manager).write({
+                'stage_id': stage.id, 'collected_date': '2026-11-10'})
+            self.assertEqual(self.own_lead.stage_id, stage)
+        finally:
+            self.env['broker.feature.flag']._set_flag(
+                'crm_finance_stage_gate', "CRM: Finance Stage Gates", True, category='crm')
+
     def test_reopen_gate_finance_or_ops_manager(self):
         cancel = self.env.ref('isky_20_broker_crm.stage_cancel')
         reopen = self.env.ref('isky_20_broker_crm.stage_reopen')

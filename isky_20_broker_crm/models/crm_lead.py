@@ -3,6 +3,8 @@ from odoo.addons.phone_validation.tools import phone_validation
 from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.tools import html2plaintext
 
+from .crm_feature_codes import CRM_FEATURE_FINANCE_STAGE_GATE
+
 PHONE_FIELDS = ['phone', 'phone1', 'phone2', 'phone3', 'phone4']
 
 APPROVAL_FIELDS = [
@@ -593,6 +595,12 @@ class CrmLead(models.Model):
             return
         new_stage = self.env['crm.stage'].browse(vals['stage_id'])
         finance_group = 'isky_20_broker_crm.group_finance'
+        # D5 made these stages finance-only; whether a given client wants that at all is
+        # now a feature flag (on by default, so upgrading changes nothing). Off: anyone
+        # who can write the deal may enter Collected/Confirmed Contract or reopen it --
+        # the date, attachment, and lost-reason requirements below still apply.
+        finance_gate = self.env['broker.feature.flag'].is_feature_enabled(
+            CRM_FEATURE_FINANCE_STAGE_GATE)
         for lead in self:
             if lead.type != 'opportunity':
                 continue
@@ -605,7 +613,7 @@ class CrmLead(models.Model):
             if new_stage.is_confirmed_contract and not (lead.confirmed_date or vals.get('confirmed_date')):
                 raise ValidationError(self.env._("A confirmed date is required."))
             if (new_stage.is_collected or new_stage.is_confirmed_contract) \
-                    and not self.env.user.has_group(finance_group):
+                    and finance_gate and not self.env.user.has_group(finance_group):
                 raise AccessError(self.env._("Only finance can move a deal to this stage."))
             if new_stage.is_cancel:
                 if not (lead.lost_reason_id or vals.get('lost_reason_id')):
@@ -616,7 +624,8 @@ class CrmLead(models.Model):
                     # sudo past the Inventory-Manager-only guard on unit_status.
                     lead.unit_id.sudo().unit_status = 'available'
             if new_stage.id == self.env.ref('isky_20_broker_crm.stage_reopen').id:
-                if not (self.env.user.has_group(finance_group)
+                if finance_gate and not (
+                        self.env.user.has_group(finance_group)
                         or self.env.user.has_group('isky_20_broker_crm.group_operation_manager')):
                     raise AccessError(self.env._("Only finance or an operations manager can reopen a deal."))
                 if not (lead.reopen_reason or vals.get('reopen_reason')):
