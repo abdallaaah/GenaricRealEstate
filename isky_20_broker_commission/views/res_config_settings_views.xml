@@ -17,6 +17,59 @@
                         <field name="base_max_commission_percentage_amount" class="oe_inline"/>
                     </div>
                 </setting>
+                <setting id="isky_20_broker_commission_features" string="Commission Features"
+                         help="Each of these is a broker.feature.flag, so it can be switched per company. The three that change what a deal earns default to off, so upgrading never turns one on by itself.">
+                    <div class="content-group">
+                        <div class="row mt8">
+                            <field name="commission_segmentation_enabled" class="col-lg-1"/>
+                            <label for="commission_segmentation_enabled" class="o_light_label"/>
+                        </div>
+                        <div class="row">
+                            <field name="commission_retroactive_enabled" class="col-lg-1"/>
+                            <label for="commission_retroactive_enabled" class="o_light_label"/>
+                        </div>
+                        <div class="row">
+                            <field name="commission_team_rollup_enabled" class="col-lg-1"/>
+                            <label for="commission_team_rollup_enabled" class="o_light_label"/>
+                        </div>
+                        <div class="row">
+                            <field name="commission_hierarchy_stacking_enabled" class="col-lg-1"/>
+                            <label for="commission_hierarchy_stacking_enabled" class="o_light_label"/>
+                        </div>
+                        <div class="row">
+                            <field name="commission_project_additional_enabled" class="col-lg-1"/>
+                            <label for="commission_project_additional_enabled" class="o_light_label"/>
+                        </div>
+                        <div class="row">
+                            <field name="commission_operations_share_enabled" class="col-lg-1"/>
+                            <label for="commission_operations_share_enabled" class="o_light_label"/>
+                        </div>
+                        <div class="row">
+                            <field name="commission_require_plan_assignment_enabled" class="col-lg-1"/>
+                            <label for="commission_require_plan_assignment_enabled" class="o_light_label"/>
+                        </div>
+                        <div class="row">
+                            <field name="commission_referral_plan_matching_enabled" class="col-lg-1"/>
+                            <label for="commission_referral_plan_matching_enabled" class="o_light_label"/>
+                        </div>
+                    </div>
+                </setting>
+                <setting id="isky_20_broker_commission_broker_company" string="Commission Broker Company"
+                         help="For a group where a developer company sells the units and a separate broker company receives the commission and pays the sales team. Leave empty to book commission in the company that owns the deal.">
+                    <field name="commission_broker_company_id" options="{'no_create': True}"/>
+                </setting>
+                <setting id="isky_20_broker_commission_trigger" string="Create Commission On"
+                         help="Which deal stage creates commission. Confirmed Contract is this module's original behaviour; the live production engine moved to a collection-based trigger instead, since a signed contract is not money received.">
+                    <field name="commission_trigger_stage"/>
+                </setting>
+                <setting id="isky_20_broker_commission_achieve_basis" string="Achieve Plan Amount Means"
+                         help="How an achieve plan's Commission Amount is read for hierarchy beneficiaries. Both pre-v20 generations and the live production engine read it as a rate per million; this module reads it as a flat amount - a 12x difference on a 12M deal. Default preserves current behaviour.">
+                    <field name="achieve_commission_basis"/>
+                </setting>
+                <setting id="isky_20_broker_commission_double_mode" string="Double Commission Means"
+                         help="A project marked Double Commission had two different meanings across versions of this engine; pick the one this client's plans were written against.">
+                    <field name="double_commission_mode"/>
+                </setting>
                 <setting id="isky_20_broker_commission_plans" string="Commission Plans"
                           help="Target and achieve-type commission plans, filtered to Real Estate Commission so they don't mix with unrelated Sale Commission plans a client might also use.">
                     <button type="action" name="sale_commission.sale_commission_action_plan"

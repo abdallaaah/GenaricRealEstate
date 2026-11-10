@@ -23,6 +23,7 @@ model now, not a plain many2many) -- this is not a line-for-line port.
     'depends': ['sale_commission', 'isky_20_broker_crm', 'isky_20_broker_real_estate'],
     'data': [
         'security/ir.access.csv',
+        'data/commission_feature_flag_data.xml',
         'views/sale_commission_plan_views.xml',
         'views/realestate_commission_achievement_views.xml',
         'views/realestate_achievement_report_views.xml',

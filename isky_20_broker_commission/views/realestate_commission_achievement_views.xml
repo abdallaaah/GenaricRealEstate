@@ -4,20 +4,110 @@
         <field name="name">realestate.commission.achievement.view.list</field>
         <field name="model">realestate.commission.achievement</field>
         <field name="arch" type="xml">
-            <list>
+            <list decoration-muted="is_cancelled">
                 <field name="opportunity_id"/>
                 <field name="user_id"/>
                 <field name="job_level_id"/>
                 <field name="is_tcr_sales_person"/>
                 <field name="commission_plan_id"/>
+                <field name="applied_segment_id" optional="show"/>
                 <field name="sales_volume"/>
                 <field name="commission_percentage"/>
                 <field name="commission_amount"/>
                 <field name="basic_hierarchy_commission"/>
+                <field name="retro_active"/>
                 <field name="total_commission_amount"/>
                 <field name="paid_amount"/>
+                <field name="is_cancelled" optional="hide"/>
                 <field name="currency_id" column_invisible="1"/>
             </list>
+        </field>
+    </record>
+
+    <record id="realestate_commission_achievement_view_form" model="ir.ui.view">
+        <field name="name">realestate.commission.achievement.view.form</field>
+        <field name="model">realestate.commission.achievement</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_cancel" type="object" string="Cancel"
+                            invisible="is_cancelled"
+                            confirm="Cancelling re-rates the rest of this period without this deal's volume, which can claw commission back. Continue?"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Cancelled" bg_color="text-bg-danger"
+                            invisible="not is_cancelled"/>
+                    <group>
+                        <group string="Deal">
+                            <field name="opportunity_id"/>
+                            <field name="user_id"/>
+                            <field name="job_level_id"/>
+                            <field name="is_tcr_sales_person"/>
+                            <field name="sales_volume"/>
+                            <field name="is_cancelled" invisible="1"/>
+                        </group>
+                        <group string="Commission">
+                            <field name="commission_plan_id"/>
+                            <field name="applied_segment_id"/>
+                            <field name="commission_percentage"/>
+                            <field name="commission_amount"/>
+                            <field name="basic_hierarchy_commission"/>
+                            <field name="retro_active"/>
+                            <field name="total_commission_amount"/>
+                            <field name="paid_amount"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Retroactive Adjustments" name="retro">
+                            <field name="retro_adjustment_ids" readonly="1">
+                                <list>
+                                    <field name="date"/>
+                                    <field name="trigger_opportunity_id"/>
+                                    <field name="old_segment_id"/>
+                                    <field name="new_segment_id"/>
+                                    <field name="old_amount"/>
+                                    <field name="new_amount"/>
+                                    <field name="difference"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                </list>
+                            </field>
+                            <div class="text-muted">
+                                Each line is one correction, recorded against the deal that
+                                caused it. Their sum is the Retro Active figure above.
+                            </div>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="realestate_commission_achievement_view_search" model="ir.ui.view">
+        <field name="name">realestate.commission.achievement.view.search</field>
+        <field name="model">realestate.commission.achievement</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="opportunity_id"/>
+                <field name="user_id"/>
+                <field name="commission_plan_id"/>
+                <filter string="Active" name="not_cancelled" domain="[('is_cancelled', '=', False)]"/>
+                <filter string="Cancelled" name="cancelled" domain="[('is_cancelled', '=', True)]"/>
+                <separator/>
+                <!-- '!=' 0, not '=' True: retro_active is a Monetary, and comparing it to a
+                     boolean makes Postgres reject the query outright. The pre-v20 view had
+                     exactly that filter. -->
+                <filter string="Has Retroactive Adjustment" name="has_retro"
+                        domain="[('retro_active', '!=', 0)]"/>
+                <separator/>
+                <filter string="Deal Closer" name="is_closer" domain="[('is_tcr_sales_person', '=', True)]"/>
+                <group>
+                    <filter string="Salesperson" name="group_by_user" context="{'group_by': 'user_id'}"/>
+                    <filter string="Job Level" name="group_by_level" context="{'group_by': 'job_level_id'}"/>
+                    <filter string="Commission Plan" name="group_by_plan" context="{'group_by': 'commission_plan_id'}"/>
+                    <filter string="Opportunity" name="group_by_opportunity" context="{'group_by': 'opportunity_id'}"/>
+                </group>
+            </search>
         </field>
     </record>
 
@@ -25,5 +115,6 @@
         <field name="name">Commission Achievements</field>
         <field name="res_model">realestate.commission.achievement</field>
         <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_not_cancelled': 1}</field>
     </record>
 </odoo>

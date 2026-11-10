@@ -11,6 +11,8 @@
                 <field name="date_from"/>
                 <field name="date_to"/>
                 <field name="target_amount"/>
+                <field name="own_achieved"/>
+                <field name="team_achieved"/>
                 <field name="achieved"/>
                 <field name="achieved_rate" widget="percentage"/>
                 <field name="tcr_count"/>

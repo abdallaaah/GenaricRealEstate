@@ -5,6 +5,6 @@
               groups="group_broker_admin"/>
     <menuitem id="broker_menu_job_level" name="Job Levels" parent="broker_menu_configuration"
               action="job_level_action" sequence="10"/>
-    <menuitem id="broker_menu_feature_flag" name="Portal Feature Flags" parent="broker_menu_configuration"
+    <menuitem id="broker_menu_feature_flag" name="Feature Flags" parent="broker_menu_configuration"
               action="broker_feature_flag_action" sequence="20"/>
 </odoo>

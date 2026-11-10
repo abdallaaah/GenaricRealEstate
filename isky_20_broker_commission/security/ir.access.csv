@@ -2,3 +2,7 @@ id,name,model_id,group_id/id,operation,domain
 access_realestate_commission_achievement_user,realestate.commission.achievement.user,realestate.commission.achievement,base.group_user,r,
 access_realestate_commission_achievement_manager,realestate.commission.achievement.manager,realestate.commission.achievement,sales_team.group_sale_manager,crud,
 access_realestate_achievement_report_user,realestate.achievement.report.user,realestate.achievement.report,base.group_user,r,
+access_commission_segment_user,commission.segment.user,commission.segment,base.group_user,r,
+access_commission_segment_manager,commission.segment.manager,commission.segment,sales_team.group_sale_manager,crud,
+access_commission_retro_adjustment_user,commission.retro.adjustment.user,commission.retro.adjustment,base.group_user,r,
+access_commission_retro_adjustment_manager,commission.retro.adjustment.manager,commission.retro.adjustment,sales_team.group_sale_manager,crud,

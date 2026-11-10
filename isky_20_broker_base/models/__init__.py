@@ -1,4 +1,5 @@
 from . import job_level
+from . import broker_sales_hierarchy
 from . import broker_feature_flag
 from . import res_partner
 from . import res_company

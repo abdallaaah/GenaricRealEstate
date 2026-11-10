@@ -5,6 +5,7 @@
         <field name="model">broker.feature.flag</field>
         <field name="arch" type="xml">
             <list editable="bottom">
+                <field name="category"/>
                 <field name="code"/>
                 <field name="name"/>
                 <field name="company_id" groups="base.group_multi_company"/>
@@ -20,6 +21,7 @@
             <form>
                 <sheet>
                     <group>
+                        <field name="category"/>
                         <field name="code"/>
                         <field name="name"/>
                         <field name="company_id"/>
@@ -30,9 +32,27 @@
         </field>
     </record>
 
+    <record id="broker_feature_flag_view_search" model="ir.ui.view">
+        <field name="name">broker.feature.flag.view.search</field>
+        <field name="model">broker.feature.flag</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="code"/>
+                <field name="name"/>
+                <filter string="Enabled" name="enabled" domain="[('enabled', '=', True)]"/>
+                <filter string="Disabled" name="disabled" domain="[('enabled', '=', False)]"/>
+                <group>
+                    <filter string="Category" name="group_by_category" context="{'group_by': 'category'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action id kept as-is: isky_20_broker_crm's settings page links to it by this id. -->
     <record id="broker_feature_flag_action" model="ir.actions.act_window">
-        <field name="name">Portal Feature Flags</field>
+        <field name="name">Feature Flags</field>
         <field name="res_model">broker.feature.flag</field>
         <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_group_by_category': 1}</field>
     </record>
 </odoo>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Commission feature flags are seeded explicitly rather than relying on
+     broker.feature.flag's fail-open default, so that upgrading this module can
+     never switch a money-affecting path on by itself. The two flags seeded True
+     describe what the engine already does today; the three seeded False are new
+     behaviour a client opts into.
+
+     noupdate="1" so a client's own choices survive the next module upgrade. -->
+<odoo noupdate="1">
+
+    <record id="feature_flag_commission_team_rollup" model="broker.feature.flag">
+        <field name="code">commission_team_rollup</field>
+        <field name="name">Commission: Team Target Rollup</field>
+        <field name="category">commission</field>
+        <!-- company_id False: a global default every company inherits. is_feature_enabled
+             prefers a company-specific row over this one, so a client can still override
+             per company. -->
+        <field name="company_id" eval="False"/>
+        <field name="enabled" eval="True"/>
+    </record>
+
+    <record id="feature_flag_commission_hierarchy_stacking" model="broker.feature.flag">
+        <field name="code">commission_hierarchy_stacking</field>
+        <field name="name">Commission: Hierarchy Stacking</field>
+        <field name="category">commission</field>
+        <!-- company_id False: a global default every company inherits. is_feature_enabled
+             prefers a company-specific row over this one, so a client can still override
+             per company. -->
+        <field name="company_id" eval="False"/>
+        <field name="enabled" eval="True"/>
+    </record>
+
+    <record id="feature_flag_commission_segmentation" model="broker.feature.flag">
+        <field name="code">commission_segmentation</field>
+        <field name="name">Commission: Segmented Plans</field>
+        <field name="category">commission</field>
+        <!-- company_id False: a global default every company inherits. is_feature_enabled
+             prefers a company-specific row over this one, so a client can still override
+             per company. -->
+        <field name="company_id" eval="False"/>
+        <field name="enabled" eval="False"/>
+    </record>
+
+    <record id="feature_flag_commission_retroactive" model="broker.feature.flag">
+        <field name="code">commission_retroactive</field>
+        <field name="name">Commission: Retroactive Effect</field>
+        <field name="category">commission</field>
+        <!-- company_id False: a global default every company inherits. is_feature_enabled
+             prefers a company-specific row over this one, so a client can still override
+             per company. -->
+        <field name="company_id" eval="False"/>
+        <field name="enabled" eval="False"/>
+    </record>
+
+    <record id="feature_flag_commission_project_additional" model="broker.feature.flag">
+        <field name="code">commission_project_additional_percentage</field>
+        <field name="name">Commission: Project Additional Percentage</field>
+        <field name="category">commission</field>
+        <!-- company_id False: a global default every company inherits. is_feature_enabled
+             prefers a company-specific row over this one, so a client can still override
+             per company. -->
+        <field name="company_id" eval="False"/>
+        <field name="enabled" eval="False"/>
+    </record>
+
+    <record id="feature_flag_commission_operations_share" model="broker.feature.flag">
+        <field name="code">commission_operations_share</field>
+        <field name="name">Commission: Operations Share</field>
+        <field name="category">commission</field>
+        <field name="company_id" eval="False"/>
+        <field name="enabled" eval="False"/>
+    </record>
+
+    <record id="feature_flag_commission_require_plan_assignment" model="broker.feature.flag">
+        <field name="code">commission_require_plan_assignment</field>
+        <field name="name">Commission: Require Plan Assignment</field>
+        <field name="category">commission</field>
+        <field name="company_id" eval="False"/>
+        <field name="enabled" eval="False"/>
+    </record>
+
+    <record id="feature_flag_commission_referral_plan_matching" model="broker.feature.flag">
+        <field name="code">commission_referral_plan_matching</field>
+        <field name="name">Commission: Referral Plan Matching</field>
+        <field name="category">commission</field>
+        <field name="company_id" eval="False"/>
+        <field name="enabled" eval="False"/>
+    </record>
+
+</odoo>

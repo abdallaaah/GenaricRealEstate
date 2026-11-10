@@ -5,7 +5,9 @@
         <field name="model">job.level</field>
         <field name="arch" type="xml">
             <list>
+                <field name="hierarchy_sequence" optional="show"/>
                 <field name="name"/>
+                <field name="team_role_field" optional="show"/>
                 <field name="is_sales_person"/>
                 <field name="is_team_leader"/>
                 <field name="is_sales_manager"/>
@@ -22,12 +24,18 @@
             <form>
                 <sheet>
                     <group>
-                        <field name="name"/>
-                        <field name="is_sales_person"/>
-                        <field name="is_team_leader"/>
-                        <field name="is_sales_manager"/>
-                        <field name="is_directory"/>
-                        <field name="is_operations"/>
+                        <group string="Role">
+                            <field name="name"/>
+                            <field name="is_sales_person"/>
+                            <field name="is_team_leader"/>
+                            <field name="is_sales_manager"/>
+                            <field name="is_directory"/>
+                            <field name="is_operations"/>
+                        </group>
+                        <group string="Reporting Chain">
+                            <field name="hierarchy_sequence"/>
+                            <field name="team_role_field" required="hierarchy_sequence &gt; 0"/>
+                        </group>
                     </group>
                 </sheet>
             </form>

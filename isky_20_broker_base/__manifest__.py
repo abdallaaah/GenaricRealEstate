@@ -36,6 +36,7 @@ Foundation layer shared by every iSky_20_Broker module:
         'demo/res_users_demo.xml',
         'demo/crm_team_demo.xml',
     ],
+    'post_init_hook': 'post_init_hook',
     'author': 'iSky Development',
     'license': 'LGPL-3',
 }

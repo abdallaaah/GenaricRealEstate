@@ -1,20 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <!-- hierarchy_sequence / team_role_field define the sales reporting chain that
+         broker.sales.hierarchy generates its relationships from. A higher rank manages
+         every lower rank on the same sales team, and a vacant tier is skipped
+         automatically. A client with a different org shape edits these rows rather than
+         needing a code change. Operations is left at rank 0: outside the chain. -->
     <record id="job_level_sales_person" model="job.level">
         <field name="name">Sales Person</field>
         <field name="is_sales_person">True</field>
+        <field name="hierarchy_sequence">10</field>
+        <field name="team_role_field">member_ids</field>
     </record>
     <record id="job_level_team_leader" model="job.level">
         <field name="name">Team Leader</field>
         <field name="is_team_leader">True</field>
+        <field name="hierarchy_sequence">20</field>
+        <field name="team_role_field">user_id</field>
     </record>
     <record id="job_level_sales_manager" model="job.level">
         <field name="name">Sales Manager</field>
         <field name="is_sales_manager">True</field>
+        <field name="hierarchy_sequence">30</field>
+        <field name="team_role_field">sales_manager_id</field>
     </record>
     <record id="job_level_director" model="job.level">
         <field name="name">Director</field>
         <field name="is_directory">True</field>
+        <field name="hierarchy_sequence">40</field>
+        <field name="team_role_field">director_id</field>
     </record>
     <record id="job_level_operations" model="job.level">
         <field name="name">Operations</field>

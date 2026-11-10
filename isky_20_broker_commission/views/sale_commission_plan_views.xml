@@ -9,7 +9,50 @@
                 <field name="realestate_commission"/>
                 <field name="job_position_id" invisible="type != 'target'"/>
                 <field name="job_level_id" invisible="type != 'achieve'"/>
+                <field name="with_broker" invisible="not realestate_commission"/>
+                <field name="with_ambassador" invisible="not realestate_commission"/>
             </field>
+
+            <!-- On the native bracket path this engine reads the Commission column as a rate
+                 per million of contract price: 5000 means 0.5%, not 5,000 in currency. The
+                 column renders as a Monetary with a currency symbol, so the meaning has to be
+                 stated. The pre-v20 generations showed a "(/M)" marker for the same reason.
+                 commission.segment needs no such note: there, percentage is a true percent. -->
+            <xpath expr="//field[@name='target_commission_ids']" position="after">
+                <div class="text-muted" invisible="not realestate_commission">
+                    On a Real Estate Commission plan, <strong>Commission</strong> above is read as a
+                    <strong>rate per million</strong> of the contract price: 5000 earns 0.5%, not
+                    5,000. Use the Segments tab instead to configure plain percentages.
+                </div>
+            </xpath>
+
+            <notebook position="inside">
+                <page string="Segments" name="broker_segments"
+                      invisible="not realestate_commission or type != 'target'">
+                    <group>
+                        <field name="use_custom_segments" readonly="state != 'draft'"/>
+                        <field name="segment_basis" readonly="state != 'draft'"
+                               invisible="not use_custom_segments"/>
+                    </group>
+                    <field name="segment_ids" invisible="not use_custom_segments"
+                           readonly="state != 'draft'">
+                        <list editable="bottom">
+                            <field name="sequence" widget="handle"/>
+                            <field name="amount_from"/>
+                            <field name="amount_to"/>
+                            <field name="percentage"/>
+                            <field name="segment_basis" column_invisible="1"/>
+                            <field name="currency_id" column_invisible="1"/>
+                        </list>
+                    </field>
+                    <div class="text-muted" invisible="not use_custom_segments">
+                        Bands must start at 0 and leave no gaps. Bounds are inclusive at
+                        <strong>From</strong> and exclusive at <strong>To</strong>; leave
+                        <strong>To</strong> at 0 on the last band to make it open-ended.
+                        <strong>Percentage</strong> is a true percent: 2.5 means 2.5%.
+                    </div>
+                </page>
+            </notebook>
         </field>
     </record>
 </odoo>

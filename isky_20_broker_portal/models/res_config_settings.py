@@ -41,16 +41,6 @@ class ResConfigSettings(models.TransientModel):
             PORTAL_FEATURE_PERMISSION_REQUESTS, "Permission Requests", self.portal_feature_permission_requests_enabled)
 
     def _set_portal_feature_flag(self, code, name, enabled):
-        # Settings access itself (base.group_system) is the real gate here; sudo() so the
-        # setting doesn't additionally require the separate group_broker_admin on
-        # broker.feature.flag just to flip a checkbox on this page.
-        FeatureFlag = self.env['broker.feature.flag'].sudo()
-        flag = FeatureFlag.search([
-            ('code', '=', code), ('company_id', '=', self.env.company.id),
-        ], limit=1)
-        if flag:
-            flag.enabled = enabled
-        else:
-            FeatureFlag.create({
-                'code': code, 'name': name, 'enabled': enabled, 'company_id': self.env.company.id,
-            })
+        # The upsert itself lives on broker.feature.flag so the commission module's
+        # settings page does not have to duplicate it.
+        self.env['broker.feature.flag']._set_flag(code, name, enabled, category='portal')
