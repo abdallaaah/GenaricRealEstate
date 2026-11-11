@@ -31,7 +31,7 @@ class CrmLead(models.Model):
 
     #this is a pretty silly way but simple enough to count leads in ninja dashboard
 
-    ninja_count = fields.Integer(default=1, readonly=1, string="Group Count")
+    ninja_count = fields.Integer(default=1, readonly=True, string="Group Count")
     name = fields.Char(
         'Opportunity', index='trigram', required=False,
         compute='_compute_name', readonly=False, store=True, tracking=True)
@@ -350,7 +350,7 @@ class CrmLead(models.Model):
     qualified_comment = fields.Text()
     user_id = fields.Many2one(
         'res.users', string='Salesperson', default=lambda self: self.env.user,
-        check_company=True, index=True, tracking=True, required=1, domain="[]")
+        check_company=True, index=True, tracking=True, required=True, domain="[]")
 
     date_deadline = fields.Datetime(string='Expected Closing')
 

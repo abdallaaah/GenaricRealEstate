@@ -83,7 +83,7 @@
                     <filter string="Submitted" name="submitted" domain="[('state','=','submitted')]"/>
                     <filter string="Accepted" name="accepted" domain="[('state','=','accepted')]"/>
                     <filter string="Rejected" name="rejected" domain="[('state','=','rejected')]"/>
-                    <group expand="0" string="Group By">
+                    <group>
                         <filter string="Requester" name="group_requester" context="{'group_by':'requester_id'}"/>
                         <filter string="Status" name="group_state" context="{'group_by':'state'}"/>
                     </group>

@@ -133,10 +133,6 @@
                                     <label for="operation_manager_approver_group_ids" class="col-lg-5 o_light_label"/>
                                     <field name="operation_manager_approver_group_ids" widget="many2many_tags"/>
                                 </div>
-                                <div class="row mt16">
-                                    <label for="sign_client_group_ids" class="col-lg-5 o_light_label"/>
-                                    <field name="sign_client_group_ids" widget="many2many_tags"/>
-                                </div>
                             </div>
                         </div>
                     </div>

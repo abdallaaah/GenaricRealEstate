@@ -45,7 +45,7 @@
                     <field name="name"/>
                     <filter string="Active" name="active" domain="[('active', '=', True)]"/>
                     <filter string="Inactive" name="inactive" domain="[('active', '=', False)]"/>
-                    <group expand="0" string="Group By">
+                    <group>
                         <filter string="Status" name="group_status" context="{'group_by': 'active'}"/>
                     </group>
                 </search>

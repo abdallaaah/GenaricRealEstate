@@ -92,7 +92,7 @@
                     <filter string="Pending" name="pending" domain="[('state', '=', 'pending')]"/>
                     <filter string="Approved" name="approved" domain="[('state', '=', 'approved')]"/>
                     <filter string="Rejected" name="rejected" domain="[('state', '=', 'rejected')]"/>
-                    <group expand="0" string="Group By">
+                    <group>
                         <filter string="Status" name="group_state" context="{'group_by': 'state'}"/>
                         <filter string="Unit" name="group_unit" context="{'group_by': 'unit_id'}"/>
                         <filter string="Requested By" name="group_requested_by" context="{'group_by': 'requested_by'}"/>

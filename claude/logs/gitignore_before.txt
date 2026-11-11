@@ -1,0 +1,17 @@
+### gitignore_before — 2026-11-10 14:15:34 EET
+
+=== git status --porcelain ===
+?? claude/logs/gitignore_before.txt
+?? claude/logs/recovery_state_before.txt
+?? claude/recovery/
+exit=0
+
+=== git check-ignore -v claude/plan_status.md ===
+.gitignore:6:*.md	claude/plan_status.md
+exit=0
+
+NOTE: the prompt names RECOVERY_MANIFEST.md at the repo root; it was moved to
+claude/recovery/RECOVERY_MANIFEST.md in the consolidation run, so that path is checked.
+=== git check-ignore -v claude/recovery/RECOVERY_MANIFEST.md ===
+.gitignore:6:*.md	claude/recovery/RECOVERY_MANIFEST.md
+exit=0

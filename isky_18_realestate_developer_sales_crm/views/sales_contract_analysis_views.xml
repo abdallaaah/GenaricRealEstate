@@ -41,7 +41,7 @@
                 <filter name="no_type" string="Type not specified" domain="[('contract_type', '=', False)]"/>
                 <separator/>
                 <filter name="no_issue_date" string="No issue date" domain="[('contract_issue_date', '=', False)]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter name="group_year" string="Issue Year" context="{'group_by': 'contract_issue_date:year'}"/>
                     <filter name="group_month" string="Issue Month" context="{'group_by': 'contract_issue_date:month'}"/>
                     <filter name="group_type" string="Domestic / Overseas" context="{'group_by': 'contract_type'}"/>

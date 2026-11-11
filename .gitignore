@@ -4,6 +4,8 @@ _build/
 # dotfiles
 .*
 *.md
+!claude/
+!claude/**/*.md
 *.pyc
 *.sql
 !.gitignore

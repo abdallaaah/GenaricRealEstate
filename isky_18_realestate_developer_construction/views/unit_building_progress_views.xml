@@ -112,7 +112,7 @@
                         domain="[('construction_progress', '&lt;', 100), '|', ('progress_date', '=', False), ('progress_date', '&lt;', (context_today() - datetime.timedelta(days=14)).strftime('%Y-%m-%d'))]"/>
                 <filter name="mine" string="My units"
                         domain="['|', ('responsible_engineer_id', '=', uid), ('building_id.responsible_engineer_id', '=', uid)]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter name="group_building" string="Building" context="{'group_by': 'building_id'}"/>
                     <filter name="group_engineer" string="Responsible Engineer" context="{'group_by': 'responsible_engineer_id'}"/>
                     <filter name="group_source" string="Progress From" context="{'group_by': 'progress_source'}"/>

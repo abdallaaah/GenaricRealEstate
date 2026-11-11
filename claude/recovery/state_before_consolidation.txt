@@ -1,0 +1,45 @@
+### state_before_consolidation — 2026-11-09 18:30:14 EET
+
+=== git rev-parse HEAD ===
+be2153c8bc062db870ecdc5f8072c02ae8b7cd2b
+exit=0
+
+=== git log --oneline -3 ===
+be2153c phase 8 added
+7ff7d9e till phase 7
+a99b10e comission integration in developer
+exit=0
+
+=== git status --porcelain ===
+?? claude/logs/recovery_state_before.txt
+?? claude/recovery/
+exit=0
+
+NOTE: *.md is ignored by .gitignore:6, so the .md files below are invisible to git status.
+=== ls -la claude/ ===
+total 92
+drwxrwxr-x  6 isky isky  4096 Nov  9 18:30 .
+drwxrwxr-x 32 isky isky  4096 Nov  9 18:16 ..
+drwxrwxr-x  2 isky isky  4096 Nov  9 18:15 claude_files
+-rw-rw-r--  1 isky isky  2728 Nov  9 13:51 decisions_log.CEO-D1-D3-only.PARTIAL.md
+-rw-rw-r--  1 isky isky 50205 Nov  9 12:34 legacy_fixes_to_reapply.patch
+drwxrwxr-x  2 isky isky  4096 Nov  9 17:57 logs
+drwxrwxr-x  2 isky isky  4096 Nov  9 18:30 recovery
+-rw-rw-r--  1 isky isky 10815 Nov  9 18:01 recovery_report.md
+drwxrwxr-x  2 isky isky  4096 Nov  9 12:34 scripts
+exit=0
+=== ls -la claude/claude_files/ ===
+total 228
+drwxrwxr-x 2 isky isky  4096 Nov  9 18:15 .
+drwxrwxr-x 6 isky isky  4096 Nov  9 18:30 ..
+-r--r--r-- 1 isky isky 31738 Nov  6 23:37 bug_backlog.md
+-r--r--r-- 1 isky isky 88828 Nov  6 23:38 decisions_log.md
+-r--r--r-- 1 isky isky  8143 Nov  6 23:38 implementation_plan.md
+-r--r--r-- 1 isky isky  9145 Nov  5 15:20 implementation_plan_supplement.md
+-r--r--r-- 1 isky isky 77601 Nov  6 23:37 plan_status.md
+-r--r--r-- 1 isky isky  2646 Nov  5 15:20 s8_cheque_settings_prompt.md
+exit=0
+=== repo-root .md ===
+-rw-r--r-- 1 isky isky   2017 Nov  9 18:07 RECOVERY_MANIFEST.md
+-rw-r--r-- 1 isky isky 115308 Nov  9 18:07 reports_from_transcript.md
+exit=0

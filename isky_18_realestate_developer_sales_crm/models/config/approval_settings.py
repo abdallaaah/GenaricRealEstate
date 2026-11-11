@@ -48,16 +48,6 @@ APPROVAL_STAGES = {
         'label': 'Sales Sector Manager Approval',
         'has_python_gate': False,
     },
-    # --- Setting B, continued: the signing step -----------------------------------------
-    # SC-D2 (2026-11-08): the client-signature transition. `signed_client` is the first state
-    # the commission engine treats as eligible (sale_proposal.py:27), so this is the stage that
-    # decides who can start a commission. Gated in sale.proposal.write(), not only on the button.
-    'sign_client': {
-        'field': 'sign_client_group_ids',
-        'default': 'isky_18_realestate_developer_sales_crm.sales_team_lead_group',
-        'label': 'Sign by Client',
-        'has_python_gate': True,
-    },
     # --- Setting C: reservation and discount -------------------------------------------
     'confirm_reservation': {
         'field': 'confirm_reservation_group_ids',
@@ -87,9 +77,28 @@ APPROVAL_STAGES = {
 
 # Gates that are never configurable and are never skipped by the on/off switch
 # (section 11, decision 4). Listed here so the rule is visible in one place.
+#
+# SG-D1/SG-D2 (2026-11-10, owner): the two signing gates joined this list, moving OUT of the
+# configurable stage registry above. One group - the Director - signs everything, and
+# `approval_enabled = False` does not skip signing. This is the recorded exception to S7
+# decision 2: signing is the first gate that began life as a configurable stage (`sign_client`,
+# 2026-11-08) and was then made exempt from the switch. The group is changed by editing its
+# members, never through Sales Setup (SG-D3).
+#
+# `sale.proposal.write()` enforces these with the labels below; keep key, group and label
+# together so the gate and its refusal message cannot drift apart.
 NON_CONFIGURABLE_GATES = {
     'block_unit': 'isky_18_realestate_developer_unit_inventory.group_block_unit',
     'exception_reservation': 'isky_18_realestate_developer_sales_crm.group_exception_reservation',
+    'sign_client': 'isky_18_realestate_developer_sales_crm.director_manager_group',
+    'sign_ceo': 'isky_18_realestate_developer_sales_crm.director_manager_group',
+}
+
+# Labels for the signing gates' refusal messages and audit rows. Not in APPROVAL_STAGES on
+# purpose: these are not stages, and putting them back there would re-grow a settings field.
+NON_CONFIGURABLE_GATE_LABELS = {
+    'sign_client': 'Sign by Client',
+    'sign_ceo': 'Sign by CEO',
 }
 
 
@@ -131,10 +140,6 @@ class ResCompany(models.Model):
         'res.groups', 'company_op_manager_approver_rel', 'company_id', 'group_id',
         string='Sales Sector Manager Approvers',
         default=_default_groups(APPROVAL_STAGES['operation_manager']['default']))
-    sign_client_group_ids = fields.Many2many(
-        'res.groups', 'company_sign_client_rel', 'company_id', 'group_id',
-        string='Can Sign on Behalf of the Client',
-        default=_default_groups(APPROVAL_STAGES['sign_client']['default']))
 
     confirm_reservation_group_ids = fields.Many2many(
         'res.groups', 'company_confirm_reservation_rel', 'company_id', 'group_id',

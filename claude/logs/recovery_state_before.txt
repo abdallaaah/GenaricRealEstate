@@ -1,0 +1,21 @@
+### recovery_state_before — captured 2026-11-09 17:57:05 EET
+
+=== git rev-parse HEAD ===
+be2153c8bc062db870ecdc5f8072c02ae8b7cd2b
+exit=0
+
+=== git log --oneline -5 ===
+be2153c phase 8 added
+7ff7d9e till phase 7
+a99b10e comission integration in developer
+0148c7e to phase 4 in realestate
+7dd038e before phase 5
+exit=0
+
+=== git status --porcelain ===
+?? claude/logs/recovery_state_before.txt
+(exit=0 ; empty output above means a clean tree)
+
+=== git rev-parse --abbrev-ref HEAD ===
+developer_18
+exit=0

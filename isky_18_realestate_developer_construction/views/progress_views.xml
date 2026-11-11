@@ -28,7 +28,7 @@
                 <filter name="units_only" string="Units" domain="[('unit_id', '!=', False)]"/>
                 <filter name="buildings_only" string="Buildings" domain="[('building_id', '!=', False)]"/>
                 <filter name="mine" string="My updates" domain="[('user_id', '=', uid)]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter name="group_user" string="Updated By" context="{'group_by': 'user_id'}"/>
                     <filter name="group_month" string="Month" context="{'group_by': 'date:month'}"/>
                 </group>

@@ -63,7 +63,7 @@
                     <field name="approver_id"/>
                     <filter string="Active" name="active" domain="[('active', '=', True)]"/>
                     <filter string="Inactive" name="inactive" domain="[('active', '=', False)]"/>
-                    <group expand="0" string="Group By">
+                    <group>
                         <filter string="Approver" name="group_approver" context="{'group_by': 'approver_id'}"/>
                         <filter string="Status" name="group_status" context="{'group_by': 'active'}"/>
                     </group>

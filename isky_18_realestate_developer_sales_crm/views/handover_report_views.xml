@@ -47,7 +47,7 @@
                     <filter string="Contract Date" name="filter_contract_date" date="contract_issue_date"/>
                     <filter string="Expected Delivery Date" name="filter_expected_delivery" date="expected_delivery_date"/>
                     <filter string="Expected After Allowance" name="filter_expected_after_allowance" date="expected_after_allowance"/>
-                    <group expand="0" string="Group By">
+                    <group>
                         <filter string="Building" name="group_by_building" context="{'group_by': 'building_id'}"/>
                         <filter string="Unit Type" name="group_by_unit_type" context="{'group_by': 'unit_type'}"/>
                         <filter string="Contract Status" name="group_by_state" context="{'group_by': 'state'}"/>

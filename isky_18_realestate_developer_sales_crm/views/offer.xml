@@ -61,7 +61,7 @@
                 <search>
                     <field name="system_code"/>
                     <field name="unit_id"/>
-                    <group expand="0" string="Group By">
+                    <group>
                         <filter string="Unit" name="group_unit" context="{'group_by':'unit_id'}"/>
                         <filter string="Installment Plan" name="group_plan" context="{'group_by':'installment_plan_id'}"/>
                     </group>

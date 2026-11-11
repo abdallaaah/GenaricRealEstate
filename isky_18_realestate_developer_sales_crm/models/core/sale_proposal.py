@@ -9,6 +9,7 @@ import xlsxwriter
 import base64
 from io import BytesIO
 from odoo.tools import html_escape
+from ..config.approval_settings import NON_CONFIGURABLE_GATES, NON_CONFIGURABLE_GATE_LABELS
 import markupsafe
 import math
 from odoo.addons.isky_18_realestate_developer_unit_inventory.models.selections import referred_by_selection, payment_methods_selection, split_with_selection, \
@@ -26,12 +27,14 @@ def add_months(source_date, months):
 # Contract states in which collections generate sales commission / broker claims
 COMMISSION_EXCLUDED_STATES = ('draft', 'draft_contract', 'pending_approvals', 'approved', 'cancelled', 'terminated')
 
-# SC-D4 (2026-11-08): the states that mean a sale has been signed. Moving into either of them,
-# or setting signed_by_client by hand, needs the `sign_client` approval stage - see write().
+# The states that mean a sale has been signed, each mapped to its gate key in
+# NON_CONFIGURABLE_GATES (SG-D1/SG-D2, 2026-11-10: one signer group, always enforced - the gate
+# in write() no longer goes through the S7 stage machinery, so `approval_enabled = False` does
+# not skip it). Setting signed_by_client by hand takes the `sign_client` gate.
 # Deliberately NOT derived from COMMISSION_EXCLUDED_STATES: the two lists answer different
 # questions (which states pay commission vs which states mean signed) and tying them together
 # would make a change to one silently move the other.
-SIGNING_STATES = ('signed_client', 'signed_ceo')
+SIGNING_STATES = {'signed_client': 'sign_client', 'signed_ceo': 'sign_ceo'}
 
 
 class SaleProposal(models.Model):
@@ -2003,27 +2006,45 @@ class SaleProposal(models.Model):
                 if vals.get(field_name):
                     rec._log_approval(stage)
 
-        # SC-D3: the signing gate. `write()` rather than action_sign_by_client(), because the
-        # audit of 2026-11-08 measured a salesperson reaching `signed_client` with a plain
-        # write - the button method is only one of the routes, and this is the one they all
-        # share. `signed_client` is also the first state the commission engine calls eligible,
-        # so this is the gate that decides who can start a commission.
+        # SC-D3 / SG-D2: the signing gate. `write()` rather than action_sign_by_client(),
+        # because the audit of 2026-11-08 measured a salesperson reaching `signed_client` with
+        # a plain write - the button method is only one of the routes, and this is the one they
+        # all share. `signed_client` is also the first state the commission engine calls
+        # eligible, so this is the gate that decides who can start a commission.
+        #
+        # Enforced directly against NON_CONFIGURABLE_GATES, NOT through _require_approval():
+        # the S7 helper returns True for everyone when approval_enabled is False
+        # (approval_gate_mixin.py), and the owner's 2026-11-10 decision is that signing is
+        # never skipped. One group - the Director - signs everything.
         signing_now = vals.get('state') in SIGNING_STATES
         flagging_now = bool(vals.get('signed_by_client'))
         if signing_now or flagging_now:
             for rec in self:
-                # Only a record that is actually moving needs the approval: re-writing the
+                # Only a record that is actually moving needs the signature: re-writing the
                 # state a contract already holds is not a new signature, and failing it would
                 # block ordinary edits on an already-signed contract.
                 moving = signing_now and rec.state != vals['state']
                 flagging = flagging_now and not rec.signed_by_client
                 if not (moving or flagging):
                     continue
-                # No custom message: the helper's standard one already names the stage
-                # ("You are not allowed to perform the 'Sign by Client' step."), and keeping
-                # one wording for every stage is what makes the gate recognisable.
-                rec._require_approval('sign_client')
-                rec._log_approval('sign_client')
+                gate = SIGNING_STATES[vals['state']] if moving else 'sign_client'
+                if not self.env.user.has_group(NON_CONFIGURABLE_GATES[gate]):
+                    raise UserError(_(
+                        "Only members of the signing group may perform the '%(label)s' step. "
+                        "This is enforced whether or not approvals are enabled.",
+                        label=NON_CONFIGURABLE_GATE_LABELS[gate]))
+                # The audit row the S7 gates write, with the same shape, so signing stays in
+                # the same trail. Written directly because _log_approval() resolves its group
+                # through the stage registry, which no longer carries the signing gates.
+                self.env['realestate.approval.audit'].sudo().create({
+                    'entry_type': 'approval',
+                    'company_id': rec._approval_company().id,
+                    'stage': gate,
+                    'approver_id': self.env.user.id,
+                    'matched_group_id': self.env.ref(NON_CONFIGURABLE_GATES[gate]).id,
+                    'res_model': rec._name,
+                    'res_id': rec.id,
+                })
         # if the contracted_selling_price was updated or changed just edit its value inside the unit
         if 'contracted_selling_price' in vals:
             self.unit_id.contracted_selling_price = vals['contracted_selling_price']

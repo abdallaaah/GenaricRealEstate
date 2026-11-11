@@ -7,7 +7,6 @@
         <field name="model">real.estate.sale.reservation</field>
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">isky_18_realestate_developer_sales_crm.report_print_unit_plan_for_reservation</field>
-        <field name="report_file">isky_18_realestate_developer_sales_crm.report_print_unit_plan_for_reservation</field>
         <field name="binding_model_id" ref="isky_18_realestate_developer_sales_crm.model_real_estate_sale_reservation"/>
         <field name="binding_type">report</field>
         <field name="paperformat_id" ref="base.paperformat_euro"/>
@@ -17,7 +16,6 @@
         <field name="model">sale.proposal</field>
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">isky_18_realestate_developer_sales_crm.report_print_unit_plan_for_contract</field>
-        <field name="report_file">isky_18_realestate_developer_sales_crm.report_print_unit_plan_for_contract</field>
         <field name="binding_model_id" ref="isky_18_realestate_developer_sales_crm.model_sale_proposal"/>
         <field name="binding_type">report</field>
         <field name="paperformat_id" ref="base.paperformat_euro"/>

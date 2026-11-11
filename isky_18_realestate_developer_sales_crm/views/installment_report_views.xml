@@ -34,7 +34,7 @@
                 <field name="sale_proposal_id"/>
                 <filter string="Paid" name="paid" domain="[('paid', '=', True)]"/>
                 <filter string="Not Paid" name="not_paid" domain="[('paid', '=', False)]"/>
-                <group expand="1" string="Group By">
+                <group>
                     <filter string="Customer" name="group_by_partner" context="{'group_by':'partner_id'}"/>
                     <filter string="Unit" name="group_by_unit" context="{'group_by':'unit_id'}"/>
                     <filter string="Paid Status" name="group_by_paid" context="{'group_by':'paid'}"/>

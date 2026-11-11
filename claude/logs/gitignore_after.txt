@@ -1,0 +1,21 @@
+### gitignore_after — 2026-11-10 14:15:55 EET
+
+=== git status --porcelain ===
+ M .gitignore
+?? claude/HANDOVER.md
+?? claude/bug_backlog.md
+?? claude/decisions_log.md
+?? claude/implementation_plan.md
+?? claude/implementation_plan_supplement.md
+?? claude/logs/gitignore_after.txt
+?? claude/logs/gitignore_before.txt
+?? claude/logs/recovery_state_before.txt
+?? claude/plan_status.md
+?? claude/recovery/
+?? claude/s8_cheque_settings_prompt.md
+exit=0
+
+=== git check-ignore (no -v): both claude files exit=1, not ignored ===
+claude/plan_status.md: not ignored
+claude/recovery/RECOVERY_MANIFEST.md: not ignored
+control foo.md at root: still ignored by .gitignore:6

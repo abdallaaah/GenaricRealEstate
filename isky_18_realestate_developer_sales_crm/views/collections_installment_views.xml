@@ -48,7 +48,7 @@
                 <separator/>
                 <filter name="unpaid" string="Not fully paid" domain="[('remaining_amount', '>', 0)]"/>
                 <filter name="down_payment" string="Down payments" domain="[('is_down_payment', '=', True)]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter name="group_customer" string="Client" context="{'group_by': 'customer_id'}"/>
                     <filter name="group_unit" string="Unit" context="{'group_by': 'unit_id'}"/>
                     <filter name="group_due_month" string="Due Month" context="{'group_by': 'date:month'}"/>

@@ -7,7 +7,6 @@
 		<field name="model">real.estate.sale.reservation</field>
 		<field name="report_type">qweb-pdf</field>
 		<field name="report_name">isky_18_realestate_developer_sales_crm.reservation_cancel_form</field>
-		<field name="report_file">isky_18_realestate_developer_sales_crm.reservation_cancel_form</field>
         <field name="print_report_name">"Reservation Cancellation Form For %s" % (object.name)</field>
 		<field name="binding_model_id" ref="isky_18_realestate_developer_sales_crm.model_real_estate_sale_reservation"/>
 		<field name="binding_type">report</field>

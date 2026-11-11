@@ -12,7 +12,7 @@
                     <filter string="My Meetings" name="my_meetings" domain="[('user_id', '=', uid)]"/>
                     <separator/>
                     <filter string="Date" name="date" date="date_deadline"/>
-                    <group expand="0" string="Group By">
+                    <group>
                         <filter string="Salesperson" name="salesperson" context="{'group_by': 'user_id'}"/>
                         <filter string="Year" name="year" context="{'group_by': 'year'}"/>
                         <filter string="Quarter" name="quarter" context="{'group_by': 'quarter'}"/>
